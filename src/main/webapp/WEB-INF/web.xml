@@ -8,7 +8,7 @@
 
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>br.uffrj.comp3.example.HelloServlet</servlet-class>
+        <servlet-class>br.uffrj.comp3.rusys.HelloServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
