@@ -50,7 +50,7 @@ public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("ListaDepartamento.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/ListaDepartamento.jsp");
         dispatcher.forward(request, response);
     }
  
