@@ -8,10 +8,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <display-name>Hello World Web Application</display-name>
 
     <servlet>
-        <servlet-name>HelloServlet</servlet-name>
+        <servlet-name>ListaDepartamento</servlet-name>
         <servlet-class>br.uffrj.comp3.rusys.HelloServlet</servlet-class>
     </servlet>
-
+    
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/</url-pattern>
