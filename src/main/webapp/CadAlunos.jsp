@@ -41,7 +41,7 @@
             <h2 class="title"><%=Constantes.CADALUNOS%> </h2>
             <div class="inner">
             	<%=mensagem%>
-              <form id="Frmpergunta" name="FrmAluno" action="Aluno" method="POST" class="form">
+              <form id="FrmAluno" name="FrmAluno" action="Aluno" method="POST" class="form">
               <input type = "hidden" id="acao" name = "acao" value="<%=acao%>">
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">
