@@ -37,30 +37,30 @@
             </ul>
           </div>
           <div class="content">
-            <h2 class="title">Cadastro de Refeições</h2>
+            <h2 class="title"><%=Constantes.CADREFEICAO%></h2>
             <div class="inner">
             	<%=mensagem%>
               <form id="Frmpergunta" name="FrmRefeicao" action="Refeicao" method="POST" class="form">
               <input type = "hidden" id="acao" name = "acao" value="<%=acao%>">
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">
-                  <label class="label">Descrição</label>
+                  <label class="label"><%=Constantes.DESCRICAO%></label>
                   <input type="text" id="descricao" name="descricao" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
                 </div>
                 <div class="group">
-                    <label class="label" for="post_title">Turno</label>
+                    <label class="label" for="post_title"><%=Constantes.TURNO%></label>
                     <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
                 </div>
                 <div class="group">
-                    <label class="label" for="post_title">Opção Vegetariana</label>
+                    <label class="label" for="post_title"><%=Constantes.OPVEG%></label>
                   	<input type="text"  id="opVeg" name="opVeg" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" />
                 </div> 
                 <div class="group navform wat-cf">
                   <button class="button" type="submit" id='salvar'>
-                    <img src="Images/icons/tick.png" alt="Save" /> Salvar
+                    <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>
                   </button>
                   <span class="text_button_padding">Ou</span>
-                  <a class="text_button_padding link_button" href="index.jsp">Cancelar</a>
+                  <a class="text_button_padding link_button" href="index.jsp"><%=Constantes.CANCELAR%></a>
                 </div>
               </form>
             </div>

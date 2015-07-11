@@ -1,4 +1,5 @@
 <%@page import="br.uffrj.comp3.model.Menu"%>
+<%@page import="br.uffrj.comp3.model.Constantes"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
@@ -72,10 +73,10 @@
                   <tr>
                     <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
                     <th><%=Constantes.NOME%></th>
-                    <th>Matrícula</th>
+                    <th><%=Constantes.MATRICULA%></th>
                     <th><%=Constantes.ANOINGRESSO%></th>
-                    <th>Curso</th>
-                    <th>CPF</th>
+                    <th><%=Constantes.CURSO%></th>
+                    <th><%=Constantes.CPF%></th>
                     <th class="last">&nbsp;</th>
                   </tr>
                   <% //for(Fundamento fundamento : new FundamentoBll().getLista()) { %>
@@ -89,7 +90,7 @@
                     	<td><%//=fundamento.getAtivo() == true ? "SIM": "NÃO"%></td>
                         <td><%//=fundamento.getAtivo() == true ? "SIM": "NÃO"%></td>
                     	<td class="last">
-                    		<a href="Aluno?acao=E&id=<%//=fundamento.getId()%>">editar</a>
+                    		<a href="Aluno?acao=E&id=<%//=fundamento.getId()%>"><%=Constantes.EDITAR%></a>
                     	</td>
                   	</tr>
                   <%// } %>
@@ -97,10 +98,10 @@
                 <div class="actions-bar wat-cf">
                   <div class="actions">
                   	<button id="novo-aluno" name="novo-aluno" class="button" type="button">
-                		<img src="Images/icons/tick.png" alt="Novo" /> Novo
+                		<img src="Images/icons/tick.png" alt="<%=Constantes.NOVO%>" /> <%=Constantes.NOVO%>
               		</button>
                     <button  id="excluir-aluno" name="excluir-aluno" class="button" type="button">
-                      <img src="Images/icons/cross.png" alt="Delete" /> Delete
+                      <img src="Images/icons/cross.png" alt="delete" /> <%=Constantes.DELETE%>
                     </button>
                   </div>
                   <!--<div class="pagination">

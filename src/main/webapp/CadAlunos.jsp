@@ -72,19 +72,19 @@
                 </div>
                 
                 <div class="group">
-                    <label class="label" for="post_title">CPF</label>
-                    <input type="text"  id="cpf" name="cpf" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" onblur="validaCPF(this)"/>     
+                    <label class="label" for="post_title"><%=Constantes.CPF%></label>
+                    <input type="text"  id="cpf" name="cpf" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" onblur="valida<%=Constantes.CPF%>(this)"/>     
                 </div>
                 <div class="group">
-                    <label class="label" for="post_title">Curso</label>
+                    <label class="label" for="post_title"><%=Constantes.CURSO%></label>
                     <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
                 </div>
                 <div class="group navform wat-cf">
                   <button class="button" type="submit" id='salvar'>
-                    <img src="Images/icons/tick.png" alt="Save" /> Salvar
+                    <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>
                   </button>
                   <span class="text_button_padding">Ou</span>
-                  <a class="text_button_padding link_button" href="index.jsp">Cancelar</a>
+                  <a class="text_button_padding link_button" href="index.jsp"><%=Constantes.CANCELAR%></a>
                 </div>
               </form>
             </div>
