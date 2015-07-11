@@ -36,35 +36,35 @@
                             </ul>
                         </div>
                         <div class="content">
-                            <h2 class="title">Lista de Refeições disponíveis</h2>
+                            <h2 class="title"><%=Constantes.LISTREFEICAO%></h2>
                             <div class="inner">
                                 <form action="#" class="form">
                                     <!-- Rodar a listagem aqui, a primeira terá listagem automatica, aqui temos um exemplo de como isso é feito-->
                                     <table class="table">
                                         <tr>
                                             <th class="first"><input type="checkbox" class="checkbox toggle" /></th>
-                                            <th>Turno</th>
-                                            <th>Descrição</th>
-                                            <th>Opção Vegetariana</th>
+                                            <th><%=Constantes.TURNO%></th>
+                                            <th><%=Constantes.DESCRICAO%></th>
+                                            <th><%=Constantes.OPVEG%></th>
                                             <th class="last">&nbsp;</th>
                                         </tr>
                                         <tr class="odd">
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>1</td><td>hulk</td><td>Hulk</td><td class="last"><a href="#">show</a> | <a href="#">edit</a> </td>
+                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>1</td><td>hulk</td><td>Hulk</td><td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a> </td>
                                         </tr>
                                         <tr class="even">
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>2</td><td>ultimate</td><td>Ultimate</td><td class="last"><a href="#">show</a> | <a href="#">edit</a> </td>
+                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>2</td><td>ultimate</td><td>Ultimate</td><td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a> </td>
                                         </tr>
                                         <tr class="odd">
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>3</td><td>andre</td><td>Andre</td><td class="last"><a href="#">show</a> | <a href="#">edit</a></td>
+                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>3</td><td>andre</td><td>Andre</td><td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a></td>
                                         </tr>
                                         <tr class="even">
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>4</td><td>machoman</td><td>Macho Man</td><td class="last"><a href="#">show</a> | <a href="#">edit</a></td>
+                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>4</td><td>machoman</td><td>Macho Man</td><td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a></td>
                                         </tr>
                                     </table>
                                     <div class="actions-bar wat-cf">
                                         <div class="actions">
                                             <button class="button" type="submit">
-                                                <img src="Images/icons/cross.png" alt="Delete" /> Delete
+                                                <img src="Images/icons/cross.png" alt="delete" /> <%=Constantes.DELETE%>
                                             </button>
                                         </div>
                                         <div class="pagination">
@@ -75,7 +75,7 @@
                                     <div class="actions-bar wat-cf">
                                         <div class="actions">
                                             <button id="nova-refeicao" name="nova-refeicao" class="button" type="button">
-                                                <img src="Images/icons/tick.png" alt="Novo" /> Nova <%=Constantes.REFEICAO%>
+                                                <img src="Images/icons/tick.png" alt="novo" /> <%=Constantes.NOVO%> 
                                             </button>
                                         </div>
                                     </div>

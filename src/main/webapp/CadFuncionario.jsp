@@ -34,14 +34,14 @@
         <div class="block" id="block-forms">
           <div class="secondary-navigation">
             <ul class="wat-cf">
-                <li class="active"><a href="#block-text"><%=Constantes.ALUNOS%></a></li>
+                <li class="active"><a href="#block-text"><%=Constantes.FUNCIONARIO%></a></li>
             </ul>
           </div>
           <div class="content">
-            <h2 class="title"><%=Constantes.CADALUNOS%> </h2>
+            <h2 class="title"><%=Constantes.CADFUNC%> </h2>
             <div class="inner">
             	<%=mensagem%>
-              <form id="Frmpergunta" name="FrmAluno" action="Aluno" method="POST" class="form">
+              <form id="Frmpergunta" name="FrmFuncionario" action="Funcionario" method="POST" class="form">
               <input type = "hidden" id="acao" name = "acao" value="<%=acao%>">
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">
@@ -76,7 +76,7 @@
                     <input type="text"  id="cpf" name="cpf" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" onblur="valida<%=Constantes.CPF%>(this)"/>     
                 </div>
                 <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.CURSO%></label>
+                    <label class="label" for="post_title"><%=Constantes.DEPTO%></label>
                     <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
                 </div>
                 <div class="group navform wat-cf">
