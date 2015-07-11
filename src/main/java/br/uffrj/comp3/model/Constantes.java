@@ -12,6 +12,7 @@ package br.uffrj.comp3.model;
 public class Constantes {
 	final public static String ALUNOS = "Alunos";
 	final public static String ANOINGRESSO ="Ano de Ingresso ";
+	final public static String ACAO_EDITAR ="E";
 	
 	final public static String CADREFEICAO ="Cadastro de Refei&ccedil&otildees dispon&iacuteveis";
     final public static String CADALUNOS ="Cadastro de Alunos ";
@@ -23,6 +24,7 @@ public class Constantes {
 	final public static String DESCRICAO = "Descri&ccedil&atildeo";
 	final public static String DOUTORADO = "Doutorado";
 	final public static String DELETE ="Deletar ";
+	final public static String DEPTO ="Departamento ";
 	
 	final public static String ESPECIALIZACAO = "Especializa&ccedil;&atilde;o";
 	final public static String EDITAR ="Editar ";
@@ -31,7 +33,9 @@ public class Constantes {
 	final public static String FEMININO ="Feminino ";
 	
 	final public static String LISTREFEICAO ="Lista de Refei&ccedil&otildees dispon&iacuteveis";
-    
+	final public static String LISTALUNOS ="Lista de Alunos cadastrados no sistema";
+	final public static String LISTFUNCIONARIO ="Lista de "+FUNCIONARIO+" cadastrados no sistema";
+	
 	final public static String MATRICULA = "Matr&iacute;cula";
 	final public static String MESTRADO = "Mestrado";
 	final public static String MASCULINO ="Masculino ";

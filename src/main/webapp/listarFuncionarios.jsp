@@ -18,8 +18,8 @@
     	$("#table-resultado tr:odd").addClass("odd");
     	$("#table-resultado tr:even").addClass("even");
     	
-		$("#novo-aluno").click(function(){
-			window.location.href="CadAlunos.jsp";
+		$("#novo-func").click(function(){
+			window.location.href="CadFuncionarios.jsp";
 		});
 		
 		$("#check_todos").click(function() {
@@ -34,10 +34,10 @@
 			}
 		});
 		
-		$("#excluir-aluno").click(function(e) {
+		$("#excluir-func").click(function(e) {
         	$.each(($("input[type=checkbox]:checked")), function(index, obj) {
         		if(obj.value != "on") {
-        			$.post("Aluno",{id:obj.value, acao:"D"},function(responseText) { 
+        			$.post("Funcionario",{id:obj.value, acao:"D"},function(responseText) { 
                         var ret = responseText.split("|");
                         $('#resultado').html(ret[0]);
                         if(ret[1]==="S") {
@@ -62,20 +62,20 @@
                     <div class="block" id="block-tables">
                         <div class="secondary-navigation">
                             <ul class="wat-cf">
-                                <li class="active"><a href="#"><%=Constantes.ALUNOS %></a></li>
+                                <li class="active"><a href="#"><%=Constantes.FUNCIONARIO %></a></li>
                             </ul>
                         </div>
                         <div class="content">
-                            <h2 class="title"><%=Constantes.LISTALUNOS %></h2>
+                            <h2 class="title"><%=Constantes.LISTFUNCIONARIO %></h2>
                             <div class="inner">
-                                <form  id="FrmListaAlunos" name="FrmListaAlunos" action="#"  method="POST" class="form">
+                                <form  id="FrmListaFuncionarios" name="FrmListaFuncionarios" action="#"  method="POST" class="form">
                 <table id="table-resultado" class="table">
                   <tr>
                     <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
                     <th><%=Constantes.NOME%></th>
                     <th><%=Constantes.MATRICULA%></th>
                     <th><%=Constantes.ANOINGRESSO%></th>
-                    <th><%=Constantes.CURSO%></th>
+                    <th><%=Constantes.DEPTO%></th>
                     <th><%=Constantes.CPF%></th>
                     <th class="last">&nbsp;</th>
                   </tr>
@@ -90,17 +90,17 @@
                     	<td><%//=fundamento.getAtivo() == true ? "SIM": "NÃO"%></td>
                         <td><%//=fundamento.getAtivo() == true ? "SIM": "NÃO"%></td>
                     	<td class="last">
-                    		<a href="Aluno?acao=<%=Constantes.ACAO_EDITAR %>&id=<%//=fundamento.getId()%>"><%=Constantes.EDITAR%></a>
+                    		<a href="Funcionario?acao=<%=Constantes.ACAO_EDITAR %>&id=<%//=fundamento.getId()%>"><%=Constantes.EDITAR%></a>
                     	</td>
                   	</tr>
                   <%// } %>
                 </table>
                 <div class="actions-bar wat-cf">
                   <div class="actions">
-                  	<button id="novo-aluno" name="novo-aluno" class="button" type="button">
-                		<img src="Images/icons/tick.png" alt="<%=Constantes.NOVO%>" /> <%=Constantes.NOVO%>
+                  	<button id="novo-func" name="novo-func" class="button" type="button">
+                		<img src="Images/icons/tick.png" alt="novo" /> <%=Constantes.NOVO%>
               		</button>
-                    <button  id="excluir-aluno" name="excluir-aluno" class="button" type="button">
+                    <button  id="excluir-func" name="excluir-func" class="button" type="button">
                       <img src="Images/icons/cross.png" alt="delete" /> <%=Constantes.DELETE%>
                     </button>
                   </div>
