@@ -5,16 +5,16 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
 "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
 
-    <display-name>Hello World Web Application</display-name>
+	<display-name>Hello World Web Application</display-name>
 
-    <servlet>
-        <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>br.uffrj.comp3.rusys.HelloServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
+	<servlet>
+		<servlet-name>Criacao de Curso</servlet-name>
+		<servlet-class>br.uffrj.comp3.controller.CriarCurso</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Criacao de Curso</servlet-name>
+		<url-pattern>/CriarCurso</url-pattern>
+	</servlet-mapping>
 
 </web-app>
