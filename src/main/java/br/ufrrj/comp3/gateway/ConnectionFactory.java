@@ -6,13 +6,9 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-	public ConnectionFactory() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Connection getConnection() {
+	public static Connection getConnection(String path, String user, String pass) {
         try {
-            return DriverManager.getConnection("jdbc:h2:~/git/RU_COMP3/ru", "sa", "sa");
+            return DriverManager.getConnection(path, user, pass);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

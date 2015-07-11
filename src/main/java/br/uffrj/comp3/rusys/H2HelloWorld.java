@@ -8,8 +8,10 @@ import java.util.ArrayList;
 
 import org.h2.tools.DeleteDbFiles;
 
+import br.uffrj.comp3.model.Refeicao;
 import br.ufrrj.comp3.gateway.ConnectionFactory;
 import br.ufrrj.comp3.gateway.CursoGateway;
+import br.ufrrj.comp3.gateway.RefeicaoGateway;
 
 public class H2HelloWorld {
 
@@ -39,11 +41,10 @@ public class H2HelloWorld {
         }
         stat.close();
         conn.close();*/
-    	ConnectionFactory cf = new ConnectionFactory();
-		Connection conn = cf.getConnection();
+		Connection conn = ConnectionFactory.getConnection("jdbc:h2:~/workspace/RU_COMP3/RU", "sa", "sa");
 		
 		//Insere
-    	CursoGateway cg = new CursoGateway();
+    //	CursoGateway cg = new CursoGateway();
     	/*ArrayList<Object> valores = new ArrayList<Object>();
     	valores.add(2);
     	valores.add("Sistemas de Informa��o");
@@ -70,7 +71,7 @@ public class H2HelloWorld {
     	cg.excluirCurso(conn, identificador);*/
     	
     	
-    	ArrayList<Object> valores = new ArrayList<Object>();
+/*    	ArrayList<Object> valores = new ArrayList<Object>();
     	valores.add(1);
     	valores.add("Sistemas de Informacao");
     	valores.add("SI");
@@ -82,7 +83,24 @@ public class H2HelloWorld {
     	ResultSet rs = cg.selecionarCursos(conn);
     	while (rs.next()) {
             System.out.println(rs.getString("nome"));
-        }
+        }*/
+    	
+    	ArrayList<Object> valores = new ArrayList<Object>();
+    	valores.add(1);
+    	valores.add("Carne moida com arroz");
+    	valores.add("Alface sem graca");
+    	valores.add(1);
+    	
+    	RefeicaoGateway gateway = new RefeicaoGateway(conn);
+    	
+    	// inserir
+    	if (gateway.inserir(valores))
+    		System.out.println("Inseriu");
+    	else
+    		System.out.println("Deu ruim");
+    	
+    	
+    	
     	
     	conn.close();
     }
