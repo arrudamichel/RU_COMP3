@@ -1,4 +1,5 @@
 <%@page import="br.uffrj.comp3.model.Menu"%>
+<%@page import="br.uffrj.comp3.model.Constantes"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
@@ -7,10 +8,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Restaurante Universitário</title>
-        <link rel="stylesheet" href="Stylesheets/base.css" type="text/css" media="screen" />
-        <link rel="stylesheet" id="current-theme" href="Stylesheets/themes/default/style.css" type="text/css" media="screen" />
-        <script type='text/javascript' charset='utf-8' src='Javascripts/jquery-2.1.3.min.js'></script>
+        <title><%=Constantes.RU%></title>
+        <%=Constantes.BASE_CSS%>
+        <%=Constantes.ESTILO_CSS%>
+        <%=Constantes.JQUERY_LINK%>
         <script type="text/javascript" charset="utf-8">
     // <![CDATA[
     $(document).ready(function() {
@@ -31,7 +32,7 @@
                     <div class="block" id="block-tables">
                         <div class="secondary-navigation">
                             <ul class="wat-cf">
-                                <li class="active"><a href="#">Refeição</a></li>
+                                <li class="active"><a href="#"><%=Constantes.REFEICAO%></a></li>
                             </ul>
                         </div>
                         <div class="content">
@@ -74,7 +75,7 @@
                                     <div class="actions-bar wat-cf">
                                         <div class="actions">
                                             <button id="nova-refeicao" name="nova-refeicao" class="button" type="button">
-                                                <img src="Images/icons/tick.png" alt="Novo" /> Nova Refeição
+                                                <img src="Images/icons/tick.png" alt="Novo" /> Nova <%=Constantes.REFEICAO%>
                                             </button>
                                         </div>
                                     </div>

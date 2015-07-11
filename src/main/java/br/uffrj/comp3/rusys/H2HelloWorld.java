@@ -46,7 +46,7 @@ public class H2HelloWorld {
     	CursoGateway cg = new CursoGateway();
     	/*ArrayList<Object> valores = new ArrayList<Object>();
     	valores.add(2);
-    	valores.add("Sistemas de Informação");
+    	valores.add("Sistemas de Informaï¿½ï¿½o");
     	valores.add("SI");
     	valores.add(1);
     	
@@ -72,7 +72,7 @@ public class H2HelloWorld {
     	
     	ArrayList<Object> valores = new ArrayList<Object>();
     	valores.add(1);
-    	valores.add("Sistemas de Informação");
+    	valores.add("Sistemas de Informacao");
     	valores.add("SI");
     	valores.add(1);
     	

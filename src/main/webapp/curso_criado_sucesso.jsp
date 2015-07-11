@@ -4,5 +4,5 @@
 <p>Curso criado com sucesso!</p>
 <%
 	Curso curso = (Curso) request.getAttribute("curso");
-	out.print("O curso " + curso.getNome() + " foi criado com sucesso!");
+	out.print("O curso " + curso.get<%=Constantes.NOME%>() + " foi criado com sucesso!");
 %>

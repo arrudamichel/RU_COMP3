@@ -1,4 +1,5 @@
 <%@page import="br.uffrj.comp3.model.Menu"%>
+<%@page import="br.uffrj.comp3.model.Constantes"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
@@ -14,10 +15,10 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Restaurante Universitário</title>
-  <link rel="stylesheet" href="Stylesheets/base.css" type="text/css" media="screen" />
-  <link rel="stylesheet" id="current-theme" href="Stylesheets/themes/default/style.css" type="text/css" media="screen" />
-  <script type='text/javascript' charset='utf-8' src='Javascripts/jquery-2.1.3.min.js'></script>
+  <title><%=Constantes.RU%></title>
+  <%=Constantes.BASE_CSS%>
+  <%=Constantes.ESTILO_CSS%>
+  <%=Constantes.JQUERY_LINK%>
   <script type="text/javascript" charset="utf-8">
     // <![CDATA[
     $(document).ready(function() {
@@ -32,7 +33,7 @@
         <div class="block" id="block-forms">
           <div class="secondary-navigation">
             <ul class="wat-cf">
-              <li class="active"><a href="#block-text">Refeição</a></li>
+              <li class="active"><a href="#block-text"><%=Constantes.REFEICAO%></a></li>
             </ul>
           </div>
           <div class="content">
@@ -52,7 +53,7 @@
                 </div>
                 <div class="group">
                     <label class="label" for="post_title">Opção Vegetariana</label>
-                  	<input type="text"  id="qtdrespostas" name="opVeg" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" />
+                  	<input type="text"  id="opVeg" name="opVeg" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" />
                 </div> 
                 <div class="group navform wat-cf">
                   <button class="button" type="submit" id='salvar'>
