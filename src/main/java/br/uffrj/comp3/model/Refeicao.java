@@ -12,4 +12,38 @@ public class Refeicao {
 		// TODO Auto-generated constructor stub
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getOpcaoVeg() {
+		return opcaoVeg;
+	}
+
+	public void setOpcaoVeg(String opcaoVeg) {
+		this.opcaoVeg = opcaoVeg;
+	}
+
+	public Turno getTurno() {
+		return turno;
+	}
+
+	public void setTurno(Turno turno) {
+		this.turno = turno;
+	}
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+	
+	
+
 }

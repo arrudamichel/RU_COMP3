@@ -86,10 +86,10 @@ public class H2HelloWorld {
         }*/
     	
     	ArrayList<Object> valores = new ArrayList<Object>();
-    	valores.add(1);
-    	valores.add("Carne moida com arroz");
-    	valores.add("Alface sem graca");
-    	valores.add(1);
+    	valores.add(2);
+    	valores.add("Carne seca com farofa");
+    	valores.add("Quixe de capim santo");
+    	valores.add(3);
     	
     	RefeicaoGateway gateway = new RefeicaoGateway(conn);
     	
@@ -99,9 +99,38 @@ public class H2HelloWorld {
     	else
     		System.out.println("Deu ruim");
     	
+    	//  (\"idRefeicao\", \"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\")
+/*    	ResultSet rs = gateway.selecionarCursos();
     	
+
+    	rs.next();
+    	int id = rs.getInt("idRefeicao");
+    	String desc = rs.getString("descricao");
+    	String opcao = rs.getString("opcaoVegetariana");
+    	int turno_id = rs.getInt("Turno_idTurno");
+    	System.out.println(id + " " + desc + " " + opcao + " " + turno_id);*/
     	
+    	int id = 2;
+    	ResultSet rs = gateway.selecionarRefeicaoPorId(id);
+    	rs.next();
+    	String desc = rs.getString("descricao");
+    	String opcao = rs.getString("opcaoVegetariana");
+    	int turno_id = rs.getInt("Turno_idTurno");
+    	System.out.println(id + " " + desc + " " + opcao + " " + turno_id);
     	
+    	if (gateway.excluirRefeicao(id))
+    		System.out.println("Deletou");
+    	else
+    		System.out.println("Deu ruim");
+    	
+    	id = 1;
+    	
+    	if (gateway.alterarRefeicao(valores, id))
+    		System.out.println("Atualizou");
+    	else
+    		System.out.println("Deu ruim");
+    	
+
     	conn.close();
     }
 
