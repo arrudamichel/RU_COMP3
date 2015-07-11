@@ -1,6 +1,6 @@
 package br.uffrj.comp3.model;
 
-public class Consumidor {
+public abstract class Consumidor {
 	private String nome;
 	private int matricula;
 	private String anoDeIngresso;
