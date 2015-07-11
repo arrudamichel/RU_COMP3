@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.xml.transform.Result;
-
 public class CursoGateway {
 
 	public CursoGateway() {
