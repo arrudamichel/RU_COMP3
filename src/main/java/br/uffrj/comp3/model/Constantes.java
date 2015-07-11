@@ -19,7 +19,8 @@ public class Constantes {
     final public static String CPF ="CPF ";
     final public static String CURSO ="Curso";
     final public static String CANCELAR ="Cancelar ";
-    final public static String NOVO ="NOVO ";
+    final public static String NOVO ="Novo ";
+    
     
 	final public static String DESCRICAO = "Descri&ccedil&atildeo";
 	final public static String DOUTORADO = "Doutorado";
@@ -30,6 +31,7 @@ public class Constantes {
 	final public static String EDITAR ="Editar ";
 	
 	final public static String FUNCIONARIO = "Funcion&aacuterios";
+	final public static String CADFUNC ="Cadastro de "+ FUNCIONARIO;
 	final public static String FEMININO ="Feminino ";
 	
 	final public static String LISTREFEICAO ="Lista de Refei&ccedil&otildees dispon&iacuteveis";

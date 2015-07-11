@@ -19,7 +19,7 @@
     	$("#table-resultado tr:even").addClass("even");
     	
 		$("#novo-func").click(function(){
-			window.location.href="CadFuncionarios.jsp";
+			window.location.href="CadFuncionario.jsp";
 		});
 		
 		$("#check_todos").click(function() {
