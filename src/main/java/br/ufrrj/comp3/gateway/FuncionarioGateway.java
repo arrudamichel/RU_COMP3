@@ -8,11 +8,13 @@ import java.util.ArrayList;
 
 public class FuncionarioGateway {
 
-	public FuncionarioGateway() {
-		// TODO Auto-generated constructor stub
+	private Connection conn;
+
+	public FuncionarioGateway(Connection conn) {
+		this.conn = conn;
 	}
 
-	public boolean inserir(Connection conn, ArrayList<Object> valores){
+	public boolean inserir(ArrayList<Object> valores){
 		
 		try{			
 	      
@@ -33,7 +35,7 @@ public class FuncionarioGateway {
         return true;
 	}
 	
-	public ResultSet selecionarFuncionarios(Connection conn){
+	public ResultSet selecionarFuncionarios(){
 		
 		ResultSet rs = null;
 		Statement stat; 
@@ -52,7 +54,7 @@ public class FuncionarioGateway {
         return rs;
 	}
 	
-	public ResultSet selecionarFuncionarioPorMatricula(Connection conn, int matricula){
+	public ResultSet selecionarFuncionarioPorMatricula(int matricula){
 		
 		ResultSet rs = null; 
 		
@@ -73,7 +75,7 @@ public class FuncionarioGateway {
         return rs;
 	}
 	
-	public boolean excluirFuncionario(Connection conn, ArrayList<Object> valores){
+	public boolean excluirFuncionario(ArrayList<Object> valores){
 		
 		try{
 	      
@@ -99,7 +101,7 @@ public class FuncionarioGateway {
         return true;
 	}
 	
-	public boolean alterarFuncionario(Connection conn, ArrayList<Object> valores, int matricula){
+	public boolean alterarFuncionario(ArrayList<Object> valores, int matricula){
 		
 		try{			
 		      

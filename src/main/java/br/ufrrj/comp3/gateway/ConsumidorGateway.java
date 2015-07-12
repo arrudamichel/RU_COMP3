@@ -7,12 +7,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ConsumidorGateway {
-
-	public ConsumidorGateway() {
-		// TODO Auto-generated constructor stub
+	private Connection conn;
+	
+	public ConsumidorGateway(Connection conn) {
+		this.conn = conn;
 	}
 
-	public boolean inserir(Connection conn, ArrayList<Object> valores){
+	public boolean inserir(ArrayList<Object> valores){
 		
 		try{			
   
@@ -39,7 +40,7 @@ public class ConsumidorGateway {
         return true;
 	}
 	
-	public ResultSet selecionarConsumidores(Connection conn){
+	public ResultSet selecionarConsumidores(){
 		
 		ResultSet rs = null;
 		Statement stat; 
@@ -58,7 +59,7 @@ public class ConsumidorGateway {
         return rs;
 	}
 	
-	public ResultSet selecionarConsumidorPorMatricula(Connection conn, int matricula){
+	public ResultSet selecionarConsumidorPorMatricula(int matricula){
 		
 		ResultSet rs = null; 
 		
@@ -79,7 +80,7 @@ public class ConsumidorGateway {
         return rs;
 	}
 	
-	public boolean excluirConsumidor(Connection conn, int matricula){
+	public boolean excluirConsumidor(int matricula){
 		
 		try{
 	      
@@ -98,7 +99,7 @@ public class ConsumidorGateway {
         return true;
 	}
 	
-	public boolean alterarConsumidor(Connection conn, ArrayList<Object> valores, int matricula){
+	public boolean alterarConsumidor(ArrayList<Object> valores, int matricula){
 		
 		try{			
 		      
