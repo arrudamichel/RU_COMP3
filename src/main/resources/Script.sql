@@ -69,7 +69,6 @@ CREATE TABLE IF NOT EXISTS "curso" (
   "idcurso" INT NOT NULL AUTO_INCREMENT,
   "nome" VARCHAR(45) NOT NULL,
   "sigla" VARCHAR(45) NOT NULL,
-  "ativado" INT NOT NULL,
   "departamento_iddepartamento" INT NOT NULL,
   PRIMARY KEY ("idcurso"),
   CONSTRAINT "fk_curso_departamento1"
@@ -125,9 +124,8 @@ INSERT INTO "departamento" ("nome","sigla") VALUES ('Departamento de Tecnologias
 INSERT INTO "departamento" ("nome","sigla") VALUES ('Departamento de Ciência da Computação','DCC');
 
 -- Insert curso
-INSERT INTO "curso" ("nome","sigla","ativado","departamento_iddepartamento") VALUES ('Matematica','Mat', 1, 1);
-INSERT INTO "curso" ("nome","sigla","ativado","departamento_iddepartamento") VALUES ('Ciência da Computação','CCOMP', 1, 2);
-INSERT INTO "curso" ("nome","sigla","ativado","departamento_iddepartamento") VALUES ('Letras','LE', 0, 2);
+INSERT INTO "curso" ("nome","sigla","departamento_iddepartamento") VALUES ('Matematica','Mat', 1);
+INSERT INTO "curso" ("nome","sigla","departamento_iddepartamento") VALUES ('Ciência da Computação','CCOMP', 2);
 
 -- Insert consumidor
 INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf") VALUES (123,'Miguel','2010','M','ESPECIALIZACAO','12345678901');

@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.xml.transform.Result;
-
 public class CursoGateway {
 
 	private Connection conn;
@@ -112,7 +110,7 @@ public class CursoGateway {
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(5, identificador);
+			stmt.setInt(4, identificador);
 
 			stmt.execute();
 		} catch (Exception e) {
