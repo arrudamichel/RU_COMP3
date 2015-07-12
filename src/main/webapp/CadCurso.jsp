@@ -1,5 +1,6 @@
 <%@page import="br.uffrj.comp3.model.Menu"%>
 <%@page import="br.uffrj.comp3.model.Constantes"%>
+
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
@@ -34,6 +35,7 @@
         <div class="block" id="block-forms">
           <div class="secondary-navigation">
             <ul class="wat-cf">
+            	
                 <li class="active"><a href="#block-text"><%=Constantes.CURSO%></a></li>
             </ul>
           </div>

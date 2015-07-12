@@ -13,29 +13,6 @@ public class TurnoGateway {
 		this.conn = conn;
 	}
 
-	public boolean inserir(ArrayList<Object> valores) {
-		// idTurno  	descricao  
-		// SELECT * FROM "turno"
-		try {
-			String sql = "insert into \"turno\" (\"idTurno\", \"descricao\") values (?,?)";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-
-			// preenche os valores
-			for (int i = 1; i <= valores.size(); i++) {
-				if (valores.get(i - 1).getClass().equals(String.class))
-					stmt.setString(i, (String) valores.get(i - 1));
-
-				if (valores.get(i - 1).getClass().equals(Integer.class))
-					stmt.setInt(i, (Integer) valores.get(i - 1));
-			}
-			stmt.execute();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return false;
-		}
-		return true;
-	}
-
 	public ResultSet selecionarTurnos() {
 		ResultSet rs = null;
 		Statement stat;
@@ -65,44 +42,22 @@ public class TurnoGateway {
 
 		return rs;
 	}
-
-	public boolean excluirTurno(int id) {
+	
+	public ResultSet selecionarTurnoPorNome(String turno) {
+		ResultSet rs = null;
 		try {
-			String sql = "DELETE FROM \"turno\" WHERE \"idTurno\" = ?";
-
+			String sql = "SELECT \"idTurno\" FROM \"turno\" WHERE \"descricao\" = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, id);
-			stmt.execute();
+			stmt.setString(1, turno);
+			rs = stmt.executeQuery();
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return false;
 		}
-		return true;
+
+		return rs;
 	}
 
-	public boolean alterarTurno(ArrayList<Object> valores, int id) {
-		try {
-			String sql = "UPDATE \"turno\" " + "SET \"idTurno\" = ?, " + "\"descricao\" = ?" + "WHERE \"idTurno\" = ?";
-
-			PreparedStatement stmt = conn.prepareStatement(sql);
-
-			// preenche os valores
-			for (int i = 1; i <= valores.size(); i++) {
-				if (valores.get(i - 1).getClass().equals(String.class))
-					stmt.setString(i, (String) valores.get(i - 1));
-
-				if (valores.get(i - 1).getClass().equals(Integer.class))
-					stmt.setInt(i, (Integer) valores.get(i - 1));
-			}
-			stmt.setInt(5, id);
-			stmt.execute();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return false;
-		}
-		return true;
-	}
 
 
 }

@@ -8,11 +8,13 @@ import java.util.ArrayList;
 
 public class DepartamentoGateway {
 
-	public DepartamentoGateway() {
-		// TODO Auto-generated constructor stub
-	}
+	private Connection conn;
 
-	public boolean inserir(Connection conn, ArrayList<Object> valores){
+	public DepartamentoGateway(Connection conn) {
+		this.conn = conn;
+	}
+	
+	public boolean inserir(ArrayList<Object> valores){
 		
 		try{			
 	      
@@ -37,7 +39,7 @@ public class DepartamentoGateway {
         return true;
 	}
 	
-	public ResultSet selecionarDepartamentos(Connection conn){
+	public ResultSet selecionarDepartamentos(){
 		
 		ResultSet rs = null;
 		Statement stat; 
@@ -55,7 +57,7 @@ public class DepartamentoGateway {
         return rs;
 	}
 	
-	public ResultSet selecionarDepartamentoPorId(Connection conn, int identificador){
+	public ResultSet selecionarDepartamentoPorId(int identificador){
 		
 		ResultSet rs = null; 
 		
@@ -74,7 +76,7 @@ public class DepartamentoGateway {
         return rs;
 	}
 	
-	public boolean excluirDepartamento(Connection conn, int identificador){
+	public boolean excluirDepartamento(int identificador){
 		
 		try{
 	      
@@ -92,7 +94,7 @@ public class DepartamentoGateway {
         return true;
 	}
 	
-	public boolean alterarDepartamento(Connection conn, ArrayList<Object> valores, int identificador){
+	public boolean alterarDepartamento(ArrayList<Object> valores, int identificador){
 		
 		try{			
 		      

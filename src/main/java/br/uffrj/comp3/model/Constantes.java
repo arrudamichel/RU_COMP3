@@ -10,6 +10,10 @@ package br.uffrj.comp3.model;
  * @author liliane
  */
 public class Constantes {
+	final public static String DBPATH = "jdbc:h2:~/workspace/RU_COMP3/RU";
+	final public static String USER = "sa";
+	final public static String PASS = "sa";	
+	
 	final public static String ALUNOS = "Alunos";
 	final public static String ANOINGRESSO = "Ano de Ingresso ";
 	final public static String ACAO_EDITAR = "E";

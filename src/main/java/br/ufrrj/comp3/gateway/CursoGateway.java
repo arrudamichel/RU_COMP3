@@ -10,11 +10,13 @@ import javax.xml.transform.Result;
 
 public class CursoGateway {
 
-	public CursoGateway() {
-		// TODO Auto-generated constructor stub
+	private Connection conn;
+
+	public CursoGateway(Connection conn) {
+		this.conn = conn;
 	}
 	
-	public boolean inserir(Connection conn, ArrayList<Object> valores){
+	public boolean inserir(ArrayList<Object> valores){
 		
 		try{			
 	      
@@ -39,7 +41,7 @@ public class CursoGateway {
         return true;
 	}
 	
-	public ResultSet selecionarCursos(Connection conn){
+	public ResultSet selecionarCursos(){
 		
 		ResultSet rs = null;
 		Statement stat; 
@@ -57,7 +59,7 @@ public class CursoGateway {
         return rs;
 	}
 	
-	public ResultSet selecionarCursoPorId(Connection conn, int identificador){
+	public ResultSet selecionarCursoPorId(int identificador){
 		
 		ResultSet rs = null; 
 		
@@ -76,7 +78,7 @@ public class CursoGateway {
         return rs;
 	}
 	
-	public boolean excluirCurso(Connection conn, int identificador){
+	public boolean excluirCurso(int identificador){
 		
 		try{
 	      
@@ -94,7 +96,7 @@ public class CursoGateway {
         return true;
 	}
 	
-	public boolean alterarCurso(Connection conn, ArrayList<Object> valores, int identificador){
+	public boolean alterarCurso(ArrayList<Object> valores, int identificador){
 		
 		try{			
 		      
