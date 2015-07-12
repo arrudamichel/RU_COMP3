@@ -48,7 +48,7 @@ public class CriarRefeicao extends HttpServlet {
 
 		TurnoGateway turnoGateway = new TurnoGateway(conn);
 
-		ResultSet rs = turnoGateway.selecionarTurnoPorNome("TARDE");
+		ResultSet rs = turnoGateway.selecionarTurnoPorNome(refeicao.getTurno().toString());
 
 		int turnoId = -1;
 		try {
@@ -60,9 +60,9 @@ public class CriarRefeicao extends HttpServlet {
 
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
 
-	//	ArrayList<Object> valores = new ArrayList<>(Arrays.asList(a))
-				// "idRefeicao\", \"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\"
-	//	refeicaoGateway.inserir(valores);
+		ArrayList<Object> valores = new ArrayList<>(Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg(), turnoId));
+				// \"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\"
+		refeicaoGateway.inserir(valores);
 
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);
