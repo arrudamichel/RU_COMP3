@@ -1,5 +1,8 @@
 <%@page import="br.uffrj.comp3.model.Menu"%>
 <%@page import="br.uffrj.comp3.model.Constantes"%>
+<%@page import="br.uffrj.comp3.model.Aluno"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="br.uffrj.comp3.controller.ListarAluno"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
@@ -79,21 +82,35 @@
                     <th><%=Constantes.CPF%></th>
                     <th class="last">&nbsp;</th>
                   </tr>
-                  <% //for(Fundamento fundamento : new FundamentoBll().getLista()) { %>
-                  	<tr id="tr<%//=fundamento.getId()%>">
-                    	<td>
-                    		<input type="checkbox" class="checkbox" name="id" value="<%//=//fundamento.getId()%>" />
-                    	</td>
-                    	<td><%//=fundamento.getFundamento()%></td>
-                    	<td><%//=fundamento.getResposta().getResposta()%></td>
-                    	<td><%//=fundamento.getOrdem()%></td>
-                    	<td><%//=fundamento.getAtivo() == true ? "SIM": "NÃO"%></td>
-                        <td><%//=fundamento.getAtivo() == true ? "SIM": "NÃO"%></td>
-                    	<td class="last">
-                    		<a href="Aluno?acao=<%=Constantes.ACAO_EDITAR %>&id=<%//=fundamento.getId()%>"><%=Constantes.EDITAR%></a>
-                    	</td>
-                  	</tr>
-                  <%// } %>
+                  <% 	                
+	                ListarAluno la = new ListarAluno();
+                  	ArrayList<Aluno> alunos = la.listar();
+	                  
+	                for(int i=0; i < alunos.size(); i++) {
+	                  	if(i%2 == 0){ %>
+	                  	<tr class="odd">
+	                  	    <td>
+                    			<input type="checkbox" class="checkbox" name="id" value=<%=alunos.get(i).getMatricula()%> />
+                    		</td>                   
+	                        <td><%=alunos.get(i).getNome()%></td>
+	                        <td><%=alunos.get(i).getMatricula()%></td>
+	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
+	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
+	                        <td><%=alunos.get(i).getCpf().getCpf()%></td>
+	                    </tr>
+	                <% } else { %>
+	                    <tr class="even">
+	                  	    <td>
+                    			<input type="checkbox" class="checkbox" name="id" value=<%=alunos.get(i).getMatricula()%> />
+                    		</td>                   
+	                        <td><%=alunos.get(i).getNome()%></td>
+	                        <td><%=alunos.get(i).getMatricula()%></td>
+	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
+	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
+	                        <td><%=alunos.get(i).getCpf().getCpf()%></td>
+	                    </tr>                    
+	            	<%}  
+	           		}%>
                 </table>
                 <div class="actions-bar wat-cf">
                   <div class="actions">
