@@ -49,7 +49,7 @@ public class RefeicaoGatewayTest {
 		System.out.println("SELECT");
 
     	//rs = refeicaoGateway.selecionarRefeicaoPorId(id);
-		rs = refeicaoGateway.selecionarCursos();
+		rs = refeicaoGateway.selecionarRefeicoes();
 		try {
 			while (rs.next()) {
 				int id = rs.getInt("idRefeicao");

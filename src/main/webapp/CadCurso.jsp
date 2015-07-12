@@ -51,7 +51,23 @@
 					<h2 class="title"><%=Constantes.CADCURSO%>
 					</h2>
 					<div class="inner">
-						<%=mensagem%>
+						<%
+							if (mensagem.contains("Erro")) {
+						%>
+						<div
+							style="background-color: #FF9999; padding: 4px 0; margin: 2px; width: auto; overflow: visible; text-align: center; border: 1px solid #bfbfbf;">
+							<%=mensagem%>
+						</div>
+						<%
+							} else if (mensagem.contains("Sucesso")) {
+						%>
+						<div
+							style="background-color: #CCFFCC; padding: 4px 0; margin: 2px; width: auto; overflow: visible; text-align: center; border: 1px solid #bfbfbf;">
+							<%=mensagem%>
+						</div>
+						<%
+							}
+						%>
 						<form id="FrmCurso" name="FrmCurso" action="Curso" method="POST"
 							class="form">
 							<input type="hidden" id="acao" name="acao" value="<%=acao%>">
@@ -77,26 +93,25 @@
 								%>
 								<select id="departamento" name="departamento">
 									<%
-									Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-									
-									DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
-							//  iddepartamento  	nome  	sigla  
-									ResultSet rs = deptGateway.selecionarDepartamentos();
-									try {
-										while (rs.next()) {
-											int id = rs.getInt("iddepartamento");
-											String nome = rs.getString("nome");
-									    	String sigla = rs.getString("sigla");
-									    	%>
-									          <option value="<%=nome%>"><%=nome%></option>
-											<%
-									    	System.out.println("JSP == " + id + " " + nome + " " + sigla + " ");
+										Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+
+										DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
+										//  iddepartamento  	nome  	sigla  
+										ResultSet rs = deptGateway.selecionarDepartamentos();
+										try {
+											while (rs.next()) {
+												int id = rs.getInt("iddepartamento");
+												String nome = rs.getString("nome");
+												String sigla = rs.getString("sigla");
+									%>
+									<option value="<%=nome%>"><%=nome%></option>
+									<%
+										System.out.println("JSP == " + id + " " + nome + " " + sigla + " ");
+											}
+											conn.close();
+										} catch (SQLException e) {
+											e.printStackTrace();
 										}
-								    	conn.close();
-									} catch (SQLException e) {
-										e.printStackTrace();
-									}
-									
 									%>
 								</select>
 							</div>
