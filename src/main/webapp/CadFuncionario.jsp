@@ -84,7 +84,7 @@
                     <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>
                   </button>
                   <span class="text_button_padding">Ou</span>
-                  <a class="text_button_padding link_button" href="index.jsp"><%=Constantes.CANCELAR%></a>
+                  <a class="text_button_padding link_button" href="ListarFuncionarios.jsp"><%=Constantes.CANCELAR%></a>
                 </div>
               </form>
             </div>
