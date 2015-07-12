@@ -7,12 +7,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class AlunoGateway {
+	
+	private Connection conn;
 
-	public AlunoGateway() {
-		// TODO Auto-generated constructor stub
+	public AlunoGateway(Connection conn) {
+		this.conn = conn;
 	}
 	
-	public boolean inserir(Connection conn, ArrayList<Object> valores){
+	public boolean inserir(ArrayList<Object> valores){
 		
 		try{			
 	      
@@ -33,7 +35,7 @@ public class AlunoGateway {
         return true;
 	}
 	
-	public ResultSet selecionarAlunos(Connection conn){
+	public ResultSet selecionarAlunos(){
 		
 		ResultSet rs = null;
 		Statement stat; 
@@ -52,7 +54,7 @@ public class AlunoGateway {
         return rs;
 	}
 	
-	public ResultSet selecionarAlunoPorMatricula(Connection conn, int matricula){
+	public ResultSet selecionarAlunoPorMatricula(int matricula){
 		
 		ResultSet rs = null; 
 		
@@ -73,7 +75,7 @@ public class AlunoGateway {
         return rs;
 	}
 	
-	public boolean excluirAluno(Connection conn, ArrayList<Object> valores){
+	public boolean excluirAluno(ArrayList<Object> valores){
 		
 		try{
 	      
@@ -99,7 +101,7 @@ public class AlunoGateway {
         return true;
 	}
 	
-	public boolean alterarAluno(Connection conn, ArrayList<Object> valores, int matricula){
+	public boolean alterarAluno(ArrayList<Object> valores, int matricula){
 		
 		try{			
 		      
