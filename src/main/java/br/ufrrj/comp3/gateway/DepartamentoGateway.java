@@ -18,7 +18,7 @@ public class DepartamentoGateway {
 		
 		try{			
 	      
-	        String sql = "INSERT INTO \"departamento\" (\"iddepartamento\", \"nome\", \"sigla\") values (?,?,?)";	
+	        String sql = "INSERT INTO \"departamento\" ( \"nome\", \"sigla\") values (?,?)";	
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	
 	        // preenche os valores
