@@ -66,6 +66,12 @@ public class CriarRefeicao extends HttpServlet {
 			System.out.println(valores + " inseridos");
 		else
 			System.out.println("Erro ao inserir refeicao");
+		
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);
