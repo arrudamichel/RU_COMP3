@@ -85,7 +85,7 @@ public class H2HelloWorld {
             System.out.println(rs.getString("nome"));
         }*/
     	
-    	ArrayList<Object> valores = new ArrayList<Object>();
+    	/*ArrayList<Object> valores = new ArrayList<Object>();
     	valores.add(2);
     	valores.add("Carne seca com farofa");
     	valores.add("Quixe de capim santo");
@@ -97,7 +97,7 @@ public class H2HelloWorld {
     	if (gateway.inserir(valores))
     		System.out.println("Inseriu");
     	else
-    		System.out.println("Deu ruim");
+    		System.out.println("Deu ruim");*/
     	
     	//  (\"idRefeicao\", \"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\")
 /*    	ResultSet rs = gateway.selecionarCursos();
@@ -109,8 +109,8 @@ public class H2HelloWorld {
     	String opcao = rs.getString("opcaoVegetariana");
     	int turno_id = rs.getInt("Turno_idTurno");
     	System.out.println(id + " " + desc + " " + opcao + " " + turno_id);*/
-    	
-    	int id = 2;
+    	    	
+    /*	int id = 2;
     	ResultSet rs = gateway.selecionarRefeicaoPorId(id);
     	rs.next();
     	String desc = rs.getString("descricao");
@@ -128,7 +128,7 @@ public class H2HelloWorld {
     	if (gateway.alterarRefeicao(valores, id))
     		System.out.println("Atualizou");
     	else
-    		System.out.println("Deu ruim");
+    		System.out.println("Deu ruim");*/
     	
 
     	conn.close();
