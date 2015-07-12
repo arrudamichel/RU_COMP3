@@ -65,7 +65,7 @@ public class CriarRefeicao extends HttpServlet {
 		if (refeicaoGateway.inserir(valores))
 			System.out.println(valores + " inseridos");
 		else
-			System.out.println("Erro ao inserir refeicao");
+			System.out.println(valores + " Erro ao inserir refeicao");
 		
 		try {
 			conn.close();

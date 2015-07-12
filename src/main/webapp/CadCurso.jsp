@@ -65,7 +65,7 @@
 							</div>
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.SIGLA%></label>
-								<input type="text" id="sigla" name="matricula"
+								<input type="text" id="sigla" name="sigla"
 									<%/// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); }%>
 									class="text_field" />
 							</div>

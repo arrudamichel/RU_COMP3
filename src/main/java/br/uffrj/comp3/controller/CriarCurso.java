@@ -55,7 +55,7 @@ public class CriarCurso extends HttpServlet {
 		if (cursoGateway.inserir(valores))
 			System.out.println(valores + " inseridos");
 		else
-			System.out.println("Erro ao inserir refeicao");
+			System.out.println(valores + "  Erro ao inserir curso");
 		
 		try {
 			conn.close();
@@ -63,7 +63,7 @@ public class CriarCurso extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("CadCurso.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);
 
 	}
