@@ -46,7 +46,7 @@
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>
-                  <input type="text" id="nome" name="nome" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
+                  <input type="text" id="nome" name="nome" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" onblur="testaCampo(this, 'Nome')"/>
                 </div>
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.MATRICULA%></label>
@@ -73,7 +73,7 @@
                 
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.CPF%></label>
-                    <input type="text"  id="cpf" name="cpf" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" onblur="valida<%=Constantes.CPF%>(this)"/>     
+                    <input type="text"  id="cpf" name="cpf" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" onblur="validaCPF(this)"/>     
                 </div>
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.CURSO%></label>

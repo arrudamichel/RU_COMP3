@@ -29,3 +29,10 @@ function validaCPF(strCPF){
     }
     return true;
 }
+
+function testaCampo(campo , nomeCampo){
+	if (campo.value==""){
+		alert("Preencha o campo " + nomeCampo);
+		campo.focus();
+		}
+	}
