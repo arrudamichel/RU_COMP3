@@ -1,5 +1,8 @@
 <%@page import="br.uffrj.comp3.model.Menu"%>
 <%@page import="br.uffrj.comp3.model.Constantes"%>
+<%@page import="br.uffrj.comp3.model.Funcionario"%>
+<%@page import="br.uffrj.comp3.controller.ListarFuncionario"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
@@ -80,20 +83,35 @@
                     <th class="last">&nbsp;</th>
                   </tr>
                   <% //for(Fundamento fundamento : new FundamentoBll().getLista()) { %>
-                  	<tr id="tr<%//=fundamento.getId()%>">
-                    	<td>
-                    		<input type="checkbox" class="checkbox" name="id" value="<%//=//fundamento.getId()%>" />
-                    	</td>
-                    	<td><%//=fundamento.getFundamento()%></td>
-                    	<td><%//=fundamento.getResposta().getResposta()%></td>
-                    	<td><%//=fundamento.getOrdem()%></td>
-                    	<td><%//=fundamento.getAtivo() == true ? "SIM": "NÃO"%></td>
-                        <td><%//=fundamento.getAtivo() == true ? "SIM": "NÃO"%></td>
-                    	<td class="last">
-                    		<a href="Funcionario?acao=<%=Constantes.ACAO_EDITAR %>&id=<%//=fundamento.getId()%>"><%=Constantes.EDITAR%></a>
-                    	</td>
-                  	</tr>
-                  <%// } %>
+                   <% 	                
+	                ListarFuncionario lc = new ListarFuncionario();
+                  	ArrayList<Funcionario> funcionarios = lc.listar();
+	                  
+	                for(int i=0; i < funcionarios.size(); i++) {
+	                  	if(i%2 == 0){ %>
+	                  	<tr class="odd">
+	                  	    <td>
+                    			<input type="checkbox" class="checkbox" name="id" value=<%=funcionarios.get(i).getMatricula()%> />
+                    		</td>                   
+	                        <td><%=funcionarios.get(i).getNome()%></td>                                              
+	                        <td><%=funcionarios.get(i).getMatricula()%></td>
+	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>
+	                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
+	                        <td><%=funcionarios.get(i).getCpf().getCpf()%></td>
+	                    </tr>
+	                <% } else { %>
+	                    <tr class="even">
+	                    	<td>
+	                    		<input type="checkbox" class="checkbox" name="id" value=<%=funcionarios.get(i).getMatricula()%> />
+                    		</td>                        
+							<td><%=funcionarios.get(i).getNome()%></td>                                              
+	                        <td><%=funcionarios.get(i).getMatricula()%></td>
+	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>
+	                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
+	                        <td><%=funcionarios.get(i).getCpf().getCpf()%></td>             
+	                    </tr>                    
+	            	<%}  
+	           		}%> 
                 </table>
                 <div class="actions-bar wat-cf">
                   <div class="actions">
