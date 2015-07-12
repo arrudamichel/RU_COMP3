@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.model.Curso;
-
+@WebServlet("/Curso")
 public class CriarCurso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,7 +27,7 @@ public class CriarCurso extends HttpServlet {
 		curso.setSigla(sigla);
 		request.setAttribute("curso", curso);
 
-		RequestDispatcher rd = request.getRequestDispatcher("curso_criado_sucesso.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);
 
 	}
