@@ -9,6 +9,7 @@
 	String mensagem = request.getAttribute("mensagem") == null ? "" : (String)request.getAttribute("mensagem");
 
 	String acao = (String)request.getAttribute("acao");
+	String id = (String)request.getAttribute("id");
 	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -40,10 +41,18 @@
           <div class="content">
             <h2 class="title"><%=Constantes.CADDEPTO%> </h2>
             <div class="inner">
-            	<%=mensagem%>
+            	<% if(mensagem.contains("Erro")){ %>
+            		<div style="background-color:#FF9999; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
+            			<%=mensagem%>
+            		</div>
+            	<%}else if(mensagem.contains("Sucesso")){%>
+            		<div style="background-color:#CCFFCC; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
+    					<%=mensagem%>
+    				</div>
+    			<%} %>
               <form id="FrmDepartamento" name="FrmDeparmento" action="Departamento" method="POST" class="form">
               <input type = "hidden" id="acao" name = "acao" value="<%=acao%>">
-        	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
+        	  <input type = "hidden" id="id" name = "id" <% /*  if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>
                   <input type="text" id="nome" name="nome" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />

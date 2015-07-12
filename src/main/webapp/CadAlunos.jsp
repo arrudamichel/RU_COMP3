@@ -40,7 +40,7 @@
           <div class="content">
             <h2 class="title"><%=Constantes.CADALUNOS%> </h2>
             <div class="inner">
-            	<% if(mensagem.contains("erro")){ %>
+            	<% if(mensagem.contains("Erro")){ %>
             		<div style="background-color:#FF9999; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
             			<%=mensagem%>
             		</div>

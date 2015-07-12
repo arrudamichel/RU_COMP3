@@ -14,20 +14,21 @@ public class DepartamentoGateway {
 		this.conn = conn;
 	}
 
-	public boolean inserir(ArrayList<Object> valores) {
-
-		try {
-
-			String sql = "INSERT INTO \"departamento\" (\"nome\", \"sigla\") values (?,?,?)";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-
-			// preenche os valores
-			for (int i = 1; i <= valores.size(); i++) {
-				if (valores.get(i - 1).getClass().equals(String.class))
-					stmt.setString(i, (String) valores.get(i - 1));
-
-				if (valores.get(i - 1).getClass().equals(Integer.class))
-					stmt.setInt(i, (Integer) valores.get(i - 1));
+	
+	public boolean inserir(ArrayList<Object> valores){
+		
+		try{			
+	      
+	        String sql = "INSERT INTO \"departamento\" ( \"nome\", \"sigla\") values (?,?)";	
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	
+	        // preenche os valores
+	        for(int i = 1; i <= valores.size(); i++){
+	        	if(valores.get(i-1).getClass().equals(String.class))
+	        		stmt.setString(i, (String) valores.get(i-1));
+	        	
+	        	if(valores.get(i-1).getClass().equals(Integer.class))
+	        		stmt.setInt(i, (Integer) valores.get(i-1));
 			}
 
 			stmt.execute();

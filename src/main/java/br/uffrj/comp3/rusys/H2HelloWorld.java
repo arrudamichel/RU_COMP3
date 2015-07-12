@@ -40,7 +40,7 @@ public class H2HelloWorld {
         }
         stat.close();
         conn.close();*/
-		Connection conn = ConnectionFactory.getConnection("jdbc:h2:~/workspace/RU_COMP3/RU", "sa", "sa");
+		//Connection conn = ConnectionFactory.getConnection("jdbc:h2:~/workspace/RU_COMP3/RU", "sa", "sa");
 		
 		//Insere
     //	CursoGateway cg = new CursoGateway();
@@ -130,17 +130,17 @@ public class H2HelloWorld {
     		System.out.println("Deu ruim");*/
     	
 
-    	conn.close();
+    	//conn.close();
     }
     
     public void testeCurso() throws SQLException{
     	Connection conn = ConnectionFactory.getConnection("jdbc:h2:~/workspace/RU_COMP3/RU", "sa", "sa");
 		
 		//Insere
-    	CursoGateway cg = new CursoGateway();
+    	//CursoGateway cg = new CursoGateway();
     	/*ArrayList<Object> valores = new ArrayList<Object>();
     	valores.add(2);
-    	valores.add("Sistemas de Informação");
+    	valores.add("Sistemas de Informaï¿½ï¿½o");
     	valores.add("SI");
     	valores.add(1);
     	
@@ -166,24 +166,24 @@ public class H2HelloWorld {
     	
     	ArrayList<Object> valores = new ArrayList<Object>();
     	valores.add(1);
-    	valores.add("Sistemas de Informação");
+    	valores.add("Sistemas de Informaï¿½ï¿½o");
     	valores.add("SI");
     	valores.add(1);
     	
     	int id = 1;
-    	cg.alterarCurso(conn, valores, id);
+    	//cg.alterarCurso(conn, valores, id);
     	
-    	ResultSet rs = cg.selecionarCursos(conn);
-    	while (rs.next()) {
-            System.out.println(rs.getString("nome"));
-        }
+    	//ResultSet rs = cg.selecionarCursos(conn);
+    	//while (rs.next()) {
+         //   System.out.println(rs.getString("nome"));
+        //}
     	
-    	conn.close();
+    	//conn.close();
     }
 
     public static void testeDepartamento() throws SQLException{
     	Connection conn = ConnectionFactory.getConnection("jdbc:h2:~/workspace/RU_COMP3/RU", "sa", "sa");
-		DepartamentoGateway dp = new DepartamentoGateway();
+		//DepartamentoGateway dp = new DepartamentoGateway();
 		
     	System.out.println("Insere ----");
 		//Insere    	
@@ -191,27 +191,27 @@ public class H2HelloWorld {
     	valores.add(2);
     	valores.add("Departamento de tecnologias e linguagens");
     	valores.add("DTL");
-    	dp.inserir(conn, valores);
+    	//dp.inserir(conn, valores);
     	
     	//Seleciona todos
     	System.out.println("Seleciona tudo ----");
-    	ResultSet rs = dp.selecionarDepartamentos(conn);
-    	while (rs.next()) {
-            System.out.println(rs.getString("nome"));
-        }
+    	//ResultSet rs = dp.selecionarDepartamentos(conn);
+    	//while (rs.next()) {
+        //    System.out.println(rs.getString("nome"));
+       // }
 		
     	System.out.println("Seleciona id ----");
     	//Selecionar por id
     	int identificador = 1;
-		rs = dp.selecionarDepartamentoPorId(conn, identificador);
-    	while (rs.next()) {
-            System.out.println(rs.getString("nome"));
-        }
+		//rs = dp.selecionarDepartamentoPorId(conn, identificador);
+    	//while (rs.next()) {
+       //     System.out.println(rs.getString("nome"));
+       // }
     	
-    	System.out.println("Excluir ID ----");
+    	//System.out.println("Excluir ID ----");
     	//Excluir por id
     	identificador = 2;
-    	dp.excluirDepartamento(conn, identificador);
+    	//dp.excluirDepartamento(conn, identificador);
     	
     	
     	ArrayList<Object> valores2 = new ArrayList<Object>();
@@ -220,20 +220,20 @@ public class H2HelloWorld {
     	valores2.add("DL");
     	
     	int id = 1;
-    	dp.alterarDepartamento(conn, valores2, id);
+    	//dp.alterarDepartamento(conn, valores2, id);
     	
-    	System.out.println("Seleciona depois exclusão ----");
-    	rs = dp.selecionarDepartamentos(conn);
-    	while (rs.next()) {
-            System.out.println(rs.getString("nome"));
-        }
+    	System.out.println("Seleciona depois exclusï¿½o ----");
+    	//rs = dp.selecionarDepartamentos(conn);
+    	//while (rs.next()) {
+        //    System.out.println(rs.getString("nome"));
+       // }
     	
-    	conn.close();
+    	//conn.close();
     }
     
     public static void testeAluno() throws SQLException{
     	Connection conn = ConnectionFactory.getConnection("jdbc:h2:~/workspace/RU_COMP3/RU", "sa", "sa");
-		AlunoGateway ag = new AlunoGateway();
+		//AlunoGateway ag = new AlunoGateway();
 		ArrayList<Object> valores = new ArrayList<Object>();
 		
     	/*System.out.println("Insere ----");
@@ -244,25 +244,25 @@ public class H2HelloWorld {
     	
     	//Seleciona todos
     	System.out.println("Seleciona tudo ----");
-    	ResultSet rs = ag.selecionarAlunos(conn);
-    	while (rs.next()) {
-            System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("curso_idcurso"));
-        }
+    	//ResultSet rs = ag.selecionarAlunos(conn);
+    	//while (rs.next()) {
+       //     System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("curso_idcurso"));
+       // }
 		
     	System.out.println("Seleciona matricula ----");
     	//Selecionar por id
     	int matricula = 1;
-		rs = ag.selecionarAlunoPorMatricula(conn, matricula);
-    	while (rs.next()) {
-    		System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("curso_idcurso"));
-        }    	    	
+		//rs = ag.selecionarAlunoPorMatricula(conn, matricula);
+    	//while (rs.next()) {
+    	//	System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("curso_idcurso"));
+        //}    	    	
     	
     	System.out.println("Altera matricula ----");
     	ArrayList<Object> valores5 = new ArrayList<Object>();
     	valores5.add(1);
     	valores5.add(2);    	
     	matricula = 1;
-    	ag.alterarAluno(conn, valores5, matricula);
+    	//ag.alterarAluno(conn, valores5, matricula);
     	
     	/*System.out.println("Excluir ID ----");
     	//Excluir por id
@@ -271,18 +271,18 @@ public class H2HelloWorld {
     	valores4.add(2);
     	ag.excluirAluno(conn, valores4);*/
     	
-    	System.out.println("Seleciona depois exclusão ----");
-    	rs = ag.selecionarAlunos(conn);
-    	while (rs.next()) {
-    		System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("curso_idcurso"));
-        }
+    	System.out.println("Seleciona depois exclusï¿½o ----");
+    	//rs = ag.selecionarAlunos(conn);
+    	//while (rs.next()) {
+    	//	System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("curso_idcurso"));
+        //}
     	
-    	conn.close();
+    	//conn.close();
     }
     
     public static void testeConsumidor() throws SQLException{
     	Connection conn = ConnectionFactory.getConnection("jdbc:h2:~/workspace/RU_COMP3/RU", "sa", "sa");
-		ConsumidorGateway ag = new ConsumidorGateway();
+		//ConsumidorGateway ag = new ConsumidorGateway();
 		ArrayList<Object> valores = new ArrayList<Object>();
 		
     	System.out.println("Insere ----");
@@ -293,22 +293,22 @@ public class H2HelloWorld {
     	valores.add("M");
     	valores.add("Graduando");
     	valores.add("11112222211111");
-    	ag.inserir(conn, valores);
+    	//ag.inserir(conn, valores);
     	
     	//Seleciona todos
     	System.out.println("Seleciona tudo ----");
-    	ResultSet rs = ag.selecionarConsumidores(conn);
-    	while (rs.next()) {
-            System.out.println(rs.getString("nome"));
-        }
+    	//ResultSet rs = ag.selecionarConsumidores(conn);
+    	//while (rs.next()) {
+       //     System.out.println(rs.getString("nome"));
+       // }
 		
     	System.out.println("Seleciona matricula ----");
     	//Selecionar por id
     	int matricula = 11;
-		rs = ag.selecionarConsumidorPorMatricula(conn, matricula);
-    	while (rs.next()) {
-            System.out.println(rs.getString("nome"));
-        }    	    	
+		//rs = ag.selecionarConsumidorPorMatricula(conn, matricula);
+    	//while (rs.next()) {
+         //   System.out.println(rs.getString("nome"));
+       // }    	    	
     	
     	System.out.println("Altera matricula ----");
     	ArrayList<Object> valores5 = new ArrayList<Object>();    	    	
@@ -319,53 +319,53 @@ public class H2HelloWorld {
     	valores5.add("112233");
     	
     	matricula = 11;
-    	ag.alterarConsumidor(conn, valores5, matricula);
+    	//ag.alterarConsumidor(conn, valores5, matricula);
     	
-    	System.out.println("Seleciona depois alteração ----");
-    	rs = ag.selecionarConsumidores(conn);
-    	while (rs.next()) {
-            System.out.println(rs.getString("nome"));
-        }
+    	System.out.println("Seleciona depois alteraï¿½ï¿½o ----");
+    //	rs = ag.selecionarConsumidores(conn);
+    	//while (rs.next()) {
+       //     System.out.println(rs.getString("nome"));
+       // }
     	
-    	System.out.println("Excluir ID ----");
+    	//System.out.println("Excluir ID ----");
     	//Excluir por id
     	matricula = 11;
-    	ag.excluirConsumidor(conn, matricula);
+    	//ag.excluirConsumidor(conn, matricula);
     	
-    	System.out.println("Seleciona depois exclusão ----");
-    	rs = ag.selecionarConsumidores(conn);
-    	while (rs.next()) {
-            System.out.println(rs.getString("nome"));
-        }
-    	
-    	conn.close();
+    	System.out.println("Seleciona depois exclusï¿½o ----");
+    	//rs = ag.selecionarConsumidores(conn);
+    	//while (rs.next()) {
+        //    System.out.println(rs.getString("nome"));
+       // }
+    	//
+    	//conn.close();
     }
     
     public static void testeFuncionario() throws SQLException{
     	Connection conn = ConnectionFactory.getConnection("jdbc:h2:~/workspace/RU_COMP3/RU", "sa", "sa");
-		FuncionarioGateway ag = new FuncionarioGateway();
+		//FuncionarioGateway ag = new FuncionarioGateway();
 		ArrayList<Object> valores = new ArrayList<Object>();
 		
     	System.out.println("Insere ----");
 		//Insere    	
     	valores.add(2);
     	valores.add(2);    	
-    	ag.inserir(conn, valores);
+    	//ag.inserir(conn, valores);
     	
     	//Seleciona todos
     	System.out.println("Seleciona tudo ----");
-    	ResultSet rs = ag.selecionarFuncionarios(conn);
-    	while (rs.next()) {
-            System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("departamento_iddepartamento"));
-        }
+    	//ResultSet rs = ag.selecionarFuncionarios(conn);
+    	//while (rs.next()) {
+        //    System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("departamento_iddepartamento"));
+       // }
 		
     	System.out.println("Seleciona matricula ----");
     	//Selecionar por id
     	int matricula = 1;
-		rs = ag.selecionarFuncionarioPorMatricula(conn, matricula);
-    	while (rs.next()) {
-    		System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("departamento_iddepartamento"));
-        }    	    	
+		//rs = ag.selecionarFuncionarioPorMatricula(conn, matricula);
+    	//while (rs.next()) {
+    	//	System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("departamento_iddepartamento"));
+        //}    	    	
     	
     	/*System.out.println("Altera matricula ----");
     	ArrayList<Object> valores5 = new ArrayList<Object>();
@@ -379,15 +379,15 @@ public class H2HelloWorld {
     	ArrayList<Object> valores4 = new ArrayList<Object>();
     	valores4.add(2);
     	valores4.add(2);
-    	ag.excluirFuncionario(conn, valores4);
+    	//ag.excluirFuncionario(conn, valores4);
     	
-    	System.out.println("Seleciona depois exclusão ----");
-    	rs = ag.selecionarFuncionarios(conn);
-    	while (rs.next()) {
-    		System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("departamento_iddepartamento"));
-        }
+    	System.out.println("Seleciona depois exclusï¿½o ----");
+    	//rs = ag.selecionarFuncionarios(conn);
+    	//while (rs.next()) {
+    	//	System.out.println(rs.getString("consumidor_matricula")+";"+rs.getString("departamento_iddepartamento"));
+        //}
     	
-    	conn.close();
-    }
+    	//conn.close();
+    } 
 
 }
