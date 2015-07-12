@@ -71,53 +71,52 @@
                         </div>
                         <div class="content">
                             <h2 class="title"><%=Constantes.LISTCURSO %></h2>
-                            <div class="inner">
+                            <div class="inner">                            
                                 <form  id="FrmListaCursos" name="FrmListaCursos" action="#"  method="POST" class="form">
-                <table id="table-resultado" class="table">
-                  <tr>
-                    <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
-                    <th><%=Constantes.NOME%></th>
-                    <th><%=Constantes.SIGLA%></th>
-                    <th class="last">&nbsp;</th>
-                  </tr>
-                  <% 	                
-	                ListarCurso lc = new ListarCurso();
-                  	ArrayList<Curso> cursos = lc.listar();
-	                  
-	                for(int i=0; i < cursos.size(); i++) {
-	                  	if(i%2 == 0){ %>
-	                  	<tr class="odd">
-	                  	    <td>
-                    			<input type="checkbox" class="checkbox" name="id" value=<%=cursos.get(i).getIdentificador()%> />
-                    		</td>                   
-	                        <td><%=cursos.get(i).getNome()%></td>                                              
-	                        <td><%=cursos.get(i).getSigla()%></td>
-	                    </tr>
-	                <% } else { %>
-	                    <tr class="even">
-	                    	<td>
-	                    		<input type="checkbox" class="checkbox" name="id" value=<%=cursos.get(i).getIdentificador()%> />
-                    		</td>                        
-							<td><%=cursos.get(i).getNome()%></td>                                              
-	                        <td><%=cursos.get(i).getSigla()%></td>             
-	                    </tr>                    
-	            	<%}  
-	           		}%>  
-                </table>
-                <div class="actions-bar wat-cf">
-                  <div class="actions">
-                  	<button id="novo-curso" name="novo-curso" class="button" type="button">
-                		<img src="Images/icons/tick.png" alt="novo" /> <%=Constantes.NOVO%>
-              		</button>
-                    <button  id="excluir-curso" name="excluir-curso" class="button" type="button">
-                      <img src="Images/icons/cross.png" alt="delete" /> <%=Constantes.DELETE%>
-                    </button>
-                  </div>
-                  <!--<div class="pagination">
-                    <span class="disabled prev_page">« Previous</span><span class="current">1</span><a rel="next" href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a><a href="#">11</a><a rel="next" class="next_page" href="#">Next »</a>
-                  </div>-->
-                </div>
-              </form>
+				                <table id="table-resultado" class="table">
+				                  <tr>
+				                    <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
+				                    <th><%=Constantes.NOME%></th>
+				                    <th><%=Constantes.SIGLA%></th>
+				                    <th class="last">&nbsp;</th>
+				                  </tr>
+				                  <% 	                
+					                ListarCurso lc = new ListarCurso();
+				                  	ArrayList<Curso> cursos = lc.listar();
+					                  
+					                for(int i=0; i < cursos.size(); i++) {
+					                  	if(i%2 == 0){ %>
+					                  	<tr class="odd">
+					                  	    <td>
+				                    			<input type="checkbox" class="checkbox" name="id" value=<%=cursos.get(i).getIdentificador()%> />
+				                    		</td>                   
+					                        <td><%=cursos.get(i).getNome()%></td>                                              
+					                        <td><%=cursos.get(i).getSigla()%></td>
+					                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+					                    </tr>
+					                <% } else { %>
+					                    <tr class="even">
+					                    	<td>
+					                    		<input type="checkbox" class="checkbox" name="id" value=<%=cursos.get(i).getIdentificador()%> />
+				                    		</td>                        
+											<td><%=cursos.get(i).getNome()%></td>
+					                        <td><%=cursos.get(i).getSigla()%></td>
+					                        <td class="last"> <a href="#"><%=Constantes.EDITAR%></a> </td>	                                   
+					                    </tr>                    
+					            	<%}  
+					           		}%>  
+				                </table>
+				                <div class="actions-bar wat-cf">
+				                  <div class="actions">
+				                  	<button id="novo-curso" name="novo-curso" class="button" type="button">
+				                		<img src="Images/icons/tick.png" alt="novo" /> <%=Constantes.NOVO%>
+				              		</button>
+				                  </div>
+				                  <!--<div class="pagination">
+				                    <span class="disabled prev_page">« Previous</span><span class="current">1</span><a rel="next" href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a><a href="#">11</a><a rel="next" class="next_page" href="#">Next »</a>
+				                  </div>-->
+				                </div>
+				              </form>
                             </div>
                         </div>
                     </div>

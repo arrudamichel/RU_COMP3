@@ -100,9 +100,6 @@
                   	<button id="novo-ticket" name="novo-ticket" class="button" type="button">
                 		<img src="Images/icons/tick.png" alt="novo" /> <%=Constantes.NOVO%>
               		</button>
-                    <button  id="excluir-ticket" name="excluir-ticket" class="button" type="button">
-                      <img src="Images/icons/cross.png" alt="delete" /> <%=Constantes.DELETE%>
-                    </button>
                   </div>
                   <!--<div class="pagination">
                     <span class="disabled prev_page">« Previous</span><span class="current">1</span><a rel="next" href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a><a href="#">11</a><a rel="next" class="next_page" href="#">Next »</a>

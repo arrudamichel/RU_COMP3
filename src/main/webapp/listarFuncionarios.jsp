@@ -98,6 +98,7 @@
 	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>
 	                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
 	                        <td><%=funcionarios.get(i).getCpf().getCpf()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
 	                    </tr>
 	                <% } else { %>
 	                    <tr class="even">
@@ -108,7 +109,8 @@
 	                        <td><%=funcionarios.get(i).getMatricula()%></td>
 	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>
 	                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
-	                        <td><%=funcionarios.get(i).getCpf().getCpf()%></td>             
+	                        <td><%=funcionarios.get(i).getCpf().getCpf()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                               
 	                    </tr>                    
 	            	<%}  
 	           		}%> 

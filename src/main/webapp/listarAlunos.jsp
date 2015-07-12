@@ -97,6 +97,7 @@
 	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
 	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
 	                        <td><%=alunos.get(i).getCpf().getCpf()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
 	                    </tr>
 	                <% } else { %>
 	                    <tr class="even">
@@ -108,6 +109,7 @@
 	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
 	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
 	                        <td><%=alunos.get(i).getCpf().getCpf()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
 	                    </tr>                    
 	            	<%}  
 	           		}%>

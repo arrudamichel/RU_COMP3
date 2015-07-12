@@ -65,7 +65,7 @@
                                             <td><%=refeicoes.get(i).getTurno()%></td>
                                             <td><%=refeicoes.get(i).getDescricao()%></td>
                                             <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
-                                            <td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a> </td>
+                                            <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>
                                         </tr>
                                         <%      } else { %>
                                         <tr class="even">
@@ -73,7 +73,7 @@
                                             <td><%=refeicoes.get(i).getTurno()%></td>
                                             <td><%=refeicoes.get(i).getDescricao()%></td>
                                             <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
-                                            <td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a> </td>
+                                            <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>
                                         </tr>
                                         
                                         <%		}  
@@ -81,21 +81,18 @@
                                     </table>
                                     <div class="actions-bar wat-cf">
                                         <div class="actions">
+                                        
+                                            <button id="nova-refeicao" name="nova-refeicao" class="button" type="button">
+                                                <img src="Images/icons/tick.png" alt="novo" /> <%=Constantes.NOVO%> 
+                                            </button>
+                                        
                                             <button class="button" type="submit">
                                                 <img src="Images/icons/cross.png" alt="delete" /> <%=Constantes.DELETE%>
                                             </button>
                                         </div>
-                                        <div class="pagination">
-                                            <span class="disabled prev_page">« Previous</span><span class="current">1</span><a rel="next" href="#">2</a><a rel="next" class="next_page" href="#">Next »</a>
-                                        </div>
-                                    </div>
-                                  
-                                    <div class="actions-bar wat-cf">
-                                        <div class="actions">
-                                            <button id="nova-refeicao" name="nova-refeicao" class="button" type="button">
-                                                <img src="Images/icons/tick.png" alt="novo" /> <%=Constantes.NOVO%> 
-                                            </button>
-                                        </div>
+                                        <!-- <div class="pagination">
+                                            <span class="disabled prev_page">« Anterior</span><span class="current">1</span><a rel="next" href="#">2</a><a rel="next" class="next_page" href="#">Próximo »</a>	
+                                        </div> -->
                                     </div>
                                 </form>
 
