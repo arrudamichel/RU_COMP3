@@ -59,7 +59,7 @@ public class Constantes {
 	final public static String SEXO = "Sexo ";
 	final public static String SALVAR = "Salvar ";
 	final public static String SIGLA = "Sigla ";
-	final public static String SITPAGO = "Situa&ccedil&aacuteo do Pagamento ";
+	final public static String SITPAGO = "Situa&ccedil&atildeo do Pagamento ";
 
 	final public static String TITULO = "T&iacute;tulo Acad&ecimico";
 	final public static String TURNO = "Turno";
