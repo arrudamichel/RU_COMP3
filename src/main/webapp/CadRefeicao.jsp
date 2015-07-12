@@ -41,7 +41,7 @@
 					<h2 class="title"><%=Constantes.CADREFEICAO%></h2>
 					<div class="inner">
 						<%=mensagem%>
-						<form id="Frmpergunta" name="FrmRefeicao" action="Refeicao"
+						<form id="FrmRefeicao" name="FrmRefeicao" action="Refeicao"
 							method="POST" class="form">
 							<input type="hidden" id="acao" name="acao" value="<%=acao%>">
 							<input type="hidden" id="id" name="id"

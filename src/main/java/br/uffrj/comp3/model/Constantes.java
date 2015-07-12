@@ -69,6 +69,10 @@ public class Constantes {
 	final public static String CADTICKET = "Cadastro de " + TICKET + "s";
 
 	final public static String VALOR = "Pre&ccedilo";
+	
+	final public static String ERRO = "Erro ao inserir";
+	final public static String SUCESSO = "Sucesso ao inserir";
+	
 
 	// TEMPLATE
 	final public static String BASE_CSS = "<link rel='stylesheet' href='Stylesheets/base.css' type='text/css' media='screen' /> ";

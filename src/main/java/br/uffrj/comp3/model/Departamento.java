@@ -4,6 +4,7 @@ public class Departamento {
 	private int identificador;
 	private String nome;
 	private String sigla;
+	private String id;
 	
 	public Departamento() {
 		// TODO Auto-generated constructor stub
@@ -68,6 +69,14 @@ public class Departamento {
 		} else if (!sigla.equals(other.sigla))
 			return false;
 		return true;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	
