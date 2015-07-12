@@ -1,6 +1,7 @@
 package br.uffrj.comp3.model;
 
 public class Curso {
+	private int identificador;
 	private String nome;
 	private String sigla;
 	private Departamento departamento;
@@ -38,6 +39,14 @@ public class Curso {
 
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
+	}
+
+	public int getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
 	}
 
 }
