@@ -6,4 +6,4 @@ log/
 target/
 
 #DB
-*.trace.db
+*.db
