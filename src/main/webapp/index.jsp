@@ -1,5 +1,9 @@
+<%@page import="br.uffrj.comp3.model.Refeicao"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="br.uffrj.comp3.model.Menu"%>
 <%@page import="br.uffrj.comp3.model.Constantes"%>
+<%@page import="br.uffrj.comp3.model.Refeicao"%>
+<%@page import="br.uffrj.comp3.controller.ListarRefeicao"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
@@ -48,18 +52,32 @@
                                             <th><%=Constantes.OPVEG%></th>
                                             <th class="last">&nbsp;</th>
                                         </tr>
-                                        <tr class="odd">
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>1</td><td>hulk</td><td>Hulk</td><td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a> </td>
+                                        
+                                        <% 
+                                        	ListarRefeicao lr = new ListarRefeicao();
+                                        	ArrayList<Refeicao> refeicoes = lr.listar();
+                                        	
+                                        	for(int i=0; i < refeicoes.size(); i++){
+                                        		if(i%2 == 0){
+                                        %>
+                                        <tr class="odd">                                        
+                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td>
+                                            <td><%=refeicoes.get(i).getTurno()%></td>
+                                            <td><%=refeicoes.get(i).getDescricao()%></td>
+                                            <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
+                                            <td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a> </td>
                                         </tr>
+                                        <%      } else { %>
                                         <tr class="even">
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>2</td><td>ultimate</td><td>Ultimate</td><td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a> </td>
+                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td>
+                                            <td><%=refeicoes.get(i).getTurno()%></td>
+                                            <td><%=refeicoes.get(i).getDescricao()%></td>
+                                            <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
+                                            <td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a> </td>
                                         </tr>
-                                        <tr class="odd">
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>3</td><td>andre</td><td>Andre</td><td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a></td>
-                                        </tr>
-                                        <tr class="even">
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>4</td><td>machoman</td><td>Macho Man</td><td class="last"><a href="#">show</a> | <a href="#"><%=Constantes.EDITAR%></a></td>
-                                        </tr>
+                                        
+                                        <%		}  
+                                        	}%>
                                     </table>
                                     <div class="actions-bar wat-cf">
                                         <div class="actions">
