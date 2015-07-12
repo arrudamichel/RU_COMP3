@@ -1,6 +1,7 @@
 package br.uffrj.comp3.model;
 
 public class Departamento {
+	private int identificador;
 	private String nome;
 	private String sigla;
 	
@@ -28,6 +29,14 @@ public class Departamento {
 
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+
+	public int getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
 	}
 
 	@Override

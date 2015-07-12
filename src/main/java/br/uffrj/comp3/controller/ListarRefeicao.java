@@ -29,6 +29,7 @@ public class ListarRefeicao {
 		try {
 			while(rs.next()){
 				Refeicao refeicao = new Refeicao();
+				refeicao.setIdentificador(rs.getInt(1));
 				refeicao.setDescricao(rs.getString(2));
 				refeicao.setOpcaoVeg(rs.getString(3));			
 				

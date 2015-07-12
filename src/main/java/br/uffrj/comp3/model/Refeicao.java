@@ -3,6 +3,7 @@ package br.uffrj.comp3.model;
 import java.util.List;
 
 public class Refeicao {
+	private int identificador;
 	private String descricao;
 	private String opcaoVeg;
 	private Turno turno;
@@ -42,6 +43,14 @@ public class Refeicao {
 
 	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
+	}
+
+	public int getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
 	}
 	
 	

@@ -61,7 +61,7 @@
                                         		if(i%2 == 0){
                                         %>
                                         <tr class="odd">                                        
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td>
+                                            <td><input type="checkbox" class="checkbox" name="id" value=<%=refeicoes.get(i).getIdentificador()%> /></td>
                                             <td><%=refeicoes.get(i).getTurno()%></td>
                                             <td><%=refeicoes.get(i).getDescricao()%></td>
                                             <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
@@ -69,7 +69,7 @@
                                         </tr>
                                         <%      } else { %>
                                         <tr class="even">
-                                            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td>
+                                            <td><input type="checkbox" class="checkbox" name="id" value=<%=refeicoes.get(i).getIdentificador()%> /></td>
                                             <td><%=refeicoes.get(i).getTurno()%></td>
                                             <td><%=refeicoes.get(i).getDescricao()%></td>
                                             <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            

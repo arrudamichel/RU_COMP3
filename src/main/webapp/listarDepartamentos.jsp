@@ -1,5 +1,8 @@
 <%@page import="br.uffrj.comp3.model.Menu"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="br.uffrj.comp3.model.Constantes"%>
+<%@page import="br.uffrj.comp3.model.Departamento"%>
+<%@page import="br.uffrj.comp3.controller.ListarDepartamento"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
@@ -75,19 +78,30 @@
                     <th><%=Constantes.NOME%></th>
                     <th><%=Constantes.SIGLA%></th>
                     <th class="last">&nbsp;</th>
-                  </tr>
-                  <% //for(Fundamento fundamento : new FundamentoBll().getLista()) { %>
-                  	<tr id="tr<%//=fundamento.getId()%>">
-                    	<td>
-                    		<input type="checkbox" class="checkbox" name="id" value="<%//=//fundamento.getId()%>" />
-                    	</td>
-                    	<td><%//=fundamento.getFundamento()%></td>
-                    	<td><%//=fundamento.getResposta().getResposta()%></td>
-                    	
-                    	<td class="last">
-                    		<a href="Departamento?acao=<%=Constantes.ACAO_EDITAR %>&id=<%//=fundamento.getId()%>"><%=Constantes.EDITAR%></a>
-                    	</td>
-                  	</tr>
+                  </tr>                 
+                  <% 	                
+	                ListarDepartamento lt = new ListarDepartamento();
+                  	ArrayList<Departamento> departamentos = lt.listar();
+	                  
+	                for(int i=0; i < departamentos.size(); i++) {
+	                  	if(i%2 == 0){ %>
+	                  	<tr class="odd">
+	                  	    <td>
+                    			<input type="checkbox" class="checkbox" name="id" value=<%=departamentos.get(i).getIdentificador()%> />
+                    		</td>                   
+	                        <td><%=departamentos.get(i).getNome()%></td>                                              
+	                        <td><%=departamentos.get(i).getSigla()%></td>
+	                    </tr>
+	                <% } else { %>
+	                    <tr class="even">
+	                    	<td>
+	                    		<input type="checkbox" class="checkbox" name="id" value=<%=departamentos.get(i).getIdentificador()%> />
+                    		</td>                        
+							<td><%=departamentos.get(i).getNome()%></td>                                              
+	                        <td><%=departamentos.get(i).getSigla()%></td>             
+	                    </tr>                    
+	            	<%}  
+	           		}%>                   	
                   <%// } %>
                 </table>
                 <div class="actions-bar wat-cf">

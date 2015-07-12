@@ -1,5 +1,8 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="br.uffrj.comp3.model.Menu"%>
 <%@page import="br.uffrj.comp3.model.Constantes"%>
+<%@page import="br.uffrj.comp3.model.Turno"%>
+<%@page import="br.uffrj.comp3.controller.ListarTurno"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
@@ -35,18 +38,25 @@
                             <div class="inner">
                                 <form  id="FrmTurno" name="FrmTurno" action="#" method="POST" class="form">
                 <table id="table-resultado" class="table">
-                  <tr>
-                    <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
+                  <tr>                  
                     <th><%=Constantes.DESCRICAO%></th>
                   </tr>
-                  <% //for(Fundamento fundamento : new FundamentoBll().getLista()) { %>
-                  	<tr id="tr<%//=fundamento.getId()%>">
-                    	<td>
-                    		<input type="checkbox" class="checkbox" name="id" value="<%//=//fundamento.getId()%>" />
-                    	</td>
-                    	<td><%//=fundamento.getFundamento()%></td>
-                  	</tr>
-                  <%// } %>
+                <% 
+                ArrayList<Turno> turnos;
+                ListarTurno lt = new ListarTurno();
+                turnos = lt.listar();
+                  
+                for(int i=0; i < turnos.size(); i++) {
+                  	if(i%2 == 0){ %>
+                  	<tr class="odd">                        
+                        <td><%=turnos.get(i)%></td>                                              
+                    </tr>
+                <% } else { %>
+                    <tr class="even">                        
+						<td><%=turnos.get(i)%></td>                        
+                    </tr>                    
+            	<%}  
+           		}%>                
                 </table>
               </form>
                             </div>
