@@ -20,6 +20,7 @@ CREATE TABLE "refeicao" (
   "descricao" VARCHAR(45) NULL,
   "opcaoVegetariana" VARCHAR(45) NULL,
   "Turno_idTurno" INT NOT NULL,
+  "situacao" TINYINT(1) NOT NULL,
   PRIMARY KEY ("idRefeicao"),
   CONSTRAINT "fk_Refeicao_Turno"
     FOREIGN KEY ("Turno_idTurno")
@@ -35,6 +36,7 @@ CREATE TABLE IF NOT EXISTS "consumidor" (
   "sexo" VARCHAR(45) NOT NULL,
   "titulo" VARCHAR(45) NULL,
   "cpf" VARCHAR(45) NULL,
+  "situacao" TINYINT(1) NOT NULL,
   PRIMARY KEY ("matricula"),
   UNIQUE INDEX "cpf_UNIQUE" ("cpf" ASC));
 
@@ -115,9 +117,9 @@ INSERT INTO "turno" ("descricao") VALUES ('TARDE');
 INSERT INTO "turno" ("descricao") VALUES ('NOITE');
 
 -- Insert refeicao
-INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno") VALUES ('Arroz com bifé','Bolinho de soja',1);
-INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno") VALUES ('Macarrão com salsicha','Quiche de legumes',2);
-INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno") VALUES ('Arroz com carré','Soja',3);
+INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno", "situacao") VALUES ('Arroz com bifé','Bolinho de soja',1,1);
+INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno", "situacao") VALUES ('Macarrão com salsicha','Quiche de legumes',2,1);
+INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno", "situacao") VALUES ('Arroz com carré','Soja',3,1);
 
 -- Insert departamento
 INSERT INTO "departamento" ("nome","sigla") VALUES ('Departamento de Tecnologias e Liguagens','DTL');
@@ -128,9 +130,9 @@ INSERT INTO "curso" ("nome","sigla","departamento_iddepartamento") VALUES ('Mate
 INSERT INTO "curso" ("nome","sigla","departamento_iddepartamento") VALUES ('Ciência da Computação','CCOMP', 2);
 
 -- Insert consumidor
-INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf") VALUES (123,'Miguel','2010','M','ESPECIALIZACAO','12345678901');
-INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf") VALUES (456,'Hugo','2010','M','ESPECIALIZACAO','12345678911');
-INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf") VALUES (789,'Duarte','2013','M','DOUTORADO','12345678922');
+INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao") VALUES (123,'Miguel','2010','M','ESPECIALIZACAO','12345678901',1);
+INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao") VALUES (456,'Hugo','2010','M','ESPECIALIZACAO','12345678911',1);
+INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao") VALUES (789,'Duarte','2013','M','DOUTORADO','12345678922',1);
 
 -- Insert Aluno
 INSERT INTO "aluno" VALUES (123,2);
