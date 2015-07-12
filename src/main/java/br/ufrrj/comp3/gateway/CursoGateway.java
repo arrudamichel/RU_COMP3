@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.xml.transform.Result;
+
 public class CursoGateway {
 
 	public CursoGateway() {
@@ -16,7 +18,7 @@ public class CursoGateway {
 		
 		try{			
 	      
-	        String sql = "insert into \"curso\" (\"idcurso\", \"nome\", \"sigla\", \"departamento_iddepartamento\") values (?,?,?,?)";	
+	        String sql = "INSERT INTO \"curso\" (\"idcurso\", \"nome\", \"sigla\", \"departamento_iddepartamento\") values (?,?,?,?)";	
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	
 	        // preenche os valores
