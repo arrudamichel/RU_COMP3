@@ -36,7 +36,7 @@ public class RefeicaoGateway {
 		return true;
 	}
 
-	public ResultSet selecionarCursos() {
+	public ResultSet selecionarRefeicoes() {
 		ResultSet rs = null;
 		Statement stat;
 
