@@ -29,7 +29,7 @@ CREATE TABLE "refeicao" (
 
 -- Tabela "consumidor"
 CREATE TABLE IF NOT EXISTS "consumidor" (
-  "matricula" INT NOT NULL AUTO_INCREMENT,
+  "matricula" INT NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
   "ano_ingresso" VARCHAR(45) NOT NULL,
   "sexo" VARCHAR(45) NOT NULL,
@@ -119,7 +119,26 @@ INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno") VALUES (
 INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno") VALUES ('Macarrão com salsicha','Quiche de legumes',2);
 INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno") VALUES ('Arroz com carré','Soja',3);
 
+-- Insert departamento
+INSERT INTO "departamento" ("nome","sigla") VALUES ('Departamento de Tecnologias e Liguagens','DTL');
+INSERT INTO "departamento" ("nome","sigla") VALUES ('Departamento de Ciência da Computação','DCC');
 
+-- Insert curso
+INSERT INTO "curso" ("nome","sigla","departamento_iddepartamento") VALUES ('Matematica','Mat', 1);
+INSERT INTO "curso" ("nome","sigla","departamento_iddepartamento") VALUES ('Ciência da Computação','CCOMP', 2);
 
+-- Insert consumidor
+INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf") VALUES (123,'Miguel','2010','M','ESPECIALIZACAO','12345678901');
+INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf") VALUES (456,'Hugo','2010','M','ESPECIALIZACAO','12345678911');
+INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf") VALUES (789,'Duarte','2013','M','DOUTORADO','12345678922');
 
+-- Insert Aluno
+INSERT INTO "aluno" VALUES (123,2);
+INSERT INTO "aluno" VALUES (456,1);
 
+-- Insert funcionario
+INSERT INTO "funcionario" VALUES (2,789);
+
+-- Insert ticket
+INSERT INTO "ticket" VALUES (123,1,0.5,1);
+INSERT INTO "ticket" VALUES (789,1,3.0,1);
