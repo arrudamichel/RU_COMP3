@@ -40,7 +40,16 @@
           <div class="content">
             <h2 class="title"><%=Constantes.CADALUNOS%> </h2>
             <div class="inner">
-            	<%=mensagem%>
+            	<% if(mensagem.contains("erro")){ %>
+            		<div style="background-color:#FF9999; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
+            			<%=mensagem%>
+            		</div>
+            	<%}else if(mensagem.contains("sucesso")){%>
+            		<div style="background-color:#CCFFCC; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
+    					<%=mensagem%>
+    				</div>
+    			<%} %>
+				
               <form id="FrmAluno" name="FrmAluno" action="Aluno" method="POST" class="form">
               <input type = "hidden" id="acao" name = "acao" value="<%=acao%>">
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
