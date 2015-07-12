@@ -62,7 +62,10 @@ public class CriarRefeicao extends HttpServlet {
 
 		ArrayList<Object> valores = new ArrayList<>(Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg(), turnoId));
 				// \"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\"
-		refeicaoGateway.inserir(valores);
+		if (refeicaoGateway.inserir(valores))
+			System.out.println(valores + " inseridos");
+		else
+			System.out.println("Erro ao inserir refeicao");
 
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);
