@@ -50,7 +50,7 @@ public class CriarCurso extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		ArrayList<Object> valores = new ArrayList<>(Arrays.asList(name, sigla, deptId));
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(name, sigla, deptId));
 		
 		if (cursoGateway.inserir(valores))
 			request.setAttribute("mensagem", Constantes.SUCESSO);
