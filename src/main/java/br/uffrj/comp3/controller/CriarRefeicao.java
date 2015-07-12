@@ -63,9 +63,9 @@ public class CriarRefeicao extends HttpServlet {
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg(), turnoId));
 				// \"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\"
 		if (refeicaoGateway.inserir(valores))
-			System.out.println(valores + " inseridos");
+			request.setAttribute("mensagem", Constantes.SUCESSO);
 		else
-			System.out.println(valores + " Erro ao inserir refeicao");
+			request.setAttribute("mensagem", Constantes.ERRO);
 		
 		try {
 			conn.close();
@@ -73,7 +73,7 @@ public class CriarRefeicao extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("CadRefeicao.jsp");
 		rd.forward(request, response);
 
 	}
