@@ -1,12 +1,9 @@
-<%@page import="br.ufrrj.comp3.gateway.ConnectionFactory"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="br.uffrj.comp3.controller.DepartamentoServlet"%>
 <%@page import="br.uffrj.comp3.model.Menu"%>
 <%@page import="br.uffrj.comp3.model.Constantes"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="br.ufrrj.comp3.gateway.ConnectionFactory"%>
-<%@page import="br.ufrrj.comp3.gateway.DepartamentoGateway"%>
+<%@page import="br.uffrj.comp3.model.Departamento"%>
+<%@page import="java.util.ArrayList"%>
+
 
 <%@page contentType="text/html; charset=ISO-8859-1" language="java"
 	pageEncoding="UTF-8"%>
@@ -93,25 +90,14 @@
 								%>
 								<select id="departamento" name="departamento">
 									<%
-										Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-
-										DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
-										//  iddepartamento  	nome  	sigla  
-										ResultSet rs = deptGateway.selecionarDepartamentos();
-										try {
-											while (rs.next()) {
-												int id = rs.getInt("iddepartamento");
-												String nome = rs.getString("nome");
-												String sigla = rs.getString("sigla");
+									DepartamentoServlet ds = new DepartamentoServlet();
+									ArrayList<Departamento> departamentos = ds.listaDepartamentos();
+									
+									for(int i=0; i < departamentos.size(); i++){
 									%>
-									<option value="<%=nome%>"><%=nome%></option>
+									<option value="<%=departamentos.get(i).getNome()%>"><%=departamentos.get(i).getNome()%></option>
 									<%
-										System.out.println("JSP == " + id + " " + nome + " " + sigla + " ");
-											}
-											conn.close();
-										} catch (SQLException e) {
-											e.printStackTrace();
-										}
+									}	
 									%>
 								</select>
 							</div>

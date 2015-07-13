@@ -2,6 +2,7 @@ package br.uffrj.comp3.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,4 +59,28 @@ public class DepartamentoServlet extends HttpServlet {
 		}
 	}
 
+	public ArrayList<Departamento> listaDepartamentos(){
+		
+		ArrayList<Departamento> departamentos = new ArrayList<Departamento>();
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+
+		DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
+		//  iddepartamento  	nome  	sigla  
+		ResultSet rs = deptGateway.selecionarDepartamentos();
+		try {
+			while (rs.next()) {
+				Departamento departamento = new Departamento();
+				departamento.setIdentificador(rs.getInt("iddepartamento"));				
+				departamento.setNome(rs.getString("nome"));
+				departamento.setSigla(rs.getString("sigla"));
+				
+				departamentos.add(departamento);
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return departamentos;
+	}
 }
