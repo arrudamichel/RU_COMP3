@@ -17,11 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.model.Constantes;
 import br.uffrj.comp3.model.Curso;
+import br.uffrj.comp3.model.Departamento;
 import br.ufrrj.comp3.gateway.ConnectionFactory;
 import br.ufrrj.comp3.gateway.CursoGateway;
 import br.ufrrj.comp3.gateway.DepartamentoGateway;
-import br.ufrrj.comp3.gateway.RefeicaoGateway;
-import br.ufrrj.comp3.gateway.TurnoGateway;
 @WebServlet("/Curso")
 public class CriarCurso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -71,5 +70,5 @@ public class CriarCurso extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
-	}
+	}		
 }
