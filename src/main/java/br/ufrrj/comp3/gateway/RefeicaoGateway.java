@@ -17,7 +17,7 @@ public class RefeicaoGateway {
 		// SELECT * FROM "refeicao" idRefeicao descricao opcaoVegetariana
 		// Turno_idTurno
 		try {
-			String sql = "insert into \"refeicao\" (\"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\") values (?,?,?)";
+			String sql = "insert into \"refeicao\" (\"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\", \"situacao\") values (?,?,?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			// preenche os valores
@@ -66,12 +66,13 @@ public class RefeicaoGateway {
 		return rs;
 	}
 
-	public boolean excluirRefeicao(int id) {
+	public boolean desativarRefeicao(int id) {
 		try {
-			String sql = "DELETE FROM \"refeicao\" WHERE \"idRefeicao\" = ?";
+			String sql = "UPDATE \"refeicao\" SET \"situacao\" = ? WHERE \"idRefeicao\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, id);
+			stmt.setInt(1, 0);
+			stmt.setInt(2, id);
 			stmt.execute();
 
 		} catch (Exception e) {

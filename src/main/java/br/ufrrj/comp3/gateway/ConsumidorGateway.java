@@ -18,8 +18,8 @@ public class ConsumidorGateway {
 		try{			
   
 	        String sql = "INSERT INTO \"consumidor\" (\"matricula\", \"nome\", \"ano_ingresso\", "
-	        		+ "								  \"sexo\", \"titulo\", \"cpf\") "
-	        		+    "VALUES (?,?,?,?,?,?)";	
+	        		+ "								  \"sexo\", \"titulo\", \"cpf\", \"situacao\") "
+	        		+    "VALUES (?,?,?,?,?,?,?)";	
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	
 	        // preenche os valores
@@ -80,15 +80,17 @@ public class ConsumidorGateway {
         return rs;
 	}
 	
-	public boolean excluirConsumidor(int matricula){
+	public boolean desativarConsumidor(int matricula){
 		
 		try{
 	      
-	        String sql = "DELETE FROM \"consumidor\" "
-	        		+ "   WHERE \"matricula\" = ?";	        
+	        String sql = "UPDATE \"consumidor\" "
+	        			+"SET \"situacao\" = ? "
+	        			+"WHERE \"matricula\" = ?";	        
 	        
 	        PreparedStatement stmt = conn.prepareStatement(sql);
-	        stmt.setInt(1, matricula);
+	        stmt.setInt(1, 0);
+	        stmt.setInt(2, matricula);
 	        stmt.execute();	        	        
 
 		} catch (Exception e){

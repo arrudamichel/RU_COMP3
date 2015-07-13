@@ -37,10 +37,13 @@ public class ListarRefeicao {
 				
 				ResultSet rst = tg.selecionarTurnoPorId(rs.getInt(4));
 				rst.next();
-								
-				refeicao.setTurno(Turno.valueOf(rst.getString(2)));
-				
-				refeicoes.add(refeicao);
+							
+				//Verifica se e ativo ou nao
+				if(rs.getInt(5) == 1){
+					refeicao.setTurno(Turno.valueOf(rst.getString(2)));
+					
+					refeicoes.add(refeicao);
+				}				
 			}
 			
 			conn.close();

@@ -48,9 +48,12 @@ public class ListarFuncionario {
 				ResultSet rsc = cg.selecionarConsumidorPorMatricula(matricula);
 				rsc.next();											
 				
-				Funcionario funcionario = new Funcionario(rsc.getString(2), matricula, rsc.getString(3), Sexo.valueOf(rsc.getString(4)) , Titulo.valueOf(rsc.getString(5)), new CPF(rsc.getString(6)), departamento);
+				if(rs.getInt(7) == 1){
+
+					Funcionario funcionario = new Funcionario(rsc.getString(2), matricula, rsc.getString(3), Sexo.valueOf(rsc.getString(4)) , Titulo.valueOf(rsc.getString(5)), new CPF(rsc.getString(6)), departamento);
 				
-				funcionarios.add(funcionario);
+					funcionarios.add(funcionario);
+				}
 				
 			}
 		} catch (SQLException e) {

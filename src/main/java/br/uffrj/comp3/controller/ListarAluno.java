@@ -61,9 +61,12 @@ public class ListarAluno {
 				ResultSet rsc = cg.selecionarConsumidorPorMatricula(matricula);
 				rsc.next();											
 				
-				Aluno aluno = new Aluno(rsc.getString(2), matricula, rsc.getString(3), Sexo.valueOf(rsc.getString(4)) , Titulo.valueOf(rsc.getString(5)), new CPF(rsc.getString(6)), curso);
+				//Verifica se consumidor está ativo
+				if(rs.getInt(7) == 1){
+					Aluno aluno = new Aluno(rsc.getString(2), matricula, rsc.getString(3), Sexo.valueOf(rsc.getString(4)) , Titulo.valueOf(rsc.getString(5)), new CPF(rsc.getString(6)), curso);
 				
-				alunos.add(aluno);
+					alunos.add(aluno);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
