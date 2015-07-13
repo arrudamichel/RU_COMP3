@@ -6,10 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import br.uffrj.comp3.model.Constantes;
-import br.ufrrj.comp3.gateway.ConnectionFactory;
-import br.ufrrj.comp3.gateway.CursoGateway;
-import br.ufrrj.comp3.gateway.DepartamentoGateway;
+import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
+import br.uffrj.comp3.rusys.persintece.CursoGateway;
+import br.uffrj.comp3.rusys.util.Constantes;
+
+
+
 
 public class CursoGatewayTest {
 
