@@ -60,7 +60,7 @@ public class CriarRefeicao extends HttpServlet {
 
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
 
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg(), turnoId));
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg(), turnoId, 1));
 				// \"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\"
 		if (refeicaoGateway.inserir(valores))
 			request.setAttribute("mensagem", Constantes.SUCESSO);

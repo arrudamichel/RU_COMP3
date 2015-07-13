@@ -27,7 +27,7 @@ public class RefeicaoGateway {
 
 				if (valores.get(i - 1).getClass().equals(Integer.class))
 					stmt.setInt(i, (Integer) valores.get(i - 1));
-			}
+			}			
 			stmt.execute();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
