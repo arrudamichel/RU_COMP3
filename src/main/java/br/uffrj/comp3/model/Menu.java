@@ -11,7 +11,7 @@ public class Menu {
 		menu.append("<h1><a href='index.jsp'>").append(Constantes.RU).append("</a></h1>");
 	    menu.append("<div id='main-navigation'>");
 	    menu.append("<ul class='wat-cf'>");
-	    menu.append("<li class='active'><a href='index.jsp'>").append(Constantes.REFEICAO).append("</a></li>");
+	    menu.append("<li><a href='index.jsp'>").append(Constantes.REFEICAO).append("</a></li>");
 	    menu.append("<li><a href='listarAlunos.jsp'>").append(Constantes.ALUNOS).append("</a></li>");
 	    menu.append("<li><a href='listarFuncionarios.jsp'>").append(Constantes.FUNCIONARIO).append("</a></li>");
 	    menu.append("<li><a href='listarDepartamentos.jsp'>").append(Constantes.DEPTO).append("</a></li>");

@@ -65,7 +65,7 @@
                                             <td><%=refeicoes.get(i).getTurno()%></td>
                                             <td><%=refeicoes.get(i).getDescricao()%></td>
                                             <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
-                                            <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>
+                                            <td class="last"><a href="Refeicao?acao=<%=Constantes.ACAO_EDITAR%>&id=<%=refeicoes.get(i).getIdentificador() %>"><%=Constantes.EDITAR%></a> </td>
                                         </tr>
                                         <%      } else { %>
                                         <tr class="even">

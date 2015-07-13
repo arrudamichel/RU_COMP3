@@ -17,7 +17,7 @@ public class RefeicaoGateway {
 		// SELECT * FROM "refeicao" idRefeicao descricao opcaoVegetariana
 		// Turno_idTurno
 		try {
-			String sql = "insert into \"refeicao\" (\"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\", \"situacao\") values (?,?,?,?)";
+			String sql = "insert into \"refeicao\" (\"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\", \"situacao\") values (?,?,?,1)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			// preenche os valores
@@ -25,6 +25,9 @@ public class RefeicaoGateway {
 				if (valores.get(i - 1).getClass().equals(String.class))
 					stmt.setString(i, (String) valores.get(i - 1));
 
+				if (valores.get(i - 1).getClass().equals(String.class))
+					stmt.setString(i, (String) valores.get(i - 1));
+				
 				if (valores.get(i - 1).getClass().equals(Integer.class))
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}			
@@ -84,9 +87,9 @@ public class RefeicaoGateway {
 
 	public boolean alterarRefeicao(ArrayList<Object> valores, int id) {
 		try {
-			// String sql = "insert into \"refeicao\" (\"idRefeicao\", \"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\") values (?,?,?,?)";
-			String sql = "UPDATE \"refeicao\" " + "SET " + "\"descricao\" = ?, " + "\"opcaoVegetariana\" = ?, "
-					+ "\"Turno_idTurno\" = ? " + "WHERE \"idRefeicao\" = ?";
+			
+			String sql = "UPDATE \"refeicao\" " + "SET " + "\"descricao\" = ?, " + "\"opcaoVegetariana\" = ? "
+					 + "WHERE \"idRefeicao\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -95,10 +98,10 @@ public class RefeicaoGateway {
 				if (valores.get(i - 1).getClass().equals(String.class))
 					stmt.setString(i, (String) valores.get(i - 1));
 
-				if (valores.get(i - 1).getClass().equals(Integer.class))
-					stmt.setInt(i, (Integer) valores.get(i - 1));
+				if (valores.get(i - 1).getClass().equals(String.class))
+					stmt.setString(i, (String) valores.get(i - 1));
 			}
-			stmt.setInt(4, id);
+			stmt.setInt(3, id);
 			stmt.execute();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

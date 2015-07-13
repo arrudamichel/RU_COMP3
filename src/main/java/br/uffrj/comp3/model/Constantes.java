@@ -61,7 +61,7 @@ public class Constantes {
 	final public static String SIGLA = "Sigla ";
 	final public static String SITPAGO = "Situa&ccedil&atildeo do Pagamento ";
 
-	final public static String TITULO = "T&iacute;tulo Acad&ecimico";
+	final public static String TITULO = "T&iacute;tulo Acad&ecircmico";
 	final public static String TURNO = "Turno";
 	final public static String LISTTURNO = "Lista de " + TURNO + "s de " + REFEICAO;
 	final public static String TICKET = "Ticket";
@@ -70,8 +70,8 @@ public class Constantes {
 
 	final public static String VALOR = "Pre&ccedilo";
 	
-	final public static String ERRO = "Erro ao inserir";
-	final public static String SUCESSO = "Sucesso ao inserir";
+	final public static String ERRO = "Erro ao executar opera&ccedil&atildeo";
+	final public static String SUCESSO = "Sucesso ao executar opera&ccedil&atildeo";
 	
 
 	// TEMPLATE

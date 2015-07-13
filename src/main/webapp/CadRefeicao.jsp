@@ -1,3 +1,4 @@
+<%@page import="br.uffrj.comp3.model.Refeicao"%>
 <%@page import="br.uffrj.comp3.model.Menu"%>
 <%@page import="br.uffrj.comp3.model.Constantes"%>
 <%@page import="br.uffrj.comp3.model.Turno"%>
@@ -10,7 +11,8 @@
 
 	String mensagem = request.getAttribute("mensagem") == null ? "" : (String) request.getAttribute("mensagem");
 
-	String acao = (String) request.getAttribute("acao");
+	String acao = (String) request.getParameter("acao");
+	Refeicao refeicao  = (Refeicao) request.getAttribute("refeicao");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,6 +22,7 @@
 <%=Constantes.BASE_CSS%>
 <%=Constantes.ESTILO_CSS%>
 <%=Constantes.JQUERY_LINK%>
+<script type='text/javascript' charset='utf-8' src='Javascripts/jsRefeicao.js'></script>
 <script type="text/javascript" charset="utf-8">
 	// <![CDATA[
 	$(document).ready(function() {
@@ -57,27 +60,29 @@
 						<%
 							}
 						%>
-						<form id="FrmRefeicao" name="FrmRefeicao" action="Refeicao"
-							method="POST" class="form">
+						<form id="FrmRefeicao" name="FrmRefeicao" action="Refeicao" method="POST" class="form" onLoad="return ComportamentoTela('<%=acao%>');">
 							<input type="hidden" id="acao" name="acao" value="<%=acao%>">
 							<input type="hidden" id="id" name="id"
-								<%/* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */%>>
+								<% if (refeicao != null && refeicao.getIdentificador() != 0 ) { out.print(" value = '" + refeicao.getIdentificador() + "'"); }%>>
 							<div class="group">
 								<label class="label"><%=Constantes.DESCRICAO%></label> <input
 									type="text" id="descricao" name="descricao"
-									<%/// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); }%>
+									<% if (refeicao != null && refeicao.getDescricao() != null ) { out.print(" value = '" + refeicao.getDescricao() + "'"); }%>
 									class="text_field" />
 							</div>
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.TURNO%></label>
-								<%
-									/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));
-								%>
 								<select id="turno" name="turno">
 									<%
 										for (Turno turno : Turno.values()) {
 									%>
-									<option value=<%=turno.toString()%>><%=turno.toString()%></option>
+									<option value='<%=turno.toString()%>' <% 
+										if((refeicao !=null) 
+												&& 
+												(refeicao.getTurno().toString().equals(turno.toString()))) 
+											out.print("selected = 'true'") ;%>>
+										<%=turno.toString()%>
+									</option>
 									<%
 										}
 									%>
@@ -86,7 +91,7 @@
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.OPVEG%></label>
 								<input type="text" id="opVeg" name="opVeg"
-									<%//if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); }%>
+									<%if (refeicao != null && refeicao.getOpcaoVeg() != null ) { out.print(" value = '" + refeicao.getOpcaoVeg() + "'"); }%>
 									class="text_field" />
 							</div>
 							<div class="group navform wat-cf">

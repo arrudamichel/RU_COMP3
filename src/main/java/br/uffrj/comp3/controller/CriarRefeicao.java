@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.ParseConversionEvent;
 
 import br.uffrj.comp3.model.Constantes;
 import br.uffrj.comp3.model.Refeicao;
@@ -35,17 +36,16 @@ public class CriarRefeicao extends HttpServlet {
 		String descricao = request.getParameter("descricao");
 		String opVeg = request.getParameter("opVeg");
 		String turno = request.getParameter("turno");
-
+		String id = request.getParameter("id");
+		
 		Refeicao refeicao = new Refeicao();
 		refeicao.setDescricao(descricao);
 		refeicao.setOpcaoVeg(opVeg);
 		refeicao.setTurno(Turno.valueOf(turno));
 		request.setAttribute("refeicao", refeicao);
-
-		// System.out.println(descricao + " " + opVeg + " " + turno);
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-
+		
 		TurnoGateway turnoGateway = new TurnoGateway(conn);
 
 		ResultSet rs = turnoGateway.selecionarTurnoPorNome(refeicao.getTurno().toString());
@@ -60,12 +60,20 @@ public class CriarRefeicao extends HttpServlet {
 
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
 
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg(), turnoId, 1));
-				// \"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\"
-		if (refeicaoGateway.inserir(valores))
-			request.setAttribute("mensagem", Constantes.SUCESSO);
-		else
-			request.setAttribute("mensagem", Constantes.ERRO);
+		if(id!=null){
+			ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg()));
+			if (refeicaoGateway.alterarRefeicao(valores, Integer.parseInt(id)))
+				request.setAttribute("mensagem", Constantes.SUCESSO);
+			else
+				request.setAttribute("mensagem", Constantes.ERRO);
+		}
+		else{
+			ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg(), turnoId, 1));
+			if (refeicaoGateway.inserir(valores))
+				request.setAttribute("mensagem", Constantes.SUCESSO);
+			else
+				request.setAttribute("mensagem", Constantes.ERRO);
+		}
 		
 		try {
 			conn.close();
@@ -80,6 +88,37 @@ public class CriarRefeicao extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
+		
+		String id = req.getParameter("id");
+		Refeicao refeicao = new Refeicao();
+		
+		if(id!=null){
+			Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+			ResultSet rs= new RefeicaoGateway(conn).selecionarRefeicaoPorId(Integer.parseInt(id));
+			try {
+				if(rs.next()){
+					refeicao.setIdentificador(rs.getInt(1));
+					refeicao.setDescricao(rs.getString(2));
+					refeicao.setOpcaoVeg(rs.getString(3));			
+				
+					TurnoGateway tg = new TurnoGateway(conn);
+				
+					ResultSet rst = tg.selecionarTurnoPorId(rs.getInt(4));
+							
+					//Verifica se e ativo ou nao
+					if(rst.next())
+						refeicao.setTurno(Turno.valueOf(rst.getString(2)));
+				}
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		req.setAttribute("refeicao", refeicao);
+		RequestDispatcher rd = req.getRequestDispatcher("CadRefeicao.jsp");
+		rd.forward(req, resp);
 	}
 }
