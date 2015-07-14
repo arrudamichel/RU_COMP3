@@ -1,6 +1,7 @@
 package br.uffrj.comp3.rusys.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
@@ -38,7 +39,15 @@ public class CadAluno extends HttpServlet
 		request.setAttribute("alunos", alunos);
 		
 		CursoVO cursoVO = new CursoVO();
-		Collection<Curso> cursos = CursoHandler.recuperarCursos(cursoVO);
+		Collection<Curso> cursos = null;
+		try
+		{
+			cursos = CursoHandler.recuperarCursos(cursoVO);
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.setAttribute("cursos", cursos);
 
 		if (acao != null)
