@@ -42,7 +42,7 @@ public class CursoHandler
 	{
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
-
+		
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), curso.getDepartamento().getIdentificador()));
 
 		if (!cg.alterarCurso(valores, curso.getIdentificador()))
@@ -67,28 +67,23 @@ public class CursoHandler
 		
 		ResultSet rs = cg.selecionarCursoPorId(id);
 		
-		if (rs.getFetchSize() != 1)
-		{
-			curso.setIdentificador(rs.getInt(1));
-			curso.setNome(rs.getString(2));
-			curso.setSigla(rs.getString(3));
+		rs.next();
+		
+		curso.setIdentificador(rs.getInt(1));
+		curso.setNome(rs.getString(2));
+		curso.setSigla(rs.getString(3));
 
-			DepartamentoGateway dg = new DepartamentoGateway(conn);
-			ResultSet rsd = dg.selecionarDepartamentoPorId(rs.getInt(4));
-			rsd.next();
+		DepartamentoGateway dg = new DepartamentoGateway(conn);
+		ResultSet rsd = dg.selecionarDepartamentoPorId(rs.getInt(4));
+		rsd.next();
 
-			Departamento departamento = new Departamento();
-			departamento.setIdentificador(rsd.getInt(1));
-			departamento.setNome(rsd.getString(2));
-			departamento.setSigla(rsd.getString(3));
+		Departamento departamento = new Departamento();
+		departamento.setIdentificador(rsd.getInt(1));
+		departamento.setNome(rsd.getString(2));
+		departamento.setSigla(rsd.getString(3));
 
-			curso.setDepartamento(departamento);
-		}
-		else
-		{
-			throw new Exception("curso.não.existe");
-		}
-
+		curso.setDepartamento(departamento);
+	
 		conn.close();
 
 		return curso;	

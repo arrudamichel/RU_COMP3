@@ -72,7 +72,25 @@ public class DepartamentoHandler
 
 	public static Departamento recuperarDepartamento(int departametnoId)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		DepartamentoGateway dg = new DepartamentoGateway(conn);
+
+		ResultSet rs = dg.selecionarDepartamentoPorId(departametnoId);
+		Departamento departamento = new Departamento();
+		try
+		{
+			while (rs.next())
+			{
+				departamento.setIdentificador(rs.getInt(1));
+				departamento.setNome(rs.getString(2));
+				departamento.setSigla(rs.getString(3));
+			}
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return departamento;
 	}
 }

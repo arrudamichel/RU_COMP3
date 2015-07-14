@@ -63,6 +63,10 @@ public class CadCurso extends HttpServlet
 				case Constantes.SALVAR:
 					cadastrar(request, response);
 					break;
+				case Constantes.ACAO_EDITAR:
+					request.getRequestDispatcher("AtualizarCurso").forward(request, response);
+					break;
+					
 				default:
 					request.getRequestDispatcher("ListarCursos").forward(request, response);
 			}

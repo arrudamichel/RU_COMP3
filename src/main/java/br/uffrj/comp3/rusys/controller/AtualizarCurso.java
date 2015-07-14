@@ -38,6 +38,17 @@ public class AtualizarCurso extends HttpServlet
 		request.setAttribute("departamentos", departamentos);
 		
 		Curso curso = null;
+		try {
+			curso = CursoHandler.recuperarCurso(Integer.parseInt(request.getParameter("cursoId")));
+		} catch (NumberFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		request.setAttribute("curso", curso);
 		
 		if (acao != null)
 		{
@@ -47,43 +58,34 @@ public class AtualizarCurso extends HttpServlet
 					atualizar(cursoId,request, response);
 					break;
 				default:
-					request.getRequestDispatcher("ListarCursos").forward(request, response);			
+					try
+					{						
+						request.getRequestDispatcher("/WEB-INF/AtualizarCurso.jsp").forward(request, response);
+					} 
+					catch (Exception e)
+					{
+						request.setAttribute("erro", "O curso informado nao existe");
+						request.getRequestDispatcher("/WEB-INF/AtualizarCurso.jsp").forward(request, response);
+					}
+					//request.getRequestDispatcher("ListarCursos").forward(request, response);			
 			}
 		} 
 		else
 		{
-			try
-			{
-				curso = CursoHandler.recuperarCurso(Integer.parseInt(cursoId));
-				request.setAttribute("curso", curso);
-				request.getRequestDispatcher("WEB-INF/AtualizarCurso.jsp").forward(request, response);
-			} 
-			catch (Exception e)
-			{
-				request.setAttribute("erro", "O curso informado nao existe");
-				request.getRequestDispatcher("WEB-INF/AtualizarCurso.jsp").forward(request, response);
-			}
+			
 		}
 	}
 	
 	private void atualizar(String cursoId, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		String id = request.getParameter("cursoId");
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
 		
-		Curso curso = null;
+		Curso curso = new Curso();
 		
-		try
-		{
-			curso = CursoHandler.recuperarCurso(Integer.parseInt(cursoId));
-		} 
-		catch (Exception e1)
-		{
-			// TODO tratar erros
-			e1.printStackTrace();
-		}
-		
+		curso.setIdentificador(Integer.parseInt(id));
 		curso.setNome(nome);
 		curso.setSigla(sigla);
 		curso.setDepartamento(DepartamentoHandler.recuperarDepartamento(Integer.parseInt(dept)));
@@ -92,8 +94,7 @@ public class AtualizarCurso extends HttpServlet
 		{
 			CursoHandler.atualizarCurso(curso);
 		    
-			String redirect = response.encodeRedirectURL("ListarCursos");
-			response.sendRedirect(redirect);			
+			request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);			
 		} 
 		catch (Exception e)
 		{

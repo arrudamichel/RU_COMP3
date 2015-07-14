@@ -32,15 +32,15 @@
 					<h2 class="title"><%=Constantes.CADCURSO%>
 					</h2>
 					<div class="inner">
-						<form id="FrmCurso" name="FrmCurso" action="CadastrarCurso" method="POST" class="form">
-							<input type="hidden" id="id" name="id">
+						<form id="FrmCurso" name="FrmCurso" action="AtualizarCurso" method="POST" class="form">
+							<input type="hidden" id="cursoId" name="cursoId" value="<%=(curso!=null) ? curso.getIdentificador() : "" %>" />
 							<div class="group">
 								<label class="label"><%=Constantes.NOME%></label> 
 								<input type="text" id="nome" name="nome" class="text_field" value="<%=(curso!=null) ? curso.getNome() : "" %>" />
 							</div>
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.SIGLA%></label>
-								<input type="text" id="sigla" name="sigla" class="text_field" value="<%=(curso!=null) ? curso.getNome() : "" %>" />
+								<input type="text" id="sigla" name="sigla" class="text_field" value="<%=(curso!=null) ? curso.getSigla() : "" %>" />
 							</div>
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.DEPTO%></label>

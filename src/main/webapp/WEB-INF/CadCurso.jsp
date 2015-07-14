@@ -42,17 +42,19 @@
 	                  </tr>
 	                  <%		                  
 		                for(int i=0; i < cursos.size(); i++) {
+		                	String urlEditar="CadastrarCurso?acao="+ Constantes.ACAO_EDITAR +"&cursoId="+cursos.get(i).getIdentificador();;
+
 		                  	if(i%2 == 0){ %>
 		                  	<tr class="odd">                  
 		                        <td><%=cursos.get(i).getNome()%></td>                                              
 		                        <td><%=cursos.get(i).getSigla()%></td>
-		                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+		                        <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>	                        
 		                    </tr>
 		                <% } else { %>
 		                    <tr class="even">                      
 								<td><%=cursos.get(i).getNome()%></td>
 		                        <td><%=cursos.get(i).getSigla()%></td>
-		                        <td class="last"> <a href="#"><%=Constantes.EDITAR%></a> </td>	                                   
+		                        <td class="last"> <a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>	                                   
 		                    </tr>                    
 		            	<%}  
 		           		}%>  
