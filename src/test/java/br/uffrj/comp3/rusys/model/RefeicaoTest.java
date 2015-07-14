@@ -6,87 +6,86 @@ import org.junit.Test;
 
 public class RefeicaoTest {
 	
-	String descricao;
-	String op;
-	String turno;
-	String id;
-	String ticket;
+	Refeicao re;
 	
 
 	@Test
 	public void testRefeicao() {
-		descricao = "arroz";
+		re= new Refeicao();
 		
 	}
 
 	@Test
 	public void testGetDescricao() {
-		descricao = "arroz";
+		String esperado = "arroz";
+		re= new Refeicao();
+		re.setDescricao("arroz");
 		
-		assertEquals("arroz",descricao);
+		assertEquals(esperado,re.getDescricao());
 	}
 
 	@Test
 	public void testSetDescricao() {
-		descricao = "arroz";
+		String esperado = "arroz";
+		re= new Refeicao();
+		re.setDescricao("arroz");
 		
-		assertEquals("arroz",descricao);
+		assertEquals(esperado,re.getDescricao());
 	}
 
 	@Test
 	public void testGetOpcaoVeg() {
-		op = "arroz";
+		String esperado = "arroz";
+		re= new Refeicao();
+		re.setOpcaoVeg("arroz");
 		
-		assertEquals("arroz",op);
+		assertEquals(esperado,re.getOpcaoVeg());
 	}
 
 	@Test
 	public void testSetOpcaoVeg() {
-		op = "arroz";
+		String esperado = "arroz";
+		re= new Refeicao();
+		re.setOpcaoVeg("arroz");
 		
-		assertEquals("arroz",op);
+		assertEquals(esperado,re.getOpcaoVeg());
 	}
+	
 
 	@Test
 	public void testGetTurno() {
-		turno = "manha";
 		
-		assertEquals("manha",turno);
+		re= new Refeicao();
+		re.setTurno(TurnoEnum.MANHA);
+		
+		assertEquals(TurnoEnum.MANHA,re.getTurno());
 	}
+	
 
 	@Test
 	public void testSetTurno() {
-		turno = "manha";
+		re= new Refeicao();
+		re.setTurno(TurnoEnum.MANHA);
 		
-		assertEquals("manha",turno);
+		assertEquals(TurnoEnum.MANHA,re.getTurno());
 	}
 
-	@Test
-	public void testGetTickets() {
-		ticket = "pago";
-		
-		assertEquals("pago",ticket);
-	}
-
-	@Test
-	public void testSetTickets() {
-		ticket = "pago";
-		
-		assertEquals("pago",ticket);
-	}
+	
 
 	@Test
 	public void testGetIdentificador() {
-		id = "01";
+		re= new Refeicao();
+		re.setIdentificador(1);
 		
-		assertEquals("01",id);
+		assertEquals(1,re.getIdentificador());
 	}
 
 	@Test
 	public void testSetIdentificador() {
-		id = "01";
+		re= new Refeicao();
+		re.setIdentificador(1);
 		
-		assertEquals("01",id);
+		assertEquals(1,re.getIdentificador());
 	}
 
 }

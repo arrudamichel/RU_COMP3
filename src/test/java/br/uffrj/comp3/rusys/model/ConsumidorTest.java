@@ -6,120 +6,125 @@ import org.junit.Test;
 
 public class ConsumidorTest {
 	
-	String nome;
-	String matricula;
-	String ano;
-	String sexo;
-	String titulo;
-	String cpf;
-	String ticket;
+	Consumidor con;
 
 	@Test
 	public void testConsumidorStringIntStringSexoEnumTituloEnumString() {
-		nome="Jessica";
+		 String esperado = "Jessica";
+		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+	 
+	
+		assertEquals(esperado, con.getNome());
 	}
 
 	@Test
 	public void testConsumidor() {
-		nome="jessica";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
 	}
 
 	@Test
 	public void testGetNome() {
-		 nome = "Jessica";
-			
-		assertEquals("Jessica", nome);
+		String esperado = "Jessica";
+		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+	 
+	
+		assertEquals(esperado, con.getNome());
 	}
 
 	@Test
 	public void testSetNome() {
-		 nome = "Jessica";
-			
-			assertEquals("Jessica", nome);
+		String esperado = "Julia";
+		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+	 con.setNome("Julia");
+	
+		assertEquals(esperado, con.getNome());
 	}
 
 	@Test
 	public void testGetMatricula() {
-		 matricula = "0101";
-			
-		assertEquals("0101", matricula);
+		int esperado = 2011785144;
+		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		 
+	
+		assertEquals(esperado, con.getMatricula());
 	}
 
 	@Test
 	public void testSetMatricula() {
-		 matricula = "0101";
-			
-			assertEquals("0101", matricula);
+		int esperado = 2011780123;
+		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		 con.setMatricula(2011780123);
+	
+		assertEquals(esperado, con.getMatricula());
 	}
 
 	@Test
 	public void testGetAnoDeIngresso() {
-		 ano = "2015";
-			
-		 assertEquals("2015", ano);
+		String esperado = "2011";
+		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		
+		assertEquals(esperado, con.getAnoDeIngresso());
 	}
 
 	@Test
 	public void testSetAnoDeIngresso() {
-		 ano = "2015";
-			
-		 assertEquals("2015", ano);
+		String esperado = "2012";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		con.setAnoDeIngresso("2012");
+		
+		assertEquals(esperado, con.getAnoDeIngresso());
 	}
 
 	@Test
 	public void testGetSexo() {
-		 sexo = "feminino";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		
 			
-		assertEquals("feminino", sexo);
+		assertEquals(SexoEnum.F, con.getSexo());
 	}
 
 	@Test
 	public void testSetSexo() {
-		sexo = "feminino";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		con.setSexo(SexoEnum.M);
 		
-		assertEquals("feminino", sexo);
+		assertEquals(SexoEnum.M, con.getSexo());
 	}
 
 	@Test
 	public void testGetTitulo() {
-		 titulo = "graduacao";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		
 			
-		assertEquals("graduacao", titulo);
+		assertEquals(TituloEnum.ESPECIALIZACAO, con.getTitulo());
 	}
 
 	@Test
 	public void testSetTitulo() {
-		 titulo = "graduacao";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		con.setTitulo(TituloEnum.MESTRADO);
 			
-			assertEquals("graduacao", titulo);
+		assertEquals(TituloEnum.MESTRADO, con.getTitulo());
 	}
 
 	@Test
 	public void testGetCpf() {
-		 cpf = "136389229";
+		String esperado = "12345678910";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		
 			
-		assertEquals("136389229", cpf);
+		assertEquals(esperado, con.getCpf());
 	}
 
 	@Test
 	public void testSetCpf() {
-		cpf = "136389229";
-		
-		assertEquals("136389229", cpf);
+		String esperado = "12345678911";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		con.setCpf("12345678911");
+			
+		assertEquals(esperado, con.getCpf());
 	}
 
-	@Test
-	public void testGetTickets() {
-		 ticket = "pago";
-			
-		assertEquals("pago", ticket);
-	}
 
-	@Test
-	public void testSetTickets() {
-		 ticket = "pago";
-			
-		assertEquals("pago", ticket);
-	}
 
 }

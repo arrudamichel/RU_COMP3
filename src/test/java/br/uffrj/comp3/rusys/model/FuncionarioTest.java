@@ -6,29 +6,37 @@ import org.junit.Test;
 
 public class FuncionarioTest {
 
-	String depto;
+	Funcionario fu;
+	Curso cu;
+	Departamento de;
 	
 	public void testFuncionarioStringIntStringSexoEnumTituloEnumStringDepartamento() {
-		depto = "DCC";
+		String esperado = "Jessica";
+		fu = new Funcionario("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", de );
+		assertEquals(esperado,fu.getNome());
 	}
 
 	@Test
 	public void testFuncionario() {
-		depto="DCC";
+		de = new Departamento("Depto de Computacao","DCC");
+		fu = new Funcionario("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", de );
 	}
 
 	@Test
 	public void testGetDepartamento() {
-		depto = "DCC";
-		
-		assertEquals("DCC",depto);
+		String esperado = "DCC";
+		de = new Departamento("Depto de Computacao","DCC");
+		fu = new Funcionario("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", de );
+		assertEquals(esperado,fu.getDepartamento().getSigla());
 	}
 
 	@Test
 	public void testSetDepartamento() {
-		depto = "DCC";
-		
-		assertEquals("DCC",depto);
+		String esperado = "Depto";
+		Departamento de2 = new Departamento("Depto","DCC");
+		fu = new Funcionario("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", de );
+		fu.setDepartamento(de2);
+		assertEquals(esperado,fu.getDepartamento().getNome());
 	}
 
 }

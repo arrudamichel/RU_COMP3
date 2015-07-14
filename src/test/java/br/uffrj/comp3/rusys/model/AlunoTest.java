@@ -5,31 +5,45 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class AlunoTest {
-	String curso;
+	Aluno al;
+	Curso cu;
+	Departamento de;
 	
 
 	@Test
 	public void testAlunoStringIntStringSexoEnumTituloEnumStringCurso() {
-		curso = "computação";
+		 String esperado = "Jessica";
+		 al = new Aluno("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", cu );
+		 
+	
+		assertEquals(esperado, al.getNome());
 	}
 
 	@Test
 	public void testAluno() {
-		curso = "computação";
+		 de = new Departamento("Depto de Computacao","DCC");
+		 cu = new Curso("Computacao", "CC", de);
+		 al = new Aluno("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", cu );
 		
 	}
 	@Test
 	public void testGetCurso() {
-		 curso = "computacao";
-			
-		assertEquals("computacao", curso);
+		 String esperado = "Computacao";
+		 cu = new Curso("Computacao", "CC", de);
+		 al = new Aluno("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", cu );
+		 
+	
+		assertEquals(esperado, al.getCurso().getNome());
 	}
 
 	@Test
 	public void testSetCurso() {
-		 curso = "computacao";
-			
-		assertEquals("computacao", curso);
+		 String esperado = "Computacao2";
+		 Curso cu2 = new Curso("Computacao2", "CC", de);
+		 al = new Aluno("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", cu );
+		 al.setCurso(cu2);
+	
+		assertEquals(esperado, al.getCurso().getNome());
 	}
 
 }

@@ -6,89 +6,102 @@ import org.junit.Test;
 
 public class CursoTest {
 	
-	String curso;
-	String depto;
-	String sigla;
-	String id;
+	Departamento de;
+	Curso cu;
 	
 	
 
 	@Test
 	public void testCurso() {
-	 curso = "computacao";
-	 depto = "DCC";
-	 sigla = "CC";
-	 id="01";
+		de = new Departamento("Depto de Computacao","DCC");
+		cu = new Curso("Computacao", "CC", de);
+	 
 	}
 
 	@Test
 	public void testCursoStringStringDepartamento() {
-		 curso = "computacao";
-		 depto = "DCC";
+		cu = new Curso("Computacao", "CC", de);
 		
-		assertEquals("computacao",curso);	
-		assertEquals("DCC", depto);
+		assertEquals("Computacao",cu.getNome());	
+		
 	}
 
 	@Test
 	public void testGetNome() {
-		 curso = "computacao";
+		 String esperado = "Computacao";
+		 cu = new Curso("Computacao", "CC", de);
 	
-		assertEquals("computacao", curso);
+		assertEquals(esperado, cu.getNome());
 	}
 
 	@Test
 	public void testSetNome() {
-		 curso = "computacao";
-		 	
-		assertEquals("computacao", curso);
+		 String esperado = "Letras";
+		 cu = new Curso("Computacao", "CC", de);
+		 cu.setNome("Letras");
+		
+	
+		assertEquals(esperado, cu.getNome());
 		
 	}
 
 	@Test
 	public void testGetSigla() {
 		
-		 sigla = "CC";
+		 String esperado = "CC";
+		 cu = new Curso("Computacao", "CC", de);
 		
-		assertEquals("CC", sigla);
+		
+	
+		assertEquals(esperado, cu.getSigla());
 	}
 
 	@Test
 	public void testSetSigla() {
-	
-		 sigla = "CC";
+		 String esperado = "CComp";
+		 cu = new Curso("Computacao", "CC", de);
+		 cu.setSigla("CComp");
 		
-		assertEquals("CC", sigla);
+	
+		assertEquals(esperado, cu.getSigla());
 	}
 
 	@Test
 	public void testGetDepartamento() {
-	
-		 depto = "DCC";
-		
-		assertEquals("DCC", depto);
+		String esperado = "DCC";
+		de = new Departamento("Depto de Computacao","DCC");
+		cu = new Curso("Computacao", "CC", de);
+			
+		assertEquals(esperado, cu.getDepartamento().getSigla());
 	}
 
 	@Test
 	public void testSetDepartamento() {
-		
-		 depto = "DCC";
-		
-		assertEquals("DCC", depto);
+		String esperado = "DCC1";
+		Departamento de2 = new Departamento("Depto de Computacao","DCC1");
+		cu = new Curso("Computacao", "CC", de);
+		cu.setDepartamento(de2);
+			
+		assertEquals(esperado, cu.getDepartamento().getSigla());
 	}
 
 	@Test
 	public void testGetIdentificador() {
+		int esperado = 2;
+		cu = new Curso("Computacao", "CC", de);
+		cu.setIdentificador(02);
+			
+		assertEquals(esperado, cu.getIdentificador());
 		
-		 id="01";
-		assertEquals("01",id);
 	}
 
 	@Test
 	public void testSetIdentificador() {
-		 
-		 id="01";
-		assertEquals("01",id);
+		int esperado = 2;
+		cu = new Curso("Computacao", "CC", de);
+		cu.setIdentificador(02);
+			
+		assertEquals(esperado, cu.getIdentificador());
 	}
 
 }

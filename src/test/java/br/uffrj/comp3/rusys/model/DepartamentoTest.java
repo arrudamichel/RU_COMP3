@@ -6,92 +6,114 @@ import org.junit.Test;
 
 public class DepartamentoTest {
 
-	String curso;
-	String depto;
-	String sigla;
-	String id;
+	Departamento  de;
 	
 	@Test
 	public void testHashCode() {
-		String hc = "123";
-
-		assertEquals("123",hc);
+		int esperado = 2043512536;
+		de = new Departamento("Depto", "DE");
+		
+		assertEquals(esperado,de.hashCode());
 	}
 
 	@Test
 	public void testDepartamento() {
-		depto = "DCC";
+		 de = new Departamento("Depto", "DE");
 			
 	}
 
 	@Test
 	public void testDepartamentoStringString() {
-		depto = "DCC";
+		String esperado = "Depto";
+		de = new Departamento("Depto", "DE");
 		
-		
+
+		assertEquals(esperado,de.getNome());
 	}
 
 	@Test
 	public void testGetNome() {
-		depto = "DCC";
+		String esperado = "Depto";
+		de = new Departamento("Depto", "DE");
 		
-		assertEquals("DCC",depto);
+
+		assertEquals(esperado,de.getNome());
 	}
 
 	@Test
 	public void testSetNome() {
-		depto = "DCC";
+		String esperado = "Depto 2";
+		de = new Departamento("Depto", "DE");
+		de.setNome("Depto 2");
 		
-		assertEquals("DCC",depto);
+
+		assertEquals(esperado,de.getNome());
 	}
 
 	@Test
 	public void testGetSigla() {
-		sigla = "DCC";
+		String esperado = "DE";
+		de = new Departamento("Depto", "DE");
 		
-		assertEquals("DCC",sigla);
+
+		assertEquals(esperado,de.getSigla());
 	}
 
 	@Test
 	public void testSetSigla() {
-		sigla = "DCC";
+		String esperado = "DER";
+		de = new Departamento("Depto", "DE");
+		de.setSigla("DER");
 		
-		assertEquals("DCC",sigla);
+
+		assertEquals(esperado,de.getSigla());
 	}
 
 	@Test
 	public void testGetIdentificador() {
-		id = "01";
+		int esperado = 1;
+		de = new Departamento("Depto", "DE");
+		de.setIdentificador(1);
 		
-		assertEquals("01",id);
+		assertEquals(esperado,de.getIdentificador());
+		
 	}
 
 	@Test
 	public void testSetIdentificador() {
-	id = "01";
+		int esperado = 1;
+		de = new Departamento("Depto", "DE");
+		de.setIdentificador(1);
 		
-		assertEquals("01",id);
+		assertEquals(esperado,de.getIdentificador());
 	}
 
 	@Test
 	public void testEqualsObject() {
-		id = "01";
+		boolean esperado = true;
+		de = new Departamento("Depto", "DE");
+		System.out.println(de.equals(de));
 		
-		assertEquals("01",id);
+		assertEquals(esperado,de.equals(de));
 	}
 
 	@Test
 	public void testGetId() {
-		id = "01";
+		String esperado = "1";
+		de = new Departamento("Depto", "DE");
+		de.setId("1");
 		
-		assertEquals("01",id);
+		assertEquals(esperado,de.getId());
+		
 	}
 
 	@Test
 	public void testSetId() {
-		id = "01";
+		String esperado = "1";
+		de = new Departamento("Depto", "DE");
+		de.setId("1");
 		
-		assertEquals("01",id);
+		assertEquals(esperado,de.getId());
 	}
 
 }

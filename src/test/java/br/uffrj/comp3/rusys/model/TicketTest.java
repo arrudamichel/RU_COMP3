@@ -6,60 +6,72 @@ import org.junit.Test;
 
 public class TicketTest {
 	
-	String ticket;
-	String valor;
-	String consumidor;
+	Ticket ti;
+	Consumidor con;
 
 	@Test
 	public void testTicket() {
-		ticket="pago";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		ti = new Ticket(true, 1, con);
 	}
+
 
 	@Test
 	public void testTicketBooleanFloatConsumidor() {
-		ticket="pago";
+		boolean esperado = true;
+		 ti = new Ticket(true, 2, con);
+	
+		assertEquals(esperado, ti.isPago());
 	}
 
 	@Test
 	public void testIsPago() {
-		ticket = "pago";
-		
-		assertEquals("pago",ticket);
+		boolean esperado = true;
+		 ti = new Ticket(true, 2, con);
+	
+		assertEquals(esperado, ti.isPago());
 	}
 
 	@Test
 	public void testSetPago() {
-		ticket = "pago";
-		
-		assertEquals("pago",ticket);
+		boolean esperado = false;
+		 ti = new Ticket(true, 2, con);
+		 ti.setPago(false);
+	
+		assertEquals(esperado, ti.isPago());
 	}
 
 	@Test
 	public void testGetValor() {
-		valor = "1.45";
+		 float esperado = 2;
+		 ti = new Ticket(true, 2, con);
 		
-		assertEquals("1.45",valor);
+		assertEquals(esperado, ti.getValor(), 1);
 	}
 
 	@Test
 	public void testSetValor() {
-		valor = "1.45";
+		float esperado = 2;
+		 ti = new Ticket(true, 2, con);
 		
-		assertEquals("1.45",valor);
+		assertEquals(esperado, ti.getValor(), 1);
 	}
 
 	@Test
 	public void testGetConsumidor() {
-	consumidor = "joao";
+		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		ti = new Ticket(true, 1, con);
 		
-		assertEquals("joao",consumidor);
+		assertEquals("Jessica",ti.getConsumidor().getNome());
 	}
 
 	@Test
 	public void testSetConsumidor() {
-		consumidor = "joao";
+		Consumidor con2 = new Consumidor("Julia", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		ti = new Ticket(true, 1, con);
+		ti.setConsumidor(con2);
 		
-		assertEquals("joao",consumidor);
+		assertEquals("Julia",ti.getConsumidor().getNome());
 	}
 
 }
