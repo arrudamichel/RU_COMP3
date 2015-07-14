@@ -21,7 +21,7 @@ import br.uffrj.comp3.rusys.util.Constantes;
 
 
 
-@WebServlet("/Departamento")
+@WebServlet("/CadastrarDepartamento")
 public class CadDepartamento extends HttpServlet
 {
 	/**

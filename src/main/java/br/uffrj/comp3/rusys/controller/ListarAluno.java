@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.annotation.WebServlet;
+
 import br.uffrj.comp3.rusys.model.SexoEnum;
 import br.uffrj.comp3.rusys.model.TituloEnum;
 import br.uffrj.comp3.rusys.model.TurnoEnum;
@@ -18,7 +20,7 @@ import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 
-
+@WebServlet("/ListarAlunos")
 public class ListarAluno
 {
 	public ListarAluno()

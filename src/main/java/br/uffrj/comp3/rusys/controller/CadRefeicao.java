@@ -20,7 +20,7 @@ import br.uffrj.comp3.rusys.persintece.TurnoGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
 import br.uffrj.comp3.rusys.model.Refeicao;
 
-@WebServlet("/Refeicao")
+@WebServlet("/CadastrarRefeicao")
 public class CadRefeicao extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;

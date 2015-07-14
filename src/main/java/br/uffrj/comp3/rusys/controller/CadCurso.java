@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.Curso;
+import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.CursoVO;
+import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
 import br.uffrj.comp3.rusys.service.CursoHandler;
+import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 
@@ -25,11 +28,26 @@ public class CadCurso extends HttpServlet
 	{	
 		response.setContentType("text/html");
 		
-		String acao = (String) request.getParameter("acaoCriar");
+		String acao = (String) request.getParameter("acao");
+		
+		DepartamentoVO departamentoVO = new DepartamentoVO();
+		
+//		departamentoVO.set(); campos de consulta
+		
+		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		
+		request.setAttribute("departamentos", departamentos);
 
-		if (acao != null && acao.equals(Constantes.SALVAR))
+		if (acao != null)
 		{
-			cadastrar(request, response);
+			switch (acao)
+			{
+				case Constantes.SALVAR:
+					cadastrar(request, response);
+					break;
+				default:
+					request.getRequestDispatcher("ListarCursos").forward(request, response);
+			}
 		} 
 		else
 		{

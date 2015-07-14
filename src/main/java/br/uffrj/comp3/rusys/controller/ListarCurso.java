@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.annotation.WebServlet;
+
 import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
@@ -12,6 +14,7 @@ import br.uffrj.comp3.rusys.persintece.CursoGateway;
 import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
 
+@WebServlet("/ListarCursos")
 public class ListarCurso
 {
 

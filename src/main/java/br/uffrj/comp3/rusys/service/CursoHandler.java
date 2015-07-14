@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import br.uffrj.comp3.rusys.model.Curso;
+import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.CursoVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.CursoGateway;
@@ -35,6 +36,8 @@ public class CursoHandler
 			throw new Exception("falha.ao.cadastrar.curso");
 
 		conn.close();
+		
+		System.out.println("oiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 	}
 	
 	public static void atualizarCurso(Curso curso)
@@ -47,8 +50,9 @@ public class CursoHandler
 		
 	}
 	
-	public static void recuperarCursos(CursoVO cursoVO)
+	public static ArrayList<Curso> recuperarCursos(CursoVO cursoVO)
 	{
+		return null;
 		
 	}
 }
