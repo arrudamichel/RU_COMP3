@@ -48,7 +48,6 @@
             
             <table id="table-resultado" class="table">
                   <tr>
-                    <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
                     <th><%=Constantes.NOME%></th>
                     <th><%=Constantes.MATRICULA%></th>
                     <th><%=Constantes.ANOINGRESSO%></th>
@@ -63,10 +62,7 @@
 	                	String urlEditar="CadastrarFuncionario?acao="+ Constantes.ACAO_EDITAR+ "&matricula="+funcionarios.get(i).getMatricula();
              		   	String urlDelete ="CadastrarFuncionario?acao="+ Constantes.ACAO_DELETAR+ "&matricula="+funcionarios.get(i).getMatricula();
 	                  	if(i%2 == 0){ %>
-	                  	<tr class="odd">
-	                  	    <td>
-                    			<input type="checkbox" class="checkbox" name="id" value=<%=funcionarios.get(i).getMatricula()%> />
-                    		</td>                   
+	                  	<tr class="odd">	                  	                       
 	                        <td><%=funcionarios.get(i).getNome()%></td>                                              
 	                        <td><%=funcionarios.get(i).getMatricula()%></td>
 	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>
@@ -76,10 +72,7 @@
 	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>              
 	                    </tr>
 	                <% } else { %>
-	                    <tr class="even">
-	                    	<td>
-	                    		<input type="checkbox" class="checkbox" name="id" value=<%=funcionarios.get(i).getMatricula()%> />
-                    		</td>                        
+	                    <tr class="even">                      
 							<td><%=funcionarios.get(i).getNome()%></td>                                              
 	                        <td><%=funcionarios.get(i).getMatricula()%></td>
 	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>

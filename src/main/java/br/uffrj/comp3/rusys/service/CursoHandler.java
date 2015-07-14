@@ -30,7 +30,7 @@ public class CursoHandler
 		rs.next();
 		deptId = rs.getInt(1);
 
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(cursoVO.getNome(), cursoVO.getSigla(), rs.getInt(deptId)));
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(cursoVO.getNome(), cursoVO.getSigla(), deptId));
 
 		if (!cursoGateway.inserir(valores))
 			throw new Exception("falha.ao.cadastrar.curso");
