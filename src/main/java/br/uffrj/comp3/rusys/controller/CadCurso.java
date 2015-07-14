@@ -1,6 +1,7 @@
 package br.uffrj.comp3.rusys.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
@@ -43,7 +44,15 @@ public class CadCurso extends HttpServlet
 		
 //		departamentoVO.set(); campos de consulta
 		
-		Collection<Curso> cursos = CursoHandler.recuperarCursos(cursoVO);
+		Collection<Curso> cursos = null;
+		try
+		{
+			cursos = CursoHandler.recuperarCursos(cursoVO);
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("cursos", cursos);
 
@@ -60,7 +69,7 @@ public class CadCurso extends HttpServlet
 		} 
 		else
 		{
-			request.getRequestDispatcher("WEB-INF/CadCurso.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
 		}
 	}
 	
@@ -69,7 +78,7 @@ public class CadCurso extends HttpServlet
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
-		
+				
 		CursoVO cursoVO = new CursoVO();
 		
 		cursoVO.setNome(nome);
@@ -80,7 +89,7 @@ public class CadCurso extends HttpServlet
 		{
 			CursoHandler.cadastrarCurso(cursoVO);
 		    
-			String redirect = response.encodeRedirectURL("WEB-INF/CadCurso.jsp");
+			String redirect = response.encodeRedirectURL("/WEB-INF/CadCurso.jsp");
 			response.sendRedirect(redirect);			
 		} 
 		catch (Exception e)

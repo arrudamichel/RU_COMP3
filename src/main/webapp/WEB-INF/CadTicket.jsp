@@ -48,13 +48,19 @@
                   <input type="text" id="sitpag" name="sitpag" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
                 </div>
                 <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.REFEICAO%></label>
+                    <label class="label" for="post_title">Tipo da <%=Constantes.REFEICAO%></label>
                     <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
                 </div>
                 <div class="group">
+                    <label class="label" for="post_title"><%=Constantes.MATRICULA%></label>
+                    <input type="text"  id="matricula" name="matricula" class="text_field"  readonly/>     
+                    
+                    <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
+                </div>
+<%--                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.VALOR%></label>
                     <input type="text"  id="valor" name="valor" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field"  readonly/>     
-                </div>
+                </div> --%>
                 <div class="group navform wat-cf">
                   <button class="button" type="submit" id='salvar'>
                     <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>

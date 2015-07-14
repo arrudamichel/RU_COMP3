@@ -61,8 +61,8 @@
                        <%
                        	
                        	for(int i=0; i < refeicoes.size(); i++){
-                       		String urlEditar="Refeicao?acao="+ Constantes.ACAO_EDITAR+ "&id="+refeicoes.get(i).getIdentificador();
-                 		   	String urlDelete ="Refeicao?acao="+ Constantes.ACAO_DELETAR+ "&id="+refeicoes.get(i).getIdentificador();
+                       		String urlEditar="CadastrarRefeicao?acao="+ Constantes.ACAO_EDITAR+ "&id="+refeicoes.get(i).getIdentificador();
+                 		   	String urlDelete ="CadastrarRefeicao?acao="+ Constantes.ACAO_DELETAR+ "&id="+refeicoes.get(i).getIdentificador();
                        		if(i%2 == 0){
                        %>
                        <tr class="odd">                                        

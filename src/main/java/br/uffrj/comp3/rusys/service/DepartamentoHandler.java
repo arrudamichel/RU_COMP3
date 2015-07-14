@@ -31,7 +31,10 @@ public class DepartamentoHandler
 	
 	public static void atualizarDepartamento(Departamento departamento)
 	{
+//		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+//		DepartamentoGateway dg = new DepartamentoGateway(conn);
 		
+	
 	}
 	
 	public static void excluirDepartamento(Departamento departamento)
@@ -65,5 +68,11 @@ public class DepartamentoHandler
 		}
 		return departamentos;
 		
+	}
+
+	public static Departamento recuperarDepartamento(int departametnoId)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

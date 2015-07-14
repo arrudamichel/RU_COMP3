@@ -39,7 +39,6 @@
             
             <table id="table-resultado" class="table">
               <tr>
-                <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
                 <th><%=Constantes.NOME%></th>
                 <th><%=Constantes.SIGLA%></th>
                 <th class="last">&nbsp;</th>
@@ -47,20 +46,14 @@
               <%               
              for(int i=0; i < departamentos.size(); i++) {
                	if(i%2 == 0){ %>
-               	<tr class="odd">
-               	    <td>
-                			<input type="checkbox" class="checkbox" name="id" value=<%=departamentos.get(i).getIdentificador()%> />
-                		</td>                   
+               	<tr class="odd">                  
                      <td><%=departamentos.get(i).getNome()%></td>                                              
                      <td><%=departamentos.get(i).getSigla()%></td>
                      <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>
                  </tr>
              <% } else { %>
-                 <tr class="even">
-                 	<td>
-                 		<input type="checkbox" class="checkbox" name="id" value=<%=departamentos.get(i).getIdentificador()%> />
-                		</td>                        
-			<td><%=departamentos.get(i).getNome()%></td>                                              
+                 <tr class="even">                      
+					 <td><%=departamentos.get(i).getNome()%></td>                                              
                      <td><%=departamentos.get(i).getSigla()%></td>  
                      <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>
                  </tr>                    
