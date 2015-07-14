@@ -1,29 +1,20 @@
 package br.uffrj.comp3.rusys.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.TurnoEnum;
-import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
-import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
-import br.uffrj.comp3.rusys.persintece.TurnoGateway;
-import br.uffrj.comp3.rusys.service.DepartamentoHandler;
-import br.uffrj.comp3.rusys.util.Constantes;
 import br.uffrj.comp3.rusys.model.Refeicao;
-import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
+import br.uffrj.comp3.rusys.service.DepartamentoHandler;
+import br.uffrj.comp3.rusys.service.RefeicaoHandler;
+import br.uffrj.comp3.rusys.util.Constantes;
 
 @WebServlet("/CadastrarRefeicao")
 public class CadRefeicao extends HttpServlet
@@ -33,22 +24,28 @@ public class CadRefeicao extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
-response.setContentType("text/html");
+		response.setContentType("text/html");
 		
 		String acao = (String) request.getParameter("acao");
+		
+		RefeicaoVO refeicaoVO = new RefeicaoVO();
+		
+		Collection<Refeicao> refeicoes = RefeicaoHandler.recuperarRefeicoes(refeicaoVO);
+		
+		request.setAttribute("refeicoes", refeicoes);
 		
 		/*DepartamentoVO departamentoVO = new DepartamentoVO();
 				
 		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
 		
 		request.setAttribute("departamentos", departamentos);*/
-
+		
 		if (acao != null)
 		{
 			switch (acao)
 			{
 				case Constantes.SALVAR:
-					//cadastrar(request, response);
+					cadastrar(request, response);
 					break;
 				default:
 					request.getRequestDispatcher("CadastrarRefeicao").forward(request, response);
@@ -122,6 +119,28 @@ response.setContentType("text/html");
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/CadRefeicao.jsp");
 		rd.forward(request, response);*/
 
+	}
+	
+	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		String descricao = request.getParameter("descricao");
+		String opcaoVeg = request.getParameter("opVeg");
+		String turno = request.getParameter("turno");
+
+		
+		RefeicaoVO refeicaoVO = new RefeicaoVO();
+		refeicaoVO.setDescricao(descricao);
+		refeicaoVO.setOpcaoVeg(opcaoVeg);
+		refeicaoVO.setTurno(TurnoEnum.valueOf(turno));
+		
+		try
+		{
+			RefeicaoHandler.cadastrarRefeicao(refeicaoVO);
+		} 
+		catch (Exception e)
+		{
+			request.setAttribute("mensagem", Constantes.ERRO);
+		}
 	}
 
 	@Override

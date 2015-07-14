@@ -1,6 +1,8 @@
 <%@page import="br.uffrj.comp3.rusys.model.Refeicao"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page import="br.uffrj.comp3.rusys.model.TurnoEnum"%>
+<%@page import="java.util.ArrayList"%>
+
 <%@page contentType="text/html; charset=ISO-8859-1" language="java"
 	pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
@@ -8,10 +10,14 @@
 <%
 	//se tivesse verificacao de login, aqui que ele seria programado
 
-	String mensagem = request.getAttribute("mensagem") == null ? "" : (String) request.getAttribute("mensagem");
+	/* String mensagem = request.getAttribute("mensagem") == null ? "" : (String) request.getAttribute("mensagem");
 
 	String acao = (String) request.getParameter("acao");
-	Refeicao refeicao  = (Refeicao) request.getAttribute("refeicao");
+	Refeicao refeicao  = (Refeicao) request.getAttribute("refeicao"); */
+	
+	ArrayList<Refeicao> refeicoes = (ArrayList<Refeicao>)request.getAttribute("refeicoes");
+	
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -41,8 +47,41 @@
 				</div>
 				<div class="content">
 					<h2 class="title"><%=Constantes.CADREFEICAO%></h2>
+					<table class="table">
+                       <tr>
+                           <th class="first"><input type="checkbox" class="checkbox toggle" /></th>
+                           <th><%=Constantes.TURNO%></th>
+                           <th><%=Constantes.DESCRICAO%></th>
+                           <th><%=Constantes.OPVEG%></th>
+                           <th class="last">&nbsp;</th>
+                       </tr>
+                       
+                       <%
+                       	
+                       	for(int i=0; i < refeicoes.size(); i++){
+                       		if(i%2 == 0){
+                       %>
+                       <tr class="odd">                                        
+                           <td><input type="checkbox" class="checkbox" name="id" value=<%=refeicoes.get(i).getIdentificador()%> /></td>
+                           <td><%=refeicoes.get(i).getTurno()%></td>
+                           <td><%=refeicoes.get(i).getDescricao()%></td>
+                           <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
+                           <td class="last"><a href="Refeicao?acao=<%=Constantes.ACAO_EDITAR%>&id=<%=refeicoes.get(i).getIdentificador() %>"><%=Constantes.EDITAR%></a> </td>
+                       </tr>
+                       <%      } else { %>
+                       <tr class="even">
+                           <td><input type="checkbox" class="checkbox" name="id" value=<%=refeicoes.get(i).getIdentificador()%> /></td>
+                           <td><%=refeicoes.get(i).getTurno()%></td>
+                           <td><%=refeicoes.get(i).getDescricao()%></td>
+                           <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
+                           <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>
+                       </tr>
+                       
+                       <%		}  
+                       	}%>
+                   </table>
 					<div class="inner">
-						<%
+						<%-- <%
 							if (mensagem.contains("Erro")) {
 						%>
 						<div
@@ -58,15 +97,14 @@
 						</div>
 						<%
 							}
-						%>
-						<form id="FrmRefeicao" name="FrmRefeicao" action="Refeicao" method="POST" class="form" onLoad="return ComportamentoTela('<%=acao%>');">
-							<input type="hidden" id="acao" name="acao" value="<%=acao%>">
+						%> --%>
+						<form id="FrmRefeicao" name="FrmRefeicao" action="CadastrarRefeicao" method="POST" class="form">
 							<input type="hidden" id="id" name="id"
-								<% if (refeicao != null && refeicao.getIdentificador() != 0 ) { out.print(" value = '" + refeicao.getIdentificador() + "'"); }%>>
+								<%-- <% if (refeicao != null && refeicao.getIdentificador() != 0 ) { out.print(" value = '" + refeicao.getIdentificador() + "'"); }%>> --%>>
 							<div class="group">
 								<label class="label"><%=Constantes.DESCRICAO%></label> <input
 									type="text" id="descricao" name="descricao"
-									<% if (refeicao != null && refeicao.getDescricao() != null ) { out.print(" value = '" + refeicao.getDescricao() + "'"); }%>
+									<%-- <% if (refeicao != null && refeicao.getDescricao() != null ) { out.print(" value = '" + refeicao.getDescricao() + "'"); }%> --%>
 									class="text_field" />
 							</div>
 							<div class="group">
@@ -85,17 +123,17 @@
 									<%
 										}
 									%> --%>
+									<option value="MANHA">MANHA</option>
 								</select>
 							</div>
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.OPVEG%></label>
 								<input type="text" id="opVeg" name="opVeg"
-									<%if (refeicao != null && refeicao.getOpcaoVeg() != null ) { out.print(" value = '" + refeicao.getOpcaoVeg() + "'"); }%>
+									<%-- <%if (refeicao != null && refeicao.getOpcaoVeg() != null ) { out.print(" value = '" + refeicao.getOpcaoVeg() + "'"); }%> --%>
 									class="text_field" />
 							</div>
 							<div class="group navform wat-cf">
-								<button class="button" type="submit" id='salvar'>
-									<img src="Images/icons/tick.png" alt="Save" />
+								<button class="button" type="submit" id='salvar' name='acao' value="<%=Constantes.SALVAR%>">				
 									<%=Constantes.SALVAR%>
 								</button>
 								<span class="text_button_padding">Ou</span> <a
