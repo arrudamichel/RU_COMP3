@@ -48,7 +48,7 @@
 							</div>
 
 							<div class="group">
-								<label class="label" for="post_title"><%=Constantes.TURNO%></label>
+								<label class="label" for="post_title"><%=Constantes.DEPTO%></label>
 								<%
 									/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));
 								%>
