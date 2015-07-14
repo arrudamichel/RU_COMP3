@@ -89,14 +89,6 @@ public abstract class Consumidor
 		this.cpf = cpf;
 	}
 
-	public List<Ticket> getTickets()
-	{
-		return new ArrayList(tickets);
-	}
 
-	public void setTickets(List<Ticket> tickets)
-	{
-		this.tickets = tickets;
-	}
 
 }

@@ -71,7 +71,7 @@ public class Constantes
 	final public static String LISTTURNO = "Lista de " + TURNO + "s de " + REFEICAO;
 	final public static String TICKET = "Ticket";
 	final public static String LISTTICKET = "Lista de " + TICKET + "s de " + REFEICAO;
-	final public static String CADTICKET = "Cadastro de " + TICKET + "s";
+	final public static String CADTICKET = "Compra de " + TICKET + "s";
 
 	final public static String VALOR = "Pre&ccedilo";
 
