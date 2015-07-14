@@ -3,15 +3,14 @@ package br.uffrj.comp3.gateway;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import br.uffrj.comp3.model.Constantes;
-import br.uffrj.comp3.model.Refeicao;
-import br.uffrj.comp3.model.Turno;
-import br.ufrrj.comp3.gateway.ConnectionFactory;
-import br.ufrrj.comp3.gateway.RefeicaoGateway;
-import br.ufrrj.comp3.gateway.TurnoGateway;
+import br.uffrj.comp3.rusys.model.Refeicao;
+import br.uffrj.comp3.rusys.model.TurnoEnum;
+import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
+import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
+import br.uffrj.comp3.rusys.persintece.TurnoGateway;
+import br.uffrj.comp3.rusys.util.Constantes;
+
 
 public class RefeicaoGatewayTest {
 
@@ -20,7 +19,7 @@ public class RefeicaoGatewayTest {
 		Refeicao refeicao = new Refeicao();
 		refeicao.setDescricao("Refeicao de Teste");
 		refeicao.setOpcaoVeg("Vag de Test");
-		refeicao.setTurno(Turno.valueOf("TARDE"));
+		refeicao.setTurno(TurnoEnum.valueOf("TARDE"));
 		
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);

@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.uffrj.comp3.model.Constantes;
-import br.ufrrj.comp3.gateway.ConnectionFactory;
-import br.ufrrj.comp3.gateway.DepartamentoGateway;
+import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
+import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
+import br.uffrj.comp3.rusys.util.Constantes;
+
+
 
 public class DepartamentoGatewayTest {
 

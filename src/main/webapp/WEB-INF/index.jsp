@@ -1,0 +1,1 @@
+<% request.getRequestDispatcher("/Inicio").forward(request, response); %>

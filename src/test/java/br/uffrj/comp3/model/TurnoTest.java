@@ -2,16 +2,17 @@ package br.uffrj.comp3.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import br.ufrrj.comp3.gateway.ConnectionFactory;
-import br.ufrrj.comp3.gateway.RefeicaoGateway;
-import br.ufrrj.comp3.gateway.TurnoGateway;
+import br.uffrj.comp3.rusys.model.TurnoEnum;
+import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
+import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
+import br.uffrj.comp3.rusys.persintece.TurnoGateway;
+import br.uffrj.comp3.rusys.util.Constantes;
 
 public class TurnoTest {
 
 	public static void main(String[] args) throws SQLException {
 
-		for (Turno turno : Turno.values()) {
+		for (TurnoEnum turno : TurnoEnum.values()) {
 			System.out.println("<option value=\"" + turno.toString() + "\">" + turno.toString() + "<option>");
 		}
 		

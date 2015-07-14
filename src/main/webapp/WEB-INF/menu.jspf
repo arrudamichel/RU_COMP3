@@ -1,0 +1,14 @@
+<%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
+<div id='header'>
+	<h1><a href='index.jsp'><%=Constantes.RU%></a></h1>
+	<div id='main-navigation'>
+		<ul class='wat-cf'>
+			<li><a href='CadastrarRefeicao'><%=Constantes.REFEICAO%></a></li>
+			<li><a href='CadastrarAluno'><%=Constantes.ALUNOS%></a></li>
+			<li><a href='CadastrarFuncionario'><%=Constantes.FUNCIONARIO%></a></li>
+			<li><a href='CadastrarDepartamento'><%=Constantes.DEPTO%></a></li>
+			<li><a href='CadastrarCurso'><%=Constantes.CURSO%></a></li>
+			<li><a href='CadastrarTicket'><%=Constantes.TICKET%></a></li>
+		</ul>
+	</div>
+</div>
