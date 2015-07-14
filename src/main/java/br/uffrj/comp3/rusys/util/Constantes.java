@@ -62,7 +62,7 @@ public class Constantes
 
 	final public static String SEXO = "Sexo ";
 	final public static String SALVAR = "Salvar ";
-	final public static String EXCLUIR = "Excluir ";
+	final public static String EXCLUIR = "Excluir";
 	final public static String SIGLA = "Sigla ";
 	final public static String SITPAGO = "Situa&ccedil&atildeo do Pagamento ";
 

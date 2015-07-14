@@ -16,6 +16,7 @@
 	Refeicao refeicao  = (Refeicao) request.getAttribute("refeicao"); */
 	
 	ArrayList<Refeicao> refeicoes = (ArrayList<Refeicao>)request.getAttribute("refeicoes");
+	ArrayList<TurnoEnum> turnos = (ArrayList<TurnoEnum>)request.getAttribute("turnos");
 	
 
 %>
@@ -116,20 +117,13 @@
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.TURNO%></label>
 								<select id="turno" name="turno">
-									<%-- <%
-										for (Turno turno : Turno.values()) {
+									<%
+										for(int i=0; i < turnos.size(); i++){
 									%>
-									<option value='<%=turno.toString()%>' <% 
-										if((refeicao !=null) 
-												&& 
-												(refeicao.getTurno().toString().equals(turno.toString()))) 
-											out.print("selected = 'true'") ;%>>
-										<%=turno.toString()%>
-									</option>
+									<option value="<%=turnos.get(i)%>"><%=turnos.get(i)%></option>
 									<%
 										}
-									%> --%>
-									<option value="MANHA">MANHA</option>
+									%>
 								</select>
 							</div>
 							<div class="group">

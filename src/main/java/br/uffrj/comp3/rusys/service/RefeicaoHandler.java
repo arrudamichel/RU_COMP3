@@ -40,7 +40,7 @@ public class RefeicaoHandler {
 				refeicaoVO.getOpcaoVeg(), turnoId));
 
 		if (!refeicaoGateway.inserir(valores))
-		throw new Exception("falha.ao.cadastrar.departamento");
+		throw new Exception("falha.ao.cadastrar.refeicao");
 		
 		conn.close();
 
@@ -51,9 +51,13 @@ public class RefeicaoHandler {
 		
 	}
 	
-	public static void excluirRefeicao(RefeicaoVO refeicaoVO)
+	public static void excluirRefeicao(RefeicaoVO refeicaoVO) throws Exception
 	{
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		RefeicaoGateway rg = new RefeicaoGateway(conn);
 		
+		if (!rg.desativarRefeicao(refeicaoVO.getIdentificador()));
+			throw new Exception("falha.ao.cadastrar.refeicao");
 	}
 	
 	public static ArrayList<Refeicao> recuperarRefeicoes(RefeicaoVO refeicaoVO)
