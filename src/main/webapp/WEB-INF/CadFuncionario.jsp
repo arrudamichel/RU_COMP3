@@ -60,6 +60,8 @@
                    <%
 	                  
 	                for(int i=0; i < funcionarios.size(); i++) {
+	                	String urlEditar="CadastrarFuncionario?acao="+ Constantes.ACAO_EDITAR+ "&id="+funcionarios.get(i).getMatricula();
+             		   	String urlDelete ="CadastrarFuncionario?acao="+ Constantes.ACAO_DELETAR+ "&id="+funcionarios.get(i).getMatricula();
 	                  	if(i%2 == 0){ %>
 	                  	<tr class="odd">
 	                  	    <td>
@@ -70,7 +72,8 @@
 	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>
 	                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
 	                        <td><%=funcionarios.get(i).getCpf()%></td>
-	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
+	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>              
 	                    </tr>
 	                <% } else { %>
 	                    <tr class="even">
@@ -82,7 +85,8 @@
 	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>
 	                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
 	                        <td><%=funcionarios.get(i).getCpf()%></td>
-	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                               
+	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
+	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>                        
 	                    </tr>                    
 	   	    	  	<%}  
 	          		}%> 

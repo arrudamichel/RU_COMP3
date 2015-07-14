@@ -1,6 +1,8 @@
 package br.uffrj.comp3.rusys.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
@@ -34,11 +36,10 @@ public class CadRefeicao extends HttpServlet
 		
 		request.setAttribute("refeicoes", refeicoes);
 		
-		/*DepartamentoVO departamentoVO = new DepartamentoVO();
-				
-		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
 		
-		request.setAttribute("departamentos", departamentos);*/
+		Collection<TurnoEnum> turnos = (Collection<TurnoEnum>) new ArrayList<TurnoEnum>(Arrays.asList(TurnoEnum.values()));
+		
+		request.setAttribute("turnos", turnos);
 		
 		if (acao != null)
 		{
@@ -47,13 +48,19 @@ public class CadRefeicao extends HttpServlet
 				case Constantes.SALVAR:
 					cadastrar(request, response);
 					break;
+				case Constantes.EXCLUIR:
+					excluir(request, response);
+					break;
+				case Constantes.EDITAR:
+					editar(request, response);
+					break;
 				default:
 					request.getRequestDispatcher("CadastrarRefeicao").forward(request, response);
 			}
 		} 
 		else
 		{
-			request.getRequestDispatcher("WEB-INF/CadRefeicao.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/CadRefeicao.jsp").forward(request, response);
 		}
 		
 		/*response.setContentType("text/html");
@@ -121,6 +128,30 @@ public class CadRefeicao extends HttpServlet
 
 	}
 	
+	private void editar(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void excluir(HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		String identificador = request.getParameter("id");
+
+		RefeicaoVO refeicaoVO = new RefeicaoVO();
+		refeicaoVO.setIdentificador(Integer.parseInt(identificador));
+		
+		try
+		{
+			RefeicaoHandler.excluirRefeicao(refeicaoVO);
+		} 
+		catch (Exception e)
+		{
+			request.setAttribute("mensagem", Constantes.ERRO);
+		}
+		
+	}
+
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String descricao = request.getParameter("descricao");

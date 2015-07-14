@@ -1,4 +1,4 @@
-package br.uffrj.comp3.rusys.model.vo;
+package br.uffrj.comp3.rusys.service;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,6 +11,7 @@ import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.SexoEnum;
 import br.uffrj.comp3.rusys.model.TituloEnum;
+import br.uffrj.comp3.rusys.model.vo.FuncionarioVO;
 import br.uffrj.comp3.rusys.persintece.AlunoGateway;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
@@ -90,6 +91,15 @@ public class FuncionarioHandler {
 		}
 
 		return funcionarios;
+	}
+
+	public static void excluirFuncionario(FuncionarioVO funcionarioVO) throws Exception {
+		
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		ConsumidorGateway cg = new ConsumidorGateway(conn);
+		
+		if (!cg.desativarConsumidor(funcionarioVO.getMatricula()));
+			throw new Exception("falha.ao.cadastrar.funcionario");
 	}
 
 	

@@ -51,7 +51,7 @@
             
             <table id="table-resultado" class="table">
                   <tr>
-                    <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
+                    <th class="first"></th>
                     <th><%=Constantes.NOME%></th>
                     <th><%=Constantes.MATRICULA%></th>
                     <th><%=Constantes.ANOINGRESSO%></th>
@@ -61,29 +61,31 @@
                   </tr>
                   <%	                  
 	                for(int i=0; i < alunos.size(); i++) {
+	                	String urlEditar="CadastrarAluno?acao="+ Constantes.ACAO_EDITAR+ "&id="+alunos.get(i).getMatricula();
+             		   	String urlDelete ="CadastrarAluno?acao="+ Constantes.ACAO_DELETAR+ "&id="+alunos.get(i).getMatricula();
+             		   	
 	                  	if(i%2 == 0){ %>
-	                  	<tr class="odd">
-	                  	    <td>
-                    			<input type="checkbox" class="checkbox" name="id" value=<%=alunos.get(i).getMatricula()%> />
-                    		</td>                   
+	                  	<tr class="odd">                 	    
+                    		<input type="hidden" name="id" value=<%=alunos.get(i).getMatricula()%> />                  
 	                        <td><%=alunos.get(i).getNome()%></td>
 	                        <td><%=alunos.get(i).getMatricula()%></td>
 	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
 	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
 	                        <td><%=alunos.get(i).getCpf()%></td>
-	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
+	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	                        
+	                                                
 	                    </tr>
 	                <% } else { %>
 	                    <tr class="even">
-	                  	    <td>
-                    			<input type="checkbox" class="checkbox" name="id" value=<%=alunos.get(i).getMatricula()%> />
-                    		</td>                   
+                    		<input type="hidden" name="id" value=<%=alunos.get(i).getMatricula()%>/>                 
 	                        <td><%=alunos.get(i).getNome()%></td>
 	                        <td><%=alunos.get(i).getMatricula()%></td>
 	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
 	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
 	                        <td><%=alunos.get(i).getCpf()%></td>
-	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
+	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	                   
 	                    </tr>                    
 	            	<%}  
 	           		}%>
