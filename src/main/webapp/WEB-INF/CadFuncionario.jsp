@@ -1,14 +1,21 @@
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
+<%@page import="br.uffrj.comp3.rusys.model.Funcionario"%>
+<%@page import="br.uffrj.comp3.rusys.model.Departamento"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
 <%
 	//se tivesse verificacao de login, aqui que ele seria programado
     
-	String mensagem = request.getAttribute("mensagem") == null ? "" : (String)request.getAttribute("mensagem");
+	/* String mensagem = request.getAttribute("mensagem") == null ? "" : (String)request.getAttribute("mensagem");
 
-	String acao = (String)request.getAttribute("acao");
+	String acao = (String)request.getAttribute("acao"); */
 	
+	ArrayList<Funcionario> funcionarios = (ArrayList<Funcionario>)request.getAttribute("funcionarios");
+	
+	ArrayList<Departamento> departamentos = (ArrayList<Departamento>)request.getAttribute("departamentos");
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -38,10 +45,51 @@
           </div>
           <div class="content">
             <h2 class="title"><%=Constantes.CADFUNC%> </h2>
+            
+            <table id="table-resultado" class="table">
+                  <tr>
+                    <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
+                    <th><%=Constantes.NOME%></th>
+                    <th><%=Constantes.MATRICULA%></th>
+                    <th><%=Constantes.ANOINGRESSO%></th>
+                    <th><%=Constantes.DEPTO%></th>
+                    <th><%=Constantes.CPF%></th>
+                    <th class="last">&nbsp;</th>
+                  </tr>
+                  <% //for(Fundamento fundamento : new FundamentoBll().getLista()) { %>
+                   <%
+	                  
+	                for(int i=0; i < funcionarios.size(); i++) {
+	                  	if(i%2 == 0){ %>
+	                  	<tr class="odd">
+	                  	    <td>
+                    			<input type="checkbox" class="checkbox" name="id" value=<%=funcionarios.get(i).getMatricula()%> />
+                    		</td>                   
+	                        <td><%=funcionarios.get(i).getNome()%></td>                                              
+	                        <td><%=funcionarios.get(i).getMatricula()%></td>
+	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>
+	                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
+	                        <td><%=funcionarios.get(i).getCpf()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                    </tr>
+	                <% } else { %>
+	                    <tr class="even">
+	                    	<td>
+	                    		<input type="checkbox" class="checkbox" name="id" value=<%=funcionarios.get(i).getMatricula()%> />
+                    		</td>                        
+							<td><%=funcionarios.get(i).getNome()%></td>                                              
+	                        <td><%=funcionarios.get(i).getMatricula()%></td>
+	                        <td><%=funcionarios.get(i).getAnoDeIngresso()%></td>
+	                        <td><%=funcionarios.get(i).getDepartamento().getSigla()%></td>
+	                        <td><%=funcionarios.get(i).getCpf()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                               
+	                    </tr>                    
+	   	    	  	<%}  
+	          		}%> 
+                </table>
+            
             <div class="inner">
-            	<%=mensagem%>
-              <form id="Frmpergunta" name="FrmFuncionario" action="Funcionario" method="POST" class="form">
-              <input type = "hidden" id="acao" name = "acao" value="<%=acao%>">
+              <form id="Frmpergunta" name="FrmFuncionario" action="CadastrarFuncionario" method="POST" class="form">
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>
@@ -64,9 +112,9 @@
                     <label class="label" for="post_title"><%=Constantes.TITULO%></label>
                     <select id ="titulo" name="titulo">
                         <option value="">Selecione</option>
-                        <option value="e"><%=Constantes.ESPECIALIZACAO%></option>
-                        <option value="e"><%=Constantes.MESTRADO%></option>
-                        <option value="e"><%=Constantes.DOUTORADO%></option>
+                        <option value="ESPECIALIZACAO"><%=Constantes.ESPECIALIZACAO%></option>
+                        <option value="MESTRADO"><%=Constantes.MESTRADO%></option>
+                        <option value="DOUTORADO"><%=Constantes.DOUTORADO%></option>
                     </select>           
                 </div>
                 
@@ -76,12 +124,14 @@
              	</div>
      	         <div class="group">
                     <label class="label" for="post_title"><%=Constantes.DEPTO%></label>
-                    <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
+                    <select id ="departamento" name="departamento">
+                    <% for(Departamento departamento : departamentos){ %>
+                        <option value="<%=departamento.getIdentificador()%>"><%=departamento.getNome()%></option>
+                    <% } %>                        
+                    </select>
                 </div>
                 <div class="group navform wat-cf">
-                  <button class="button" type="submit" id='salvar'>
-                    <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>
-                  </button>
+                  <button class="button" type="submit" id='salvar' name="acao" value="<%=Constantes.SALVAR%>"><%=Constantes.SALVAR%></button>
                   <span class="text_button_padding">Ou</span>
                   <a class="text_button_padding link_button" href="ListarFuncionarios.jsp"><%=Constantes.CANCELAR%></a>
                 </div>

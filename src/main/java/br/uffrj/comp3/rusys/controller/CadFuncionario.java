@@ -2,6 +2,7 @@ package br.uffrj.comp3.rusys.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.Departamento;
+import br.uffrj.comp3.rusys.model.Funcionario;
+import br.uffrj.comp3.rusys.model.vo.AlunoVO;
+import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.model.vo.FuncionarioHandler;
+import br.uffrj.comp3.rusys.model.vo.FuncionarioVO;
+import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 
@@ -25,11 +32,17 @@ public class CadFuncionario extends HttpServlet
 		
 		String acao = (String) request.getParameter("acao");
 		
-		/*DepartamentoVO departamentoVO = new DepartamentoVO();
-				
+		FuncionarioVO funcionarioVO = new FuncionarioVO();
+		
+		Collection<Funcionario> funcionarios = FuncionarioHandler.recuperarFuncionarios(funcionarioVO);
+		
+		request.setAttribute("funcionarios", funcionarios);
+		
+		DepartamentoVO departamentoVO = new DepartamentoVO();
+		
 		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
 		
-		request.setAttribute("departamentos", departamentos);*/
+		request.setAttribute("departamentos", departamentos);
 
 		if (acao != null)
 		{
@@ -50,21 +63,33 @@ public class CadFuncionario extends HttpServlet
 	
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		/*String nome = request.getParameter("nome");
-		String sigla = request.getParameter("sigla");
 
-		DepartamentoVO dptoVO = new DepartamentoVO();
-		dptoVO.setNome(nome);
-		dptoVO.setSigla(sigla);	
+		String nome = request.getParameter("nome");
+		String matricula = request.getParameter("matricula");
+		String ano = request.getParameter("anoIngresso");
+		String sexo = request.getParameter("sexo");
+		String titulo = request.getParameter("titulo");
+		String cpf = request.getParameter("cpf");
+		String departamento = request.getParameter("departamento");
+		
+		FuncionarioVO funcionarioVO = new FuncionarioVO();
+		
+		funcionarioVO.setNome(nome);
+		funcionarioVO.setMatricula(Integer.parseInt(matricula));
+		funcionarioVO.setAnoDeIngresso(ano);
+		funcionarioVO.setSexo(sexo);
+		funcionarioVO.setTitulo(titulo);
+		funcionarioVO.setCpf(cpf);
+		funcionarioVO.setDepartamento(Integer.parseInt(departamento));
 		
 		try
 		{
-			DepartamentoHandler.cadastrarDepartamento(dptoVO);
+			FuncionarioHandler.cadastrarDepartamento(funcionarioVO);
 		} 
 		catch (Exception e)
 		{
 			request.setAttribute("mensagem", Constantes.ERRO);
-		}*/
+		}
 	}
 
 	public ArrayList<Departamento> listaDepartamentos()
