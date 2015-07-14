@@ -37,6 +37,15 @@ public class CadCurso extends HttpServlet
 		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
 		
 		request.setAttribute("departamentos", departamentos);
+		
+		
+		CursoVO cursoVO = new CursoVO();
+		
+//		departamentoVO.set(); campos de consulta
+		
+		Collection<Curso> cursos = CursoHandler.recuperarCursos(cursoVO);
+		
+		request.setAttribute("cursos", cursos);
 
 		if (acao != null)
 		{
@@ -70,6 +79,9 @@ public class CadCurso extends HttpServlet
 		try
 		{
 			CursoHandler.cadastrarCurso(cursoVO);
+		    
+			String redirect = response.encodeRedirectURL("WEB-INF/CadCurso.jsp");
+			response.sendRedirect(redirect);			
 		} 
 		catch (Exception e)
 		{

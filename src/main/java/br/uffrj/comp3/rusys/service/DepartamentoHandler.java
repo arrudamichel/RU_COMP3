@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
@@ -18,20 +18,13 @@ public class DepartamentoHandler
 	{
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
-//		CursoGateway cursoGateway = new CursoGateway(conn);
-//		DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
-//
-//		ResultSet rs = deptGateway.selecionarDepartamentoPorNome(departamentoVO.getNomeDepartamento());
-//
-//		int deptId = -1;
-//
-//		rs.next();
-//		deptId = rs.getInt(1);
-//
-//		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamentoVO.getNome(), departamentoVO.getSigla(), rs.getInt(deptId)));
-//
-//		if (!cursoGateway.inserir(valores))
-//			throw new Exception("falha.ao.cadastrar.departamento");
+		DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
+		
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamentoVO.getNome(), 
+																		departamentoVO.getSigla()));
+
+		if (!deptGateway.inserir(valores))
+			throw new Exception("falha.ao.cadastrar.departamento");
 
 		conn.close();
 	}

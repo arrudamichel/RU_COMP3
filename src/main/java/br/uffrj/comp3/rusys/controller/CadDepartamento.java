@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.Departamento;
+import br.uffrj.comp3.rusys.model.vo.CursoVO;
+import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
+import br.uffrj.comp3.rusys.service.CursoHandler;
+import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 
@@ -31,7 +36,35 @@ public class CadDepartamento extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String nome = request.getParameter("nome");
+		
+		response.setContentType("text/html");
+		
+		String acao = (String) request.getParameter("acao");
+		
+		DepartamentoVO departamentoVO = new DepartamentoVO();
+				
+		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		
+		request.setAttribute("departamentos", departamentos);
+
+		if (acao != null)
+		{
+			switch (acao)
+			{
+				case Constantes.SALVAR:
+					cadastrar(request, response);
+					break;
+				default:
+					request.getRequestDispatcher("ListarCursos").forward(request, response);
+			}
+		} 
+		else
+		{
+			request.getRequestDispatcher("WEB-INF/CadDepartamento.jsp").forward(request, response);
+		}
+		
+		
+		/*String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 
 		Departamento departamento = new Departamento();
@@ -61,6 +94,25 @@ public class CadDepartamento extends HttpServlet
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+		}*/
+	}
+	
+	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		String nome = request.getParameter("nome");
+		String sigla = request.getParameter("sigla");
+
+		DepartamentoVO dptoVO = new DepartamentoVO();
+		dptoVO.setNome(nome);
+		dptoVO.setSigla(sigla);	
+		
+		try
+		{
+			DepartamentoHandler.cadastrarDepartamento(dptoVO);
+		} 
+		catch (Exception e)
+		{
+			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 	}
 
@@ -93,5 +145,10 @@ public class CadDepartamento extends HttpServlet
 		}
 
 		return departamentos;
+	}
+	
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+	{
+		doPost(req, resp);
 	}
 }
