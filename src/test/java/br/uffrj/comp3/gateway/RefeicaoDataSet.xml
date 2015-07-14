@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <refeicao descricao="Arroz com bife ao molho verde" opcaoVegetariana="Bolinho de alface" Turno_idTurno="1" situacao="1"/>
+    <refeicao descricao="Arroz com frango" opcaoVegetariana="Bolinho de cenoura" Turno_idTurno="1" situacao="1"/>
+    <refeicao descricao="Arroz com peixe" opcaoVegetariana="Bolinho de batata" Turno_idTurno="2" situacao="1"/>
+    <refeicao descricao="Arroz com carré" opcaoVegetariana="Bolinho de chuchu" Turno_idTurno="3" situacao="1"/>
+    <refeicao descricao="Arroz com lombo" opcaoVegetariana="Bolinho de feijão" Turno_idTurno="1" situacao="1"/>
+    <refeicao descricao="Arroz com pernil" opcaoVegetariana="Bolinho de angu" Turno_idTurno="2" situacao="1"/>
+</dataset>
