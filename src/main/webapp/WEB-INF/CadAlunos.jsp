@@ -61,8 +61,8 @@
                   </tr>
                   <%	                  
 	                for(int i=0; i < alunos.size(); i++) {
-	                	String urlEditar="CadastrarAluno?acao="+ Constantes.ACAO_EDITAR+ "&id="+alunos.get(i).getMatricula();
-             		   	String urlDelete ="CadastrarAluno?acao="+ Constantes.ACAO_DELETAR+ "&id="+alunos.get(i).getMatricula();
+	                	String urlEditar="CadastrarAluno?acao="+ Constantes.ACAO_EDITAR+ "&matricula="+alunos.get(i).getMatricula();
+             		   	String urlDelete ="CadastrarAluno?acao="+ Constantes.ACAO_DELETAR+ "&matricula="+alunos.get(i).getMatricula();
              		   	
 	                  	if(i%2 == 0){ %>
 	                  	<tr class="odd">                 	    

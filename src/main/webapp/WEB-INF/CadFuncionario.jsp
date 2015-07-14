@@ -60,8 +60,8 @@
                    <%
 	                  
 	                for(int i=0; i < funcionarios.size(); i++) {
-	                	String urlEditar="CadastrarFuncionario?acao="+ Constantes.ACAO_EDITAR+ "&id="+funcionarios.get(i).getMatricula();
-             		   	String urlDelete ="CadastrarFuncionario?acao="+ Constantes.ACAO_DELETAR+ "&id="+funcionarios.get(i).getMatricula();
+	                	String urlEditar="CadastrarFuncionario?acao="+ Constantes.ACAO_EDITAR+ "&matricula="+funcionarios.get(i).getMatricula();
+             		   	String urlDelete ="CadastrarFuncionario?acao="+ Constantes.ACAO_DELETAR+ "&matricula="+funcionarios.get(i).getMatricula();
 	                  	if(i%2 == 0){ %>
 	                  	<tr class="odd">
 	                  	    <td>
