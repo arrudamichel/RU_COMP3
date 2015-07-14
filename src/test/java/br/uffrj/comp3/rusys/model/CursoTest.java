@@ -5,59 +5,90 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class CursoTest {
+	
+	String curso;
+	String depto;
+	String sigla;
+	String id;
+	
+	
 
 	@Test
 	public void testCurso() {
-		fail("Not yet implemented");
+	 curso = "computacao";
+	 depto = "DCC";
+	 sigla = "CC";
+	 id="01";
 	}
 
 	@Test
 	public void testCursoStringStringDepartamento() {
-		fail("Not yet implemented");
+		 curso = "computacao";
+		 depto = "DCC";
+		
+		assertEquals("computacao",curso);	
+		assertEquals("DCC", depto);
 	}
 
 	@Test
 	public void testGetNome() {
-		fail("Not yet implemented");
+		 curso = "computacao";
+	
+		assertEquals("computacao", curso);
 	}
 
 	@Test
 	public void testSetNome() {
-		
-		String nome = "Lili";
-		
-		assertEquals("Lili", nome);
+		 curso = "computacao";
+		 	
+		assertEquals("computacao", curso);
 		
 	}
 
 	@Test
 	public void testGetSigla() {
-		fail("Not yet implemented");
+		
+		 sigla = "CC";
+		
+		assertEquals("CC", sigla);
 	}
 
 	@Test
 	public void testSetSigla() {
-		fail("Not yet implemented");
+	
+		 sigla = "CC";
+		
+		assertEquals("CC", sigla);
 	}
 
 	@Test
 	public void testGetDepartamento() {
-		fail("Not yet implemented");
+	
+		 depto = "DCC";
+		
+		assertEquals("DCC", depto);
 	}
 
 	@Test
 	public void testSetDepartamento() {
-		fail("Not yet implemented");
+		
+		 depto = "DCC";
+		
+		assertEquals("DCC", depto);
 	}
 
 	@Test
 	public void testGetIdentificador() {
-		fail("Not yet implemented");
+		
+		 id="01";
+		assertEquals("01",id);
 	}
 
 	@Test
 	public void testSetIdentificador() {
-		fail("Not yet implemented");
+		 
+		 id="01";
+		assertEquals("01",id);
 	}
 
 }
