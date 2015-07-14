@@ -1,10 +1,8 @@
 package br.uffrj.comp3.rusys.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Collection;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,76 +18,81 @@ import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 
-@WebServlet("/CadastrarCurso")
-public class CadCurso extends HttpServlet
+
+@WebServlet("/AtualizarCurso")
+public class AtualizarCurso extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{	
 		response.setContentType("text/html");
 		
 		String acao = (String) request.getParameter("acao");
 		
-		DepartamentoVO departamentoVO = new DepartamentoVO();
+		String cursoId = (String) request.getParameter("cursoId");
 		
-//		departamentoVO.set(); campos de consulta
+		DepartamentoVO departamentoVO = new DepartamentoVO();
 		
 		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
 		
 		request.setAttribute("departamentos", departamentos);
 		
+		Curso curso = null;
 		
-		CursoVO cursoVO = new CursoVO();
-		
-//		departamentoVO.set(); campos de consulta
-		
-		Collection<Curso> cursos = null;
-		try
-		{
-			cursos = CursoHandler.recuperarCursos(cursoVO);
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("cursos", cursos);
-
 		if (acao != null)
 		{
 			switch (acao)
 			{
 				case Constantes.SALVAR:
-					cadastrar(request, response);
+					atualizar(cursoId,request, response);
 					break;
 				default:
-					request.getRequestDispatcher("ListarCursos").forward(request, response);
+					request.getRequestDispatcher("ListarCursos").forward(request, response);			
 			}
 		} 
 		else
 		{
-			request.getRequestDispatcher("WEB-INF/CadCurso.jsp").forward(request, response);
+			try
+			{
+				curso = CursoHandler.recuperarCurso(Integer.parseInt(cursoId));
+				request.setAttribute("curso", curso);
+				request.getRequestDispatcher("WEB-INF/AtualizarCurso.jsp").forward(request, response);
+			} 
+			catch (Exception e)
+			{
+				request.setAttribute("erro", "O curso informado nao existe");
+				request.getRequestDispatcher("WEB-INF/AtualizarCurso.jsp").forward(request, response);
+			}
 		}
 	}
 	
-	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	private void atualizar(String cursoId, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
 		
-		CursoVO cursoVO = new CursoVO();
-		
-		cursoVO.setNome(nome);
-		cursoVO.setSigla(sigla);
-		cursoVO.setNomeDepartamento(dept);
+		Curso curso = null;
 		
 		try
 		{
-			CursoHandler.cadastrarCurso(cursoVO);
+			curso = CursoHandler.recuperarCurso(Integer.parseInt(cursoId));
+		} 
+		catch (Exception e1)
+		{
+			// TODO tratar erros
+			e1.printStackTrace();
+		}
+		
+		curso.setNome(nome);
+		curso.setSigla(sigla);
+		curso.setDepartamento(DepartamentoHandler.recuperarDepartamento(Integer.parseInt(dept)));
+		
+		try
+		{
+			CursoHandler.atualizarCurso(curso);
 		    
-			String redirect = response.encodeRedirectURL("WEB-INF/CadCurso.jsp");
+			String redirect = response.encodeRedirectURL("ListarCursos");
 			response.sendRedirect(redirect);			
 		} 
 		catch (Exception e)
