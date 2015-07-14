@@ -53,7 +53,7 @@ public class CadRefeicao extends HttpServlet
 		} 
 		else
 		{
-			request.getRequestDispatcher("WEB-INF/CadRefeicao.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/CadRefeicao.jsp").forward(request, response);
 		}
 		
 		/*response.setContentType("text/html");
