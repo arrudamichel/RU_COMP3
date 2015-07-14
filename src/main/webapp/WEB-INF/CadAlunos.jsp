@@ -1,13 +1,23 @@
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
-<%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
+<%@page import="br.uffrj.comp3.rusys.model.Aluno"%>
+<%@page import="br.uffrj.comp3.rusys.model.Curso"%>
+<%@page import="java.util.ArrayList"%>
+<%@page contentType="text/html; charset=ISO-8859-1" language="java"
+	pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
+<%@include file="messagePage.jsp" %>
 <%
 	//se tivesse verificacao de login, aqui que ele seria programado
     
-	String mensagem = request.getAttribute("mensagem") == null ? "" : (String)request.getAttribute("mensagem");
+	/* String mensagem = request.getAttribute("mensagem") == null ? "" : (String)request.getAttribute("mensagem");
 
-	String acao = (String)request.getAttribute("acao");
+	String acao = (String)request.getAttribute("acao"); */
+	
+	ArrayList<Aluno> alunos = (ArrayList<Aluno>)request.getAttribute("alunos");
+	ArrayList<Curso> cursos = (ArrayList<Curso>)request.getAttribute("cursos");
+
+
 	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -38,8 +48,49 @@
           </div>
           <div class="content">
             <h2 class="title"><%=Constantes.CADALUNOS%> </h2>
+            
+            <table id="table-resultado" class="table">
+                  <tr>
+                    <th class="first"><input type="checkbox" id="check_todos" class="checkbox toggle" /></th>
+                    <th><%=Constantes.NOME%></th>
+                    <th><%=Constantes.MATRICULA%></th>
+                    <th><%=Constantes.ANOINGRESSO%></th>
+                    <th><%=Constantes.CURSO%></th>
+                    <th><%=Constantes.CPF%></th>
+                    <th class="last">&nbsp;</th>
+                  </tr>
+                  <%	                  
+	                for(int i=0; i < alunos.size(); i++) {
+	                  	if(i%2 == 0){ %>
+	                  	<tr class="odd">
+	                  	    <td>
+                    			<input type="checkbox" class="checkbox" name="id" value=<%=alunos.get(i).getMatricula()%> />
+                    		</td>                   
+	                        <td><%=alunos.get(i).getNome()%></td>
+	                        <td><%=alunos.get(i).getMatricula()%></td>
+	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
+	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
+	                        <td><%=alunos.get(i).getCpf()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                    </tr>
+	                <% } else { %>
+	                    <tr class="even">
+	                  	    <td>
+                    			<input type="checkbox" class="checkbox" name="id" value=<%=alunos.get(i).getMatricula()%> />
+                    		</td>                   
+	                        <td><%=alunos.get(i).getNome()%></td>
+	                        <td><%=alunos.get(i).getMatricula()%></td>
+	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
+	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
+	                        <td><%=alunos.get(i).getCpf()%></td>
+	                        <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>	                        
+	                    </tr>                    
+	            	<%}  
+	           		}%>
+                </table>
+            
             <div class="inner">
-            	<% if(mensagem.contains("Erro")){ %>
+            	<%-- <% if(mensagem.contains("Erro")){ %>
             		<div style="background-color:#FF9999; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
             			<%=mensagem%>
             		</div>
@@ -47,10 +98,9 @@
             		<div style="background-color:#CCFFCC; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
     					<%=mensagem%>
     				</div>
-    			<%} %>
+    			<%} %> --%>
 				
-              <form id="FrmAluno" name="FrmAluno" action="Aluno" method="POST" class="form">
-              <input type = "hidden" id="acao" name = "acao" value="<%=acao%>">
+              <form id="FrmAluno" name="FrmAluno" action="CadastrarAluno" method="POST" class="form">
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>
@@ -73,9 +123,9 @@
                     <label class="label" for="post_title"><%=Constantes.TITULO%></label>
                     <select id ="titulo" name="titulo">
                         <option value="">Selecione</option>
-                        <option value="e"><%=Constantes.ESPECIALIZACAO%></option>
-                        <option value="e"><%=Constantes.MESTRADO%></option>
-                        <option value="e"><%=Constantes.DOUTORADO%></option>
+                        <option value="ESPECIALIZACAO"><%=Constantes.ESPECIALIZACAO%></option>
+                        <option value="MESTRADO"><%=Constantes.MESTRADO%></option>
+                        <option value="DOUTORADO"><%=Constantes.DOUTORADO%></option>
                     </select>           
                 </div>
                 
@@ -85,10 +135,15 @@
                 </div>
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.CURSO%></label>
+                    <select id ="curso" name="curso">
+                    <% for(Curso curso : cursos){ %>
+                        <option value="<%=curso.getIdentificador()%>"><%=curso.getNome()%></option>
+                    <% } %>                        
+                    </select> 
                     <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
                 </div>
                 <div class="group navform wat-cf">
-                  <button class="button" type="submit" id='salvar'>
+                  <button class="button" type="submit" name="acao" value="<%=Constantes.SALVAR%>">
                     <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>
                   </button>
                   <span class="text_button_padding">Ou</span>

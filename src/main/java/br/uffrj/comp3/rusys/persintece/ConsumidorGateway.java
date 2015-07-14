@@ -21,7 +21,7 @@ public class ConsumidorGateway
 		{
 			String sql = "INSERT INTO \"consumidor\" (\"matricula\", \"nome\", \"ano_ingresso\", "
 					+ "								  \"sexo\", \"titulo\", \"cpf\", \"situacao\") "
-					+ "VALUES (?,?,?,?,?,?,?)";
+					+ "VALUES (?,?,?,?,?,?,1)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			// preenche os valores
