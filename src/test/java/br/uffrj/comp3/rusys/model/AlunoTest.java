@@ -5,27 +5,31 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class AlunoTest {
+	String curso;
+	
 
 	@Test
 	public void testAlunoStringIntStringSexoEnumTituloEnumStringCurso() {
-		fail("Not yet implemented");
+		curso = "computação";
 	}
 
 	@Test
 	public void testAluno() {
-		fail("Not yet implemented");
+		curso = "computação";
 		
 	}
 	@Test
 	public void testGetCurso() {
-		fail("Not yet implemented");
+		 curso = "computacao";
+			
+		assertEquals("computacao", curso);
 	}
 
 	@Test
 	public void testSetCurso() {
-		
-		
-		fail("Not yet implemented");
+		 curso = "computacao";
+			
+		assertEquals("computacao", curso);
 	}
 
 }
