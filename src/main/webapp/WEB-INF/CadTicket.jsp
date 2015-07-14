@@ -1,4 +1,3 @@
-<%@page import="br.uffrj.comp3.rusys.view.Menu"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
@@ -28,7 +27,7 @@
   </script>
 </head>
 <div id="container">
-    <%= new Menu().menu()%>
+	<%@include file="menu.jspf" %>
     <div id="wrapper" class="wat-cf">
       <div id="main">
         <div class="block" id="block-forms">

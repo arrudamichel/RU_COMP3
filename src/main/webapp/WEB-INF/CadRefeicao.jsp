@@ -1,5 +1,4 @@
 <%@page import="br.uffrj.comp3.rusys.model.Refeicao"%>
-<%@page import="br.uffrj.comp3.rusys.view.Menu"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page import="br.uffrj.comp3.rusys.model.TurnoEnum"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java"
@@ -31,7 +30,7 @@
 </script>
 </head>
 <div id="container">
-	<%=new Menu().menu()%>
+	<%@include file="menu.jspf" %>
 	<div id="wrapper" class="wat-cf">
 		<div id="main">
 			<div class="block" id="block-forms">
@@ -73,7 +72,7 @@
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.TURNO%></label>
 								<select id="turno" name="turno">
-									<%
+									<%-- <%
 										for (Turno turno : Turno.values()) {
 									%>
 									<option value='<%=turno.toString()%>' <% 
@@ -85,7 +84,7 @@
 									</option>
 									<%
 										}
-									%>
+									%> --%>
 								</select>
 							</div>
 							<div class="group">

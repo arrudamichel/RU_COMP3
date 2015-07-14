@@ -1,4 +1,3 @@
-<%@page import="br.uffrj.comp3.rusys.view.Menu"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
@@ -28,7 +27,7 @@
   </script>
 </head>
 <div id="container">
-    <%= new Menu().menu()%>
+	<%@include file="menu.jspf" %>
     <div id="wrapper" class="wat-cf">
       <div id="main">
         <div class="block" id="block-forms">
@@ -74,8 +73,8 @@
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.CPF%></label>
                     <input type="text"  id="cpf" name="cpf" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" onblur="valida<%=Constantes.CPF%>(this)"/>     
-                </div>
-                <div class="group">
+             	</div>
+     	         <div class="group">
                     <label class="label" for="post_title"><%=Constantes.DEPTO%></label>
                     <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
                 </div>

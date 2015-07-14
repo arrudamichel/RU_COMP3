@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,12 +14,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.TurnoEnum;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
 import br.uffrj.comp3.rusys.persintece.TurnoGateway;
+import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 import br.uffrj.comp3.rusys.model.Refeicao;
+import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
 
 @WebServlet("/CadastrarRefeicao")
 public class CadRefeicao extends HttpServlet
@@ -27,7 +32,34 @@ public class CadRefeicao extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		response.setContentType("text/html");
+		
+response.setContentType("text/html");
+		
+		String acao = (String) request.getParameter("acao");
+		
+		/*DepartamentoVO departamentoVO = new DepartamentoVO();
+				
+		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		
+		request.setAttribute("departamentos", departamentos);*/
+
+		if (acao != null)
+		{
+			switch (acao)
+			{
+				case Constantes.SALVAR:
+					//cadastrar(request, response);
+					break;
+				default:
+					request.getRequestDispatcher("CadastrarRefeicao").forward(request, response);
+			}
+		} 
+		else
+		{
+			request.getRequestDispatcher("WEB-INF/CadRefeicao.jsp").forward(request, response);
+		}
+		
+		/*response.setContentType("text/html");
 //		PrintWriter out = response.getWriter();
 
 		String descricao = request.getParameter("descricao");
@@ -88,14 +120,16 @@ public class CadRefeicao extends HttpServlet
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/CadRefeicao.jsp");
-		rd.forward(request, response);
+		rd.forward(request, response);*/
 
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		String id = req.getParameter("id");
+		doPost(req, resp);
+
+		/*String id = req.getParameter("id");
 		Refeicao refeicao = new Refeicao();
 
 		if (id != null)
@@ -129,6 +163,6 @@ public class CadRefeicao extends HttpServlet
 
 		req.setAttribute("refeicao", refeicao);
 		RequestDispatcher rd = req.getRequestDispatcher("CadRefeicao.jsp");
-		rd.forward(req, resp);
+		rd.forward(req, resp);*/
 	}
 }
