@@ -14,9 +14,10 @@ import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.vo.AlunoVO;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
-import br.uffrj.comp3.rusys.model.vo.FuncionarioHandler;
 import br.uffrj.comp3.rusys.model.vo.FuncionarioVO;
+import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
+import br.uffrj.comp3.rusys.service.FuncionarioHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 
@@ -51,6 +52,12 @@ public class CadFuncionario extends HttpServlet
 				case Constantes.SALVAR:
 					cadastrar(request, response);
 					break;
+				case Constantes.EDITAR:
+					editar(request, response);
+					break;
+				case Constantes.EXCLUIR:
+					excluir(request, response);
+					break;
 				default:
 					request.getRequestDispatcher("CadastrarFuncionario").forward(request, response);
 			}
@@ -61,6 +68,30 @@ public class CadFuncionario extends HttpServlet
 		}
 	}
 	
+	private void excluir(HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		String matricula = request.getParameter("matricula");
+
+		FuncionarioVO funcionarioVO = new FuncionarioVO();
+		funcionarioVO.setMatricula(Integer.parseInt(matricula));
+		
+		try
+		{
+			FuncionarioHandler.excluirFuncionario(funcionarioVO);
+		} 
+		catch (Exception e)
+		{
+			request.setAttribute("mensagem", Constantes.ERRO);
+		}
+		
+	}
+
+	private void editar(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 

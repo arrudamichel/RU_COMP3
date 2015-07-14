@@ -18,6 +18,7 @@ import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
 import br.uffrj.comp3.rusys.persintece.CursoGateway;
 import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
+import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class AlunoHandler {
@@ -103,5 +104,15 @@ public class AlunoHandler {
 		}
 
 		return alunos;
+	}
+
+	public static void excluirAluno(AlunoVO alunoVO) throws Exception {
+
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		ConsumidorGateway cg = new ConsumidorGateway(conn);
+		
+		if (!cg.desativarConsumidor(alunoVO.getMatricula()));
+			throw new Exception("falha.ao.cadastrar.refeicao");
+			
 	}
 }

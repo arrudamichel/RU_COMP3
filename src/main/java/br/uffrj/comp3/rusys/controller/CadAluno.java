@@ -13,8 +13,10 @@ import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.vo.AlunoVO;
 import br.uffrj.comp3.rusys.model.vo.CursoVO;
+import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
 import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.CursoHandler;
+import br.uffrj.comp3.rusys.service.RefeicaoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 @WebServlet("/CadastrarAluno")
@@ -46,6 +48,12 @@ public class CadAluno extends HttpServlet
 				case Constantes.SALVAR:
 					cadastrar(request, response);
 					break;
+				case Constantes.EXCLUIR:
+					excluir(request, response);
+					break;
+				case Constantes.EDITAR:
+					editar(request, response);
+					break;
 				default:
 					request.getRequestDispatcher("CadastrarAluno").forward(request, response);
 			}
@@ -56,6 +64,30 @@ public class CadAluno extends HttpServlet
 		}
 	}
 	
+	private void editar(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void excluir(HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		String matricula = request.getParameter("matricula");
+
+		AlunoVO alunoVO = new AlunoVO();
+		alunoVO.setMatricula(Integer.parseInt(matricula));
+		
+		try
+		{
+			AlunoHandler.excluirAluno(alunoVO);
+		} 
+		catch (Exception e)
+		{
+			request.setAttribute("mensagem", Constantes.ERRO);
+		}
+		
+	}
+
 	private void cadastrar(HttpServletRequest request,
 			HttpServletResponse response) {
 		

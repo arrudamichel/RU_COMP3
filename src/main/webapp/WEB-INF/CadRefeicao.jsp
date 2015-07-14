@@ -16,6 +16,7 @@
 	Refeicao refeicao  = (Refeicao) request.getAttribute("refeicao"); */
 	
 	ArrayList<Refeicao> refeicoes = (ArrayList<Refeicao>)request.getAttribute("refeicoes");
+	ArrayList<TurnoEnum> turnos = (ArrayList<TurnoEnum>)request.getAttribute("turnos");
 	
 
 %>
@@ -62,19 +63,17 @@
                        		if(i%2 == 0){
                        %>
                        <tr class="odd">                                        
-                           <td><input type="checkbox" class="checkbox" name="id" value=<%=refeicoes.get(i).getIdentificador()%> /></td>
                            <td><%=refeicoes.get(i).getTurno()%></td>
                            <td><%=refeicoes.get(i).getDescricao()%></td>
                            <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
-                           <td class="last"><a href="Refeicao?acao=<%=Constantes.ACAO_EDITAR%>&id=<%=refeicoes.get(i).getIdentificador() %>"><%=Constantes.EDITAR%></a> </td>
+                           <td class="last"><a href="CadastrarRefeicao?acao=<%=Constantes.ACAO_EDITAR%>&id=<%=refeicoes.get(i).getIdentificador() %>"><%=Constantes.EDITAR%></a> </td>
                        </tr>
                        <%      } else { %>
                        <tr class="even">
-                           <td><input type="checkbox" class="checkbox" name="id" value=<%=refeicoes.get(i).getIdentificador()%> /></td>
                            <td><%=refeicoes.get(i).getTurno()%></td>
                            <td><%=refeicoes.get(i).getDescricao()%></td>
                            <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
-                           <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>
+                           <td class="last"><a href="CadastrarRefeicao?acao=<%=Constantes.ACAO_EDITAR%>&id=<%=refeicoes.get(i).getIdentificador() %>"><%=Constantes.EDITAR%></a> </td>
                        </tr>
                        
                        <%		}  
@@ -110,20 +109,13 @@
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.TURNO%></label>
 								<select id="turno" name="turno">
-									<%-- <%
-										for (Turno turno : Turno.values()) {
+									<%
+										for(int i=0; i < turnos.size(); i++){
 									%>
-									<option value='<%=turno.toString()%>' <% 
-										if((refeicao !=null) 
-												&& 
-												(refeicao.getTurno().toString().equals(turno.toString()))) 
-											out.print("selected = 'true'") ;%>>
-										<%=turno.toString()%>
-									</option>
+									<option value="<%=turnos.get(i)%>"><%=turnos.get(i)%></option>
 									<%
 										}
-									%> --%>
-									<option value="MANHA">MANHA</option>
+									%>
 								</select>
 							</div>
 							<div class="group">
