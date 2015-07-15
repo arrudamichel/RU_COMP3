@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS "consumidor" (
 
 -- Tabela "ticket"
 CREATE TABLE IF NOT EXISTS "ticket" (
+  "ticket_id" INT NOT NULL AUTO_INCREMENT,
   "consumidor_matricula" INT NOT NULL,
   "refeicao_idRefeicao" INT NOT NULL,
   "preco" DECIMAL(10,2) NOT NULL,

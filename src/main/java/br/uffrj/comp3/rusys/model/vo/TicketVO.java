@@ -5,6 +5,7 @@ public class TicketVO {
 	private float valor;
 	private String nome;
 	private int matricula;
+	private int refeicao;
 	
 	public TicketVO(boolean pago, float valor, String nome, int matricula) {
 		super();
@@ -44,6 +45,14 @@ public class TicketVO {
 
 	public void setMatricula(int matricula) {
 		this.matricula = matricula;
+	}
+
+	public int getRefeicao() {
+		return refeicao;
+	}
+
+	public void setRefeicao(int refeicao) {
+		this.refeicao = refeicao;
 	}
 	
 		

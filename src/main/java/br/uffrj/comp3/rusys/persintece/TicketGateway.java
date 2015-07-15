@@ -18,7 +18,7 @@ public class TicketGateway {
 	{
 		try
 		{
-			String sql = "INSERT INTO \"ticket\" (\"consumidor_matricula\", \"refeicao_idRefeicao\", \"pago\") values (?,?,?,?)";
+			String sql = "INSERT INTO \"ticket\" (\"consumidor_matricula\", \"refeicao_idRefeicao\", \"preco\", \"pago\") values (?,?,?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			// preenche os valores
