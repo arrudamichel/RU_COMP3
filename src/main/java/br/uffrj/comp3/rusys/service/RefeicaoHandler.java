@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.poi.util.ArrayUtil;
+
 import br.uffrj.comp3.rusys.model.Almoco;
 import br.uffrj.comp3.rusys.model.Dejejum;
 import br.uffrj.comp3.rusys.model.Jantar;
@@ -106,6 +108,9 @@ public class RefeicaoHandler
 		ArrayList<Refeicao> refeicoes = new ArrayList<>();
 
 //		TODO
+		refeicoes.addAll(JantarHandler.recuperarJantars(refeicaoVO));
+		refeicoes.addAll(AlmocoHandler.recuperarAlmocos(refeicaoVO));
+		refeicoes.addAll(DejejumHandler.recuperarDejejums(refeicaoVO));
 
 		return refeicoes;
 	}

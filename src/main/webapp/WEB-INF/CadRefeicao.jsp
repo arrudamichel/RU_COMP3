@@ -61,12 +61,12 @@
                        <%
                        	
                        	for(int i=0; i < refeicoes.size(); i++){
-                       		String urlEditar="GerirRefeicao?acao="+ Constantes.ACAO_EDITAR+ "&id="+refeicoes.get(i).getIdentificador();
-                 		   	String urlDelete ="GerirRefeicao?acao="+ Constantes.ACAO_DELETAR+ "&id="+refeicoes.get(i).getIdentificador();
+                       		String urlEditar="GerirRefeicao?acao="+ Constantes.ACAO_EDITAR+ "&id="+refeicoes.get(i).getId();
+                 		   	String urlDelete ="GerirRefeicao?acao="+ Constantes.ACAO_DELETAR+ "&id="+refeicoes.get(i).getId();
                        		if(i%2 == 0){
                        %>
                        <tr class="odd">                                        
-                           <td><input type="hidden" name="id" value=<%=refeicoes.get(i).getIdentificador()%> /></td>
+                           <td><input type="hidden" name="id" value=<%=refeicoes.get(i).getId()%> /></td>
                            <td><%=refeicoes.get(i).getTurno()%></td>
                            <td><%=refeicoes.get(i).getDescricao()%></td>
                            <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
@@ -75,7 +75,7 @@
                        </tr>
                        <%      } else { %>
                        <tr class="even">
-                           <td><input type="hidden" name="id" value=<%=refeicoes.get(i).getIdentificador()%> /></td>
+                           <td><input type="hidden" name="id" value=<%=refeicoes.get(i).getId()%> /></td>
                            <td><%=refeicoes.get(i).getTurno()%></td>
                            <td><%=refeicoes.get(i).getDescricao()%></td>
                            <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            

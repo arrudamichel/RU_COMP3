@@ -56,29 +56,30 @@ public class DejejumHandler
 		return dejejum;
 	}
 
-	public static Collection<Jantar> recuperarJantars(RefeicaoVO refeicaoVO) throws Exception
+	public static Collection<Dejejum> recuperarDejejums(RefeicaoVO refeicaoVO) throws Exception
 	{
 //		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
 		
-		ArrayList<Jantar> jantars = new ArrayList<>();
+		ArrayList<Dejejum> dejejums = new ArrayList<>();
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		RefeicaoGateway ag = new RefeicaoGateway(conn);
-		ResultSet rsJantar = ag.selecionarRefeicoes();
+		ResultSet rsDejejum = ag.selecionarRefeicoes();
 
-		while (rsJantar.next())
+		while (rsDejejum.next())
 		{
-			int id = rsJantar.getInt(1);
-			String opcaoVeg = rsJantar.getString(2);
-			String descricao = rsJantar.getString(3);
+			int id = rsDejejum.getInt(1);
+			String opcaoVeg = rsDejejum.getString(2);
+			String descricao = rsDejejum.getString(3);
 			
 			Dejejum desejum = new Dejejum(id, descricao);
 			desejum.setOpcaoVeg(opcaoVeg);
+			dejejums.add(desejum);
 		}
 		
 		conn.close();
 		
-		return jantars;
+		return dejejums;
 	}
 
 	public static void excluirJantar(Refeicao refeicao) throws Exception

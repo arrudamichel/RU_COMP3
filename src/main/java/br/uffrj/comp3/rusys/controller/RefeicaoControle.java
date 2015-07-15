@@ -40,7 +40,6 @@ public class RefeicaoControle extends HttpServlet
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		request.setAttribute("refeicoes", refeicoes);
 		
 		

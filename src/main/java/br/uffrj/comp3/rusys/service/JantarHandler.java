@@ -57,7 +57,6 @@ public class JantarHandler
 
 	public static Collection<Jantar> recuperarJantars(RefeicaoVO refeicaoVO) throws Exception
 	{
-//		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
 		
 		ArrayList<Jantar> jantars = new ArrayList<>();
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
@@ -73,6 +72,7 @@ public class JantarHandler
 			
 			Jantar jantar = new Jantar(id, descricao);
 			jantar.setOpcaoVeg(opcaoVeg);
+			jantars.add(jantar);
 		}
 		
 		conn.close();

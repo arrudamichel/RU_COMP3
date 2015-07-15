@@ -73,6 +73,7 @@ public class AlmocoHandler
 			
 			Almoco almoco = new Almoco(id, descricao);
 			almoco.setOpcaoVeg(opcaoVeg);
+			almocos.add(almoco);
 		}
 		
 		conn.close();
