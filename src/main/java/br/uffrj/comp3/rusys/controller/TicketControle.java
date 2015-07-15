@@ -35,7 +35,7 @@ public class TicketControle extends HttpServlet
 		} 
 		else
 		{
-			request.getRequestDispatcher("WEB-INF/CadTicket.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/CadTicket.jsp").forward(request, response);
 		}
 	}
 	

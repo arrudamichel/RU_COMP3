@@ -80,7 +80,7 @@ public class AlunoControle extends HttpServlet
 		} 
 		else
 		{
-			request.getRequestDispatcher("WEB-INF/CadAlunos.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/CadAlunos.jsp").forward(request, response);
 		}
 	}
 	
