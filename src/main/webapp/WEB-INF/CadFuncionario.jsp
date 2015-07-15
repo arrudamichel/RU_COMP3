@@ -57,7 +57,7 @@
                   </tr>
                   <% //for(Fundamento fundamento : new FundamentoBll().getLista()) { %>
                    <%
-	                  
+	                if (funcionarios != null){
 	                for(int i=0; i < funcionarios.size(); i++) {
 	                	String urlEditar="GerirFuncionario?acao="+ Constantes.ACAO_EDITAR+ "&matricula="+funcionarios.get(i).getMatricula();
              		   	String urlDelete ="GerirFuncionario?acao="+ Constantes.ACAO_DELETAR+ "&matricula="+funcionarios.get(i).getMatricula();
@@ -81,7 +81,7 @@
 	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
 	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>                        
 	                    </tr>                    
-	   	    	  	<%}  
+	   	    	  	<%}  }
 	          		}%> 
                 </table>
             

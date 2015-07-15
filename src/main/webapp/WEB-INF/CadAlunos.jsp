@@ -57,7 +57,7 @@
                     <th><%=Constantes.CPF%></th>
                     <th class="last">&nbsp;</th>
                   </tr>
-                  <%	                  
+                  <% if (alunos != null) {           
 	                for(int i=0; i < alunos.size(); i++) {
 	                	String urlEditar="GerirAluno?acao="+ Constantes.ACAO_EDITAR+ "&matricula="+alunos.get(i).getMatricula();
              		   	String urlDelete ="GerirAluno?acao="+ Constantes.ACAO_DELETAR+ "&matricula="+alunos.get(i).getMatricula();
@@ -85,7 +85,7 @@
 	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
 	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	                   
 	                    </tr>                    
-	            	<%}  
+	            	<%}  }
 	           		}%>
                 </table>
             
@@ -126,9 +126,10 @@
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.CURSO%></label>
                     <select id ="curso" name="curso">
-                    <% for(Curso curso : cursos){ %>
-                        <option value="<%=curso.getIdentificador()%>"><%=curso.getNome()%></option>
-                    <% } %>                        
+                    <% if (cursos != null){ 
+	                    for(Curso curso : cursos){ %>
+	                        <option value="<%=curso.getIdentificador()%>"><%=curso.getNome()%></option>
+	                    <% } }%>                        
                     </select> 
                     <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
                 </div>
