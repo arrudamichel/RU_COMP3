@@ -8,13 +8,7 @@ public class TicketVO {
 	private int matricula;
 	private int refeicao;
 	
-	public TicketVO(boolean pago, float valor, String nome, int matricula) {
-		super();
-		this.pago = pago;
-		this.valor = valor;
-		this.nome = nome;
-		this.matricula = matricula;
-	}
+
 
 	public boolean isPago() {
 		return pago;
