@@ -30,6 +30,7 @@ CREATE TABLE "refeicao" (
 
 -- Tabela "consumidor"
 CREATE TABLE IF NOT EXISTS "consumidor" (
+  "consumidor_id" INT NOT NULL AUTO_INCREMENT,
   "matricula" INT NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
   "ano_ingresso" VARCHAR(45) NOT NULL,

@@ -5,8 +5,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import br.uffrj.comp3.rusys.model.Aluno;
+import br.uffrj.comp3.rusys.model.Consumidor;
 import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
+import br.uffrj.comp3.rusys.model.Funcionario;
+import br.uffrj.comp3.rusys.model.Refeicao;
+import br.uffrj.comp3.rusys.model.SexoEnum;
 import br.uffrj.comp3.rusys.model.Ticket;
 import br.uffrj.comp3.rusys.model.vo.TicketVO;
 import br.uffrj.comp3.rusys.persintece.AlunoGateway;
@@ -53,57 +58,59 @@ public class TicketHandler {
 		conn.close();
 
 	}
-	
-	public static Ticket recuperarTicket(int id) throws Exception
-	{	
-/*		CREATE TABLE IF NOT EXISTS "ticket" (
-				  "ticket_id" INT NOT NULL AUTO_INCREMENT,
-				  "consumidor_matricula" INT NOT NULL,
-				  "refeicao_idRefeicao" INT NOT NULL,
-				  "preco" DECIMAL(10,2) NOT NULL,
-				  "pago" TINYINT(1) NOT NULL,*/
-		
-		
-		Ticket ticket = new Ticket();
-	
+
+	public static Ticket recuperarTicket(int id) throws Exception {
+		/*
+		 * CREATE TABLE IF NOT EXISTS "ticket" ( "ticket_id" INT NOT NULL
+		 * AUTO_INCREMENT, "consumidor_matricula" INT NOT NULL,
+		 * "refeicao_idRefeicao" INT NOT NULL, "preco" DECIMAL(10,2) NOT NULL,
+		 * "pago" TINYINT(1) NOT NULL,
+		 */
+
+
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		TicketGateway ticketGateway = new TicketGateway(conn);
-		
+
 		ResultSet rs = ticketGateway.selecionarTicketPorId(id);
-		
+
 		rs.next();
 		int consuId = rs.getInt(2);
-		
+
 		ConsumidorGateway consuGateway = new ConsumidorGateway(conn);
-		
-		
+
 		AlunoGateway alunoGateway = new AlunoGateway(conn);
 		FuncionarioGateway funcGateway = new FuncionarioGateway(conn);
+
+		ResultSet funcSet = funcGateway.selecionarFuncionarioPorMatricula(consuId);
+		ResultSet aluSet = alunoGateway.selecionarAlunoPorMatricula(consuId);
+		ResultSet consuSet = consuGateway.selecionarConsumidorPorMatricula(consuId);
 		
-		ResultSet func = funcGateway.selecionarFuncionarioPorMatricula(consuId);
-		ResultSet alu = alunoGateway.selecionarAlunoPorMatricula(consuId);
+		// ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao")
+		Consumidor consumidor;
+		if (funcSet.isBeforeFirst()) {
+			consumidor = new Funcionario();		
+		} else if (aluSet.isBeforeFirst()) {
+			consumidor = new Aluno();
+		} else {
+			throw new Exception("consumidor.nao.econtrado");
+		}
 		
-		
-		
+		consumidor.setMatricula(consuId);
+		consumidor.setNome(consuSet.getString(2));
+		consumidor.setAnoDeIngresso(consuSet.getString(3));
+		consumidor.setSexo(consuSet.getString(4).equals("M") ? SexoEnum.M : SexoEnum.F);
+		consumidor.setCpf(consuSet.getString(6));
+
+		//public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao)
+		// ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago")
+		Ticket ticket = new Ticket(id);
 		ticket.setConsumidor(consumidor);
-		
-		t.setIdentificador(rs.getInt(1));
-		curso.setNome(rs.getString(2));
-		curso.setSigla(rs.getString(3));
+		ticket.setValor(rs.getFloat(3));
+		ticket.setPago((rs.getInt(4) == 1) ? true : false);
 
-		DepartamentoGateway dg = new DepartamentoGateway(conn);
-		ResultSet rsd = dg.selecionarDepartamentoPorId(rs.getInt(4));
-		rsd.next();
 
-		Departamento departamento = new Departamento();
-		departamento.setIdentificador(rsd.getInt(1));
-		departamento.setNome(rsd.getString(2));
-		departamento.setSigla(rsd.getString(3));
-
-		curso.setDepartamento(departamento);
-	
 		conn.close();
 
-		return curso;	
+		return ticket;
 	}
 }
