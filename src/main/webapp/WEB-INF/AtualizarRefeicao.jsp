@@ -71,7 +71,7 @@
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.OPVEG%></label>
 								<input type="text" id="opVeg" name="opVeg"
-									 <%if (refeicao != null && refeicao.getOpcaoVeg() != null ) { out.print(" value = '" + refeicao.getOpcaoVeg() + "'"); }%> --%>
+									<%if (refeicao != null && refeicao.getOpcaoVeg() != null ) { out.print(" value = '" + refeicao.getOpcaoVeg() + "'"); }%>>
 									class="text_field" />
 							</div>
 							<div class="group navform wat-cf">
