@@ -21,8 +21,12 @@ public class Aluno extends Consumidor
 		return this.curso;
 	}
 
-	public void setCurso(Curso curso)
+	public void setCurso(Curso curso) throws Exception
 	{
+		if (curso == null)
+		{
+			throw new Exception("model.aluno.curso.deve.ser.informado.para.criacao");
+		}
 		this.curso = curso;
 	}
 }
