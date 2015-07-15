@@ -45,17 +45,18 @@
               </tr>                 
               <%               
              for(int i=0; i < departamentos.size(); i++) {
+            	 String urlEditar="CadastrarDepartamento?acao="+ Constantes.ACAO_EDITAR +"&departamentoId="+departamentos.get(i).getIdentificador();
                	if(i%2 == 0){ %>
                	<tr class="odd">                  
                      <td><%=departamentos.get(i).getNome()%></td>                                              
                      <td><%=departamentos.get(i).getSigla()%></td>
-                     <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>
+                     <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
                  </tr>
              <% } else { %>
                  <tr class="even">                      
 					 <td><%=departamentos.get(i).getNome()%></td>                                              
                      <td><%=departamentos.get(i).getSigla()%></td>  
-                     <td class="last"><a href="#"><%=Constantes.EDITAR%></a> </td>
+                     <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
                  </tr>                    
          	<%}  
         		}%>                   	

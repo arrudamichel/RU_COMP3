@@ -21,6 +21,7 @@ public class Constantes
 	final public static String ANOINGRESSO = "Ano de Ingresso ";
 	final public static String ACAO_EDITAR = "Editar";
 	final public static String ACAO_DELETAR = "Excluir";
+	final public static String ACAO_LISTAR = "Listar";
 
 	final public static String CADREFEICAO = "Cadastro de Refei&ccedil&otildees dispon&iacuteveis";
 	final public static String CADALUNOS = "Cadastro de Alunos ";

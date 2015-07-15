@@ -54,13 +54,19 @@ public class CadDepartamento extends HttpServlet
 				case Constantes.SALVAR:
 					cadastrar(request, response);
 					break;
+				case Constantes.ACAO_EDITAR:
+					request.getRequestDispatcher("AtualizarDepartamento").forward(request, response);
+					break;
+				case Constantes.ACAO_LISTAR:
+					request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+					break;
 				default:
-					request.getRequestDispatcher("ListarCursos").forward(request, response);
+					request.getRequestDispatcher("ListarDepartamento").forward(request, response);
 			}
 		} 
 		else
 		{
-			request.getRequestDispatcher("WEB-INF/CadDepartamento.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
 		}
 		
 		
