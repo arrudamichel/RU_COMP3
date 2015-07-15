@@ -45,49 +45,42 @@ public class FuncionarioHandler {
 		
 	}
 
-	public static Collection<Funcionario> recuperarFuncionarios(FuncionarioVO funcionarioVO) {
+	public static Collection<Funcionario> recuperarFuncionarios(FuncionarioVO funcionarioVO) throws Exception {
 		ArrayList<Funcionario> funcionarios = new ArrayList<>();
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		FuncionarioGateway fg = new FuncionarioGateway(conn);
 		ResultSet rs = fg.selecionarFuncionarios();
 
-		try
+
+		while (rs.next())
 		{
-			while (rs.next())
+			int matricula = rs.getInt(2);
+			int iddepartamento = rs.getInt(1);
+
+			// seleciona departamento
+			DepartamentoGateway dg = new DepartamentoGateway(conn);
+			ResultSet rsd = dg.selecionarDepartamentoPorId(iddepartamento);
+			rsd.next();
+
+			Departamento departamento = new Departamento();
+			departamento.setIdentificador(rsd.getInt(1));
+			departamento.setNome(rsd.getString(2));
+			departamento.setSigla(rsd.getString(3));
+
+			// seleciona consumidor
+			ConsumidorGateway cg = new ConsumidorGateway(conn);
+			ResultSet rsc = cg.selecionarConsumidorPorMatricula(matricula);
+			rsc.next();
+
+			if (rsc.getInt(7) == 1)
 			{
-				int matricula = rs.getInt(2);
-				int iddepartamento = rs.getInt(1);
-
-				// seleciona departamento
-				DepartamentoGateway dg = new DepartamentoGateway(conn);
-				ResultSet rsd = dg.selecionarDepartamentoPorId(iddepartamento);
-				rsd.next();
-
-				Departamento departamento = new Departamento();
-				departamento.setIdentificador(rsd.getInt(1));
-				departamento.setNome(rsd.getString(2));
-				departamento.setSigla(rsd.getString(3));
-
-				// seleciona consumidor
-				ConsumidorGateway cg = new ConsumidorGateway(conn);
-				ResultSet rsc = cg.selecionarConsumidorPorMatricula(matricula);
-				rsc.next();
-
-				if (rsc.getInt(7) == 1)
-				{
-//					TODO:CPF
+//				TODO:CPF
 					
-					Funcionario funcionario = new Funcionario(rsc.getString(2), matricula, rsc.getString(3),SexoEnum.valueOf(rsc.getString(4)), TituloEnum.valueOf(rsc.getString(5)), rsc.getString(6),departamento);
+				Funcionario funcionario = new Funcionario(rsc.getString(2), matricula, rsc.getString(3),SexoEnum.valueOf(rsc.getString(4)), TituloEnum.valueOf(rsc.getString(5)), rsc.getString(6),departamento);
 
-					funcionarios.add(funcionario);
-				}
-
+				funcionarios.add(funcionario);
 			}
-		} 
-		catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 
 		return funcionarios;

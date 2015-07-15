@@ -3,16 +3,17 @@ package br.uffrj.comp3.rusys.model;
 public class Funcionario extends Consumidor
 {
 	private Departamento departamento;
-
-	public Funcionario(String nome, int matricula, String anoDeIngresso, SexoEnum sexo, TituloEnum titulo, String cpf, Departamento departamento)
+	
+	public Funcionario(int id, String nome, int matricula, String anoDeIngresso, Departamento departamento) throws Exception
 	{
-		super(nome, matricula, anoDeIngresso, sexo, titulo, cpf);
+		super(id, nome, matricula, anoDeIngresso);
+		
+		if (departamento == null)
+		{
+			throw new Exception("model.funcionario.departamento.deve.ser.informado.para.criacao");
+		}
+		
 		this.departamento = departamento;
-	}
-
-	public Funcionario()
-	{
-		// TODO Auto-generated constructor stub
 	}
 
 	public Departamento getDepartamento()
@@ -20,8 +21,13 @@ public class Funcionario extends Consumidor
 		return departamento;
 	}
 
-	public void setDepartamento(Departamento departamento)
+	public void setDepartamento(Departamento departamento) throws Exception
 	{
+		if (departamento == null)
+		{
+			throw new Exception("model.funcionario.departamento.deve.ser.informado");
+		}
+		
 		this.departamento = departamento;
 	}
 }

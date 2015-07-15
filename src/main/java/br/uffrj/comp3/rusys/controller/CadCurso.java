@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +34,19 @@ public class CadCurso extends HttpServlet
 		
 //		departamentoVO.set(); campos de consulta
 		
-		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		Collection<Departamento> departamentos = null;
+		try
+		{
+			departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		} catch (SQLException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		request.setAttribute("departamentos", departamentos);
 		

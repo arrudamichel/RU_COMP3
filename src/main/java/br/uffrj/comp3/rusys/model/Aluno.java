@@ -3,17 +3,17 @@ package br.uffrj.comp3.rusys.model;
 public class Aluno extends Consumidor
 {
 	private Curso curso;
-
-	public Aluno(String nome, int matricula, String anoDeIngresso, SexoEnum sexo, TituloEnum titulo, String cpf, Curso curso)
+	
+	public Aluno(int id, String nome, int matricula, String anoDeIngresso, Curso curso) throws Exception
 	{
-		super(nome, matricula, anoDeIngresso, sexo, titulo, cpf);
-
+		super(id, nome, matricula, anoDeIngresso);
+		
+		if (curso == null)
+		{
+			throw new Exception("model.aluno.curso.deve.ser.informado.para.criacao");
+		}
+		
 		this.curso = curso;
-	}
-
-	public Aluno()
-	{
-		// TODO Auto-generated constructor stub
 	}
 
 	public Curso getCurso()

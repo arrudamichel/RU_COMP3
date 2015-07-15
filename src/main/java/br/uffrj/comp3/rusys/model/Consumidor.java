@@ -3,8 +3,11 @@ package br.uffrj.comp3.rusys.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.uffrj.comp3.rusys.util.Util;
+
 public abstract class Consumidor
 {
+	private int id;
 	private String nome;
 	private int matricula;
 	private String anoDeIngresso;
@@ -13,20 +16,41 @@ public abstract class Consumidor
 	private String cpf;
 	private List<Ticket> tickets;
 
-	public Consumidor(String nome, int matricula, String anoDeIngresso, SexoEnum sexo, TituloEnum titulo, String cpf)
+	public Consumidor(int id, String nome, int matricula, String anoDeIngresso) throws Exception
 	{
 		super();
+		this.id = id;
+		
+		if (nome == null)
+		{
+			throw new Exception("model.consumidor.nome.deve.ser.informado.para.criacao");
+		}
+		
 		this.nome = nome;
 		this.matricula = matricula;
+		
+		if (anoDeIngresso == null)
+		{
+			throw new Exception("model.consumidor.anoDeIngresso.deve.ser.informado.para.criacao");
+		}
+		
 		this.anoDeIngresso = anoDeIngresso;
-		this.sexo = sexo;
-		this.titulo = titulo;
-		this.cpf = cpf;
+		this.tickets = new ArrayList<>();
 	}
 
-	public Consumidor()
+	public List<Ticket> getTickets()
 	{
-		// TODO Auto-generated constructor stub
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets)
+	{
+		this.tickets = tickets;
+	}
+
+	public int getId()
+	{
+		return id;
 	}
 
 	public String getNome()
@@ -84,11 +108,15 @@ public abstract class Consumidor
 		return cpf;
 	}
 
-	public void setCpf(String cpf)
+	public void setCpf(String cpf) throws Exception
 	{
+		if (!Util.valida(cpf))
+		{
+			throw new Exception("cpf.informado.invalido");
+		}
+		
+//		TODO testar se é unico fazendo uma consulda com um handler
+		
 		this.cpf = cpf;
 	}
-
-
-
 }

@@ -2,22 +2,30 @@ package br.uffrj.comp3.rusys.model;
 
 public class Curso
 {
-	private int identificador;
+	private int id;
 	private String nome;
 	private String sigla;
 	private Departamento departamento;
 
-	public Curso()
-	{
-		// TODO Auto-generated constructor stub
-	}
-
-	public Curso(String nome, String sigla, Departamento departamento)
+	public Curso(int identificador, String nome, String sigla, Departamento departamento) throws Exception
 	{
 		super();
+		this.id = identificador;
 		this.nome = nome;
-		this.sigla = sigla;
-		this.departamento = departamento;
+		
+		if (sigla == null)
+		{
+			throw new Exception("model.curso.sigla.deve.ser.informado.para.criacao");
+		}
+		
+		this.sigla = sigla; 
+		
+		if (departamento == null)
+		{
+			throw new Exception("model.curso.departamento.deve.ser.informado.para.criacao");
+		}
+		
+		this.departamento = departamento; 
 	}
 
 	public String getNome()
@@ -35,8 +43,15 @@ public class Curso
 		return sigla;
 	}
 
-	public void setSigla(String sigla)
+	public void setSigla(String sigla) throws Exception
 	{
+		if (sigla == null)
+		{
+			throw new Exception("model.curso.sigla.deve.ser.informada");
+		}
+		
+		 //TODO testar se é unica no banco com uma consulta ao hadler
+		
 		this.sigla = sigla;
 	}
 
@@ -45,18 +60,23 @@ public class Curso
 		return departamento;
 	}
 
-	public void setDepartamento(Departamento departamento)
+	public void setDepartamento(Departamento departamento) throws Exception
 	{
+		if (departamento == null)
+		{
+			throw new Exception("model.curso.departamento.deve.ser.informado.para.criacao");
+		}
+		
 		this.departamento = departamento;
 	}
 
 	public int getIdentificador()
 	{
-		return identificador;
+		return id;
 	}
 
-	public void setIdentificador(int identificador)
+	public int getId()
 	{
-		this.identificador = identificador;
+		return id;
 	}
 }
