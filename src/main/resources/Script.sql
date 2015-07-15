@@ -136,12 +136,12 @@ INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf
 INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao") VALUES (789,'Duarte','2013','M','DOUTORADO','12345678922',1);
 
 -- Insert Aluno
-INSERT INTO "aluno" VALUES (123,2);
-INSERT INTO "aluno" VALUES (456,1);
+INSERT INTO "aluno" ("consumidor_matricula", "curso_idcurso") VALUES (123,2);
+INSERT INTO "aluno"  ("consumidor_matricula", "curso_idcurso")  VALUES (456,1);
 
 -- Insert funcionario
-INSERT INTO "funcionario" VALUES (2,789);
+INSERT INTO "funcionario" ("departamento_iddepartamento", "consumidor_matricula") VALUES (2,789);
 
 -- Insert ticket
-INSERT INTO "ticket" VALUES (123,1,0.5,1);
-INSERT INTO "ticket" VALUES (789,1,3.0,1);
+INSERT INTO "ticket" ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago") VALUES (123,1,0.5,1);
+INSERT INTO "ticket" ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago") VALUES  (789,1,3.0,1);

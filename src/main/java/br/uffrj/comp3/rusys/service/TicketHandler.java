@@ -9,10 +9,12 @@ import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Ticket;
 import br.uffrj.comp3.rusys.model.vo.TicketVO;
+import br.uffrj.comp3.rusys.persintece.AlunoGateway;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
 import br.uffrj.comp3.rusys.persintece.CursoGateway;
 import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
+import br.uffrj.comp3.rusys.persintece.FuncionarioGateway;
 import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
 import br.uffrj.comp3.rusys.persintece.TicketGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
@@ -54,6 +56,14 @@ public class TicketHandler {
 	
 	public static Ticket recuperarTicket(int id) throws Exception
 	{	
+/*		CREATE TABLE IF NOT EXISTS "ticket" (
+				  "ticket_id" INT NOT NULL AUTO_INCREMENT,
+				  "consumidor_matricula" INT NOT NULL,
+				  "refeicao_idRefeicao" INT NOT NULL,
+				  "preco" DECIMAL(10,2) NOT NULL,
+				  "pago" TINYINT(1) NOT NULL,*/
+		
+		
 		Ticket ticket = new Ticket();
 	
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
@@ -62,10 +72,17 @@ public class TicketHandler {
 		ResultSet rs = ticketGateway.selecionarTicketPorId(id);
 		
 		rs.next();
+		int consuId = rs.getInt(2);
 		
 		ConsumidorGateway consuGateway = new ConsumidorGateway(conn);
 		
-		int consuId = consuGateway.selecionarConsumidorPorMatricula(id);
+		
+		AlunoGateway alunoGateway = new AlunoGateway(conn);
+		FuncionarioGateway funcGateway = new FuncionarioGateway(conn);
+		
+		ResultSet func = funcGateway.selecionarFuncionarioPorMatricula(consuId);
+		ResultSet alu = alunoGateway.selecionarAlunoPorMatricula(consuId);
+		
 		
 		
 		ticket.setConsumidor(consumidor);
