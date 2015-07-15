@@ -25,9 +25,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title><%=Constantes.RU%></title>
-  <%=Constantes.BASE_CSS%>
-  <%=Constantes.ESTILO_CSS%>
-  <%=Constantes.JQUERY_LINK%>
+ <%@include file="menu.jspf" %>
   <script type='text/javascript' charset='utf-8' src='resources/Javascripts/jsAlunos.js'></script>
   <script type="text/javascript" charset="utf-8">
     // <![CDATA[
@@ -92,16 +90,6 @@
                 </table>
             
             <div class="inner">
-            	<%-- <% if(mensagem.contains("Erro")){ %>
-            		<div style="background-color:#FF9999; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
-            			<%=mensagem%>
-            		</div>
-            	<%}else if(mensagem.contains("sucesso")){%>
-            		<div style="background-color:#CCFFCC; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
-    					<%=mensagem%>
-    				</div>
-    			<%} %> --%>
-				
               <form id="FrmAluno" name="FrmAluno" action="CadastrarAluno" method="POST" class="form">
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">

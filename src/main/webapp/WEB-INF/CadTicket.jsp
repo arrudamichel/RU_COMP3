@@ -14,10 +14,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title><%=Constantes.RU%></title>
-  <%=Constantes.BASE_CSS%>
-  <%=Constantes.ESTILO_CSS%>
-  <%=Constantes.JQUERY_LINK%>
+ <%@include file="header.jspf" %>
   <script type='text/javascript' charset='utf-8' src='resources/Javascripts/jsAlunos.js'></script>
   <script type="text/javascript" charset="utf-8">
     // <![CDATA[

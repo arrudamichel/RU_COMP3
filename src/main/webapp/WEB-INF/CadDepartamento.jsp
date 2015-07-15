@@ -86,8 +86,8 @@
                 </div>
                 <div class="group navform wat-cf">                
                   <button class="button" type="submit" id='salvar' name="acao" value="<%=Constantes.SALVAR%>">Salvar</button>
-                  <span class="text_button_padding">Ou</span>
-                  <a class="text_button_padding link_button" href="listarDepartamentos.jsp"><%=Constantes.CANCELAR%></a>
+                 <!--  <span class="text_button_padding">Ou</span>
+                  <a class="text_button_padding link_button" href="listarDepartamentos.jsp"><%=Constantes.CANCELAR%></a> -->
                 </div>
               </form>
             </div>
