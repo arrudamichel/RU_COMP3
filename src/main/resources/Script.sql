@@ -7,29 +7,19 @@ DROP TABLE IF EXISTS "curso" ;
 DROP TABLE IF EXISTS "funcionario" ;
 DROP TABLE IF EXISTS "aluno" ;
 
--- Tabela Turno
-CREATE TABLE IF NOT EXISTS "turno" (
-  "idTurno" INT NOT NULL AUTO_INCREMENT,
-  "descricao" VARCHAR(45) NULL,
-  PRIMARY KEY ("idTurno"));
-
 
 -- Tabela Refeição
 CREATE TABLE "refeicao" (
   "idRefeicao" INT NOT NULL AUTO_INCREMENT,
   "descricao" VARCHAR(45) NULL,
   "opcaoVegetariana" VARCHAR(45) NULL,
-  "Turno_idTurno" INT NOT NULL,
   "situacao" TINYINT(1) NOT NULL,
-  PRIMARY KEY ("idRefeicao"),
-  CONSTRAINT "fk_Refeicao_Turno"
-    FOREIGN KEY ("Turno_idTurno")
-    REFERENCES "turno" ("idTurno")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  "turno" VARCHAR(45) NULL,
+  PRIMARY KEY ("idRefeicao"));
 
 -- Tabela "consumidor"
 CREATE TABLE IF NOT EXISTS "consumidor" (
+  "consumidor_id" INT NOT NULL AUTO_INCREMENT,
   "matricula" INT NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
   "ano_ingresso" VARCHAR(45) NOT NULL,
@@ -82,6 +72,7 @@ CREATE TABLE IF NOT EXISTS "curso" (
 
 -- Tabela "funcionario"
 CREATE TABLE IF NOT EXISTS "funcionario" (
+ "id_funcionario" INT NOT NULL AUTO_INCREMENT,
   "departamento_iddepartamento" INT NOT NULL,
   "consumidor_matricula" INT NOT NULL,
   PRIMARY KEY ("departamento_iddepartamento", "consumidor_matricula"),
@@ -98,6 +89,7 @@ CREATE TABLE IF NOT EXISTS "funcionario" (
 
 -- Tabela "aluno"
 CREATE TABLE IF NOT EXISTS "aluno" (
+ "id_aluno" INT NOT NULL AUTO_INCREMENT,
   "consumidor_matricula" INT NOT NULL,
   "curso_idcurso" INT NOT NULL,
   PRIMARY KEY ("consumidor_matricula", "curso_idcurso"),
@@ -112,15 +104,11 @@ CREATE TABLE IF NOT EXISTS "aluno" (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
--- Insert turno
-INSERT INTO "turno" ("descricao") VALUES ('MANHA');
-INSERT INTO "turno" ("descricao") VALUES ('TARDE');
-INSERT INTO "turno" ("descricao") VALUES ('NOITE');
 
 -- Insert refeicao
-INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno", "situacao") VALUES ('Arroz com bifé','Bolinho de soja',1,1);
-INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno", "situacao") VALUES ('Macarrão com salsicha','Quiche de legumes',2,1);
-INSERT INTO "refeicao" ("descricao","opcaoVegetariana","Turno_idTurno", "situacao") VALUES ('Arroz com carré','Soja',3,1);
+INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno") VALUES ('Arroz com bifé','Bolinho de soja',1, 'MANHA');
+INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno") VALUES ('Macarrão com salsicha','Quiche de legumes',1, 'TARDE');
+INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno") VALUES ('Arroz com carré','Soja',1, 'NOITE');
 
 -- Insert departamento
 INSERT INTO "departamento" ("nome","sigla") VALUES ('Departamento de Tecnologias e Liguagens','DTL');
