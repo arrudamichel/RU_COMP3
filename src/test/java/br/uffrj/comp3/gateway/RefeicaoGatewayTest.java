@@ -16,10 +16,10 @@ public class RefeicaoGatewayTest {
 
 	public static void main(String[] args) {
 		
-		Refeicao refeicao = new Refeicao();
+		Refeicao refeicao = new Refeicao(1,"arroz"){};
 		refeicao.setDescricao("Refeicao de Teste");
 		refeicao.setOpcaoVeg("Vag de Test");
-		refeicao.setTurno(TurnoEnum.valueOf("TARDE"));
+		refeicao.setTurno(TurnoEnum.TARDE);
 		
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);

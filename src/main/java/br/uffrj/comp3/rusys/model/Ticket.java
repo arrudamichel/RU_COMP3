@@ -6,7 +6,7 @@ public class Ticket
 {
 	private int id;
 	private boolean pago = false;
-	private Float valor;
+	private float valor;
 	private Consumidor consumidor;
 	private Refeicao refeicao;
 
@@ -25,7 +25,7 @@ public class Ticket
 			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(refeicao.getTurno().toString() + Funcionario.class);
 		}
 		
-		if (this.valor == null)
+		if (this.valor == 0)
 		{
 			throw new Exception("model.ticket.valor.para.essa.tupla.cosumidor.refeicao.nao.existe");
 		}
