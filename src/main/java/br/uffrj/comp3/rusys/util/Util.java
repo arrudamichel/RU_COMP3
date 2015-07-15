@@ -7,7 +7,7 @@ public class Util
 		if (cpfstr.length() != 11)
 			return false;
 
-		int[] a = new int[9];
+		int[] a = new int[11];
 		char[] cpf = cpfstr.toCharArray();
 		
 		for (int i = 0; i < cpf.length; i++)
