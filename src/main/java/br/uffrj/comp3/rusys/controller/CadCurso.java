@@ -59,11 +59,12 @@ public class CadCurso extends HttpServlet
 		try
 		{
 			cursos = CursoHandler.recuperarCursos(cursoVO);
-		} catch (SQLException e)
+		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		
 		request.setAttribute("cursos", cursos);
 
@@ -72,7 +73,7 @@ public class CadCurso extends HttpServlet
 			switch (acao)
 			{
 				case Constantes.SALVAR:
-					cadastrar(request, response);
+					cadastrar(request, response);					
 					break;
 				case Constantes.ACAO_EDITAR:
 					request.getRequestDispatcher("AtualizarCurso").forward(request, response);
@@ -98,14 +99,12 @@ public class CadCurso extends HttpServlet
 		
 		cursoVO.setNome(nome);
 		cursoVO.setSigla(sigla);
-		cursoVO.setNomeDepartamento(dept);
-		
+		cursoVO.setDepartamento(Integer.parseInt(dept));
+				
 		try
 		{
 			CursoHandler.cadastrarCurso(cursoVO);
-		    
-			String redirect = response.encodeRedirectURL("/WEB-INF/CadCurso.jsp");
-			response.sendRedirect(redirect);			
+		    			
 		} 
 		catch (Exception e)
 		{
