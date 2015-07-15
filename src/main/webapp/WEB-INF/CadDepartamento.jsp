@@ -85,7 +85,7 @@
                    <input type="text" id="sigla" name="sigla" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
                 </div>
                 <div class="group navform wat-cf">                
-                  <button class="button" type="submit" id='salvar' name="acao" value="<%=Constantes.SALVAR%>">Salvar</button>
+                  <button class="button" type="submit" id='salvar' name="acao" value="<%=Constantes.ACAO_SALVAR%>"><%=Constantes.SALVAR%></button>
                  <!--  <span class="text_button_padding">Ou</span>
                   <a class="text_button_padding link_button" href="listarDepartamentos.jsp"><%=Constantes.CANCELAR%></a> -->
                 </div>

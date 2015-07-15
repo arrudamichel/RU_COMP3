@@ -28,6 +28,8 @@ public class CursoControle extends HttpServlet
 	{	
 		response.setContentType("text/html");
 		
+		String cursoId = (String) request.getParameter("cursoId");
+		
 		String acao = (String) request.getParameter("acao");
 		
 		DepartamentoVO departamentoVO = new DepartamentoVO();
@@ -66,20 +68,40 @@ public class CursoControle extends HttpServlet
 		}
 		
 		request.setAttribute("cursos", cursos);
+		if (cursoId!=null)
+		{
+			Curso curso = null;
+			try
+			{
+				curso = CursoHandler.recuperarCurso(Integer.parseInt(cursoId));
+			} catch (NumberFormatException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			request.setAttribute("curso", curso);
+		}
 
 		if (acao != null)
 		{
 			switch (acao)
-			{
-				case Constantes.SALVAR:
-					cadastrar(request, response);					
+			{	case Constantes.ACAO_SALVAR:
+					cadastrar(request, response);
+					break;
+				case Constantes.ACAO_DELETAR:
+					excluir(request, response);
 					break;
 				case Constantes.ACAO_EDITAR:
-					request.getRequestDispatcher("AtualizarCurso").forward(request, response);
+					editar(request, response);
 					break;
 					
 				default:
-					request.getRequestDispatcher("ListarCursos").forward(request, response);
+					request.getRequestDispatcher("GerirCurso").forward(request, response);
 			}
 		} 
 		else
@@ -88,6 +110,50 @@ public class CursoControle extends HttpServlet
 		}
 	}
 	
+	private void editar(HttpServletRequest request, HttpServletResponse response)
+	{
+		String id = request.getParameter("cursoId");
+		String nome = request.getParameter("nome");
+		String sigla = request.getParameter("sigla");
+		String dept = request.getParameter("departamento");
+
+		System.out.println(id + " " + nome + " " + sigla + " " +  dept);
+		Curso curso = null;
+		try
+		{
+			curso = CursoHandler.recuperarCurso(Integer.parseInt(id));
+			
+			curso.setNome(nome);
+			curso.setSigla(sigla);
+			curso.setDepartamento(DepartamentoHandler.recuperarDepartamento(Integer.parseInt(dept)));
+			
+		} catch (NumberFormatException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try
+		{
+			CursoHandler.atualizarCurso(curso);
+
+			request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
+		} catch (Exception e)
+		{
+			request.setAttribute("mensagem", Constantes.ERRO);
+		}
+	}
+
+	private void excluir(HttpServletRequest request, HttpServletResponse response)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String nome = request.getParameter("nome");

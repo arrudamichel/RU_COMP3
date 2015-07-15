@@ -31,6 +31,8 @@ public class DepartamentoControle extends HttpServlet
 		
 		response.setContentType("text/html");
 		
+		String departamentoId = (String) request.getParameter("departamentoId");
+		
 		String acao = (String) request.getParameter("acao");
 		
 		DepartamentoVO departamentoVO = new DepartamentoVO();
@@ -50,27 +52,86 @@ public class DepartamentoControle extends HttpServlet
 		}
 		
 		request.setAttribute("departamentos", departamentos);
+		
+		if (departamentoId != null)
+		{
+			Departamento departamento = null;
+			try
+			{
+				departamento = DepartamentoHandler.recuperarDepartamento(Integer.parseInt(departamentoId));
+			} catch (NumberFormatException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	
+			request.setAttribute("departamento", departamento);
+		}	
 
 		if (acao != null)
 		{
 			switch (acao)
 			{
-				case Constantes.SALVAR:
-					cadastrar(request, response);
+				case Constantes.ACAO_DELETAR:
+					excluir(request, response);
 					break;
 				case Constantes.ACAO_EDITAR:
-					request.getRequestDispatcher("AtualizarDepartamento").forward(request, response);
+					editar(request, response);
 					break;
-				case Constantes.ACAO_LISTAR:
-					request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+				case Constantes.ACAO_SALVAR:
+					cadastrar(request, response);
 					break;
 				default:
-					request.getRequestDispatcher("ListarDepartamento").forward(request, response);
+					request.getRequestDispatcher("GerirDepartamento").forward(request, response);
 			}
 		} 
 		else
 		{
 			request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+		}
+	}
+	
+	private void excluir(HttpServletRequest request, HttpServletResponse response)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void editar(HttpServletRequest request, HttpServletResponse response)
+	{
+		String id = request.getParameter("departamentoId");
+		String nome = request.getParameter("nome");
+		String sigla = request.getParameter("sigla");
+
+		Departamento departamento = null;
+		try
+		{
+			departamento = DepartamentoHandler.recuperarDepartamento(Integer.parseInt(id));
+			
+			departamento.setNome(nome);
+			departamento.setSigla(sigla);			
+		} catch (NumberFormatException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try
+		{
+			DepartamentoHandler.atualizarDepartamento(departamento);
+
+			request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+		} catch (Exception e)
+		{
+			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 	}
 	

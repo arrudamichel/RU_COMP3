@@ -134,7 +134,7 @@
                     <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
                 </div>
                 <div class="group navform wat-cf">
-                  <button class="button" type="submit" name="acao" value="<%=Constantes.SALVAR%>">
+                  <button class="button" type="submit" name="acao" value="<%=Constantes.ACAO_SALVAR%>">
                     <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>
                   </button>
                   <span class="text_button_padding">Ou</span>

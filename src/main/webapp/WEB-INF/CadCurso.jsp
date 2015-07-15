@@ -94,8 +94,8 @@
 								</select>
 							</div>
 							
-							<input type="submit" name="acao" value="<%=Constantes.SALVAR%>">
-							<input type="submit" name="acao" value="<%=Constantes.CANCELAR%>">
+							<input type="submit" name="acao" value="<%=Constantes.ACAO_SALVAR%>">
+							<input type="submit" name="acao" value="<%=Constantes.ACAO_CANCELAR%>">
 						</form>
 					</div>
 				</div>

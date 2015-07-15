@@ -52,13 +52,13 @@ public class RefeicaoControle extends HttpServlet
 		{
 			switch (acao)
 			{
-				case Constantes.SALVAR:
+				case Constantes.ACAO_SALVAR:
 					cadastrar(request, response);
 					break;
-				case Constantes.EXCLUIR:
+				case Constantes.ACAO_DELETAR:
 					excluir(request, response);
 					break;
-				case Constantes.EDITAR:
+				case Constantes.ACAO_EDITAR:
 					editar(request, response);
 					break;
 				default:
