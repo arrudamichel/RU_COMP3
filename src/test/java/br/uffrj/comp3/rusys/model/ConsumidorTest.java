@@ -9,120 +9,125 @@ public class ConsumidorTest {
 	Consumidor con;
 
 	@Test
-	public void testConsumidorStringIntStringSexoEnumTituloEnumString() {
+	public void testConsumidorStringIntStringSexoEnumTituloEnumString() throws Exception {
 		 String esperado = "Jessica";
-		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){};
 	 
 	
 		assertEquals(esperado, con.getNome());
 	}
 
 	@Test
-	public void testConsumidor() {
-		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+	public void testConsumidor() throws Exception {
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){};
 	}
 
 	@Test
-	public void testGetNome() {
+	public void testGetNome() throws Exception {
 		String esperado = "Jessica";
-		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
-	 
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){};
 	
 		assertEquals(esperado, con.getNome());
 	}
 
 	@Test
-	public void testSetNome() {
+	public void testSetNome() throws Exception {
 		String esperado = "Julia";
-		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
-	 con.setNome("Julia");
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){};
+		 con.setNome("Julia");
 	
 		assertEquals(esperado, con.getNome());
 	}
 
 	@Test
-	public void testGetMatricula() {
+	public void testGetMatricula() throws Exception {
 		int esperado = 2011785144;
-		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
-		 
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 	
 		assertEquals(esperado, con.getMatricula());
 	}
 
 	@Test
-	public void testSetMatricula() {
+	public void testSetMatricula() throws Exception {
 		int esperado = 2011780123;
-		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 		 con.setMatricula(2011780123);
+			
+		 assertEquals(esperado, con.getMatricula());
 	
-		assertEquals(esperado, con.getMatricula());
 	}
 
 	@Test
-	public void testGetAnoDeIngresso() {
+	public void testGetAnoDeIngresso() throws Exception {
 		String esperado = "2011";
-		 con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
+			
 		
 		assertEquals(esperado, con.getAnoDeIngresso());
 	}
 
 	@Test
-	public void testSetAnoDeIngresso() {
+	public void testSetAnoDeIngresso() throws Exception {
 		String esperado = "2012";
-		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 		con.setAnoDeIngresso("2012");
 		
 		assertEquals(esperado, con.getAnoDeIngresso());
 	}
 
 	@Test
-	public void testGetSexo() {
-		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
+	public void testGetSexo() throws Exception {
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 		
+		 con.setSexo(SexoEnum.fromString("Feminino"));
 			
-		assertEquals(SexoEnum.F, con.getSexo());
+		assertEquals("Feminino", con.getSexo().toString());
 	}
 
 	@Test
-	public void testSetSexo() {
-		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
-		con.setSexo(SexoEnum.M);
-		
-		assertEquals(SexoEnum.M, con.getSexo());
+	public void testSetSexo() throws Exception {
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
+			
+		 con.setSexo(SexoEnum.fromString("Feminino"));
+			
+		assertEquals("Feminino", con.getSexo().toString());
 	}
 
 	@Test
-	public void testGetTitulo() {
-		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
-		
+	public void testGetTitulo() throws Exception {
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 			
-		assertEquals(TituloEnum.ESPECIALIZACAO, con.getTitulo());
+		 con.setTitulo(TituloEnum.fromString("Especializacao"));
+			
+		assertEquals("Especializacao", con.getTitulo().toString());;
 	}
 
 	@Test
-	public void testSetTitulo() {
-		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
-		con.setTitulo(TituloEnum.MESTRADO);
+	public void testSetTitulo() throws Exception {
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 			
-		assertEquals(TituloEnum.MESTRADO, con.getTitulo());
+		 con.setTitulo(TituloEnum.fromString("Especializacao"));
+			
+		assertEquals("Especializacao", con.getTitulo().toString());;
 	}
 
 	@Test
-	public void testGetCpf() {
-		String esperado = "12345678910";
-		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
-		
+	public void testGetCpf() throws Exception {
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 			
-		assertEquals(esperado, con.getCpf());
+		 con.setCpf("");
+		 System.out.println("cpf" + con.getCpf());
+			
+		assertEquals("", con.getCpf());
 	}
 
 	@Test
-	public void testSetCpf() {
-		String esperado = "12345678911";
-		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
-		con.setCpf("12345678911");
+	public void testSetCpf() throws Exception {
+		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 			
-		assertEquals(esperado, con.getCpf());
+		 con.setCpf("12345678910");
+			
+		assertEquals("12345678910", con.getCpf());
 	}
 
 
