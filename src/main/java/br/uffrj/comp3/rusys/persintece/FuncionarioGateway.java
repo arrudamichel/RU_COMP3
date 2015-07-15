@@ -29,14 +29,15 @@ public class FuncionarioGateway
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 			stmt.execute();
+			
+			return true;
+         
 		} 
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
 			return false;
 		}
-
-		return true;
 	}
 
 	public ResultSet selecionarFuncionarios()
@@ -65,7 +66,7 @@ public class FuncionarioGateway
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"funcionario\" " + "   WHERE \"consumidor_matricula\" = ?";
+			String sql = "SELECT * " + "   FROM \"funcionario\" " + "   WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, matricula);
@@ -84,8 +85,8 @@ public class FuncionarioGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"funcionario\" " + "   WHERE \"consumidor_matricula\" = ?"
-					+ "       AND \"departamento_iddepartamento\" = ?";
+			String sql = "DELETE FROM \"funcionario\" " + "   WHERE \"consumidor_id\" = ?"
+					+ "       AND \"departamento_id_departamento\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -112,8 +113,8 @@ public class FuncionarioGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"funcionario\" " + "SET \"consumidor_matricula\" = ?, "
-					+ "\"departamento_iddepartamento\" = ? " + "WHERE \"consumidor_matricula\" = ?";
+			String sql = "UPDATE \"funcionario\" " + "SET \"consumidor_id\" = ?, "
+					+ "\"departamento_id_departamento\" = ? " + "WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

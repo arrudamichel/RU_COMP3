@@ -28,15 +28,17 @@ public class AlunoGateway
 				if (valores.get(i - 1).getClass().equals(Integer.class))
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
+			
 			stmt.execute();
+			
+			return true;
+         
 		} 
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
 			return false;
 		}
-
-		return true;
 	}
 
 	public ResultSet selecionarAlunos()
@@ -64,7 +66,7 @@ public class AlunoGateway
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"aluno\" " + "   WHERE \"consumidor_matricula\" = ?";
+			String sql = "SELECT * " + "   FROM \"aluno\" " + "   WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, matricula);
@@ -82,8 +84,8 @@ public class AlunoGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"aluno\" " + "   WHERE \"consumidor_matricula\" = ?"
-					+ "       AND \"curso_idcurso\" = ?";
+			String sql = "DELETE FROM \"aluno\" " + "   WHERE \"consumidor_id\" = ?"
+					+ "       AND \"curso_id_curso\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -109,8 +111,8 @@ public class AlunoGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"aluno\" " + "SET \"consumidor_matricula\" = ?, " + "\"curso_idcurso\" = ? "
-					+ "WHERE \"consumidor_matricula\" = ?";
+			String sql = "UPDATE \"aluno\" " + "SET \"consumidor_id\" = ?, " + "\"curso_id_curso\" = ? "
+					+ "WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
