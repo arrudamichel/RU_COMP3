@@ -1,46 +1,97 @@
 package br.uffrj.comp3.rusys.model;
 
-public class Ticket {
-	private boolean pago;
-	private float valor;
+import br.uffrj.comp3.rusys.util.Constantes;
+
+public class Ticket
+{
+	private int id;
+	private boolean pago = false;
+	private Float valor;
 	private Consumidor consumidor;
+	private Refeicao refeicao;
 
-	public Ticket() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Ticket(boolean pago, float valor, Consumidor consumidor) {
+	public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao) throws Exception
+	{
 		super();
+		this.id = id;
 		this.pago = pago;
-		this.valor = valor;
+		
+		if (consumidor instanceof Aluno)
+		{
+			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(refeicao.getTurno().toString() + Aluno.class);
+		}
+		else if (consumidor instanceof Funcionario)
+		{
+			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(refeicao.getTurno().toString() + Funcionario.class);
+		}
+		
+		if (this.valor == null)
+		{
+			throw new Exception("model.ticket.valor.para.essa.tupla.cosumidor.refeicao.nao.existe");
+		}
+		
+		if (consumidor == null)
+		{
+			throw new Exception("model.ticket.consumidor.deve.ser.informado.para.criacao");
+		}
+		
 		this.consumidor = consumidor;
+		
+		if (refeicao == null)
+		{
+			throw new Exception("model.ticket.refeicao.deve.ser.informado.para.criacao");
+		}
+		
+		this.refeicao = refeicao;
 	}
 
-	public boolean isPago() {
+	public boolean isPago()
+	{
 		return pago;
 	}
 
-	public void setPago(boolean pago) {
+	public void setPago(boolean pago)
+	{
 		this.pago = pago;
 	}
 
-	public float getValor() {
+	public float getValor()
+	{
 		return valor;
 	}
 
-	public void setValor(float valor) {
-		this.valor = valor;
-	}
-
-	public Consumidor getConsumidor() {
+	public Consumidor getConsumidor()
+	{
 		return consumidor;
 	}
 
-	public void setConsumidor(Consumidor consumidor) {
+	public void setConsumidor(Consumidor consumidor) throws Exception
+	{
+		if (consumidor == null)
+		{
+			throw new Exception("model.ticket.consumidor.deve.ser.informado");
+		}
+
 		this.consumidor = consumidor;
 	}
-	
-	
-	
 
+	public Refeicao getRefeicao()
+	{
+		return refeicao;
+	}
+
+	public void setRefeicao(Refeicao refeicao) throws Exception
+	{
+		if (refeicao == null)
+		{
+			throw new Exception("model.ticket.refeicao.deve.ser.informada");
+		}
+		
+		this.refeicao = refeicao;
+	}
+
+	public int getId()
+	{
+		return id;
+	}
 }

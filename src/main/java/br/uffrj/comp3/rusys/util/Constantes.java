@@ -5,16 +5,46 @@
  */
 package br.uffrj.comp3.rusys.util;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import br.uffrj.comp3.rusys.model.Aluno;
+import br.uffrj.comp3.rusys.model.Funcionario;
+import br.uffrj.comp3.rusys.model.TurnoEnum;
+
 /**
  *
  * @author liliane
  */
 public class Constantes
 {
+//	TURNO_CONSUMIDOR -> VALOR
+	public static final Map<String, Float> mapaTurnoConsumidor_PRECO;
+    static {
+        Map<String, Float> mapa = new HashMap<String, Float>();
+        mapa.put(TurnoEnum.MANHA.toString() + Aluno.class, (float) 0.5);
+        mapa.put(TurnoEnum.MANHA.toString() + Funcionario.class, (float) 3.0);
+        mapa.put(TurnoEnum.TARDE.toString() + Aluno.class, (float) 1.0);
+        mapa.put(TurnoEnum.TARDE.toString() + Funcionario.class, (float) 6.0);
+        mapa.put(TurnoEnum.NOITE.toString() + Aluno.class, (float) 1.0);
+        mapa.put(TurnoEnum.NOITE.toString() + Funcionario.class, (float) 6.0);
+        
+        mapaTurnoConsumidor_PRECO = Collections.unmodifiableMap(mapa);
+    }
+	
+//	REFEICAO -> TURNO
+	final public static TurnoEnum TURNO_ALMOCO = TurnoEnum.TARDE;
+	final public static TurnoEnum TURNO_DEJEJUM = TurnoEnum.MANHA;
+	final public static TurnoEnum TURNO_JANTAR = TurnoEnum.NOITE;
+	
+//	Configuracao
 	final public static String DBPATH = "jdbc:h2:~/git/RU_COMP3/RU";
 	final public static String USER = "sa";
 	final public static String PASS = "sa";
 
+	
+//	view
 	final public static String BEMVINDO = "Bem vindo ao sistema do restaurante Universit&aacuterio !";
 	
 	final public static String ALUNOS = "Alunos";
@@ -74,6 +104,7 @@ public class Constantes
 	final public static String LISTTICKET = "Lista de " + TICKET + "s de " + REFEICAO;
 	final public static String CADTICKET = "Compra de " + TICKET + "s";
 
+//	Mensagens
 	final public static String VALOR = "Pre&ccedilo";
 
 	final public static String ERRO = "Erro ao executar opera&ccedil&atildeo";
@@ -83,5 +114,4 @@ public class Constantes
 	final public static String BASE_CSS = "<link rel='stylesheet' href='webapp/WEB-INF/resources/Stylesheets/base.css' type='text/css' media='screen' /> ";
 	final public static String ESTILO_CSS = "<link rel='stylesheet' id='current-theme' href='webapp/WEB-INF/resources/Stylesheets/themes/default/style.css' type='text/css' media='screen' />";
 	final public static String JQUERY_LINK = "<script type='text/javascript' charset='utf-8' src='webapp/WEB-INF/resources/Javascripts/jquery-2.1.3.min.js'></script>";
-
 }

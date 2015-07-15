@@ -60,7 +60,7 @@ public class RefeicaoHandler {
 			throw new Exception("falha.ao.cadastrar.refeicao");
 	}
 	
-	public static ArrayList<Refeicao> recuperarRefeicoes(RefeicaoVO refeicaoVO)
+	public static ArrayList<Refeicao> recuperarRefeicoes(RefeicaoVO refeicaoVO) throws Exception
 	{
 		ArrayList<Refeicao> refeicoes = new ArrayList<>();
 
@@ -69,38 +69,29 @@ public class RefeicaoHandler {
 
 		ResultSet rs = rg.selecionarRefeicoes();
 
-		try
+		while (rs.next())
 		{
-			while (rs.next())
+			Refeicao refeicao = new Refeicao();
+			refeicao.setIdentificador(rs.getInt(1));
+			refeicao.setDescricao(rs.getString(2));
+			refeicao.setOpcaoVeg(rs.getString(3));
+
+			TurnoGateway tg = new TurnoGateway(conn);
+			
+			ResultSet rst = tg.selecionarTurnoPorId(rs.getInt(4));
+			rst.next();
+
+			// Verifica se e ativo ou nao
+			if (rs.getInt(5) == 1)
 			{
-				Refeicao refeicao = new Refeicao();
-				refeicao.setIdentificador(rs.getInt(1));
-				refeicao.setDescricao(rs.getString(2));
-				refeicao.setOpcaoVeg(rs.getString(3));
+				refeicao.setTurno(TurnoEnum.valueOf(rst.getString(2)));
 
-				TurnoGateway tg = new TurnoGateway(conn);
-
-				ResultSet rst = tg.selecionarTurnoPorId(rs.getInt(4));
-				rst.next();
-
-				// Verifica se e ativo ou nao
-				if (rs.getInt(5) == 1)
-				{
-					refeicao.setTurno(TurnoEnum.valueOf(rst.getString(2)));
-
-					refeicoes.add(refeicao);
-				}
+				refeicoes.add(refeicao);
 			}
-
-			conn.close();
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
-		return refeicoes;
+		conn.close();
 		
+		return refeicoes;
 	}
-
 }

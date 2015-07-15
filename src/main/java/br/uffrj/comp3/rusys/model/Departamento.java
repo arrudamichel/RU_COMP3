@@ -2,20 +2,21 @@ package br.uffrj.comp3.rusys.model;
 
 public class Departamento
 {
-	private int identificador;
+	private int id;
 	private String nome;
 	private String sigla;
-	private String id;
 
-	public Departamento()
-	{
-		// TODO Auto-generated constructor stub
-	}
-
-	public Departamento(String nome, String sigla)
+	public Departamento(int id, String nome, String sigla) throws Exception
 	{
 		super();
+		this.id = id;
 		this.nome = nome;
+		
+		if (sigla == null)
+		{
+			throw new Exception("model.departamento.sigla.deve.ser.informado.para.criacao");
+		}
+		
 		this.sigla = sigla;
 	}
 
@@ -34,19 +35,25 @@ public class Departamento
 		return sigla;
 	}
 
-	public void setSigla(String sigla)
+	public void setSigla(String sigla) throws Exception
 	{
+		if (sigla == null)
+		{
+			throw new Exception("model.departamento.sigla.deve.ser.informada");
+		}
+		 //TODO testar se é unica no banco com uma consulta ao hadler
+		
 		this.sigla = sigla;
 	}
 
 	public int getIdentificador()
 	{
-		return identificador;
+		return id;
 	}
 
 	public void setIdentificador(int identificador)
 	{
-		this.identificador = identificador;
+		this.id = identificador;
 	}
 
 	@Override
@@ -84,14 +91,8 @@ public class Departamento
 		return true;
 	}
 
-	public String getId()
+	public int getId()
 	{
 		return id;
 	}
-
-	public void setId(String id)
-	{
-		this.id = id;
-	}
-
 }

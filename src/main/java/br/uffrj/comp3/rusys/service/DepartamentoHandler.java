@@ -42,32 +42,25 @@ public class DepartamentoHandler
 		
 	}
 	
-	public static ArrayList<Departamento> recuperarDepartamentos(DepartamentoVO departamentoVO)
+	public static ArrayList<Departamento> recuperarDepartamentos(DepartamentoVO departamentoVO) throws SQLException, Exception
 	{
 		ArrayList<Departamento> departamentos = new ArrayList<Departamento>();
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		DepartamentoGateway dg = new DepartamentoGateway(conn);
 
 		ResultSet rs = dg.selecionarDepartamentos();
-		try
-		{
-			while (rs.next())
-			{
-				Departamento departamento = new Departamento();
-				departamento.setIdentificador(rs.getInt(1));
-				departamento.setNome(rs.getString(2));
-				departamento.setSigla(rs.getString(3));
 
-				departamentos.add(departamento);
-			}
-		} 
-		catch (SQLException e)
+		while (rs.next())
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Departamento departamento = new Departamento(0, null, null); //TODO
+			departamento.setIdentificador(rs.getInt(1));
+			departamento.setNome(rs.getString(2));
+			departamento.setSigla(rs.getString(3));
+
+			departamentos.add(departamento);
 		}
+
 		return departamentos;
-		
 	}
 
 	public static Departamento recuperarDepartamento(int departametnoId)

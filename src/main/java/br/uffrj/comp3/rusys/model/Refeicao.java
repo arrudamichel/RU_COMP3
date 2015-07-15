@@ -1,18 +1,27 @@
 package br.uffrj.comp3.rusys.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Refeicao
+public abstract class Refeicao
 {
-	private int identificador;
-	private String descricao;
-	private String opcaoVeg;
-	private TurnoEnum turno;
-	private List<Ticket> tickets;
+	protected int id;
+	protected String descricao;
+	protected String opcaoVeg;
+	protected TurnoEnum turno;
+	protected List<Ticket> tickets = new ArrayList<Ticket>();
 
-	public Refeicao()
+	public Refeicao(int id, String descricao) throws Exception
 	{
-		// TODO Auto-generated constructor stub
+		super();
+		this.id = id;
+		
+		if (descricao == null)
+		{
+			throw new Exception("model.refeicao.descricao.deve.ser.informado.para.criacao");
+		}
+		
+		this.descricao = descricao;
 	}
 
 	public String getDescricao()
@@ -20,8 +29,13 @@ public class Refeicao
 		return descricao;
 	}
 
-	public void setDescricao(String descricao)
+	public void setDescricao(String descricao) throws Exception
 	{
+		if (descricao == null)
+		{
+			throw new Exception("model.refeicao.descricao.deve.ser.informada");
+		}
+		
 		this.descricao = descricao;
 	}
 
@@ -40,19 +54,23 @@ public class Refeicao
 		return turno;
 	}
 
-	public void setTurno(TurnoEnum turno)
-	{
-		this.turno = turno;
-	}
-
-
 	public int getIdentificador()
 	{
-		return identificador;
+		return id;
 	}
 
-	public void setIdentificador(int identificador)
+	public int getId()
 	{
-		this.identificador = identificador;
+		return id;
+	}
+
+	public List<Ticket> getTickets()
+	{
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets)
+	{
+		this.tickets = tickets;
 	}
 }

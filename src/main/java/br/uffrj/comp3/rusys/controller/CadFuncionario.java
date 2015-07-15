@@ -1,6 +1,7 @@
 package br.uffrj.comp3.rusys.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,10 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Funcionario;
-import br.uffrj.comp3.rusys.model.vo.AlunoVO;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
 import br.uffrj.comp3.rusys.model.vo.FuncionarioVO;
-import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.service.FuncionarioHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
@@ -35,13 +34,33 @@ public class CadFuncionario extends HttpServlet
 		
 		FuncionarioVO funcionarioVO = new FuncionarioVO();
 		
-		Collection<Funcionario> funcionarios = FuncionarioHandler.recuperarFuncionarios(funcionarioVO);
+		Collection<Funcionario> funcionarios = null;
+		try
+		{
+			funcionarios = FuncionarioHandler.recuperarFuncionarios(funcionarioVO);
+		} catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		request.setAttribute("funcionarios", funcionarios);
 		
 		DepartamentoVO departamentoVO = new DepartamentoVO();
 		
-		Collection<Departamento> departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		Collection<Departamento> departamentos = null;
+		try
+		{
+			departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("departamentos", departamentos);
 
@@ -125,33 +144,20 @@ public class CadFuncionario extends HttpServlet
 
 	public ArrayList<Departamento> listaDepartamentos()
 	{
-
-		ArrayList<Departamento> departamentos = new ArrayList<Departamento>();
-		/*Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-
-		DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
-		
-		// iddepartamento nome sigla
-		ResultSet rs = deptGateway.selecionarDepartamentos();
 		try
 		{
-			while (rs.next())
-			{
-				Departamento departamento = new Departamento();
-				departamento.setIdentificador(rs.getInt("iddepartamento"));
-				departamento.setNome(rs.getString("nome"));
-				departamento.setSigla(rs.getString("sigla"));
-
-				departamentos.add(departamento);
-			}
-			conn.close();
-		} 
-		catch (SQLException e)
+			return DepartamentoHandler.recuperarDepartamentos(new DepartamentoVO());
+		} catch (SQLException e)
 		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		return departamentos;
+		return null;
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException

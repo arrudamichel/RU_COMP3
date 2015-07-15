@@ -14,10 +14,8 @@ import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.vo.AlunoVO;
 import br.uffrj.comp3.rusys.model.vo.CursoVO;
-import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
 import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.CursoHandler;
-import br.uffrj.comp3.rusys.service.RefeicaoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 @WebServlet("/CadastrarAluno")
@@ -35,7 +33,15 @@ public class CadAluno extends HttpServlet
 		String acao = (String) request.getParameter("acao");
 		
 		AlunoVO alunoVO = new AlunoVO();
-		Collection<Aluno> alunos = AlunoHandler.recuperarAlunos(alunoVO);				
+		Collection<Aluno> alunos = null;
+		try
+		{
+			alunos = AlunoHandler.recuperarAlunos(alunoVO);
+		} catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}				
 		request.setAttribute("alunos", alunos);
 		
 		CursoVO cursoVO = new CursoVO();
