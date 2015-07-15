@@ -2,7 +2,6 @@ package br.uffrj.comp3.rusys.service;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,16 +22,16 @@ public class CursoHandler
 		CursoGateway cursoGateway = new CursoGateway(conn);
 		DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
 
-		ResultSet rs = deptGateway.selecionarDepartamentoPorNome(cursoVO.getNomeDepartamento());
+		ResultSet rsDepartamento = deptGateway.selecionarDepartamentoPorId(cursoVO.getId());
 
 		int deptId = -1;
 
-		rs.next();
-		deptId = rs.getInt(1);
+		rsDepartamento.next();
+		deptId = rsDepartamento.getInt(1);
 
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(cursoVO.getNome(), cursoVO.getSigla(), deptId));
 
-		if (!cursoGateway.inserir(valores))
+		if (cursoGateway.inserir(valores) == null)
 			throw new Exception("falha.ao.cadastrar.curso");
 
 		conn.close();
@@ -43,10 +42,12 @@ public class CursoHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 		
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), curso.getDepartamento().getIdentificador()));
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla())); //TODO FALTA O DEPARTAMENTO
 
-		if (!cg.alterarCurso(valores, curso.getIdentificador()))
+		if (!cg.alterarCurso(valores, curso.getId()))
 			throw new Exception("falha.ao.atualizart.curso");
+		
+		conn.close();
 	}
 	
 	public static void excluirCurso(Curso curso) throws Exception
@@ -54,75 +55,55 @@ public class CursoHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 
-		if (!cg.excluirCurso(curso.getIdentificador()))
+		if (!cg.excluirCurso(curso.getId()))
 			throw new Exception("falha.ao.excluir.curso");
 	}
 	
 	public static Curso recuperarCurso(int id) throws Exception
 	{	
-		Curso curso = new Curso();
+		Curso curso = null;
 	
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
+		ResultSet rsCurso = cg.selecionarCursoPorId(id);
+		rsCurso.next();
 		
-		ResultSet rs = cg.selecionarCursoPorId(id);
-		
-		rs.next();
-		
-		curso.setIdentificador(rs.getInt(1));
-		curso.setNome(rs.getString(2));
-		curso.setSigla(rs.getString(3));
-
 		DepartamentoGateway dg = new DepartamentoGateway(conn);
-		ResultSet rsd = dg.selecionarDepartamentoPorId(rs.getInt(4));
-		rsd.next();
+		ResultSet rsDepartamento = dg.selecionarDepartamentoPorId(rsCurso.getInt(4));
+		rsDepartamento.next();
 
-		Departamento departamento = new Departamento();
-		departamento.setIdentificador(rsd.getInt(1));
-		departamento.setNome(rsd.getString(2));
-		departamento.setSigla(rsd.getString(3));
-
-		curso.setDepartamento(departamento);
+		Departamento departamento = new Departamento(rsDepartamento.getInt(1), rsDepartamento.getString(2), rsDepartamento.getString(3));
+		
+		curso = new Curso(id, rsCurso.getString(2), rsCurso.getString(3), departamento);
 	
 		conn.close();
 
 		return curso;	
 	}
 	
-	public static ArrayList<Curso> recuperarCursos(CursoVO cursoVO) throws SQLException
+	public static ArrayList<Curso> recuperarCursos(CursoVO cursoVO) throws Exception
 	{
 		ArrayList<Curso> cursos = new ArrayList<>();
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 
-		ResultSet rs = cg.selecionarCursos();
+		ResultSet rsCursos = cg.selecionarCursos();
 
-	
-		while (rs.next())
+		while (rsCursos.next())
 		{
-			Curso curso = new Curso();
-			curso.setIdentificador(rs.getInt(1));
-			curso.setNome(rs.getString(2));
-			curso.setSigla(rs.getString(3));
-
 			DepartamentoGateway dg = new DepartamentoGateway(conn);
-			ResultSet rsd = dg.selecionarDepartamentoPorId(rs.getInt(4));
-			rsd.next();
+			ResultSet rsDepartamento = dg.selecionarDepartamentoPorId(rsCursos.getInt(4));
+			rsDepartamento.next();
 
-			Departamento departamento = new Departamento();
-			departamento.setIdentificador(rsd.getInt(1));
-			departamento.setNome(rsd.getString(2));
-			departamento.setSigla(rsd.getString(3));
-
-			curso.setDepartamento(departamento);
+			Departamento departamento = new Departamento(rsDepartamento.getInt(1), rsDepartamento.getString(2), rsDepartamento.getString(3));
+			
+			Curso curso = new Curso(rsCursos.getInt(1), rsCursos.getString(2), rsCursos.getString(3), departamento);
 
 			cursos.add(curso);
 		}
 
 		conn.close();
 		
-
 		return cursos;
-		
 	}
 }

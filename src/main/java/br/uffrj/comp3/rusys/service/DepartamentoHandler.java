@@ -20,26 +20,36 @@ public class DepartamentoHandler
 
 		DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
 		
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamentoVO.getNome(), 
-																		departamentoVO.getSigla()));
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamentoVO.getNome(), departamentoVO.getSigla()));
 
-		if (!deptGateway.inserir(valores))
+		if (deptGateway.inserir(valores)==null)
 			throw new Exception("falha.ao.cadastrar.departamento");
 
 		conn.close();
 	}
 	
-	public static void atualizarDepartamento(Departamento departamento)
+	public static void atualizarDepartamento(Departamento departamento) throws Exception
 	{
-//		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-//		DepartamentoGateway dg = new DepartamentoGateway(conn);
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		DepartamentoGateway dg = new DepartamentoGateway(conn);
 		
-	
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamento.getNome(), departamento.getSigla())); 
+
+		if (!dg.alterarDepartamento(valores, departamento.getId()))
+			throw new Exception("falha.ao.atualizart.departamento");
+		
+		conn.close();
 	}
 	
-	public static void excluirDepartamento(Departamento departamento)
+	public static void excluirDepartamento(Departamento departamento) throws Exception
 	{
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		DepartamentoGateway cg = new DepartamentoGateway(conn);
+
+		if (!cg.excluirDepartamento(departamento.getId()))
+			throw new Exception("falha.ao.excluir.departamento");
 		
+		conn.close();
 	}
 	
 	public static ArrayList<Departamento> recuperarDepartamentos(DepartamentoVO departamentoVO) throws SQLException, Exception
@@ -52,10 +62,7 @@ public class DepartamentoHandler
 
 		while (rs.next())
 		{
-			Departamento departamento = new Departamento(0, null, null); //TODO
-			departamento.setIdentificador(rs.getInt(1));
-			departamento.setNome(rs.getString(2));
-			departamento.setSigla(rs.getString(3));
+			Departamento departamento = new Departamento(rs.getInt(1), rs.getString(2), rs.getString(3));
 
 			departamentos.add(departamento);
 		}
@@ -63,27 +70,19 @@ public class DepartamentoHandler
 		return departamentos;
 	}
 
-	public static Departamento recuperarDepartamento(int departametnoId)
+	public static Departamento recuperarDepartamento(int departametnoId) throws SQLException, Exception
 	{
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		DepartamentoGateway dg = new DepartamentoGateway(conn);
 
 		ResultSet rs = dg.selecionarDepartamentoPorId(departametnoId);
-		Departamento departamento = new Departamento();
-		try
+		Departamento departamento = null;
+
+		while (rs.next())
 		{
-			while (rs.next())
-			{
-				departamento.setIdentificador(rs.getInt(1));
-				departamento.setNome(rs.getString(2));
-				departamento.setSigla(rs.getString(3));
-			}
-		} 
-		catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			departamento = new Departamento(rs.getInt(1), rs.getString(2), rs.getString(3));
 		}
+		
 		return departamento;
 	}
 }
