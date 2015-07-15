@@ -78,12 +78,15 @@ public class DepartamentoControle extends HttpServlet
 			{
 				case Constantes.ACAO_DELETAR:
 					excluir(request, response);
+					response.sendRedirect("GerirDepartamento");
 					break;
 				case Constantes.ACAO_EDITAR:
 					editar(request, response);
+					response.sendRedirect("GerirDepartamento");
 					break;
 				case Constantes.ACAO_SALVAR:
 					cadastrar(request, response);
+					response.sendRedirect("GerirDepartamento");
 					break;
 				default:
 					request.getRequestDispatcher("GerirDepartamento").forward(request, response);

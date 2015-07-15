@@ -92,14 +92,16 @@ public class CursoControle extends HttpServlet
 			switch (acao)
 			{	case Constantes.ACAO_SALVAR:
 					cadastrar(request, response);
+					response.sendRedirect("GerirCurso");
 					break;
 				case Constantes.ACAO_DELETAR:
 					excluir(request, response);
+					response.sendRedirect("GerirCurso");
 					break;
 				case Constantes.ACAO_EDITAR:
 					editar(request, response);
-					break;
-					
+					response.sendRedirect("GerirCurso");
+					break;	
 				default:
 					request.getRequestDispatcher("GerirCurso").forward(request, response);
 			}

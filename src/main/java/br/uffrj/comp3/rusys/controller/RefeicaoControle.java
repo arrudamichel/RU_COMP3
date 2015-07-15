@@ -54,12 +54,15 @@ public class RefeicaoControle extends HttpServlet
 			{
 				case Constantes.ACAO_SALVAR:
 					cadastrar(request, response);
+					response.sendRedirect("GerirRefeicao");
 					break;
 				case Constantes.ACAO_DELETAR:
 					excluir(request, response);
+					response.sendRedirect("GerirRefeicao");
 					break;
 				case Constantes.ACAO_EDITAR:
 					editar(request, response);
+					response.sendRedirect("GerirRefeicao");
 					break;
 				default:
 					request.getRequestDispatcher("GerirRefeicao").forward(request, response);

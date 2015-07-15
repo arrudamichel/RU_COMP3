@@ -64,12 +64,15 @@ public class AlunoControle extends HttpServlet
 			{
 				case Constantes.ACAO_SALVAR:
 					cadastrar(request, response);
+					response.sendRedirect("GerirAluno");
 					break;
 				case Constantes.ACAO_DELETAR:
 					excluir(request, response);
+					response.sendRedirect("GerirAluno");
 					break;
 				case Constantes.ACAO_EDITAR:
 					editar(request, response);
+					response.sendRedirect("GerirAluno");
 					break;
 				default:
 					request.getRequestDispatcher("GerirAluno").forward(request, response);

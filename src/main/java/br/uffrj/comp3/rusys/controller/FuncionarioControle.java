@@ -71,12 +71,15 @@ public class FuncionarioControle extends HttpServlet
 			{
 				case Constantes.ACAO_SALVAR:
 					cadastrar(request, response);
+					response.sendRedirect("GerirFuncionario");
 					break;
 				case Constantes.ACAO_EDITAR:
 					editar(request, response);
+					response.sendRedirect("GerirFuncionario");
 					break;
 				case Constantes.ACAO_DELETAR:
 					excluir(request, response);
+					response.sendRedirect("GerirFuncionario");
 					break;
 				default:
 					request.getRequestDispatcher("GerirFuncionario").forward(request, response);
