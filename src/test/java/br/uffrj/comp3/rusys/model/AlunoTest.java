@@ -8,42 +8,35 @@ public class AlunoTest {
 	Aluno al;
 	Curso cu;
 	Departamento de;
-	
 
 	@Test
-	public void testAlunoStringIntStringSexoEnumTituloEnumStringCurso() {
-		 String esperado = "Jessica";
-		 al = new Aluno("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", cu );
-		 
-	
-		assertEquals(esperado, al.getNome());
-	}
-
-	@Test
-	public void testAluno() {
-		 de = new Departamento("Depto de Computacao","DCC");
-		 cu = new Curso("Computacao", "CC", de);
-		 al = new Aluno("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", cu );
+	public void testAluno() throws Exception {
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
+		al = new Aluno(1, "Jessica", 2011785144, "2011", cu);
 		
 	}
+
 	@Test
-	public void testGetCurso() {
-		 String esperado = "Computacao";
-		 cu = new Curso("Computacao", "CC", de);
-		 al = new Aluno("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", cu );
-		 
-	
-		assertEquals(esperado, al.getCurso().getNome());
+	public void testGetCurso() throws Exception {
+		String esperado = "CC";
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
+		al = new Aluno(1, "Jessica", 2011785144, "2011", cu);
+		
+		assertEquals(esperado, al.getCurso().getSigla());
 	}
 
 	@Test
-	public void testSetCurso() {
-		 String esperado = "Computacao2";
-		 Curso cu2 = new Curso("Computacao2", "CC", de);
-		 al = new Aluno("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", cu );
-		 al.setCurso(cu2);
-	
-		assertEquals(esperado, al.getCurso().getNome());
+	public void testSetCurso() throws Exception {
+		String esperado = "CC";
+		Curso cu2 = new Curso(1, "computacao", "CC", de);
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
+		al = new Aluno(1, "Jessica", 2011785144, "2011", cu);
+		al.setCurso(cu2);
+		
+		assertEquals(esperado, al.getCurso().getSigla());
 	}
 
 }
