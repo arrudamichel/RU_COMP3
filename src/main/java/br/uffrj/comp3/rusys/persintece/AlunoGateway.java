@@ -84,8 +84,7 @@ public class AlunoGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"aluno\" " + "   WHERE \"consumidor_id\" = ?"
-					+ "       AND \"curso_id_curso\" = ?";
+			String sql = "DELETE FROM \"aluno\" " + "   WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
