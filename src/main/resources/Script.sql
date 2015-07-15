@@ -72,30 +72,29 @@ CREATE TABLE IF NOT EXISTS "curso" (
 
 -- Tabela "funcionario"
 CREATE TABLE IF NOT EXISTS "funcionario" (
- "id_funcionario" INT NOT NULL AUTO_INCREMENT,
+ "consumidor_id" INT NOT NULL,
   "departamento_iddepartamento" INT NOT NULL,
-  "consumidor_matricula" INT NOT NULL,
-  PRIMARY KEY ("departamento_iddepartamento", "consumidor_matricula"),
+  
+  PRIMARY KEY ("departamento_iddepartamento", "consumidor_id"),
   CONSTRAINT "fk_departamento_has_consumidor_departamento1"
     FOREIGN KEY ("departamento_iddepartamento")
     REFERENCES "departamento" ("iddepartamento")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT "fk_departamento_has_consumidor_consumidor1"
-    FOREIGN KEY ("consumidor_matricula")
-    REFERENCES "consumidor" ("matricula")
+    FOREIGN KEY ("consumidor_id")
+    REFERENCES "consumidor" ("consumidor_id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 -- Tabela "aluno"
 CREATE TABLE IF NOT EXISTS "aluno" (
- "id_aluno" INT NOT NULL AUTO_INCREMENT,
-  "consumidor_matricula" INT NOT NULL,
+  "consumidor_id" INT NOT NULL,
   "curso_idcurso" INT NOT NULL,
-  PRIMARY KEY ("consumidor_matricula", "curso_idcurso"),
+  PRIMARY KEY ("consumidor_id", "curso_idcurso"),
   CONSTRAINT "fk_consumidor_has_curso_consumidor1"
-    FOREIGN KEY ("consumidor_matricula")
-    REFERENCES "consumidor" ("matricula")
+    FOREIGN KEY ("consumidor_id")
+    REFERENCES "consumidor" ("consumidor_id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT "fk_consumidor_has_curso_curso1"
@@ -124,12 +123,11 @@ INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf
 INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao") VALUES (789,'Duarte','2013','M','DOUTORADO','12345678922',1);
 
 -- Insert Aluno
-INSERT INTO "aluno" ("consumidor_matricula", "curso_idcurso") VALUES (123,2);
-INSERT INTO "aluno"  ("consumidor_matricula", "curso_idcurso")  VALUES (456,1);
+INSERT INTO "aluno" ("consumidor_id", "curso_idcurso") VALUES (1,2);
+INSERT INTO "aluno"  ("consumidor_id", "curso_idcurso")  VALUES (2,1);
 
 -- Insert funcionario
-INSERT INTO "funcionario" ("departamento_iddepartamento", "consumidor_matricula") VALUES (2,789);
-
+INSERT INTO "funcionario" ("consumidor_id", "departamento_iddepartamento") VALUES (3, 2);
 -- Insert ticket
 INSERT INTO "ticket" ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago") VALUES (123,1,0.5,1);
 INSERT INTO "ticket" ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago") VALUES  (789,1,3.0,1);
