@@ -17,8 +17,8 @@ import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
 import br.uffrj.comp3.rusys.service.RefeicaoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
-@WebServlet("/CadastrarRefeicao")
-public class CadRefeicao extends HttpServlet
+@WebServlet("/GerirRefeicao")
+public class RefeicaoControle extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
@@ -62,7 +62,7 @@ public class CadRefeicao extends HttpServlet
 					editar(request, response);
 					break;
 				default:
-					request.getRequestDispatcher("CadastrarRefeicao").forward(request, response);
+					request.getRequestDispatcher("GerirRefeicao").forward(request, response);
 			}
 		} 
 		else

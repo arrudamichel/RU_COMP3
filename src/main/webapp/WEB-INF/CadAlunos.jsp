@@ -59,8 +59,8 @@
                   </tr>
                   <%	                  
 	                for(int i=0; i < alunos.size(); i++) {
-	                	String urlEditar="CadastrarAluno?acao="+ Constantes.ACAO_EDITAR+ "&matricula="+alunos.get(i).getMatricula();
-             		   	String urlDelete ="CadastrarAluno?acao="+ Constantes.ACAO_DELETAR+ "&matricula="+alunos.get(i).getMatricula();
+	                	String urlEditar="GerirAluno?acao="+ Constantes.ACAO_EDITAR+ "&matricula="+alunos.get(i).getMatricula();
+             		   	String urlDelete ="GerirAluno?acao="+ Constantes.ACAO_DELETAR+ "&matricula="+alunos.get(i).getMatricula();
              		   	
 	                  	if(i%2 == 0){ %>
 	                  	<tr class="odd">                 	    
@@ -90,7 +90,7 @@
                 </table>
             
             <div class="inner">
-              <form id="FrmAluno" name="FrmAluno" action="CadastrarAluno" method="POST" class="form">
+              <form id="FrmAluno" name="FrmAluno" action="GerirAluno" method="POST" class="form">
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>

@@ -21,8 +21,8 @@ import br.uffrj.comp3.rusys.service.FuncionarioHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 
-@WebServlet("/CadastrarFuncionario")
-public class CadFuncionario extends HttpServlet
+@WebServlet("/GerirFuncionario")
+public class FuncionarioControle extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
@@ -79,7 +79,7 @@ public class CadFuncionario extends HttpServlet
 					excluir(request, response);
 					break;
 				default:
-					request.getRequestDispatcher("CadastrarFuncionario").forward(request, response);
+					request.getRequestDispatcher("GerirFuncionario").forward(request, response);
 			}
 		} 
 		else

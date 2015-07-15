@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import br.uffrj.comp3.rusys.util.Constantes;
 
-@WebServlet("/CadastrarTicket")
-public class CadTicket extends HttpServlet
+@WebServlet("/GerirTicket")
+public class TicketControle extends HttpServlet
 {
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class CadTicket extends HttpServlet
 					//cadastrar(request, response);
 					break;
 				default:
-					request.getRequestDispatcher("CadastrarTicket").forward(request, response);
+					request.getRequestDispatcher("GerirTicket").forward(request, response);
 			}
 		} 
 		else

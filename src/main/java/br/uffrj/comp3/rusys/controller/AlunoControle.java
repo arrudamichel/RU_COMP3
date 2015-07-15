@@ -18,8 +18,8 @@ import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.CursoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
-@WebServlet("/CadastrarAluno")
-public class CadAluno extends HttpServlet
+@WebServlet("/GerirAluno")
+public class AlunoControle extends HttpServlet
 {
 	/**
 	 * 
@@ -72,7 +72,7 @@ public class CadAluno extends HttpServlet
 					editar(request, response);
 					break;
 				default:
-					request.getRequestDispatcher("CadastrarAluno").forward(request, response);
+					request.getRequestDispatcher("GerirAluno").forward(request, response);
 			}
 		} 
 		else

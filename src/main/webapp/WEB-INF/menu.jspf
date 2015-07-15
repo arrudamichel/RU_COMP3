@@ -3,12 +3,12 @@
 	<h1><a href='index.jsp'><%=Constantes.RU%></a></h1>
 	<div id='main-navigation'>
 		<ul class='wat-cf'>
-			<li><a href='CadastrarRefeicao'><%=Constantes.REFEICAO%></a></li>
-			<li><a href='CadastrarAluno'><%=Constantes.ALUNOS%></a></li>
-			<li><a href='CadastrarFuncionario'><%=Constantes.FUNCIONARIO%></a></li>
-			<li><a href='CadastrarDepartamento'><%=Constantes.DEPTO%></a></li>
-			<li><a href='CadastrarCurso'><%=Constantes.CURSO%></a></li>
-			<li><a href='CadastrarTicket'><%=Constantes.TICKET%></a></li>
+			<li><a href='GerirRefeicao'><%=Constantes.REFEICAO%></a></li>
+			<li><a href='GerirAluno'><%=Constantes.ALUNOS%></a></li>
+			<li><a href='GerirFuncionario'><%=Constantes.FUNCIONARIO%></a></li>
+			<li><a href='GerirDepartamento'><%=Constantes.DEPTO%></a></li>
+			<li><a href='GerirCurso'><%=Constantes.CURSO%></a></li>
+			<li><a href='GerirTicket'><%=Constantes.TICKET%></a></li>
 		</ul>
 	</div>
 </div>

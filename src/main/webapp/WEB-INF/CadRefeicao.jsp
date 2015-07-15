@@ -61,8 +61,8 @@
                        <%
                        	
                        	for(int i=0; i < refeicoes.size(); i++){
-                       		String urlEditar="CadastrarRefeicao?acao="+ Constantes.ACAO_EDITAR+ "&id="+refeicoes.get(i).getIdentificador();
-                 		   	String urlDelete ="CadastrarRefeicao?acao="+ Constantes.ACAO_DELETAR+ "&id="+refeicoes.get(i).getIdentificador();
+                       		String urlEditar="GerirRefeicao?acao="+ Constantes.ACAO_EDITAR+ "&id="+refeicoes.get(i).getIdentificador();
+                 		   	String urlDelete ="GerirRefeicao?acao="+ Constantes.ACAO_DELETAR+ "&id="+refeicoes.get(i).getIdentificador();
                        		if(i%2 == 0){
                        %>
                        <tr class="odd">                                        
@@ -105,7 +105,7 @@
 						<%
 							}
 						%> --%>
-						<form id="FrmRefeicao" name="FrmRefeicao" action="CadastrarRefeicao" method="POST" class="form">
+						<form id="FrmRefeicao" name="FrmRefeicao" action="GerirRefeicao" method="POST" class="form">
 							<input type="hidden" id="id" name="id"
 								<%-- <% if (refeicao != null && refeicao.getIdentificador() != 0 ) { out.print(" value = '" + refeicao.getIdentificador() + "'"); }%>> --%>>
 							<div class="group">

@@ -45,7 +45,7 @@
               </tr>                 
               <%               
              for(int i=0; i < departamentos.size(); i++) {
-            	 String urlEditar="CadastrarDepartamento?acao="+ Constantes.ACAO_EDITAR +"&departamentoId="+departamentos.get(i).getIdentificador();
+            	 String urlEditar="GerirDepartamento?acao="+ Constantes.ACAO_EDITAR +"&departamentoId="+departamentos.get(i).getIdentificador();
                	if(i%2 == 0){ %>
                	<tr class="odd">                  
                      <td><%=departamentos.get(i).getNome()%></td>                                              
@@ -75,7 +75,7 @@
     			<%} %>
     			
     			
-              <form id="FrmDepartamento" name="FrmDeparmento" action="CadastrarDepartamento" method="POST" class="form">              
+              <form id="FrmDepartamento" name="FrmDeparmento" action="GerirDepartamento" method="POST" class="form">              
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>
                   <input type="text" id="nome" name="nome" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />

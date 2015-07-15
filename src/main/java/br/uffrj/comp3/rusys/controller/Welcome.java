@@ -18,24 +18,6 @@ public class Welcome extends HttpServlet
 		response.setContentType("text/html");
 		
 		request.getRequestDispatcher("WEB-INF/Welcome.jsp").forward(request, response);
-		
-//		String acao = (String) request.getParameter("acao");
-//
-//		if (acao != null)
-//		{
-//			switch (acao)
-//			{
-//				case Constantes.SALVAR:
-//					cadastrar(request, response);
-//					break;
-//				default:
-//					request.getRequestDispatcher("ListarCursos").forward(request, response);
-//			}
-//		} 
-//		else
-//		{
-//			request.getRequestDispatcher("WEB-INF/CadastrarCurso.jsp").forward(request, response);
-//		}
 	}
 
 	@Override

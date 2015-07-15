@@ -42,7 +42,7 @@
 	                  </tr>
 	                  <%		                  
 		                for(int i=0; i < cursos.size(); i++) {
-		                	String urlEditar="CadastrarCurso?acao="+ Constantes.ACAO_EDITAR +"&cursoId="+cursos.get(i).getIdentificador();;
+		                	String urlEditar="GerirCurso?acao="+ Constantes.ACAO_EDITAR +"&cursoId="+cursos.get(i).getIdentificador();;
 
 		                  	if(i%2 == 0){ %>
 		                  	<tr class="odd">                  
@@ -61,7 +61,7 @@
 	                </table>
 					
 					<div class="inner">
-						<form id="FrmCurso" name="FrmCurso" action="CadastrarCurso" method="POST" class="form">
+						<form id="FrmCurso" name="FrmCurso" action="GerirCurso" method="POST" class="form">
 							<input type="hidden" id="id" name="id"
 								<%/* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */%>>
 							<div class="group">
