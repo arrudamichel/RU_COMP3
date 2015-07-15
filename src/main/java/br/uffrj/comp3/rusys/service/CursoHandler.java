@@ -22,18 +22,16 @@ public class CursoHandler
 		CursoGateway cursoGateway = new CursoGateway(conn);
 		DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
 
-		ResultSet rsDepartamento = deptGateway.selecionarDepartamentoPorId(cursoVO.getId());
+		ResultSet rsDepartamento = deptGateway.selecionarDepartamentoPorId(cursoVO.getDepartamento());
 
 		int deptId = -1;
-
+		
 		rsDepartamento.next();
 		deptId = rsDepartamento.getInt(1);
-
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(cursoVO.getNome(), cursoVO.getSigla(), deptId));
 
 		if (cursoGateway.inserir(valores) == null)
 			throw new Exception("falha.ao.cadastrar.curso");
-
 		conn.close();
 	}
 	
@@ -42,7 +40,7 @@ public class CursoHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 		
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla())); //TODO FALTA O DEPARTAMENTO
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), curso.getDepartamento().getIdentificador())); //TODO FALTA O DEPARTAMENTO
 
 		if (!cg.alterarCurso(valores, curso.getId()))
 			throw new Exception("falha.ao.atualizart.curso");

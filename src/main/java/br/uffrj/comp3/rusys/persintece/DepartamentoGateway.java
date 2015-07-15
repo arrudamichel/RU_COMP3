@@ -67,7 +67,6 @@ public class DepartamentoGateway
 	public ResultSet selecionarDepartamentoPorId(int identificador)
 	{
 		ResultSet rs = null;
-
 		try
 		{
 			String sql = "SELECT * FROM \"departamento\" WHERE \"id_departamento\" = ?";
@@ -91,7 +90,6 @@ public class DepartamentoGateway
 		try
 		{
 			String sql = "SELECT * FROM \"departamento\" WHERE \"nome\" = ?";
-
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, nome);
 			rs = stmt.executeQuery();
@@ -144,7 +142,7 @@ public class DepartamentoGateway
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(4, identificador);
+			stmt.setInt(3, identificador);
 
 			stmt.execute();
 		} 
