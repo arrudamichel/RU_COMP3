@@ -9,41 +9,39 @@ public class DepartamentoTest {
 	Departamento  de;
 	
 	@Test
-	public void testHashCode() {
+	public void testHashCode() throws Exception {
 		int esperado = 2043512536;
-		de = new Departamento("Depto", "DE");
+		de = new Departamento(1,"Depto", "DE");
 		
 		assertEquals(esperado,de.hashCode());
 	}
 
 	@Test
-	public void testDepartamento() {
-		 de = new Departamento("Depto", "DE");
+	public void testDepartamento() throws Exception {
+		de = new Departamento(1,"Depto", "DE");
 			
 	}
 
 	@Test
-	public void testDepartamentoStringString() {
+	public void testDepartamentoStringString() throws Exception {
 		String esperado = "Depto";
-		de = new Departamento("Depto", "DE");
-		
+		de = new Departamento(1,"Depto", "DE");
 
 		assertEquals(esperado,de.getNome());
 	}
 
 	@Test
-	public void testGetNome() {
+	public void testGetNome() throws Exception {
 		String esperado = "Depto";
-		de = new Departamento("Depto", "DE");
-		
+		de = new Departamento(1,"Depto", "DE");	
 
 		assertEquals(esperado,de.getNome());
 	}
 
 	@Test
-	public void testSetNome() {
+	public void testSetNome() throws Exception {
 		String esperado = "Depto 2";
-		de = new Departamento("Depto", "DE");
+		de = new Departamento(1,"Depto", "DE");
 		de.setNome("Depto 2");
 		
 
@@ -51,18 +49,18 @@ public class DepartamentoTest {
 	}
 
 	@Test
-	public void testGetSigla() {
+	public void testGetSigla() throws Exception {
 		String esperado = "DE";
-		de = new Departamento("Depto", "DE");
+		de = new Departamento(1,"Depto", "DE");
 		
 
 		assertEquals(esperado,de.getSigla());
 	}
 
 	@Test
-	public void testSetSigla() {
+	public void testSetSigla() throws Exception {
 		String esperado = "DER";
-		de = new Departamento("Depto", "DE");
+		de = new Departamento(1,"Depto", "DE");
 		de.setSigla("DER");
 		
 
@@ -70,50 +68,41 @@ public class DepartamentoTest {
 	}
 
 	@Test
-	public void testGetIdentificador() {
+	public void testGetIdentificador() throws Exception {
 		int esperado = 1;
-		de = new Departamento("Depto", "DE");
-		de.setIdentificador(1);
+		de = new Departamento(1,"Depto", "DE");
+		
 		
 		assertEquals(esperado,de.getIdentificador());
 		
 	}
 
 	@Test
-	public void testSetIdentificador() {
-		int esperado = 1;
-		de = new Departamento("Depto", "DE");
-		de.setIdentificador(1);
+	public void testSetIdentificador() throws Exception {
+		int esperado = 2;
+		de = new Departamento(1,"Depto", "DE");
+		de.setIdentificador(2);
 		
 		assertEquals(esperado,de.getIdentificador());
 	}
 
 	@Test
-	public void testEqualsObject() {
+	public void testEqualsObject() throws Exception {
 		boolean esperado = true;
-		de = new Departamento("Depto", "DE");
-		System.out.println(de.equals(de));
+		de = new Departamento(1,"Depto", "DE");
 		
 		assertEquals(esperado,de.equals(de));
 	}
 
 	@Test
-	public void testGetId() {
-		String esperado = "1";
-		de = new Departamento("Depto", "DE");
-		de.setId("1");
+	public void testGetId() throws Exception {
+		int esperado = 1;
+		de = new Departamento(1,"Depto", "DE");
+		
 		
 		assertEquals(esperado,de.getId());
 		
 	}
 
-	@Test
-	public void testSetId() {
-		String esperado = "1";
-		de = new Departamento("Depto", "DE");
-		de.setId("1");
-		
-		assertEquals(esperado,de.getId());
-	}
 
 }

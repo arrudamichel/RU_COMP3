@@ -8,11 +8,14 @@ public class TicketTest {
 	
 	Ticket ti;
 	Consumidor con;
+	Refeicao re;
 
 	@Test
-	public void testTicket() {
-		con = new Consumidor("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910"){};
-		ti = new Ticket(true, 1, con);
+	public void testTicket() throws Exception {
+		con = new Consumidor(1, "Jessica", 2011785144, "2011"){};
+		re= new Refeicao(1,"arroz"){};
+		
+		ti = new Ticket(1,true,1, con, re);
 	}
 
 

@@ -48,6 +48,11 @@ public abstract class Refeicao
 	{
 		this.opcaoVeg = opcaoVeg;
 	}
+	
+	public void setTurno(TurnoEnum tu)
+	{
+		this.turno = tu;
+	}
 
 	public TurnoEnum getTurno()
 	{

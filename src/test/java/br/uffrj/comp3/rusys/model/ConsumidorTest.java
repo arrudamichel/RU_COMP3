@@ -115,19 +115,19 @@ public class ConsumidorTest {
 	public void testGetCpf() throws Exception {
 		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 			
-		 con.setCpf("");
+		 con.setCpf("13638466710");
 		 System.out.println("cpf" + con.getCpf());
 			
-		assertEquals("", con.getCpf());
+		assertEquals("13638466710", con.getCpf());
 	}
 
 	@Test
 	public void testSetCpf() throws Exception {
 		 con = new Consumidor(1, "Jessica", 2011785144, "2011"){}; 
 			
-		 con.setCpf("12345678910");
+		 con.setCpf("13638466710");
 			
-		assertEquals("12345678910", con.getCpf());
+		assertEquals("13638466710", con.getCpf());
 	}
 
 

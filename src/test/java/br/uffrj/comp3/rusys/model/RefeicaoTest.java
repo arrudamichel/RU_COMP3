@@ -10,42 +10,41 @@ public class RefeicaoTest {
 	
 
 	@Test
-	public void testRefeicao() {
-		re= new Refeicao();
+	public void testRefeicao() throws Exception {
+		re= new Refeicao(1,"arroz"){};
 		
 	}
 
 	@Test
-	public void testGetDescricao() {
+	public void testGetDescricao() throws Exception {
 		String esperado = "arroz";
-		re= new Refeicao();
+		re= new Refeicao(1,"arroz"){};
+		
+		assertEquals(esperado,re.getDescricao());
+	}
+
+	@Test
+	public void testSetDescricao() throws Exception {
+		String esperado = "arroz";
+		re= new Refeicao(1,"feijao"){};
 		re.setDescricao("arroz");
 		
 		assertEquals(esperado,re.getDescricao());
 	}
 
 	@Test
-	public void testSetDescricao() {
+	public void testGetOpcaoVeg() throws Exception {
 		String esperado = "arroz";
-		re= new Refeicao();
-		re.setDescricao("arroz");
-		
-		assertEquals(esperado,re.getDescricao());
-	}
-
-	@Test
-	public void testGetOpcaoVeg() {
-		String esperado = "arroz";
-		re= new Refeicao();
+		re= new Refeicao(1,"feijao"){};
 		re.setOpcaoVeg("arroz");
 		
 		assertEquals(esperado,re.getOpcaoVeg());
 	}
 
 	@Test
-	public void testSetOpcaoVeg() {
+	public void testSetOpcaoVeg() throws Exception {
 		String esperado = "arroz";
-		re= new Refeicao();
+		re= new Refeicao(1,"feijao"){};
 		re.setOpcaoVeg("arroz");
 		
 		assertEquals(esperado,re.getOpcaoVeg());
@@ -53,9 +52,9 @@ public class RefeicaoTest {
 	
 
 	@Test
-	public void testGetTurno() {
+	public void testGetTurno() throws Exception {
 		
-		re= new Refeicao();
+		re= new Refeicao(1,"arroz"){};
 		re.setTurno(TurnoEnum.MANHA);
 		
 		assertEquals(TurnoEnum.MANHA,re.getTurno());
@@ -63,8 +62,8 @@ public class RefeicaoTest {
 	
 
 	@Test
-	public void testSetTurno() {
-		re= new Refeicao();
+	public void testSetTurno() throws Exception {
+		re= new Refeicao(1,"arroz"){};
 		re.setTurno(TurnoEnum.MANHA);
 		
 		assertEquals(TurnoEnum.MANHA,re.getTurno());
@@ -73,17 +72,11 @@ public class RefeicaoTest {
 	
 
 	@Test
-	public void testGetIdentificador() {
-		re= new Refeicao();
-		re.setIdentificador(1);
+	public void testGetIdentificador() throws Exception {
+		re= new Refeicao(1,"arroz"){};
 		
-		assertEquals(1,re.getIdentificador());
-	}
-
-	@Test
-	public void testSetIdentificador() {
-		re= new Refeicao();
-		re.setIdentificador(1);
+		
+		
 		
 		assertEquals(1,re.getIdentificador());
 	}

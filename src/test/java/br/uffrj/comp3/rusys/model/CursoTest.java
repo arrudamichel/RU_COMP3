@@ -12,33 +12,35 @@ public class CursoTest {
 	
 
 	@Test
-	public void testCurso() {
-		de = new Departamento("Depto de Computacao","DCC");
-		cu = new Curso("Computacao", "CC", de);
-	 
+	public void testCurso() throws Exception {
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
 	}
 
 	@Test
-	public void testCursoStringStringDepartamento() {
-		cu = new Curso("Computacao", "CC", de);
+	public void testCursoStringStringDepartamento() throws Exception {
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
 		
-		assertEquals("Computacao",cu.getNome());	
+		assertEquals("computacao",cu.getNome());	
 		
 	}
 
 	@Test
-	public void testGetNome() {
-		 String esperado = "Computacao";
-		 cu = new Curso("Computacao", "CC", de);
+	public void testGetNome() throws Exception {
+		String esperado = "computacao";
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
 	
 		assertEquals(esperado, cu.getNome());
 	}
 
 	@Test
-	public void testSetNome() {
-		 String esperado = "Letras";
-		 cu = new Curso("Computacao", "CC", de);
-		 cu.setNome("Letras");
+	public void testSetNome() throws Exception {
+		String esperado = "Letras";
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
+		cu.setNome("Letras");
 		
 	
 		assertEquals(esperado, cu.getNome());
@@ -46,10 +48,11 @@ public class CursoTest {
 	}
 
 	@Test
-	public void testGetSigla() {
+	public void testGetSigla() throws Exception {
 		
 		 String esperado = "CC";
-		 cu = new Curso("Computacao", "CC", de);
+		 de = new Departamento(1, "Depto", "DCC");
+			cu = new Curso(1, "computacao", "CC", de);
 		
 		
 	
@@ -57,9 +60,10 @@ public class CursoTest {
 	}
 
 	@Test
-	public void testSetSigla() {
+	public void testSetSigla() throws Exception {
 		 String esperado = "CComp";
-		 cu = new Curso("Computacao", "CC", de);
+		 de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
 		 cu.setSigla("CComp");
 		
 	
@@ -67,39 +71,40 @@ public class CursoTest {
 	}
 
 	@Test
-	public void testGetDepartamento() {
+	public void testGetDepartamento() throws Exception {
 		String esperado = "DCC";
-		de = new Departamento("Depto de Computacao","DCC");
-		cu = new Curso("Computacao", "CC", de);
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
 			
 		assertEquals(esperado, cu.getDepartamento().getSigla());
 	}
 
 	@Test
-	public void testSetDepartamento() {
+	public void testSetDepartamento() throws Exception {
 		String esperado = "DCC1";
-		Departamento de2 = new Departamento("Depto de Computacao","DCC1");
-		cu = new Curso("Computacao", "CC", de);
+		Departamento de2 = new Departamento(2,"Depto de Computacao","DCC1");
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
 		cu.setDepartamento(de2);
 			
 		assertEquals(esperado, cu.getDepartamento().getSigla());
 	}
 
 	@Test
-	public void testGetIdentificador() {
-		int esperado = 2;
-		cu = new Curso("Computacao", "CC", de);
-		cu.setIdentificador(02);
+	public void testGetIdentificador() throws Exception {
+		int esperado = 1;
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
 			
 		assertEquals(esperado, cu.getIdentificador());
 		
 	}
 
 	@Test
-	public void testSetIdentificador() {
-		int esperado = 2;
-		cu = new Curso("Computacao", "CC", de);
-		cu.setIdentificador(02);
+	public void testSetIdentificador() throws Exception {
+		int esperado = 1;
+		de = new Departamento(1, "Depto", "DCC");
+		cu = new Curso(1, "computacao", "CC", de);
 			
 		assertEquals(esperado, cu.getIdentificador());
 	}

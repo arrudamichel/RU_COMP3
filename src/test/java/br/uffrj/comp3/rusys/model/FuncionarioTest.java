@@ -10,31 +10,33 @@ public class FuncionarioTest {
 	Curso cu;
 	Departamento de;
 	
-	public void testFuncionarioStringIntStringSexoEnumTituloEnumStringDepartamento() {
+	public void testFuncionarioStringIntStringSexoEnumTituloEnumStringDepartamento() throws Exception {
 		String esperado = "Jessica";
-		fu = new Funcionario("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", de );
+		de = new Departamento(1, "Depto", "DCC");
+		fu = new Funcionario(1, "Jessica", 2011785144, "2011", de);
 		assertEquals(esperado,fu.getNome());
 	}
 
 	@Test
-	public void testFuncionario() {
-		de = new Departamento("Depto de Computacao","DCC");
-		fu = new Funcionario("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", de );
+	public void testFuncionario() throws Exception {
+		de = new Departamento(1, "Ccomp", "DCC");
+		fu = new Funcionario(1, "Jessica", 2011785144, "2011", de);
 	}
 
 	@Test
-	public void testGetDepartamento() {
-		String esperado = "DCC";
-		de = new Departamento("Depto de Computacao","DCC");
-		fu = new Funcionario("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", de );
-		assertEquals(esperado,fu.getDepartamento().getSigla());
+	public void testGetDepartamento() throws Exception {
+		String esperado = "Jessica";
+		de = new Departamento(1, "Depto", "DCC");
+		fu = new Funcionario(1, "Jessica", 2011785144, "2011", de);
+		assertEquals(esperado,fu.getNome());
 	}
 
 	@Test
-	public void testSetDepartamento() {
+	public void testSetDepartamento() throws Exception {
 		String esperado = "Depto";
-		Departamento de2 = new Departamento("Depto","DCC");
-		fu = new Funcionario("Jessica", 2011785144, "2011", SexoEnum.F, TituloEnum.ESPECIALIZACAO , "12345678910", de );
+		Departamento de2 = new Departamento(2,"Depto","DCC");
+		de = new Departamento(1, "Ccomp", "DCC");
+		fu = new Funcionario(1, "Jessica", 2011785144, "2011", de);
 		fu.setDepartamento(de2);
 		assertEquals(esperado,fu.getDepartamento().getNome());
 	}
