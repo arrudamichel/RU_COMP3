@@ -80,7 +80,7 @@ public class AlunoGateway
 		return rs;
 	}
 
-	public boolean excluirAluno(ArrayList<Object> valores)
+	public boolean excluirAluno(int id)
 	{
 		try
 		{
@@ -88,13 +88,8 @@ public class AlunoGateway
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
-			// preenche os valores
-			for (int i = 1; i <= valores.size(); i++)
-			{
-				if (valores.get(i - 1).getClass().equals(Integer.class))
-					stmt.setInt(i, (Integer) valores.get(i - 1));
-			}
-
+			stmt.setInt(1, id);
+			
 			stmt.execute();
 
 		} catch (Exception e)

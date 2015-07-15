@@ -2,96 +2,111 @@ package br.uffrj.comp3.rusys.service;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import br.uffrj.comp3.rusys.model.Almoco;
+import br.uffrj.comp3.rusys.model.Dejejum;
+import br.uffrj.comp3.rusys.model.Jantar;
 import br.uffrj.comp3.rusys.model.Refeicao;
-import br.uffrj.comp3.rusys.model.TurnoEnum;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
+import br.uffrj.comp3.rusys.persintece.AlmocoGateway;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
+import br.uffrj.comp3.rusys.persintece.JantarGateway;
 import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
-import br.uffrj.comp3.rusys.persintece.TurnoGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
 
-public class RefeicaoHandler {
-
-	public static void cadastrarRefeicao(RefeicaoVO refeicaoVO) throws Exception
+public class RefeicaoHandler
+{
+	public static int cadastrarRefeicao(RefeicaoVO refeicaoVO) throws Exception
 	{
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-		
-		TurnoGateway turnoGateway = new TurnoGateway(conn);
 
-		ResultSet rs = turnoGateway.selecionarTurnoPorNome(refeicaoVO.getTurno().toString());
-
-		int turnoId = -1;
-		try
-		{
-			rs.next();
-			turnoId = rs.getInt(1);
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
-		
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(refeicaoVO.getDescricao(), 
-				refeicaoVO.getOpcaoVeg(), turnoId));
 
-		if (!refeicaoGateway.inserir(valores))
-		throw new Exception("falha.ao.cadastrar.refeicao");
+		ArrayList<Object> valores = new ArrayList<Object>(
+				Arrays.asList(refeicaoVO.getDescricao(), refeicaoVO.getOpcaoVeg(), refeicaoVO.getTurno().toString()));
 		
+		ResultSet rs = refeicaoGateway.inserir(valores);
+		
+		if (rs==null)
+			throw new Exception("falha.ao.cadastrar.refeicao");
+
 		conn.close();
-
+		
+		return rs.getFetchSize();
 	}
 	
+	public static Refeicao recuperarRefeicao(int ifref) throws Exception
+	{	
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+
+		AlmocoGateway ag = new AlmocoGateway(conn);
+		ResultSet rsAlmoco = ag.selecionarAlmocoPorId(ifref);
+		
+		JantarGateway jg = new JantarGateway(conn);
+		ResultSet rsJantar = jg.selecionarJantarPorId(ifref);
+		
+		JantarGateway dg = new JantarGateway(conn);
+		ResultSet rsDejejum = dg.selecionarJantarPorId(ifref);
+
+		Refeicao refeicao = null;
+		
+		if (rsAlmoco.next())
+		{
+			int id = rsAlmoco.getInt(1);
+			String opcaoVeg = rsAlmoco.getString(2);
+			String descricao = rsAlmoco.getString(3);
+			
+			refeicao = new Almoco(id, descricao);
+			refeicao.setOpcaoVeg(opcaoVeg);
+		} 
+		else if (rsJantar.next())
+		{
+			int id = rsJantar.getInt(1);
+			String opcaoVeg = rsJantar.getString(2);
+			String descricao = rsJantar.getString(3);
+			
+			refeicao = new Jantar(id, descricao);
+			refeicao.setOpcaoVeg(opcaoVeg);
+		}
+		else if (rsDejejum.next())
+		{
+			int id = rsDejejum.getInt(1);
+			String opcaoVeg = rsDejejum.getString(2);
+			String descricao = rsDejejum.getString(3);
+			
+			refeicao = new Dejejum(id, descricao);
+			refeicao.setOpcaoVeg(opcaoVeg);
+		}
+
+		conn.close();
+		
+		return refeicao;
+	}
+
 	public static void atualizarRefeicao(RefeicaoVO refeicaoVO)
 	{
-		
+
 	}
-	
-	public static void excluirRefeicao(RefeicaoVO refeicaoVO) throws Exception
+
+	public static void excluirRefeicao(Refeicao refeicao) throws Exception
 	{
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		RefeicaoGateway rg = new RefeicaoGateway(conn);
-		
-		if (!rg.desativarRefeicao(refeicaoVO.getIdentificador()));
+
+		if (!rg.desativarRefeicao(refeicao.getIdentificador()))
 			throw new Exception("falha.ao.cadastrar.refeicao");
+		
+		conn.close();
 	}
-	
+
 	public static ArrayList<Refeicao> recuperarRefeicoes(RefeicaoVO refeicaoVO) throws Exception
 	{
 		ArrayList<Refeicao> refeicoes = new ArrayList<>();
 
-		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-		RefeicaoGateway rg = new RefeicaoGateway(conn);
+//		TODO
 
-		ResultSet rs = rg.selecionarRefeicoes();
-
-		while (rs.next())
-		{
-			Refeicao refeicao = new Refeicao();
-			refeicao.setIdentificador(rs.getInt(1));
-			refeicao.setDescricao(rs.getString(2));
-			refeicao.setOpcaoVeg(rs.getString(3));
-
-			TurnoGateway tg = new TurnoGateway(conn);
-			
-			ResultSet rst = tg.selecionarTurnoPorId(rs.getInt(4));
-			rst.next();
-
-			// Verifica se e ativo ou nao
-			if (rs.getInt(5) == 1)
-			{
-				refeicao.setTurno(TurnoEnum.valueOf(rst.getString(2)));
-
-				refeicoes.add(refeicao);
-			}
-		}
-
-		conn.close();
-		
 		return refeicoes;
 	}
 }

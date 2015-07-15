@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.uffrj.comp3.rusys.model.Consumidor;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Funcionario;
+import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
-import br.uffrj.comp3.rusys.model.vo.FuncionarioVO;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.service.FuncionarioHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
@@ -32,7 +33,7 @@ public class CadFuncionario extends HttpServlet
 		
 		String acao = (String) request.getParameter("acao");
 		
-		FuncionarioVO funcionarioVO = new FuncionarioVO();
+		ConsumidorVO funcionarioVO = new ConsumidorVO();
 		
 		Collection<Funcionario> funcionarios = null;
 		try
@@ -87,17 +88,31 @@ public class CadFuncionario extends HttpServlet
 		}
 	}
 	
-	private void excluir(HttpServletRequest request,
-			HttpServletResponse response) {
+	private void excluir(HttpServletRequest request, HttpServletResponse response) {
 		
-		String matricula = request.getParameter("matricula");
+		String idFuncionario = request.getParameter("matricula");
 
-		FuncionarioVO funcionarioVO = new FuncionarioVO();
-		funcionarioVO.setMatricula(Integer.parseInt(matricula));
+		Consumidor funcionario = null;
+		try
+		{
+			funcionario = FuncionarioHandler.recuperarFuncionario(Integer.parseInt(idFuncionario));
+		} catch (NumberFormatException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try
 		{
-			FuncionarioHandler.excluirFuncionario(funcionarioVO);
+			FuncionarioHandler.excluirFuncionario(funcionario);
 		} 
 		catch (Exception e)
 		{
@@ -122,7 +137,7 @@ public class CadFuncionario extends HttpServlet
 		String cpf = request.getParameter("cpf");
 		String departamento = request.getParameter("departamento");
 		
-		FuncionarioVO funcionarioVO = new FuncionarioVO();
+		ConsumidorVO funcionarioVO = new ConsumidorVO();
 		
 		funcionarioVO.setNome(nome);
 		funcionarioVO.setMatricula(Integer.parseInt(matricula));
@@ -134,7 +149,7 @@ public class CadFuncionario extends HttpServlet
 		
 		try
 		{
-			FuncionarioHandler.cadastrarDepartamento(funcionarioVO);
+			FuncionarioHandler.cadastrarFuncionario(funcionarioVO);
 		} 
 		catch (Exception e)
 		{

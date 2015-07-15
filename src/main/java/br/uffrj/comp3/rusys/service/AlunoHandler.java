@@ -8,106 +8,147 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import br.uffrj.comp3.rusys.model.Aluno;
+import br.uffrj.comp3.rusys.model.Consumidor;
 import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.SexoEnum;
 import br.uffrj.comp3.rusys.model.TituloEnum;
-import br.uffrj.comp3.rusys.model.vo.AlunoVO;
+import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.persintece.AlunoGateway;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
 import br.uffrj.comp3.rusys.persintece.CursoGateway;
 import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
-import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
 
-public class AlunoHandler {
-	
-	public static void cadastrarAluno(AlunoVO alunoVO) throws Exception {
+public class AlunoHandler
+{
+	public static void cadastrarAluno(ConsumidorVO consumidorVO) throws Exception
+	{
+//		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
 		
-		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-		ConsumidorGateway cg = new ConsumidorGateway(conn);
+		int id = ConsumidorHandler.cadastrarConsumidor(consumidorVO);
 		
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(alunoVO.getMatricula(), alunoVO.getNome(), 
-																		alunoVO.getAnoDeIngresso(), 
-																		alunoVO.getSexo(), alunoVO.getTitulo(),
-																		alunoVO.getCpf()));
-		
-		if (!cg.inserir(valores))
-			throw new Exception("falha.ao.cadastrar.consumidor");
-				
-		AlunoGateway ag = new AlunoGateway(conn);
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
+		AlunoGateway alunoGW = new AlunoGateway(conn);
 
-		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(alunoVO.getMatricula(), alunoVO.getCurso()));
+		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(id,consumidorVO.getMatricula(), consumidorVO.getCurso()));
 
-		if (!ag.inserir(valores2))
+		if (!alunoGW.inserir(valores2))
 			throw new Exception("falha.ao.cadastrar.aluno");
 
 		conn.close();
+	}
+	
+	public static Aluno recuperarAluno(int idAluno) throws SQLException, Exception
+	{
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		AlunoGateway alunoGW = new AlunoGateway(conn);
+
+		ResultSet rsAluno = alunoGW.selecionarAlunoPorMatricula(idAluno);
+
+		Aluno aluno = null;
 		
+		while (rsAluno.next())
+		{
+			int id = rsAluno.getInt(1);
+			int matricula = rsAluno.getInt(2);
+			int idcurso = rsAluno.getInt(3);
+
+			// seleciona curso
+			CursoGateway curg = new CursoGateway(conn);
+			ResultSet rsCurso = curg.selecionarCursoPorId(idcurso);
+			rsCurso.next();
+
+			DepartamentoGateway dg = new DepartamentoGateway(conn);
+			ResultSet rsDepartamento = dg.selecionarDepartamentoPorId(rsCurso.getInt(4));
+			rsDepartamento.next();
+
+			Departamento departamento = new Departamento(rsCurso.getInt(5), rsDepartamento.getString(3), rsDepartamento.getString(4));
+
+			Curso curso = new Curso(rsCurso.getInt(1), rsCurso.getString(2), rsCurso.getString(3), departamento);
+
+			// seleciona consumidor
+			ConsumidorGateway cg = new ConsumidorGateway(conn);
+			ResultSet rsConsumidor = cg.selecionarConsumidorPorMatricula(matricula);
+			rsConsumidor.next();
+
+			// Verifica se consumidor esta ativo
+			if (rsConsumidor.getInt(7) == 1)
+			{
+				aluno = new Aluno(id, rsAluno.getString(2), matricula, rsAluno.getString(2), curso);
+
+				aluno.setCpf(rsAluno.getString(2));
+				aluno.setSexo(SexoEnum.fromString(rsAluno.getString(2)));
+				aluno.setTitulo(TituloEnum.fromString(rsAluno.getString(2)));
+			}
+		}
+		
+		return aluno;
 	}
 
-	public static Collection<Aluno> recuperarAlunos(AlunoVO alunoVO) throws Exception
+	public static Collection<Aluno> recuperarAlunos(ConsumidorVO consumidorVO) throws Exception
 	{
+//		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
+		
 		ArrayList<Aluno> alunos = new ArrayList<>();
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		AlunoGateway ag = new AlunoGateway(conn);
-		ResultSet rs = ag.selecionarAlunos();
+		ResultSet rsAluno = ag.selecionarAlunos();
 
-		while (rs.next())
+		while (rsAluno.next())
 		{
-			int matricula = rs.getInt(1);
-			int idcurso = rs.getInt(2);
+			int id = rsAluno.getInt(1);
+			int matricula = rsAluno.getInt(2);
+			int idcurso = rsAluno.getInt(3);
 
 			// seleciona curso
 			CursoGateway curg = new CursoGateway(conn);
-			ResultSet rscur = curg.selecionarCursoPorId(idcurso);
-			rscur.next();
-
-			Curso curso = new Curso();
-			curso.setIdentificador(rscur.getInt(1));
-			curso.setNome(rscur.getString(2));
-			curso.setSigla(rscur.getString(3));
+			ResultSet rsCurso = curg.selecionarCursoPorId(idcurso);
+			rsCurso.next();
 
 			DepartamentoGateway dg = new DepartamentoGateway(conn);
-			ResultSet rsd = dg.selecionarDepartamentoPorId(rscur.getInt(4));
-			rsd.next();
+			ResultSet rsDepartamento = dg.selecionarDepartamentoPorId(rsCurso.getInt(4));
+			rsDepartamento.next();
 
-			Departamento departamento = new Departamento();
-			departamento.setIdentificador(rsd.getInt(1));
-			departamento.setNome(rsd.getString(2));
-			departamento.setSigla(rsd.getString(3));
+			Departamento departamento = new Departamento(rsCurso.getInt(5), rsDepartamento.getString(3), rsDepartamento.getString(4));
 
-			curso.setDepartamento(departamento);
+			Curso curso = new Curso(rsCurso.getInt(1), rsCurso.getString(2), rsCurso.getString(3), departamento);
 
 			// seleciona consumidor
 			ConsumidorGateway cg = new ConsumidorGateway(conn);
-			ResultSet rsc = cg.selecionarConsumidorPorMatricula(matricula);
-			rsc.next();
+			ResultSet rsConsumidor = cg.selecionarConsumidorPorMatricula(matricula);
+			rsConsumidor.next();
 
 			// Verifica se consumidor esta ativo
-			if (rsc.getInt(7) == 1)
+			if (rsConsumidor.getInt(7) == 1)
 			{
-//				TODO:CPF
-					
-				Aluno aluno = new Aluno(rsc.getString(2), matricula, rsc.getString(3),SexoEnum.valueOf(rsc.getString(4)), TituloEnum.valueOf(rsc.getString(5)), rsc.getString(6),curso);
+				Aluno aluno = new Aluno(id, rsAluno.getString(2), matricula, rsAluno.getString(2), curso);
+
+				aluno.setCpf(rsAluno.getString(2));
+				aluno.setSexo(SexoEnum.fromString(rsAluno.getString(2)));
+				aluno.setTitulo(TituloEnum.fromString(rsAluno.getString(2)));
 
 				alunos.add(aluno);
 			}
 		}
-
-
+		
+		conn.close();
+		
 		return alunos;
 	}
 
-	public static void excluirAluno(AlunoVO alunoVO) throws Exception {
-
-		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-		ConsumidorGateway cg = new ConsumidorGateway(conn);
+	public static void excluirAluno(Consumidor consumidor) throws Exception
+	{
+		ConsumidorHandler.excluirConsumidor(consumidor);
 		
-		if (!cg.desativarConsumidor(alunoVO.getMatricula()));
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		AlunoGateway cg = new AlunoGateway(conn);
+
+		if (!cg.excluirAluno(consumidor.getId()))
 			throw new Exception("falha.ao.cadastrar.refeicao");
-			
+		
+		conn.close();
 	}
 }
