@@ -15,14 +15,14 @@ public class ConsumidorGateway
 		this.conn = conn;
 	}
 
-	public boolean inserir(ArrayList<Object> valores)
+	public ResultSet inserir(ArrayList<Object> valores)
 	{
 		try
 		{
 			String sql = "INSERT INTO \"consumidor\" (\"matricula\", \"nome\", \"ano_ingresso\", "
 					+ "								  \"sexo\", \"titulo\", \"cpf\", \"situacao\") "
 					+ "VALUES (?,?,?,?,?,?,1)";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
 			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
@@ -35,13 +35,15 @@ public class ConsumidorGateway
 			}
 
 			stmt.execute();
-		} catch (Exception e)
+			
+			return stmt.getGeneratedKeys();
+         
+		} 
+		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
-			return false;
+			return null;
 		}
-
-		return true;
 	}
 
 	public ResultSet selecionarConsumidores()

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.apache.xmlbeans.impl.regex.REUtil;
+
 public class CursoGateway
 {
 	private Connection conn;
@@ -15,13 +17,14 @@ public class CursoGateway
 		this.conn = conn;
 	}
 
-	public boolean inserir(ArrayList<Object> valores)
+	public ResultSet inserir(ArrayList<Object> valores)
 	{
 		try
 		{
-			String sql = "INSERT INTO \"curso\" (\"nome\", \"sigla\", \"departamento_iddepartamento\") values (?,?,?)";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			String sql = "INSERT INTO \"curso\" (\"nome\", \"sigla\", \"departamento_id_departamento\") values (?,?,?)";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
+			 
 			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
 			{
@@ -33,14 +36,15 @@ public class CursoGateway
 			}
 
 			stmt.execute();
+			
+			return stmt.getGeneratedKeys();
+         
 		} 
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
-			return false;
+			return null;
 		}
-
-		return true;
 	}
 
 	public ResultSet selecionarCursos()
@@ -70,7 +74,7 @@ public class CursoGateway
 
 		try
 		{
-			String sql = "SELECT * FROM \"curso\" WHERE \"idcurso\" = ?";
+			String sql = "SELECT * FROM \"curso\" WHERE \"id_curso\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -89,7 +93,7 @@ public class CursoGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"curso\" WHERE \"idcurso\" = ?";
+			String sql = "DELETE FROM \"curso\" WHERE \"id_curso\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -110,7 +114,7 @@ public class CursoGateway
 		try
 		{
 			String sql = "UPDATE \"curso\" " + "SET " + "\"nome\" = ?, " + "\"sigla\" = ?, "
-					+ "\"departamento_iddepartamento\" = ? " + "WHERE \"idcurso\" = ?";
+					+ "\"departamento_id_departamento\" = ? " + "WHERE \"id_curso\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

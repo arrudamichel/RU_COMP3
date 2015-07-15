@@ -15,14 +15,14 @@ public class RefeicaoGateway
 		this.conn = conn;
 	}
 
-	public boolean inserir(ArrayList<Object> valores)
+	public ResultSet inserir(ArrayList<Object> valores)
 	{
 		// SELECT * FROM "refeicao" idRefeicao descricao opcaoVegetariana
 		// Turno_idTurno
 		try
 		{
-			String sql = "insert into \"refeicao\" (\"descricao\", \"opcaoVegetariana\", \"Turno_idTurno\", \"situacao\") values (?,?,?,1)";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			String sql = "insert into \"refeicao\" (\"descricao\", \"opcaoVegetariana\", \"turno\", \"situacao\") values (?,?,?,1)";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
@@ -37,13 +37,15 @@ public class RefeicaoGateway
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 			stmt.execute();
+			
+			return stmt.getGeneratedKeys();
+         
 		} 
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
-			return false;
+			return null;
 		}
-		return true;
 	}
 
 	public ResultSet selecionarRefeicoes()
@@ -70,7 +72,7 @@ public class RefeicaoGateway
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT * FROM \"refeicao\" WHERE \"idRefeicao\" = ?";
+			String sql = "SELECT * FROM \"refeicao\" WHERE \"id_refeicao\" = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
@@ -88,7 +90,7 @@ public class RefeicaoGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"refeicao\" SET \"situacao\" = ? WHERE \"idRefeicao\" = ?";
+			String sql = "UPDATE \"refeicao\" SET \"situacao\" = ? WHERE \"id_refeicao\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, 0);
@@ -109,7 +111,7 @@ public class RefeicaoGateway
 		try
 		{
 			String sql = "UPDATE \"refeicao\" " + "SET " + "\"descricao\" = ?, " + "\"opcaoVegetariana\" = ? "
-					+ "WHERE \"idRefeicao\" = ?";
+					+ "WHERE \"id_refeicao\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

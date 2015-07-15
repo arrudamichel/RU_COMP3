@@ -15,12 +15,12 @@ public class DepartamentoGateway
 		this.conn = conn;
 	}
 
-	public boolean inserir(ArrayList<Object> valores)
+	public ResultSet inserir(ArrayList<Object> valores)
 	{
 		try
 		{
 			String sql = "INSERT INTO \"departamento\" ( \"nome\", \"sigla\") values (?,?)";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
@@ -33,14 +33,15 @@ public class DepartamentoGateway
 			}
 
 			stmt.execute();
+			
+			return stmt.getGeneratedKeys();
+         
 		} 
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
-			return false;
+			return null;
 		}
-
-		return true;
 	}
 
 	public ResultSet selecionarDepartamentos()
@@ -69,7 +70,7 @@ public class DepartamentoGateway
 
 		try
 		{
-			String sql = "SELECT * FROM \"departamento\" WHERE \"iddepartamento\" = ?";
+			String sql = "SELECT * FROM \"departamento\" WHERE \"id_departamento\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -108,7 +109,7 @@ public class DepartamentoGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"departamento\" WHERE \"iddepartamento\" = ?";
+			String sql = "DELETE FROM \"departamento\" WHERE \"id_departamento\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -129,7 +130,7 @@ public class DepartamentoGateway
 		try
 		{
 			String sql = "UPDATE \"departamento\" " + "SET " + "\"nome\" = ?, " + "\"sigla\" = ? "
-					+ "WHERE \"iddepartamento\" = ?";
+					+ "WHERE \"id_departamento\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
