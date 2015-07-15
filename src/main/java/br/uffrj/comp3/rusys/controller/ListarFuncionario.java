@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServlet;
 
-import br.uffrj.comp3.rusys.model.vo.FuncionarioVO;
+import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.service.FuncionarioHandler;
 import br.uffrj.comp3.rusys.model.Funcionario;
 
@@ -17,7 +17,7 @@ public class ListarFuncionario extends HttpServlet
 	{
 		try
 		{
-			return (ArrayList<Funcionario>) FuncionarioHandler.recuperarFuncionarios(new FuncionarioVO());
+			return (ArrayList<Funcionario>) FuncionarioHandler.recuperarFuncionarios(new ConsumidorVO());
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block

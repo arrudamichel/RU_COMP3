@@ -1,6 +1,7 @@
 package br.uffrj.comp3.rusys.model.vo;
 
 public class TicketVO {
+	private int id;
 	private boolean pago;
 	private float valor;
 	private String nome;
@@ -53,6 +54,16 @@ public class TicketVO {
 
 	public void setRefeicao(int refeicao) {
 		this.refeicao = refeicao;
+	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 	
 		

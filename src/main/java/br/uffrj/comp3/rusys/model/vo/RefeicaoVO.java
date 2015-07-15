@@ -1,11 +1,9 @@
 package br.uffrj.comp3.rusys.model.vo;
-import java.util.List;
-
-import br.uffrj.comp3.rusys.model.Ticket;
 import br.uffrj.comp3.rusys.model.TurnoEnum;
 
 public class RefeicaoVO
 {
+	private int id;
 	private int identificador;
 	private String descricao;
 	private String opcaoVeg;
@@ -54,5 +52,15 @@ public class RefeicaoVO
 	public void setIdentificador(int identificador)
 	{
 		this.identificador = identificador;
+	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }

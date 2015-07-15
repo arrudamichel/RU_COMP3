@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
-import br.uffrj.comp3.rusys.model.vo.AlunoVO;
+import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.model.Aluno;
 
@@ -18,7 +18,7 @@ public class ListarAluno extends HttpServlet
 	{
 		try
 		{
-			return (ArrayList<Aluno>) AlunoHandler.recuperarAlunos(new AlunoVO());
+			return (ArrayList<Aluno>) AlunoHandler.recuperarAlunos(new ConsumidorVO());
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block

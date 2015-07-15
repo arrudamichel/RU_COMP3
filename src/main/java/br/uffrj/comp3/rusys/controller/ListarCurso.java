@@ -1,6 +1,5 @@
 package br.uffrj.comp3.rusys.controller;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +19,7 @@ public class ListarCurso extends HttpServlet
 		try
 		{
 			return CursoHandler.recuperarCursos(new CursoVO());
-		} catch (SQLException e)
+		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
