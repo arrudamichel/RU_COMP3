@@ -69,7 +69,7 @@ public class TicketGateway {
 
 		try
 		{
-			String sql = "SELECT * FROM \"ticket\" WHERE \"consumidor_matricula\" = ?";
+			String sql = "SELECT * FROM \"ticket\" WHERE \"identificador\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -88,7 +88,7 @@ public class TicketGateway {
 	{
 		try
 		{
-			String sql = "DELETE FROM \"ticket\" WHERE \"consumidor_matricula\" = ?";
+			String sql = "DELETE FROM \"ticket\" WHERE \"identificador\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
