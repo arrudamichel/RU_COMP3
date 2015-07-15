@@ -77,17 +77,27 @@ public class CadRefeicao extends HttpServlet
 		
 	}
 
-	private void excluir(HttpServletRequest request,
-			HttpServletResponse response) {
+	private void excluir(HttpServletRequest request, HttpServletResponse response) {
 		
 		String identificador = request.getParameter("id");
 
-		RefeicaoVO refeicaoVO = new RefeicaoVO();
-		refeicaoVO.setIdentificador(Integer.parseInt(identificador));
+		Refeicao refeicao = null;
+		try
+		{
+			refeicao = RefeicaoHandler.recuperarRefeicao(Integer.parseInt(identificador));
+		} catch (NumberFormatException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try
 		{
-			RefeicaoHandler.excluirRefeicao(refeicaoVO);
+			RefeicaoHandler.excluirRefeicao(refeicao);
 		} 
 		catch (Exception e)
 		{

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Curso;
-import br.uffrj.comp3.rusys.model.vo.AlunoVO;
+import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.model.vo.CursoVO;
 import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.CursoHandler;
@@ -32,7 +32,7 @@ public class CadAluno extends HttpServlet
 		
 		String acao = (String) request.getParameter("acao");
 		
-		AlunoVO alunoVO = new AlunoVO();
+		ConsumidorVO alunoVO = new ConsumidorVO();
 		Collection<Aluno> alunos = null;
 		try
 		{
@@ -46,14 +46,16 @@ public class CadAluno extends HttpServlet
 		
 		CursoVO cursoVO = new CursoVO();
 		Collection<Curso> cursos = null;
+
 		try
 		{
 			cursos = CursoHandler.recuperarCursos(cursoVO);
-		} catch (SQLException e)
+		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		request.setAttribute("cursos", cursos);
 
 		if (acao != null)
@@ -84,17 +86,31 @@ public class CadAluno extends HttpServlet
 		
 	}
 
-	private void excluir(HttpServletRequest request,
-			HttpServletResponse response) {
+	private void excluir(HttpServletRequest request,HttpServletResponse response) {
 		
-		String matricula = request.getParameter("matricula");
+		String idAluno = request.getParameter("matricula");
 
-		AlunoVO alunoVO = new AlunoVO();
-		alunoVO.setMatricula(Integer.parseInt(matricula));
+		Aluno aluno = null;
+		try
+		{
+			aluno = AlunoHandler.recuperarAluno(Integer.parseInt(idAluno));
+		} catch (NumberFormatException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try
 		{
-			AlunoHandler.excluirAluno(alunoVO);
+			AlunoHandler.excluirAluno(aluno);
 		} 
 		catch (Exception e)
 		{
@@ -103,8 +119,7 @@ public class CadAluno extends HttpServlet
 		
 	}
 
-	private void cadastrar(HttpServletRequest request,
-			HttpServletResponse response) {
+	private void cadastrar(HttpServletRequest request,HttpServletResponse response) {
 		
 		String nome = request.getParameter("nome");
 		String matricula = request.getParameter("matricula");
@@ -114,7 +129,7 @@ public class CadAluno extends HttpServlet
 		String cpf = request.getParameter("cpf");
 		String curso = request.getParameter("curso");
 		
-		AlunoVO alunoVO = new AlunoVO();
+		ConsumidorVO alunoVO = new ConsumidorVO();
 		
 		alunoVO.setNome(nome);
 		alunoVO.setMatricula(Integer.parseInt(matricula));

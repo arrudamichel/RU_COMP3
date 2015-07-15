@@ -64,6 +64,7 @@ public class CadCurso extends HttpServlet
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		
 		request.setAttribute("cursos", cursos);
 
