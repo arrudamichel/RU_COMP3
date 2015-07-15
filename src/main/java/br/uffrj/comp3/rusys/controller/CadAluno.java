@@ -49,7 +49,7 @@ public class CadAluno extends HttpServlet
 			e.printStackTrace();
 		}
 		request.setAttribute("cursos", cursos);
-
+		System.out.println("ACAO = "+acao );
 		if (acao != null)
 		{
 			switch (acao)
@@ -57,25 +57,20 @@ public class CadAluno extends HttpServlet
 				case Constantes.SALVAR:
 					cadastrar(request, response);
 					break;
-				case Constantes.EXCLUIR:
+				case Constantes.ACAO_DELETAR:
 					excluir(request, response);
 					break;
-				case Constantes.EDITAR:
-					editar(request, response);
+				case Constantes.ACAO_EDITAR:
+					request.getRequestDispatcher("AtualizarAluno").forward(request, response);
 					break;
 				default:
-					request.getRequestDispatcher("CadastrarAluno").forward(request, response);
+					request.getRequestDispatcher("AtualizarAluno").forward(request, response);
 			}
 		} 
 		else
 		{
 			request.getRequestDispatcher("WEB-INF/CadAlunos.jsp").forward(request, response);
 		}
-	}
-	
-	private void editar(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void excluir(HttpServletRequest request,
