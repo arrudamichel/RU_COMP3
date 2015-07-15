@@ -1,3 +1,4 @@
+<%@page import="br.uffrj.comp3.rusys.model.TurnoEnum"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!-- Nao deixa o JSP criar sessoes -->
@@ -46,14 +47,16 @@
                 </div>
                 <div class="group">
                     <label class="label" for="post_title">Tipo da <%=Constantes.REFEICAO%></label>
-                    <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
+                    <select id="turno" name="turno">
+						<option value="<%=Constantes.TURNO_DEJEJUM%>"><%=Constantes.DEJEJUM %></option>
+						<option value="<%=Constantes.TURNO_ALMOCO%>"><%=Constantes.ALMOCO%></option>
+						<option value="<%=Constantes.TURNO_JANTAR%>"><%=Constantes.JANTAR%></option>
+					</select>  
                 </div>
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.MATRICULA%></label>
                     <input type="text"  id="matricula" name="matricula" class="text_field"  readonly/>     
-                    
-                    <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
-                </div>
+                 </div>
 <%--                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.VALOR%></label>
                     <input type="text"  id="valor" name="valor" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field"  readonly/>     
@@ -62,8 +65,8 @@
                   <button class="button" type="submit" id='salvar'>
                     <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>
                   </button>
-                  <span class="text_button_padding">Ou</span>
-                  <a class="text_button_padding link_button" href="listarDepartamentos.jsp"><%=Constantes.CANCELAR%></a>
+                  <!-- <span class="text_button_padding">Ou</span>
+                  <a class="text_button_padding link_button" href="listarDepartamentos.jsp"><%=Constantes.CANCELAR%></a> -->
                 </div>
               </form>
             </div>

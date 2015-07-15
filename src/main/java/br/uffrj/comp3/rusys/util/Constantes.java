@@ -38,6 +38,10 @@ public class Constantes
 	final public static TurnoEnum TURNO_DEJEJUM = TurnoEnum.MANHA;
 	final public static TurnoEnum TURNO_JANTAR = TurnoEnum.NOITE;
 	
+	final public static String ALMOCO = "Almo&ccedilo";
+	final public static String DEJEJUM = "Dejejum";
+	final public static String JANTAR = "Jantar";
+	
 //	Configuracao
 	final public static String DBPATH = "jdbc:h2:~/git/RU_COMP3/RU";
 	final public static String USER = "sa";
