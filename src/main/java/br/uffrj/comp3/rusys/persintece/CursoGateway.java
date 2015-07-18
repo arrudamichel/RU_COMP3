@@ -55,7 +55,7 @@ public class CursoGateway
 		try
 		{
 
-			String sql = "SELECT * FROM \"curso\"";
+			String sql = "SELECT \"id_curso\", \"nome\", \"sigla\", \"departamento_id_departamento\" FROM \"curso\"";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -74,7 +74,7 @@ public class CursoGateway
 
 		try
 		{
-			String sql = "SELECT * FROM \"curso\" WHERE \"id_curso\" = ?";
+			String sql = "SELECT \"id_curso\", \"nome\", \"sigla\", \"departamento_id_departamento\" FROM \"curso\" WHERE \"id_curso\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);

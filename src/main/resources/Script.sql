@@ -17,38 +17,9 @@ CREATE TABLE "refeicao" (
   "descricao" VARCHAR(45) NULL,
   "opcaoVegetariana" VARCHAR(45) NULL,  
   "turno" VARCHAR(45) NULL,
+  "tipo" VARCHAR(45) NULL,
   "situacao" TINYINT(1) NOT NULL,
   PRIMARY KEY ("id_refeicao"));
-
--- Tabela Jantar
-CREATE TABLE "jantar" (
-  "refeicao_id_refeicao" INT NOT NULL,
-  PRIMARY KEY ("refeicao_id_refeicao"),
-  CONSTRAINT "fk_jantar_refeicao"
-    FOREIGN KEY ("refeicao_id_refeicao")
-    REFERENCES "refeicao" ("id_refeicao")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
--- Tabela Almoço
-CREATE TABLE "almoco" (
-  "refeicao_id_refeicao" INT NOT NULL,
-  PRIMARY KEY ("refeicao_id_refeicao"),
-  CONSTRAINT "fk_almoco_refeicao"
-    FOREIGN KEY ("refeicao_id_refeicao")
-    REFERENCES "refeicao" ("id_refeicao")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
--- Tabela Almoço
-CREATE TABLE "dejejum" (
-  "refeicao_id_refeicao" INT NOT NULL,
-  PRIMARY KEY ("refeicao_id_refeicao"),
-  CONSTRAINT "fk_dejejum_refeicao"
-    FOREIGN KEY ("refeicao_id_refeicao")
-    REFERENCES "refeicao" ("id_refeicao")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
 
 -- Tabela "consumidor"
 CREATE TABLE IF NOT EXISTS "consumidor" (
@@ -141,11 +112,6 @@ CREATE TABLE IF NOT EXISTS "aluno" (
 INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno") VALUES ('Arroz com bifé','Bolinho de soja',1, 'MANHA');
 INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno") VALUES ('Macarrão com salsicha','Quiche de legumes',1, 'TARDE');
 INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno") VALUES ('Arroz com carré','Soja',1, 'NOITE');
-
--- almoco, dejejum, jantar
-INSERT INTO "dejejum" VALUES (1);
-INSERT INTO "almoco" VALUES (2);
-INSERT INTO "jantar" VALUES (3);
 
 -- Insert departamento
 INSERT INTO "departamento" ("nome","sigla") VALUES ('Departamento de Tecnologias e Liguagens','DTL');

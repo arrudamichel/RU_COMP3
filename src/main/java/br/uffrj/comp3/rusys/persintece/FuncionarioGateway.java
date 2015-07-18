@@ -60,7 +60,7 @@ public class FuncionarioGateway
 		return rs;
 	}
 
-	public ResultSet selecionarFuncionarioPorMatricula(int matricula)
+	public ResultSet selecionarFuncionarioPorId(int identificador)
 	{
 		ResultSet rs = null;
 
@@ -69,7 +69,7 @@ public class FuncionarioGateway
 			String sql = "SELECT * " + "   FROM \"funcionario\" " + "   WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, matricula);
+			stmt.setInt(1, identificador);
 			rs = stmt.executeQuery();
 
 		} 
@@ -81,22 +81,15 @@ public class FuncionarioGateway
 		return rs;
 	}
 
-	public boolean excluirFuncionario(ArrayList<Object> valores)
+	public boolean excluirFuncionario(int identificador)
 	{
 		try
 		{
-			String sql = "DELETE FROM \"funcionario\" " + "   WHERE \"consumidor_id\" = ?"
-					+ "       AND \"departamento_id_departamento\" = ?";
+			String sql = "DELETE FROM \"funcionario\" " + "   WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
-			// preenche os valores
-			for (int i = 1; i <= valores.size(); i++)
-			{
-				if (valores.get(i - 1).getClass().equals(Integer.class))
-					stmt.setInt(i, (Integer) valores.get(i - 1));
-			}
-
+			stmt.setInt(1, identificador);
 			stmt.execute();
 
 		} 

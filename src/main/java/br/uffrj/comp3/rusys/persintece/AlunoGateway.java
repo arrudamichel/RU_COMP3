@@ -60,7 +60,7 @@ public class AlunoGateway
 		return rs;
 	}
 
-	public ResultSet selecionarAlunoPorMatricula(int matricula)
+	public ResultSet selecionarAlunoPorId(int identificador)
 	{
 		ResultSet rs = null;
 
@@ -69,7 +69,7 @@ public class AlunoGateway
 			String sql = "SELECT * " + "   FROM \"aluno\" " + "   WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, matricula);
+			stmt.setInt(1, identificador);
 			rs = stmt.executeQuery();
 
 		} catch (Exception e)
@@ -101,7 +101,7 @@ public class AlunoGateway
 		return true;
 	}
 
-	public boolean alterarAluno(ArrayList<Object> valores, int matricula)
+	public boolean alterarAluno(ArrayList<Object> valores, int identificador)
 	{
 		try
 		{
@@ -117,7 +117,7 @@ public class AlunoGateway
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(3, matricula);
+			stmt.setInt(3, identificador);
 
 			stmt.execute();
 		} 

@@ -54,7 +54,9 @@ public class ConsumidorGateway
 		try
 		{
 
-			String sql = "SELECT * " + "   FROM \"consumidor\"";
+			String sql = "SELECT \"id_consumidor\",\"matricula\", \"nome\", \"ano_ingresso\", "
+								+ "\"sexo\", \"titulo\", \"cpf\", \"situacao\" " 
+						+"FROM \"consumidor\"";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -74,7 +76,9 @@ public class ConsumidorGateway
 		try
 		{
 
-			String sql = "SELECT * " + "   FROM \"consumidor\" " + "   WHERE \"matricula\" = ?";
+			String sql = "SELECT \"id_consumidor\", \"matricula\", \"nome\", \"ano_ingresso\", "
+						+ 		"\"sexo\", \"titulo\", \"cpf\", \"situacao\" " 
+						+ "FROM \"consumidor\" " + "   WHERE \"matricula\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, matricula);
@@ -114,8 +118,10 @@ public class ConsumidorGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"consumidor\" " + "SET \"nome\" = ?, " + " \"ano_ingresso\" = ?, " + " \"sexo\" = ?, "
-					+ " \"titulo\" = ?," + " \"cpf\" = ? " + "WHERE \"matricula\" = ?";
+			String sql = "UPDATE \"consumidor\" " 
+						+"SET \"nome\" = ?, \"ano_ingresso\" = ?, \"sexo\" = ?, "
+						+	" \"titulo\" = ?, \"cpf\" = ? "
+						+"WHERE \"matricula\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
