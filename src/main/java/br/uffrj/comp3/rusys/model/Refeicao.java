@@ -3,25 +3,24 @@ package br.uffrj.comp3.rusys.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Refeicao
+public class Refeicao
 {
-	protected int id;
-	protected String descricao;
-	protected String opcaoVeg;
-	protected TurnoEnum turno;
-	protected List<Ticket> tickets = new ArrayList<Ticket>();
+	private int id;
+	private String descricao;
+	private String opcaoVeg;
+	private TurnoEnum turno;
+	private List<Ticket> tickets = new ArrayList<Ticket>();
 
-	public Refeicao(int id, String descricao) throws Exception
-	{
-		super();
+	public Refeicao(int id, String descricao, String opcaoVeg, TurnoEnum turno) throws Exception {
 		this.id = id;
-		
-		if (descricao == null)
-		{
+	
+		if (descricao == null){
 			throw new Exception("model.refeicao.descricao.deve.ser.informado.para.criacao");
-		}
+		} 
 		
 		this.descricao = descricao;
+		this.opcaoVeg = opcaoVeg;
+		this.turno = turno;
 	}
 
 	public String getDescricao()

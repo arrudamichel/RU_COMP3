@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.TurnoEnum;
 import br.uffrj.comp3.rusys.model.Refeicao;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
+import br.uffrj.comp3.rusys.service.CursoHandler;
+import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.service.RefeicaoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
@@ -55,28 +58,41 @@ public class RefeicaoControle extends HttpServlet
 					cadastrar(request, response);
 					response.sendRedirect("GerirRefeicao");
 					break;
-				case Constantes.ACAO_DELETAR:
-					excluir(request, response);
-					response.sendRedirect("GerirRefeicao");
-					break;
 				case Constantes.ACAO_EDITAR:
-					editar(request, response);
-					response.sendRedirect("GerirRefeicao");
+					editar(request, response);					
 					break;
 				default:
-					request.getRequestDispatcher("GerirRefeicao").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);
 			}
 		} 
 		else
 		{
-			request.getRequestDispatcher("/WEB-INF/CadRefeicao.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);
 		}	
 	}
 
 	private void editar(HttpServletRequest request, HttpServletResponse response)
 	{
-		// TODO Auto-generated method stub
+		String id = request.getParameter("id");
+		String descricao = request.getParameter("descricao");
+		String turno = request.getParameter("turno");
+		String opVeg = request.getParameter("opVeg");
+
+		RefeicaoVO refeicaoVO = new RefeicaoVO();
+		refeicaoVO.setId(Integer.parseInt(id));
+		refeicaoVO.setDescricao(descricao);
+		refeicaoVO.setOpcaoVeg(opVeg);
+		refeicaoVO.setTurno(TurnoEnum.fromString(turno));
 		
+		try
+		{
+			RefeicaoHandler.atualizarRefeicao(refeicaoVO);
+
+			response.sendRedirect("GerirRefeicao");
+		} catch (Exception e)
+		{
+			request.setAttribute("mensagem", Constantes.ERRO);
+		}	
 	}
 
 	private void excluir(HttpServletRequest request, HttpServletResponse response) {
@@ -89,11 +105,9 @@ public class RefeicaoControle extends HttpServlet
 			refeicao = RefeicaoHandler.recuperarRefeicao(Integer.parseInt(identificador));
 		} catch (NumberFormatException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (Exception e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -131,8 +145,73 @@ public class RefeicaoControle extends HttpServlet
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doPost(req, resp);
+
+		//------------ REFEICOES ---------------
+		RefeicaoVO refeicaoVO = new RefeicaoVO();
+		
+		Collection<Refeicao> refeicoes = null;
+		try
+		{
+			refeicoes = RefeicaoHandler.recuperarRefeicoes(refeicaoVO);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		request.setAttribute("refeicoes", refeicoes);
+		
+		//------------ TURNOS ---------------		
+		
+		Collection<TurnoEnum> turnos = (Collection<TurnoEnum>) new ArrayList<TurnoEnum>(Arrays.asList(TurnoEnum.values()));
+		
+		request.setAttribute("turnos", turnos);
+		
+		String identificador = request.getParameter("id");
+
+		//------------ REFEICAO ---------------
+				
+		Refeicao refeicao = null;
+		try
+		{
+			refeicao = RefeicaoHandler.recuperarRefeicao(Integer.parseInt(identificador));
+		} catch (NumberFormatException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		request.setAttribute("refeicao", refeicao);
+
+		//------------ ACAO ---------------
+		
+		String acao = (String) request.getParameter("acao");
+
+		if (acao != null)
+		{
+			switch (acao)
+			{	
+				case Constantes.ACAO_SALVAR:
+					request.getRequestDispatcher("/WEB-INF/CadRefeicao.jsp").forward(request, response);
+					break;
+				case Constantes.ACAO_EDITAR:
+					request.getRequestDispatcher("/WEB-INF/AtualizarRefeicao.jsp").forward(request, response);
+					break;
+				case Constantes.ACAO_DELETAR:					
+					excluir(request, response);
+					response.sendRedirect("GerirRefeicao");
+					break;
+				default:
+					request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);
+			}
+		} 
+		else
+		{
+			request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);
+		}
 	}
 }

@@ -15,15 +15,15 @@ public class TurnoEnum
 	
 	public static TurnoEnum fromString(String string)
 	{
-		if (string.equals("Manha"))
+		if (string.equals("Manha") || string.equals("MANHA"))
 		{
 			return MANHA;
 		} 
-		else if (string.equals("Tarde"))
+		else if (string.equals("Tarde")  || string.equals("TARDE"))
 		{
 			return TARDE;
 		}	
-		else if (string.equals("Noite"))
+		else if (string.equals("Noite") ||  string.equals("NOITE"))
 		{
 			return NOITE;
 		}	

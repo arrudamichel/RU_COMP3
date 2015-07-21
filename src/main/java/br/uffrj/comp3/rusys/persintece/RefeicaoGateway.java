@@ -21,7 +21,7 @@ public class RefeicaoGateway
 		// Turno_idTurno
 		try
 		{
-			String sql = "insert into \"refeicao\" (\"descricao\", \"opcaoVegetariana\", \"turno\", \"tipo\", \"situacao\") values (?,?,?,?,1)";
+			String sql = "insert into \"refeicao\" (\"descricao\", \"opcaoVegetariana\", \"turno\", \"situacao\") values (?,?,?,1)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			// preenche os valores
@@ -110,7 +110,7 @@ public class RefeicaoGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"refeicao\" " + "SET " + "\"descricao\" = ?, " + "\"opcaoVegetariana\" = ?, " + "\"turno\" = ?, " + "\"tipo\" = ?"
+			String sql = "UPDATE \"refeicao\" " + "SET " + "\"descricao\" = ?, " + "\"opcaoVegetariana\" = ?, " + "\"turno\" = ? "
 					+ "WHERE \"id_refeicao\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -124,7 +124,7 @@ public class RefeicaoGateway
 				if (valores.get(i - 1).getClass().equals(String.class))
 					stmt.setString(i, (String) valores.get(i - 1));
 			}
-			stmt.setInt(5, id);
+			stmt.setInt(4, id);
 			stmt.execute();
 		} 
 		catch (Exception e)

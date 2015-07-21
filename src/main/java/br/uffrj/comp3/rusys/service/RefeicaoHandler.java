@@ -7,14 +7,10 @@ import java.util.Arrays;
 
 import org.apache.poi.util.ArrayUtil;
 
-import br.uffrj.comp3.rusys.model.Almoco;
-import br.uffrj.comp3.rusys.model.Dejejum;
-import br.uffrj.comp3.rusys.model.Jantar;
 import br.uffrj.comp3.rusys.model.Refeicao;
+import br.uffrj.comp3.rusys.model.TurnoEnum;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
-import br.uffrj.comp3.rusys.persintece.AlmocoGateway;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
-import br.uffrj.comp3.rusys.persintece.JantarGateway;
 import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
 
@@ -31,65 +27,45 @@ public class RefeicaoHandler
 		
 		ResultSet rs = refeicaoGateway.inserir(valores);
 		
+		rs.next();
 		if (rs==null)
 			throw new Exception("falha.ao.cadastrar.refeicao");
 
+		int id = rs.getInt(0);
+		
 		conn.close();
 		
-		return rs.getFetchSize();
+		return id;
 	}
 	
-	public static Refeicao recuperarRefeicao(int ifref) throws Exception
+	public static Refeicao recuperarRefeicao(int id) throws Exception
 	{	
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
-		AlmocoGateway ag = new AlmocoGateway(conn);
-		ResultSet rsAlmoco = ag.selecionarAlmocoPorId(ifref);
+		RefeicaoGateway gatewayRefeicao = new RefeicaoGateway(conn);
+		ResultSet rsRefeicao = gatewayRefeicao.selecionarRefeicaoPorId(id);
 		
-		JantarGateway jg = new JantarGateway(conn);
-		ResultSet rsJantar = jg.selecionarJantarPorId(ifref);
+		rsRefeicao.next();
 		
-		JantarGateway dg = new JantarGateway(conn);
-		ResultSet rsDejejum = dg.selecionarJantarPorId(ifref);
-
-		Refeicao refeicao = null;
+		Refeicao refeicao = new Refeicao(rsRefeicao.getInt("id_refeicao"),rsRefeicao.getString("descricao"),rsRefeicao.getString("opcaoVegetariana"),TurnoEnum.fromString(rsRefeicao.getString("turno")));
 		
-		if (rsAlmoco.next())
-		{
-			int id = rsAlmoco.getInt(1);
-			String opcaoVeg = rsAlmoco.getString(2);
-			String descricao = rsAlmoco.getString(3);
-			
-			refeicao = new Almoco(id, descricao);
-			refeicao.setOpcaoVeg(opcaoVeg);
-		} 
-		else if (rsJantar.next())
-		{
-			int id = rsJantar.getInt(1);
-			String opcaoVeg = rsJantar.getString(2);
-			String descricao = rsJantar.getString(3);
-			
-			refeicao = new Jantar(id, descricao);
-			refeicao.setOpcaoVeg(opcaoVeg);
-		}
-		else if (rsDejejum.next())
-		{
-			int id = rsDejejum.getInt(1);
-			String opcaoVeg = rsDejejum.getString(2);
-			String descricao = rsDejejum.getString(3);
-			
-			refeicao = new Dejejum(id, descricao);
-			refeicao.setOpcaoVeg(opcaoVeg);
-		}
-
 		conn.close();
 		
 		return refeicao;
 	}
 
-	public static void atualizarRefeicao(RefeicaoVO refeicaoVO)
+	public static void atualizarRefeicao(RefeicaoVO refeicaoVO) throws Exception
 	{
-
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		RefeicaoGateway rg = new RefeicaoGateway(conn);
+		
+		ArrayList<Object> valores = new ArrayList<Object>(
+				Arrays.asList(refeicaoVO.getDescricao(), refeicaoVO.getOpcaoVeg(), refeicaoVO.getTurno().toString()));
+		
+		if(!rg.alterarRefeicao(valores, refeicaoVO.getId()))
+			throw new Exception("falha.ao.atualizar.refeicao");
+		
+		conn.close();	
 	}
 
 	public static void excluirRefeicao(Refeicao refeicao) throws Exception
@@ -107,11 +83,22 @@ public class RefeicaoHandler
 	{
 		ArrayList<Refeicao> refeicoes = new ArrayList<>();
 
-//		TODO
-		refeicoes.addAll(JantarHandler.recuperarJantars(refeicaoVO));
-		refeicoes.addAll(AlmocoHandler.recuperarAlmocos(refeicaoVO));
-		refeicoes.addAll(DejejumHandler.recuperarDejejums(refeicaoVO));
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
+		RefeicaoGateway gatewayRefeicao = new RefeicaoGateway(conn);
+		ResultSet rsRefeicao = gatewayRefeicao.selecionarRefeicoes();
+		
+		while(rsRefeicao.next()){
+			
+			if(rsRefeicao.getInt("situacao") == 1){
+				Refeicao refeicao = new Refeicao(rsRefeicao.getInt("id_refeicao"),rsRefeicao.getString("descricao"),rsRefeicao.getString("opcaoVegetariana"),TurnoEnum.fromString(rsRefeicao.getString("turno")));
+				
+				refeicoes.add(refeicao);
+			}			
+		}
+		
+		conn.close();
+		
 		return refeicoes;
 	}
 }
