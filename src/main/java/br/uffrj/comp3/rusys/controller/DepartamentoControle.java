@@ -85,7 +85,6 @@ public class DepartamentoControle extends HttpServlet
 					break;
 				case Constantes.ACAO_EDITAR:
 					editar(request, response);
-					response.sendRedirect("GerirDepartamento");
 					break;
 				case Constantes.ACAO_SALVAR:
 					cadastrar(request, response);
@@ -134,7 +133,7 @@ public class DepartamentoControle extends HttpServlet
 		{
 			DepartamentoHandler.atualizarDepartamento(departamento);
 
-			request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+			response.sendRedirect("GerirDepartamento");
 		} catch (Exception e)
 		{
 			request.setAttribute("mensagem", Constantes.ERRO);

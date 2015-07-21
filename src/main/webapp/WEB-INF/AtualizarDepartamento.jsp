@@ -40,7 +40,7 @@
 								<label class="label" for="post_title"><%=Constantes.SIGLA%></label>
 								<input type="text" id="sigla" name="sigla" class="text_field" value="<%=(departamento!=null) ? departamento.getSigla() : "" %>" />
 							</div>
-							<input type="submit" name="acao" value="<%=Constantes.ACAO_SALVAR%>">
+							<input type="submit" name="acao" value="<%=Constantes.ACAO_EDITAR%>">
 							<input type="submit" name="acao" value="<%=Constantes.ACAO_CANCELAR%>">
 						</form>
 					</div>
