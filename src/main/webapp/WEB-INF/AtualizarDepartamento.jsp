@@ -6,7 +6,7 @@
 <%@page session="false"%>
 <%@include file="messagePage.jsp" %>
 <%
-	Departamento departamento= (Departamento) request.getAttribute("departamento");
+	Departamento departamento = (Departamento) request.getAttribute("departamento");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -27,10 +27,10 @@
 					</ul>
 				</div>
 				<div class="content">
-					<h2 class="title"><%=Constantes.CADDEPTO%>
+					<h2 class="title"><%=Constantes.EDITAR%>
 					</h2>
 					<div class="inner">
-						<form id="FrmDepartamento" name="FrmDepartamento" action="AtualizarDepartamento" method="POST" class="form">
+						<form id="FrmDepartamento" name="FrmDepartamento" action="GerirDepartamento" method="POST" class="form">
 							<input type="hidden" id="departamentoId" name="departamentoId" value="<%=(departamento!=null) ? departamento.getId() : "" %>" />
 							<div class="group">
 								<label class="label"><%=Constantes.NOME%></label> 

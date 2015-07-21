@@ -117,7 +117,7 @@ public class CursoControle extends HttpServlet
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
-		System.out.println(id + " " + nome + " " + sigla + " " +  dept);
+
 		Curso curso = null;
 		try
 		{

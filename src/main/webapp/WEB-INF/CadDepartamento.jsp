@@ -37,32 +37,6 @@
           <div class="content">
             <h2 class="title"><%=Constantes.CADDEPTO%> </h2>
             
-            <table id="table-resultado" class="table">
-              <tr>
-                <th><%=Constantes.NOME%></th>
-                <th><%=Constantes.SIGLA%></th>
-                <th class="last">&nbsp;</th>
-              </tr>                 
-              <%               
-             for(int i=0; i < departamentos.size(); i++) {
-            	 String urlEditar="GerirDepartamento?acao="+ Constantes.ACAO_EDITAR +"&departamentoId="+departamentos.get(i).getIdentificador();
-               	if(i%2 == 0){ %>
-               	<tr class="odd">                  
-                     <td><%=departamentos.get(i).getNome()%></td>                                              
-                     <td><%=departamentos.get(i).getSigla()%></td>
-                     <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
-                 </tr>
-             <% } else { %>
-                 <tr class="even">                      
-					 <td><%=departamentos.get(i).getNome()%></td>                                              
-                     <td><%=departamentos.get(i).getSigla()%></td>  
-                     <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
-                 </tr>                    
-         	<%}  
-        		}%>                   	
-              <%// } %>
-            </table>
-            
             <div class="inner">
             	<% if(mensagem.contains("Erro")){ %>
             		<div style="background-color:#FF9999; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >

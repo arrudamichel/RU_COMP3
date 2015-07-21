@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
+import br.uffrj.comp3.rusys.model.vo.CursoVO;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.service.CursoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
@@ -89,12 +92,12 @@ public class DepartamentoControle extends HttpServlet
 					response.sendRedirect("GerirDepartamento");
 					break;
 				default:
-					request.getRequestDispatcher("GerirDepartamento").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/ListDepartamento.jsp").forward(request, response);
 			}
 		} 
 		else
 		{
-			request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/ListDepartamento.jsp").forward(request, response);
 		}
 	}
 	
@@ -174,8 +177,70 @@ public class DepartamentoControle extends HttpServlet
 		return null;
 	}
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doPost(req, resp);
+		response.setContentType("text/html");
+		
+		String acao = (String) request.getParameter("acao");
+		
+		String departamentoId = request.getParameter("departamentoId");
+
+		DepartamentoVO departamentoVO = new DepartamentoVO();
+		
+		Collection<Departamento> departamentos = null;
+		try
+		{
+			departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block	
+			e.printStackTrace();
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("departamentos", departamentos);
+		
+		//-------------------- Departamento ---------------
+		
+		if (departamentoId != null)
+		{
+			Departamento departamento = null;
+			try
+			{
+				departamento = DepartamentoHandler.recuperarDepartamento(Integer.parseInt(departamentoId));
+			} catch (NumberFormatException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	
+			request.setAttribute("departamento", departamento);
+		}
+		
+		if (acao != null)
+		{
+			switch (acao)
+			{	
+				case Constantes.ACAO_SALVAR:
+					request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+					break;
+				case Constantes.ACAO_EDITAR:					
+					request.getRequestDispatcher("/WEB-INF/AtualizarDepartamento.jsp").forward(request, response);
+					break;
+				default:
+					request.getRequestDispatcher("/WEB-INF/ListDepartamento.jsp").forward(request, response);
+			}
+		} 
+		else
+		{
+			request.getRequestDispatcher("/WEB-INF/ListDepartamento.jsp").forward(request, response);
+		}
 	}
 }
