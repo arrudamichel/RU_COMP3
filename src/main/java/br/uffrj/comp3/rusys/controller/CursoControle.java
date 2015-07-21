@@ -31,7 +31,7 @@ public class CursoControle extends HttpServlet
 		String cursoId = (String) request.getParameter("cursoId");
 		
 		String acao = (String) request.getParameter("acao");
-		
+
 		DepartamentoVO departamentoVO = new DepartamentoVO();
 		
 //		departamentoVO.set(); campos de consulta
@@ -100,15 +100,14 @@ public class CursoControle extends HttpServlet
 					break;
 				case Constantes.ACAO_EDITAR:
 					editar(request, response);
-					response.sendRedirect("GerirCurso");
 					break;	
 				default:
-					request.getRequestDispatcher("GerirCurso").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/ListCurso.jsp").forward(request, response);
 			}
 		} 
 		else
 		{
-			request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/ListCurso.jsp").forward(request, response);
 		}
 	}
 	
@@ -118,7 +117,6 @@ public class CursoControle extends HttpServlet
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
-
 		System.out.println(id + " " + nome + " " + sigla + " " +  dept);
 		Curso curso = null;
 		try
@@ -143,7 +141,7 @@ public class CursoControle extends HttpServlet
 		{
 			CursoHandler.atualizarCurso(curso);
 
-			request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
+			response.sendRedirect("GerirCurso");
 		} catch (Exception e)
 		{
 			request.setAttribute("mensagem", Constantes.ERRO);
@@ -180,8 +178,87 @@ public class CursoControle extends HttpServlet
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doPost(req, resp);
+		response.setContentType("text/html");
+		
+		//------------ RECUPERA DEPARTAMENTO ---------------
+		
+		DepartamentoVO departamentoVO = new DepartamentoVO();
+		
+		Collection<Departamento> departamentos = null;
+		try
+		{
+			departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		} catch (SQLException e1)
+		{
+			e1.printStackTrace();
+		} catch (Exception e1)
+		{
+			e1.printStackTrace();
+		}
+		
+		request.setAttribute("departamentos", departamentos);
+
+		//------------ RECUPERA CURSOS ---------------
+		CursoVO cursoVO = new CursoVO();
+		
+		Collection<Curso> cursos = null;
+		try
+		{
+			cursos = CursoHandler.recuperarCursos(cursoVO);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("cursos", cursos);
+
+		//------------ RECUPERA CURSOS ---------------
+
+		String cursoId = (String) request.getParameter("cursoId");
+
+		if (cursoId!=null)
+		{
+			Curso curso = null;
+			try
+			{
+				curso = CursoHandler.recuperarCurso(Integer.parseInt(cursoId));
+			} catch (NumberFormatException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			request.setAttribute("curso", curso);
+		}
+		
+		//------------ ACAO ---------------
+		
+		String acao = (String) request.getParameter("acao");
+		System.out.println("ACAO GET = "+acao );
+
+		if (acao != null)
+		{
+			switch (acao)
+			{	
+				case Constantes.ACAO_SALVAR:
+					request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
+					break;
+				case Constantes.ACAO_EDITAR:					
+					request.getRequestDispatcher("/WEB-INF/AtualizarCurso.jsp").forward(request, response);
+					break;
+				default:
+					request.getRequestDispatcher("/WEB-INF/ListCurso.jsp").forward(request, response);
+			}
+		} 
+		else
+		{
+			request.getRequestDispatcher("/WEB-INF/ListCurso.jsp").forward(request, response);
+		}
 	}
 }

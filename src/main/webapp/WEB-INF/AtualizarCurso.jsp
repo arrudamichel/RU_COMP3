@@ -32,7 +32,7 @@
 					<h2 class="title"><%=Constantes.CADCURSO%>
 					</h2>
 					<div class="inner">
-						<form id="FrmCurso" name="FrmCurso" action="AtualizarCurso" method="POST" class="form">
+						<form id="FrmCurso" name="FrmCurso" action="GerirCurso" method="POST" class="form">
 							<input type="hidden" id="cursoId" name="cursoId" value="<%=(curso!=null) ? curso.getIdentificador() : "" %>" />
 							<div class="group">
 								<label class="label"><%=Constantes.NOME%></label> 
@@ -54,7 +54,7 @@
 								</select>
 							</div>
 							
-							<input type="submit" name="acao" value="<%=Constantes.ACAO_SALVAR%>">
+							<input type="submit" name="acao" value="<%=Constantes.ACAO_EDITAR%>">
 							<input type="submit" name="acao" value="<%=Constantes.ACAO_CANCELAR%>">
 						</form>
 					</div>

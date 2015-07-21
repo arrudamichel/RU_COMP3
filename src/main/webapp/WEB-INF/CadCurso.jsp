@@ -9,7 +9,6 @@
 <%@include file="messagePage.jsp" %>
 <%
 	ArrayList<Departamento> departamentos = (ArrayList<Departamento>)request.getAttribute("departamentos");
-	ArrayList<Curso> cursos = (ArrayList<Curso>)request.getAttribute("cursos");
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -33,32 +32,6 @@
 				<div class="content">
 					<h2 class="title"><%=Constantes.CADCURSO%>
 					</h2>
-					
-					<table id="table-resultado" class="table">
-	                  <tr>
-	                    <th><%=Constantes.NOME%></th>
-	                    <th><%=Constantes.SIGLA%></th>
-	                    <th class="last">&nbsp;</th>
-	                  </tr>
-	                  <%		                  
-		                for(int i=0; i < cursos.size(); i++) {
-		                	String urlEditar="GerirCurso?acao="+ Constantes.ACAO_EDITAR +"&cursoId="+cursos.get(i).getIdentificador();;
-
-		                  	if(i%2 == 0){ %>
-		                  	<tr class="odd">                  
-		                        <td><%=cursos.get(i).getNome()%></td>                                              
-		                        <td><%=cursos.get(i).getSigla()%></td>
-		                        <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>	                        
-		                    </tr>
-		                <% } else { %>
-		                    <tr class="even">                      
-								<td><%=cursos.get(i).getNome()%></td>
-		                        <td><%=cursos.get(i).getSigla()%></td>
-		                        <td class="last"> <a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>	                                   
-		                    </tr>                    
-		            	<%}  
-		           		}%>  
-	                </table>
 					
 					<div class="inner">
 						<form id="FrmCurso" name="FrmCurso" action="GerirCurso" method="POST" class="form">

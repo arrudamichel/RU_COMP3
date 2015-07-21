@@ -81,12 +81,13 @@ public class CursoHandler
 	
 	public static ArrayList<Curso> recuperarCursos(CursoVO cursoVO) throws Exception
 	{
+		
 		ArrayList<Curso> cursos = new ArrayList<>();
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 
 		ResultSet rsCursos = cg.selecionarCursos();
-
+		
 		while (rsCursos.next())
 		{
 			DepartamentoGateway dg = new DepartamentoGateway(conn);
