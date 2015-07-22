@@ -49,7 +49,6 @@
             
             <table id="table-resultado" class="table">
                   <tr>
-                    <th class="first"></th>
                     <th><%=Constantes.NOME%></th>
                     <th><%=Constantes.MATRICULA%></th>
                     <th><%=Constantes.ANOINGRESSO%></th>
@@ -59,8 +58,8 @@
                   </tr>
                   <% if (alunos != null) {           
 	                for(int i=0; i < alunos.size(); i++) {
-	                	String urlEditar="GerirAluno?acao="+ Constantes.ACAO_EDITAR+ "&matricula="+alunos.get(i).getMatricula();
-             		   	String urlDelete ="GerirAluno?acao="+ Constantes.ACAO_DELETAR+ "&matricula="+alunos.get(i).getMatricula();
+	                	String urlEditar="GerirAluno?acao="+ Constantes.ACAO_EDITAR+ "&id="+alunos.get(i).getId();
+             		   	String urlDelete ="GerirAluno?acao="+ Constantes.ACAO_DELETAR+ "&id="+alunos.get(i).getId();
              		   	
 	                  	if(i%2 == 0){ %>
 	                  	<tr class="odd">                 	    
@@ -88,61 +87,11 @@
 	            	<%}  }
 	           		}%>
                 </table>
-            
-            <div class="inner">
-              <form id="FrmAluno" name="FrmAluno" action="GerirAluno" method="POST" class="form">
-        	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
-                <div class="group">
-                  <label class="label"><%=Constantes.NOME%></label>
-                  <input type="text" id="nome" name="nome" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" onblur="testaCampo(this, 'Nome')"/>
-                </div>
-                <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.MATRICULA%></label>
-                   <input type="text" id="matricula" name="matricula" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
-                </div>
-                <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.ANOINGRESSO%></label>
-                  	<input type="text"  id="anoIngresso" name="anoIngresso" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" />
-                </div> 
-                <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.SEXO%></label>
-                    <input type="radio" id="sexo" name="sexo" value="M"> &nbsp;<%=Constantes.MASCULINO%> &nbsp;&nbsp;
-                    <input type="radio" id="sexo" name="sexo" value="F"> &nbsp;<%=Constantes.FEMININO%>
-                </div>
-                <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.TITULO%></label>
-                    <select id ="titulo" name="titulo">
-                        <option value="">Selecione</option>
-                        <option value="ESPECIALIZACAO"><%=Constantes.ESPECIALIZACAO%></option>
-                        <option value="MESTRADO"><%=Constantes.MESTRADO%></option>
-                        <option value="DOUTORADO"><%=Constantes.DOUTORADO%></option>
-                    </select>           
-                </div>
-                
-                <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.CPF%></label>
-                    <input type="text"  id="cpf" name="cpf" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field" onblur="validaCPF(this)"/>     
-                </div>
-                <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.CURSO%></label>
-                    <select id ="curso" name="curso">
-                    <% if (cursos != null){ 
-	                    for(Curso curso : cursos){ %>
-	                        <option value="<%=curso.getIdentificador()%>"><%=curso.getNome()%></option>
-	                    <% } }%>                        
-                    </select> 
-                    <%/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));%>
-                </div>
-                <div class="group navform wat-cf">
-                  <button class="button" type="submit" name="acao" value="<%=Constantes.ACAO_SALVAR%>">
-                    <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>
-                  </button>
-                  <span class="text_button_padding">Ou</span>
-                  <a class="text_button_padding link_button" href="index.jsp"><%=Constantes.CANCELAR%></a>
-                </div>
-              </form>
-            </div>
           </div>
+          <form action="GerirAluno">
+          <input type="submit" name="acao" value="<%=Constantes.NOVO%>"> 
+          
+          </form>
         </div>
       </div>
     </div>

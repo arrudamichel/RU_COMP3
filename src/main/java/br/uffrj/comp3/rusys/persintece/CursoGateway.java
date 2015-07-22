@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import org.apache.xmlbeans.impl.regex.REUtil;
 
 public class CursoGateway
 {

@@ -35,15 +35,30 @@ public class ConsumidorHandler
 	
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(consumidorVO.getMatricula(), consumidorVO.getNome(),
 				consumidorVO.getAnoDeIngresso(), consumidorVO.getSexo(), consumidorVO.getTitulo(), consumidorVO.getCpf()));
-	
+
 		ResultSet rs = consumidorGW.inserir(valores);
-		
+		rs.next();
 		if (rs==null)
 			throw new Exception("falha.ao.cadastrar.consumidor");
-		
+		int id = rs.getInt(1);
 		conn.close();
 		
-		return rs.getFetchSize();
+		return id;
+	}
+	
+	public static void atualizarConsumidor(ConsumidorVO consumidorVO) throws Exception
+	{	
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		ConsumidorGateway consumidorGW = new ConsumidorGateway(conn);
+		System.out.println("CPF"+consumidorVO.getCpf());
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(consumidorVO.getNome(),
+				consumidorVO.getAnoDeIngresso(), consumidorVO.getSexo(), consumidorVO.getTitulo()));
+		
+		consumidorGW.alterarConsumidor(valores, consumidorVO.getMatricula());
+		System.out.println("AquiConsumidor");
+
+		conn.close();
+
 	}
 	
 	public static Collection<Consumidor> recuperarConsumidor(ConsumidorVO consumidorVO) throws Exception

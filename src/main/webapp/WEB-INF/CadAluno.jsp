@@ -1,3 +1,4 @@
+<%@page import="br.uffrj.comp3.rusys.model.Curso"%>
 <%@page import="br.uffrj.comp3.rusys.model.Aluno"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page import="java.util.ArrayList"%>
@@ -7,6 +8,7 @@
 <%@include file="messagePage.jsp" %>
 <%
 	Aluno aluno = (Aluno)request.getAttribute("aluno");
+	ArrayList <Curso> cursos = (ArrayList<Curso>) request.getAttribute("cursos");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -30,7 +32,7 @@
 					<h2 class="title"><%=Constantes.CADALUNOS%>
 					</h2>
 					<div class="inner">
-						<form id="FrmAluno" name="FrmAluno" action="AtualizarAluno" method="POST" class="form">
+						<form id="FrmAluno" name="FrmAluno" action="GerirAluno" method="POST" class="form">
 							<input type="hidden" id="id" name="id" value="<%=(aluno!=null) ? aluno.getId() : "" %>" />
 							<div class="group">
 								<label class="label"><%=Constantes.NOME%></label> 
@@ -46,8 +48,8 @@
 							</div>
 							<div class="group">
 			                   <label class="label" for="post_title"><%=Constantes.SEXO%></label>
-			                   <input type="radio" id="sexo" name="sexo" value="M" <%=(aluno!=null && aluno.getSexo().equals("M")) ? "checked" : "" %>> &nbsp;<%=Constantes.MASCULINO%> &nbsp;&nbsp;
-			                   <input type="radio" id="sexo" name="sexo" value="F" <%=(aluno!=null && aluno.getSexo().equals("F")) ? "checked" : "" %>> &nbsp;<%=Constantes.FEMININO%>
+			                   <input type="radio" id="sexo" name="sexo" value="M" <%if (aluno!=null && aluno.getSexo().equals("M")) out.print("checked"); %>> &nbsp;<%=Constantes.MASCULINO%> &nbsp;&nbsp;
+			                   <input type="radio" id="sexo" name="sexo" value="F" <%if (aluno!=null && aluno.getSexo().equals("F")) out.print("checked"); %>> &nbsp;<%=Constantes.FEMININO%>
 			               </div>
 							<div class="group">
 			                    <label class="label" for="post_title"><%=Constantes.TITULO%></label>
@@ -60,10 +62,30 @@
 			                </div>
 			                <div class="group">
 								<label class="label"><%=Constantes.CPF%></label> 
-								<input type="text" id="cpf" name="cpf" class="text_field" value="<%=(aluno!=null) ? aluno.getAnoDeIngresso() : "" %>" />
+								<input type="text" id="cpf" name="cpf" class="text_field" value="<%=(aluno!=null) ? aluno.getCpf() : "" %>" />
 							</div>
-							
-							<input type="submit" name="acao" value="<%=Constantes.ACAO_SALVAR%>">
+							<div class="group">
+								<label class="label" for="post_title"><%=Constantes.CURSO%></label>
+								<%
+									/// Listar aqui, se quiser mando essa funcao combo out.print(new TipoDocumentoBll().comboHtml("turno", pergunta == null || pergunta.getTipoDocumento() == null || pergunta.getTipoDocumento().getId() == null  ? null : pergunta.getTipoDocumento().getId().toString(), "Selecione"));
+								%>
+								<select id="curso" name="curso">
+									<%		
+									if(cursos != null){
+										for(int i=0; i < cursos.size(); i++){
+									%>
+											<option value="<%=cursos.get(i).getIdentificador()%>"><%=cursos.get(i).getNome()%></option>
+									<%
+										}
+									}
+									%>
+								</select>
+							</div>
+							<% if(aluno==null){%>
+								<input type="submit" name="acao" value="<%=Constantes.ACAO_SALVAR%>">
+							<%} else{ %>
+								<input type="submit" name="acao" value="<%=Constantes.ACAO_EDITAR%>">
+							<%} %>
 							<input type="submit" name="acao" value="<%=Constantes.ACAO_CANCELAR%>">
 						</form>
 					</div>

@@ -52,7 +52,11 @@ public abstract class Consumidor
 	{
 		return id;
 	}
-
+	
+	public void  setId(int id)
+	{
+		this.id = id;
+	}
 	public String getNome()
 	{
 		return nome;
@@ -110,10 +114,10 @@ public abstract class Consumidor
 
 	public void setCpf(String cpf) throws Exception
 	{
-		if (!Util.valida(cpf))
-		{
-			throw new Exception("cpf.informado.invalido");
-		}
+		//if (!Util.valida(cpf))
+		//{
+		//	throw new Exception("cpf.informado.invalido");
+		//}
 		
 //		TODO testar se é unico fazendo uma consulda com um handler
 		

@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Curso;
+import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.model.vo.CursoVO;
+import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
 import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.CursoHandler;
+import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 @WebServlet("/GerirAluno")
@@ -66,8 +69,11 @@ public class AlunoControle extends HttpServlet
 					cadastrar(request, response);
 					response.sendRedirect("GerirAluno");
 					break;
+				case Constantes.NOVO:
+					request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);
+					break;
 				case Constantes.ACAO_DELETAR:
-					excluir(request, response);
+					//	excluir(request, response);
 					response.sendRedirect("GerirAluno");
 					break;
 				case Constantes.ACAO_EDITAR:
@@ -80,18 +86,49 @@ public class AlunoControle extends HttpServlet
 		} 
 		else
 		{
-			request.getRequestDispatcher("/WEB-INF/CadAlunos.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
 		}
 	}
 	
 	private void editar(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		
+		String id = request.getParameter("id");
+		String matricula = request.getParameter("matricula");
+		String nome = request.getParameter("nome");
+		String anoIngresso = request.getParameter("anoIngresso");
+		String sexo = request.getParameter("sexo");
+		String titulo = request.getParameter("titulo");
+		String cpf = request.getParameter("cpf");
+		String curso = request.getParameter("curso");
+
+		ConsumidorVO aluno= new ConsumidorVO();
+		//System.out.println(id);
+		aluno.setId(Integer.parseInt(id));
+		aluno.setMatricula(Integer.parseInt(matricula));
+		aluno.setNome(nome);
+		aluno.setAnoDeIngresso(anoIngresso);
+		aluno.setSexo(sexo);
+		aluno.setTitulo(titulo);
+		System.out.println("CPF" + cpf);
+		aluno.setCpf(cpf);
+		aluno.setCurso(Integer.parseInt(curso));
+		
+		try
+		{	
+			AlunoHandler.atualizarAluno(aluno, Integer.parseInt(id));
+
+			request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+		} catch (Exception e)
+		{
+			request.setAttribute("mensagem", Constantes.ERRO);
+		}
+		
 	}
 
-	private void excluir(HttpServletRequest request,HttpServletResponse response) {
+	private void excluir(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		
-		String idAluno = request.getParameter("matricula");
+		String idAluno = request.getParameter("id");
 
 		Aluno aluno = null;
 		try
@@ -103,11 +140,6 @@ public class AlunoControle extends HttpServlet
 			e1.printStackTrace();
 		} catch (SQLException e1)
 		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (Exception e1)
-		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -131,7 +163,7 @@ public class AlunoControle extends HttpServlet
 		String titulo = request.getParameter("titulo");
 		String cpf = request.getParameter("cpf");
 		String curso = request.getParameter("curso");
-		
+
 		ConsumidorVO alunoVO = new ConsumidorVO();
 		
 		alunoVO.setNome(nome);
@@ -146,8 +178,8 @@ public class AlunoControle extends HttpServlet
 		{
 			AlunoHandler.cadastrarAluno(alunoVO);
 		    
-			String redirect = response.encodeRedirectURL("WEB-INF/CadCurso.jsp");
-			response.sendRedirect(redirect);			
+			//String redirect = response.encodeRedirectURL("/WEB-INF/listarAlunos.jsp");
+			//response.sendRedirect(redirect);			
 		} 
 		catch (Exception e)
 		{
@@ -157,6 +189,93 @@ public class AlunoControle extends HttpServlet
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		doPost(req, resp);
+		
+		ConsumidorVO consumidorVO = new ConsumidorVO();
+		
+		Collection<Aluno> alunos = null;
+		try
+		{
+			alunos = AlunoHandler.recuperarAlunos(consumidorVO);
+		} catch (SQLException e1)
+		{
+			e1.printStackTrace();
+		} catch (Exception e1)
+		{
+			e1.printStackTrace();
+		}
+		
+		req.setAttribute("alunos", alunos);
+
+		//------------ RECUPERA CURSOS ---------------
+		CursoVO cursoVO = new CursoVO();
+		
+		Collection<Curso> cursos = null;
+		try
+		{
+			cursos = CursoHandler.recuperarCursos(cursoVO);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		req.setAttribute("cursos", cursos);
+
+		//------------ RECUPERA CURSOS ---------------
+
+		String id = (String) req.getParameter("id");
+
+		if (id!=null)
+		{
+			Aluno aluno = null;
+			try
+			{
+				aluno = AlunoHandler.recuperarAluno(Integer.parseInt(id));
+				System.out.println(aluno.getId());
+			} catch (NumberFormatException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			req.setAttribute("aluno", aluno);
+		}
+		
+		//------------ ACAO ---------------
+		
+		String acao = (String) req.getParameter("acao");
+		//System.out.println("ACAO GET = "+acao );
+
+		if (acao != null)
+		{
+			switch (acao)
+			{	
+				case Constantes.NOVO:
+					req.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(req, resp);
+					break;
+				case Constantes.ACAO_EDITAR:					
+					req.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(req, resp);
+					break;
+				case Constantes.ACAO_DELETAR:	
+					System.out.println("Acao deletar");
+					try {
+						excluir(req, resp);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					req.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(req, resp);
+					break;
+				default:
+					req.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(req, resp);
+			}
+		} 
+		else
+		{
+			req.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(req, resp);
+		}
 	}
 }

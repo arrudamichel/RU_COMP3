@@ -43,7 +43,7 @@ public class FuncionarioHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		FuncionarioGateway funcionarioGW = new FuncionarioGateway(conn);
 
-		ResultSet rsFuncionarios = funcionarioGW.selecionarFuncionarioPorMatricula(idFuncionario);
+		/*ResultSet rsFuncionarios = funcionarioGW.selecionarFuncionarioPorMatricula(idFuncionario);
 
 		Funcionario funcionario = null;
 		
@@ -73,9 +73,10 @@ public class FuncionarioHandler
 				funcionario.setSexo(SexoEnum.fromString(rsFuncionarios.getString(2)));
 				funcionario.setTitulo(TituloEnum.fromString(rsFuncionarios.getString(2)));
 			}
-		}
+		}*/
 		
-		return funcionario;
+		//return funcionario;
+		return null;
 	}
 	public static Collection<Funcionario> recuperarFuncionarios(ConsumidorVO consumidorVO) throws Exception
 	{
@@ -99,7 +100,7 @@ public class FuncionarioHandler
 
 			// seleciona consumidor
 			ConsumidorGateway cg = new ConsumidorGateway(conn);
-			ResultSet rsc = cg.selecionarConsumidorPorMatricula(matricula);
+			ResultSet rsc = cg.selecionarConsumidorPorId(matricula);
 			rsc.next();
 
 			if (rsc.getInt(7) == 1)

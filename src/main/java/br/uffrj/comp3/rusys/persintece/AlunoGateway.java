@@ -101,11 +101,11 @@ public class AlunoGateway
 		return true;
 	}
 
-	public boolean alterarAluno(ArrayList<Object> valores, int identificador)
+	public void alterarAluno(ArrayList<Object> valores, int identificador) throws Exception
 	{
 		try
 		{
-			String sql = "UPDATE \"aluno\" " + "SET \"consumidor_id\" = ?, " + "\"curso_id_curso\" = ? "
+			String sql = "UPDATE \"aluno\" " + "SET  " + "\"curso_id_curso\" = ? "
 					+ "WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -117,16 +117,16 @@ public class AlunoGateway
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(3, identificador);
+			stmt.setInt(2, identificador);
 
 			stmt.execute();
 		} 
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
-			return false;
+			//return false;
 		}
-
-		return true;
+		throw new Exception("falha.ao.cadastrar.aluno");
+		//return true;
 	}
 }

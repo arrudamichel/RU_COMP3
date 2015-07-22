@@ -56,7 +56,7 @@ public class ConsumidorGateway
 
 			String sql = "SELECT \"id_consumidor\",\"matricula\", \"nome\", \"ano_ingresso\", "
 								+ "\"sexo\", \"titulo\", \"cpf\", \"situacao\" " 
-						+"FROM \"consumidor\"";
+						+"FROM \"consumidor\" where \"situacao\"=1";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -114,13 +114,13 @@ public class ConsumidorGateway
 		return true;
 	}
 
-	public boolean alterarConsumidor(ArrayList<Object> valores, int matricula)
+	public void alterarConsumidor(ArrayList<Object> valores, int matricula) throws Exception
 	{
 		try
 		{
 			String sql = "UPDATE \"consumidor\" " 
 						+"SET \"nome\" = ?, \"ano_ingresso\" = ?, \"sexo\" = ?, "
-						+	" \"titulo\" = ?, \"cpf\" = ? "
+						+	" \"titulo\" = ? "
 						+"WHERE \"matricula\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -135,16 +135,16 @@ public class ConsumidorGateway
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(6, matricula);
+			stmt.setInt(5, matricula);
 
 			stmt.execute();
 		} 
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
-			return false;
-		}
+			e.printStackTrace();
+			throw new Exception("falha.ao.cadastrar.consumidor");
 
-		return true;
+		}
 	}
 }

@@ -28,12 +28,12 @@ public class AlunoHandler
 //		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
 		
 		int id = ConsumidorHandler.cadastrarConsumidor(consumidorVO);
-		
+		System.out.println(id);
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
 		AlunoGateway alunoGW = new AlunoGateway(conn);
-
-		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(id,consumidorVO.getMatricula(), consumidorVO.getCurso()));
-
+		
+		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(id,consumidorVO.getCurso()));
+		
 		if (!alunoGW.inserir(valores2))
 			throw new Exception("falha.ao.cadastrar.aluno");
 
@@ -45,46 +45,47 @@ public class AlunoHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		AlunoGateway alunoGW = new AlunoGateway(conn);
 
-		ResultSet rsAluno = alunoGW.selecionarAlunoPorMatricula(idAluno);
+		ResultSet rsAluno = alunoGW.selecionarAlunoPorId(idAluno);
 
 		Aluno aluno = null;
 		
 		while (rsAluno.next())
 		{
 			int id = rsAluno.getInt(1);
-			int matricula = rsAluno.getInt(2);
-			int idcurso = rsAluno.getInt(3);
+			//int matricula = rsAluno.getInt(2);
+			int idcurso = rsAluno.getInt("curso_id_curso");
 
 			// seleciona curso
 			CursoGateway curg = new CursoGateway(conn);
 			ResultSet rsCurso = curg.selecionarCursoPorId(idcurso);
 			rsCurso.next();
-
+			
 			DepartamentoGateway dg = new DepartamentoGateway(conn);
 			ResultSet rsDepartamento = dg.selecionarDepartamentoPorId(rsCurso.getInt(4));
 			rsDepartamento.next();
 
-			Departamento departamento = new Departamento(rsCurso.getInt(5), rsDepartamento.getString(3), rsDepartamento.getString(4));
+			Departamento departamento = new Departamento(rsCurso.getInt("departamento_id_departamento"), rsDepartamento.getString("nome"), rsDepartamento.getString("sigla"));
 
-			Curso curso = new Curso(rsCurso.getInt(1), rsCurso.getString(2), rsCurso.getString(3), departamento);
+			Curso curso = new Curso(rsCurso.getInt("id_curso"), rsCurso.getString("nome"), rsCurso.getString("sigla"), departamento);
 
 			// seleciona consumidor
 			ConsumidorGateway cg = new ConsumidorGateway(conn);
-			ResultSet rsConsumidor = cg.selecionarConsumidorPorMatricula(matricula);
+			ResultSet rsConsumidor = cg.selecionarConsumidorPorId(id);
 			rsConsumidor.next();
 
 			// Verifica se consumidor esta ativo
-			if (rsConsumidor.getInt(7) == 1)
+			if (rsConsumidor.getInt("situacao") == 1)
 			{
-				aluno = new Aluno(id, rsAluno.getString(2), matricula, rsAluno.getString(2), curso);
+				aluno = new Aluno(id, rsConsumidor.getString("nome"), rsConsumidor.getInt("matricula"), rsConsumidor.getString("ano_ingresso"), curso);
 
-				aluno.setCpf(rsAluno.getString(2));
-				aluno.setSexo(SexoEnum.fromString(rsAluno.getString(2)));
-				aluno.setTitulo(TituloEnum.fromString(rsAluno.getString(2)));
+				aluno.setCpf(rsConsumidor.getString("cpf"));
+				aluno.setSexo(SexoEnum.fromString(rsConsumidor.getString("sexo")));
+				aluno.setTitulo(TituloEnum.fromString(rsConsumidor.getString("titulo")));
 			}
 		}
 		
 		return aluno;
+	
 	}
 
 	public static Collection<Aluno> recuperarAlunos(ConsumidorVO consumidorVO) throws Exception
@@ -100,8 +101,8 @@ public class AlunoHandler
 		while (rsAluno.next())
 		{
 			int id = rsAluno.getInt(1);
-			int matricula = rsAluno.getInt(2);
-			int idcurso = rsAluno.getInt(3);
+			//int matricula = rsAluno.getInt(1);
+			int idcurso = rsAluno.getInt(2);
 
 			// seleciona curso
 			CursoGateway curg = new CursoGateway(conn);
@@ -111,24 +112,24 @@ public class AlunoHandler
 			DepartamentoGateway dg = new DepartamentoGateway(conn);
 			ResultSet rsDepartamento = dg.selecionarDepartamentoPorId(rsCurso.getInt(4));
 			rsDepartamento.next();
+			//System.out.println("AlunoHandler.RecuperarAlunos . get5 "+ rsCurso.getInt(5) + "rsDepartamento.getString(3)" + rsDepartamento.getString(3) + "rsDepartamento.getString(4)" + rsDepartamento.getString(4));
+			Departamento departamento = new Departamento(rsCurso.getInt("departamento_id_departamento"), rsDepartamento.getString("nome"), rsDepartamento.getString("sigla"));
 
-			Departamento departamento = new Departamento(rsCurso.getInt(5), rsDepartamento.getString(3), rsDepartamento.getString(4));
-
-			Curso curso = new Curso(rsCurso.getInt(1), rsCurso.getString(2), rsCurso.getString(3), departamento);
+			Curso curso = new Curso(rsCurso.getInt("id_curso"), rsCurso.getString("nome"), rsCurso.getString("sigla"), departamento);
 
 			// seleciona consumidor
 			ConsumidorGateway cg = new ConsumidorGateway(conn);
-			ResultSet rsConsumidor = cg.selecionarConsumidorPorMatricula(matricula);
+			ResultSet rsConsumidor = cg.selecionarConsumidorPorId(id);
 			rsConsumidor.next();
 
 			// Verifica se consumidor esta ativo
-			if (rsConsumidor.getInt(7) == 1)
+			if (rsConsumidor.getInt("situacao") == 1)
 			{
-				Aluno aluno = new Aluno(id, rsAluno.getString(2), matricula, rsAluno.getString(2), curso);
+				Aluno aluno = new Aluno(id, rsConsumidor.getString("nome"), rsConsumidor.getInt("matricula"), rsConsumidor.getString("ano_ingresso"), curso);
 
-				aluno.setCpf(rsAluno.getString(2));
-				aluno.setSexo(SexoEnum.fromString(rsAluno.getString(2)));
-				aluno.setTitulo(TituloEnum.fromString(rsAluno.getString(2)));
+				aluno.setCpf(rsConsumidor.getString("cpf"));
+				aluno.setSexo(SexoEnum.fromString(rsConsumidor.getString("sexo")));
+				aluno.setTitulo(TituloEnum.fromString(rsConsumidor.getString("titulo")));
 
 				alunos.add(aluno);
 			}
@@ -149,6 +150,25 @@ public class AlunoHandler
 		if (!cg.excluirAluno(consumidor.getId()))
 			throw new Exception("falha.ao.cadastrar.refeicao");
 		
+		conn.close();
+	}
+	
+	public static void atualizarAluno(ConsumidorVO consumidorVO, int id) throws Exception
+	{
+//		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
+		System.out.println("Aqui");
+		ConsumidorHandler.atualizarConsumidor(consumidorVO);
+		System.out.println("Aqui1");
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
+		AlunoGateway alunoGW = new AlunoGateway(conn);
+		System.out.println("Aqui2");
+		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(consumidorVO.getCurso()));
+		
+		alunoGW.alterarAluno(valores2, id);
+		
+
+//			throw new Exception("falha.ao.cadastrar.aluno");
+
 		conn.close();
 	}
 }

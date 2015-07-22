@@ -26,7 +26,7 @@ public class TicketHandler {
 		ConsumidorGateway consumidorGateway = new ConsumidorGateway(conn);
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
 
-		ResultSet rs = consumidorGateway.selecionarConsumidorPorMatricula(ticketVO.getMatricula());
+		ResultSet rs = consumidorGateway.selecionarConsumidorPorId(ticketVO.getMatricula());
 
 		int consumId = -1;
 
