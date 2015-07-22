@@ -32,38 +32,29 @@ public class CursoControle extends HttpServlet
 		
 		String acao = (String) request.getParameter("acao");
 
-		DepartamentoVO departamentoVO = new DepartamentoVO();
-		
-//		departamentoVO.set(); campos de consulta
-		
+		DepartamentoVO departamentoVO = new DepartamentoVO();		
 		Collection<Departamento> departamentos = null;
 		try
 		{
 			departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
 		} catch (SQLException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (Exception e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		request.setAttribute("departamentos", departamentos);
 		
 		
-		CursoVO cursoVO = new CursoVO();
-		
-//		departamentoVO.set(); campos de consulta
-		
+		CursoVO cursoVO = new CursoVO();		
 		Collection<Curso> cursos = null;
 		try
 		{
 			cursos = CursoHandler.recuperarCursos(cursoVO);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -76,11 +67,9 @@ public class CursoControle extends HttpServlet
 				curso = CursoHandler.recuperarCurso(Integer.parseInt(cursoId));
 			} catch (NumberFormatException e1)
 			{
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (Exception e1)
 			{
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
@@ -117,7 +106,7 @@ public class CursoControle extends HttpServlet
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
-		System.out.println(id + " " + nome + " " + sigla + " " +  dept);
+
 		Curso curso = null;
 		try
 		{
@@ -129,11 +118,9 @@ public class CursoControle extends HttpServlet
 			
 		} catch (NumberFormatException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (Exception e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -239,8 +226,7 @@ public class CursoControle extends HttpServlet
 		
 		//------------ ACAO ---------------
 		
-		String acao = (String) request.getParameter("acao");
-		System.out.println("ACAO GET = "+acao );
+		String acao = (String) request.getParameter("acao");		
 
 		if (acao != null)
 		{

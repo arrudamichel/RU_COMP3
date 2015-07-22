@@ -6,13 +6,7 @@
 
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%
-	//se tivesse verificacao de login, aqui que ele seria programado
-    
-/* 	String mensagem = request.getAttribute("mensagem") == null ? "" : (String)request.getAttribute("mensagem");
-
-	String acao = (String)request.getAttribute("acao");
-	String id = (String)request.getAttribute("id"); */
+<% 
 	ArrayList<Departamento> departamentos = (ArrayList<Departamento>)request.getAttribute("departamentos");
 	
 %>
@@ -35,7 +29,35 @@
             </ul>
           </div>
           <div class="content">
+          	<% 	String urlInserir="GerirDepartamento?acao="+ Constantes.ACAO_SALVAR; %>          	
             <h2 class="title"><%=Constantes.CADDEPTO%> </h2>
+            <h3><a href="<%=urlInserir%>"><%=Constantes.ACAO_SALVAR%></a></h3>
+            
+            <table id="table-resultado" class="table">
+              <tr>
+                <th><%=Constantes.NOME%></th>
+                <th><%=Constantes.SIGLA%></th>
+                <th class="last">&nbsp;</th>
+              </tr>                 
+              <%               
+             for(int i=0; i < departamentos.size(); i++) {
+            	 String urlEditar="GerirDepartamento?acao="+ Constantes.ACAO_EDITAR +"&departamentoId="+departamentos.get(i).getIdentificador();
+               	if(i%2 == 0){ %>
+               	<tr class="odd">                  
+                     <td><%=departamentos.get(i).getNome()%></td>                                              
+                     <td><%=departamentos.get(i).getSigla()%></td>
+                     <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
+                 </tr>
+             <% } else { %>
+                 <tr class="even">
+					 <td><%=departamentos.get(i).getNome()%></td>                                              
+                     <td><%=departamentos.get(i).getSigla()%></td>  
+                     <td class="last"><a href="<%=urlEditar%>"><%=Constantes.EDITAR%></a> </td>
+                 </tr>                    
+         	<%}  
+        		}%>                   	
+              <%// } %>
+            </table>
             
             <div class="inner">
             	<% if(mensagem.contains("Erro")){ %>
@@ -46,24 +68,7 @@
             		<div style="background-color:#CCFFCC; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
     					<%=mensagem%>
     				</div>
-    			<%} %>
-    			
-    			
-              <form id="FrmDepartamento" name="FrmDeparmento" action="GerirDepartamento" method="POST" class="form">              
-                <div class="group">
-                  <label class="label"><%=Constantes.NOME%></label>
-                  <input type="text" id="nome" name="nome" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
-                </div>
-                <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.SIGLA%></label>
-                   <input type="text" id="sigla" name="sigla" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
-                </div>
-                <div class="group navform wat-cf">                
-                  <button class="button" type="submit" id='salvar' name="acao" value="<%=Constantes.ACAO_SALVAR%>"><%=Constantes.SALVAR%></button>
-                 <!--  <span class="text_button_padding">Ou</span>
-                  <a class="text_button_padding link_button" href="listarDepartamentos.jsp"><%=Constantes.CANCELAR%></a> -->
-                </div>
-              </form>
+    			<%} %>    	
             </div>
           </div>
         </div>

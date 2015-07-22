@@ -17,7 +17,6 @@ CREATE TABLE "refeicao" (
   "descricao" VARCHAR(45) NULL,
   "opcaoVegetariana" VARCHAR(45) NULL,  
   "turno" VARCHAR(45) NULL,
-  "tipo" VARCHAR(45) NULL,
   "situacao" TINYINT(1) NOT NULL,
   PRIMARY KEY ("id_refeicao"));
 

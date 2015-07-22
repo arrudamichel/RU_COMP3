@@ -15,10 +15,8 @@
 	String acao = (String) request.getParameter("acao");
 	Refeicao refeicao  = (Refeicao) request.getAttribute("refeicao"); */
 	
-	ArrayList<Refeicao> refeicoes = (ArrayList<Refeicao>)request.getAttribute("refeicoes");
 	ArrayList<TurnoEnum> turnos = (ArrayList<TurnoEnum>)request.getAttribute("turnos");
 	
-
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -48,63 +46,9 @@
 				</div>
 				<div class="content">
 					<h2 class="title"><%=Constantes.CADREFEICAO%></h2>
-					<table class="table">
-                       <tr>
-                       	   <th></th>
-                           <th><%=Constantes.TURNO%></th>
-                           <th><%=Constantes.DESCRICAO%></th>
-                           <th><%=Constantes.OPVEG%></th>
-                           <th class="last">&nbsp;</th>
-                           <th class="last">&nbsp;</th>
-                       </tr>
-                       
-                       <%
-                       	
-                       	for(int i=0; i < refeicoes.size(); i++){
-                       		String urlEditar="GerirRefeicao?acao="+ Constantes.ACAO_EDITAR+ "&id="+refeicoes.get(i).getId();
-                 		   	String urlDelete ="GerirRefeicao?acao="+ Constantes.ACAO_DELETAR+ "&id="+refeicoes.get(i).getId();
-                       		if(i%2 == 0){
-                       %>
-                       <tr class="odd">                                        
-                           <td><input type="hidden" name="id" value=<%=refeicoes.get(i).getId()%> /></td>
-                           <td><%=refeicoes.get(i).getTurno()%></td>
-                           <td><%=refeicoes.get(i).getDescricao()%></td>
-                           <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
-                           <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
-	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	  
-                       </tr>
-                       <%      } else { %>
-                       <tr class="even">
-                           <td><input type="hidden" name="id" value=<%=refeicoes.get(i).getId()%> /></td>
-                           <td><%=refeicoes.get(i).getTurno()%></td>
-                           <td><%=refeicoes.get(i).getDescricao()%></td>
-                           <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
-                           <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
-	                       <td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	  
-                           
-                       </tr>
-                       
-                       <%		}  
-                       	}%>
-                   </table>
+					
 					<div class="inner">
-						<%-- <%
-							if (mensagem.contains("Erro")) {
-						%>
-						<div
-							style="background-color: #FF9999; padding: 4px 0; margin: 2px; width: auto; overflow: visible; text-align: center; border: 1px solid #bfbfbf;">
-							<%=mensagem%>
-						</div>
-						<%
-							} else if (mensagem.contains("Sucesso")) {
-						%>
-						<div
-							style="background-color: #CCFFCC; padding: 4px 0; margin: 2px; width: auto; overflow: visible; text-align: center; border: 1px solid #bfbfbf;">
-							<%=mensagem%>
-						</div>
-						<%
-							}
-						%> --%>
+						
 						<form id="FrmRefeicao" name="FrmRefeicao" action="GerirRefeicao" method="POST" class="form">
 							<input type="hidden" id="id" name="id"
 								<%-- <% if (refeicao != null && refeicao.getIdentificador() != 0 ) { out.print(" value = '" + refeicao.getIdentificador() + "'"); }%>> --%>>
@@ -118,11 +62,13 @@
 								<label class="label" for="post_title"><%=Constantes.TURNO%></label>
 								<select id="turno" name="turno">
 									<%
+									if(turnos != null){
 										for(int i=0; i < turnos.size(); i++){
 									%>
 									<option value="<%=turnos.get(i)%>"><%=turnos.get(i)%></option>
 									<%
 										}
+									}
 									%>
 								</select>
 							</div>
