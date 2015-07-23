@@ -112,7 +112,7 @@ public class ConsumidorGateway{
 		try
 		{
 			String sql = "UPDATE \"consumidor\" " 
-						+"SET \"nome\" = ?, \"ano_ingresso\" = ?, \"sexo\" = ?, "
+						+"SET \"nome\" = ?, \"matricula\" = ?, \"ano_ingresso\" = ?, \"sexo\" = ?, "
 						+	" \"titulo\" = ? "
 						+"WHERE \"matricula\" = ?";
 
@@ -128,7 +128,7 @@ public class ConsumidorGateway{
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(5, matricula);
+			stmt.setInt(6, matricula);
 
 			stmt.execute();
 		} 

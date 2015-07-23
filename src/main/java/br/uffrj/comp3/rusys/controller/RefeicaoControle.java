@@ -63,22 +63,23 @@ public class RefeicaoControle extends HttpServlet{
 		String id = request.getParameter("id");
 		String descricao = request.getParameter("descricao");
 		String opVeg = request.getParameter("opVeg");
-		if(id ==null || descricao==null || opVeg==null){
+		if (descricao.equals("") || opVeg.equals("")){
 			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
 			request.getRequestDispatcher("GerirRefeicao.jsp").forward(request, response);
+		} else{
+			RefeicaoVO refeicaoVO = new RefeicaoVO();
+			refeicaoVO.setId(Integer.parseInt(id));
+			refeicaoVO.setDescricao(descricao);
+			refeicaoVO.setOpcaoVeg(opVeg);
+			
+			try{
+				RefeicaoHandler.atualizarRefeicao(refeicaoVO);
+				request.setAttribute("mensagem", Constantes.SUCESSO);
+				response.sendRedirect("GerirRefeicao");
+			} catch (Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+			}	
 		}
-		RefeicaoVO refeicaoVO = new RefeicaoVO();
-		refeicaoVO.setId(Integer.parseInt(id));
-		refeicaoVO.setDescricao(descricao);
-		refeicaoVO.setOpcaoVeg(opVeg);
-		
-		try{
-			RefeicaoHandler.atualizarRefeicao(refeicaoVO);
-			request.setAttribute("mensagem", Constantes.SUCESSO);
-			response.sendRedirect("GerirRefeicao");
-		} catch (Exception e){
-			request.setAttribute("mensagem", Constantes.ERRO);
-		}	
 	}
 
 	private void excluir(HttpServletRequest request, HttpServletResponse response) {

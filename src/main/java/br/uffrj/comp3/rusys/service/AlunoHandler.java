@@ -77,8 +77,13 @@ public class AlunoHandler
 			if (rsConsumidor.getInt("situacao") == 1)
 			{
 				aluno = new Aluno(id, rsConsumidor.getString("nome"), rsConsumidor.getInt("matricula"), rsConsumidor.getString("ano_ingresso"), curso);
-
-				aluno.setCpf(rsConsumidor.getString("cpf"));
+				
+				try{
+					aluno.setCpf(rsConsumidor.getString("cpf"));
+				} catch (Exception e){
+					continue;
+				}
+				
 				aluno.setSexo(SexoEnum.fromString(rsConsumidor.getString("sexo")));
 				aluno.setTitulo(TituloEnum.fromString(rsConsumidor.getString("titulo")));
 			}
@@ -101,7 +106,6 @@ public class AlunoHandler
 		while (rsAluno.next())
 		{
 			int id = rsAluno.getInt(1);
-			//int matricula = rsAluno.getInt(1);
 			int idcurso = rsAluno.getInt(2);
 
 			// seleciona curso
@@ -112,7 +116,7 @@ public class AlunoHandler
 			DepartamentoGateway dg = new DepartamentoGateway(conn);
 			ResultSet rsDepartamento = dg.selecionarDepartamentoPorId(rsCurso.getInt(4));
 			rsDepartamento.next();
-			//System.out.println("AlunoHandler.RecuperarAlunos . get5 "+ rsCurso.getInt(5) + "rsDepartamento.getString(3)" + rsDepartamento.getString(3) + "rsDepartamento.getString(4)" + rsDepartamento.getString(4));
+
 			Departamento departamento = new Departamento(rsCurso.getInt("departamento_id_departamento"), rsDepartamento.getString("nome"), rsDepartamento.getString("sigla"));
 
 			Curso curso = new Curso(rsCurso.getInt("id_curso"), rsCurso.getString("nome"), rsCurso.getString("sigla"), departamento);
@@ -126,8 +130,13 @@ public class AlunoHandler
 			if (rsConsumidor.getInt("situacao") == 1)
 			{
 				Aluno aluno = new Aluno(id, rsConsumidor.getString("nome"), rsConsumidor.getInt("matricula"), rsConsumidor.getString("ano_ingresso"), curso);
-
-				aluno.setCpf(rsConsumidor.getString("cpf"));
+				
+				try{
+					aluno.setCpf(rsConsumidor.getString("cpf"));
+				} catch (Exception e){
+					continue;
+				}
+				
 				aluno.setSexo(SexoEnum.fromString(rsConsumidor.getString("sexo")));
 				aluno.setTitulo(TituloEnum.fromString(rsConsumidor.getString("titulo")));
 

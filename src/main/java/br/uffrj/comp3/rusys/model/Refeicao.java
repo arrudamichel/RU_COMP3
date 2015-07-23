@@ -22,6 +22,15 @@ public class Refeicao
 		this.opcaoVeg = opcaoVeg;
 		this.turno = turno;
 	}
+	
+	public Refeicao(int id, String descricao) throws Exception {
+		this.id = id;
+		if (descricao == null){
+			throw new Exception("model.refeicao.descricao.deve.ser.informado.para.criacao");
+		} 
+		
+		this.descricao = descricao;
+	}
 
 	public String getDescricao()
 	{

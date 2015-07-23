@@ -30,9 +30,11 @@ public class AlunoTest {
 	@Test
 	public void testSetCurso() throws Exception {
 		String esperado = "CC";
-		Curso cu2 = new Curso(1, "computacao", "CC", de);
 		de = new Departamento(1, "Depto", "DCC");
-		cu = new Curso(1, "computacao", "CC", de);
+		
+		Curso cu2 = new Curso(1, "computacao", "CC", de);
+		
+		cu = new Curso(1, "computacao", "CC", de);		
 		al = new Aluno(1, "Jessica", 2011785144, "2011", cu);
 		al.setCurso(cu2);
 		

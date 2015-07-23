@@ -114,12 +114,10 @@ public abstract class Consumidor
 
 	public void setCpf(String cpf) throws Exception
 	{
-		//if (!Util.valida(cpf))
-		//{
-		//	throw new Exception("cpf.informado.invalido");
-		//}
-		
-//		TODO testar se é unico fazendo uma consulda com um handler
+		if (!Util.valida(cpf))
+		{
+			throw new Exception("cpf.informado.invalido");
+		}
 		
 		this.cpf = cpf;
 	}

@@ -7,7 +7,6 @@
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%
 	ArrayList <Curso> cursos = (ArrayList<Curso>) request.getAttribute("cursos");
 %>
@@ -33,7 +32,9 @@
 					<h2 class="title"><%=Constantes.CADALUNOS%>
 					</h2>
 					<div class="inner">
+					
 						<form id="FrmAluno" name="FrmAluno" action="GerirAluno" method="POST" class="form">
+							<%@include file="messagePage.jsp" %>
 							<input type="hidden" id="id" name="id" />
 							<div class="group">
 								<label class="label"><%=Constantes.NOME%></label> 

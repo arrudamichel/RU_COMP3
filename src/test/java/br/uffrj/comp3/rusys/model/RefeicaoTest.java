@@ -14,6 +14,12 @@ public class RefeicaoTest {
 		re= new Refeicao(1,"arroz"){};
 		
 	}
+	
+	@Test(expected = Exception.class)
+	public void testRefeicaoDescricao() throws Exception {
+		re= new Refeicao(1,null){};
+		
+	}
 
 	@Test
 	public void testGetDescricao() throws Exception {

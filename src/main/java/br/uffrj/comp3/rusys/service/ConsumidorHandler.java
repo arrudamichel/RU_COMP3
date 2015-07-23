@@ -50,12 +50,11 @@ public class ConsumidorHandler
 	{	
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		ConsumidorGateway consumidorGW = new ConsumidorGateway(conn);
-		System.out.println("CPF"+consumidorVO.getCpf());
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(consumidorVO.getNome(),
+
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(consumidorVO.getNome(), consumidorVO.getMatricula(),
 				consumidorVO.getAnoDeIngresso(), consumidorVO.getSexo(), consumidorVO.getTitulo()));
 		
 		consumidorGW.alterarConsumidor(valores, consumidorVO.getMatricula());
-		System.out.println("AquiConsumidor");
 
 		conn.close();
 
