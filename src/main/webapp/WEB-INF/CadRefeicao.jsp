@@ -7,16 +7,8 @@
 	pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%
-	//se tivesse verificacao de login, aqui que ele seria programado
-
-	/* String mensagem = request.getAttribute("mensagem") == null ? "" : (String) request.getAttribute("mensagem");
-
-	String acao = (String) request.getParameter("acao");
-	Refeicao refeicao  = (Refeicao) request.getAttribute("refeicao"); */
-	
+<%	
 	ArrayList<TurnoEnum> turnos = (ArrayList<TurnoEnum>)request.getAttribute("turnos");
-	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -50,8 +42,8 @@
 					<div class="inner">
 						
 						<form id="FrmRefeicao" name="FrmRefeicao" action="GerirRefeicao" method="POST" class="form">
-							<input type="hidden" id="id" name="id"
-								<%-- <% if (refeicao != null && refeicao.getIdentificador() != 0 ) { out.print(" value = '" + refeicao.getIdentificador() + "'"); }%>> --%>>
+							<input type="hidden" id="id" name="id">
+							  <%@include file="messagePage.jsp" %>
 							<div class="group">
 								<label class="label"><%=Constantes.DESCRICAO%></label> <input
 									type="text" id="descricao" name="descricao"
@@ -79,11 +71,13 @@
 									class="text_field" />
 							</div>
 							<div class="group navform wat-cf">
-								<button class="button" type="submit" id='salvar' name='acao' value="<%=Constantes.ACAO_SALVAR%>">				
+								<button class="button" type="submit" id='acao' name='acao' value="<%=Constantes.ACAO_SALVAR%>">				
 									<%=Constantes.SALVAR%>
 								</button>
-								<span class="text_button_padding">Ou</span> <a
-									class="text_button_padding link_button" href="index.jsp"><%=Constantes.CANCELAR%></a>
+								<span class="text_button_padding">Ou</span>
+								 <button class="button" type="submit" id='acao' name='acao' value="<%=Constantes.ACAO_CANCELAR%>">
+								 	<%=Constantes.CANCELAR%>
+								</button>
 							</div>
 						</form>
 					</div>

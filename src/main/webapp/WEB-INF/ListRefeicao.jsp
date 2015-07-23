@@ -49,7 +49,7 @@
                            <th class="last">&nbsp;</th>
                            <th class="last">&nbsp;</th>
                        </tr>
-                       
+                       <%@include file="messagePage.jsp" %>
                        <%
                        	if(refeicoes != null){
 	                       	for(int i=0; i < refeicoes.size(); i++){
