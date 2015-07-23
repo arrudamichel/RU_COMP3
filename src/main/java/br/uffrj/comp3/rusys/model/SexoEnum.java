@@ -14,11 +14,11 @@ public class SexoEnum
 	
 	public static SexoEnum fromString(String string)
 	{
-		if (string.equals("Masculino") || string.equals("M") )
+		if (string.toLowerCase().equals("masculino") || string.toLowerCase().equals("m") )
 		{
 			return M;
 		} 
-		else if (string.equals("Feminino") || string.equals("F"))
+		else if (string.toLowerCase().equals("feminino") || string.toLowerCase().equals("f"))
 		{
 			return F;
 		}	
