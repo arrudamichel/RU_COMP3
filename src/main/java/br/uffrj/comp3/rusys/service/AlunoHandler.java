@@ -153,21 +153,16 @@ public class AlunoHandler
 		conn.close();
 	}
 	
-	public static void atualizarAluno(ConsumidorVO consumidorVO, int id) throws Exception
-	{
-//		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
-		System.out.println("Aqui");
+	public static void atualizarAluno(ConsumidorVO consumidorVO, int id) throws Exception{
+
 		ConsumidorHandler.atualizarConsumidor(consumidorVO);
-		System.out.println("Aqui1");
+
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
 		AlunoGateway alunoGW = new AlunoGateway(conn);
-		System.out.println("Aqui2");
+
 		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(consumidorVO.getCurso()));
 		
 		alunoGW.alterarAluno(valores2, id);
-		
-
-//			throw new Exception("falha.ao.cadastrar.aluno");
 
 		conn.close();
 	}

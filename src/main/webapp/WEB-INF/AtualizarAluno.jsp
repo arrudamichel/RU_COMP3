@@ -9,6 +9,7 @@
 <%@page session="false"%>
 <%@include file="messagePage.jsp" %>
 <%
+	Aluno aluno = (Aluno)request.getAttribute("aluno");
 	ArrayList <Curso> cursos = (ArrayList<Curso>) request.getAttribute("cursos");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -34,36 +35,36 @@
 					</h2>
 					<div class="inner">
 						<form id="FrmAluno" name="FrmAluno" action="GerirAluno" method="POST" class="form">
-							<input type="hidden" id="id" name="id" />
+							<input type="hidden" id="id" name="id" value="<%=(aluno!=null) ? aluno.getId() : "" %>" />
 							<div class="group">
 								<label class="label"><%=Constantes.NOME%></label> 
-								<input type="text" id="nome" name="nome" class="text_field" />
+								<input type="text" id="nome" name="nome" class="text_field" value="<%=(aluno!=null) ? aluno.getNome() : "" %>" />
 							</div>
 							<div class="group">
 								<label class="label"><%=Constantes.MATRICULA%></label> 
-								<input type="text" id="matricula" name="matricula" class="text_field" />
+								<input type="text" id="matricula" name="matricula" class="text_field" value="<%=(aluno!=null) ? aluno.getMatricula() : "" %>" />
 							</div>
 							<div class="group">
 								<label class="label"><%=Constantes.ANOINGRESSO%></label> 
-								<input type="text" id="anoIngresso" name="anoIngresso" class="text_field"  />
+								<input type="text" id="anoIngresso" name="anoIngresso" class="text_field" value="<%=(aluno!=null) ? aluno.getAnoDeIngresso() : "" %>" />
 							</div>
 							<div class="group">
 			                   <label class="label" for="post_title"><%=Constantes.SEXO%></label>
-			                   <input type="radio" id="sexo" name="sexo" value="M" > &nbsp;<%=Constantes.MASCULINO%> &nbsp;&nbsp;
-			                   <input type="radio" id="sexo" name="sexo" value="F" > &nbsp;<%=Constantes.FEMININO%>
+			                   <input type="radio" id="sexo" name="sexo" value="M" <%if (aluno!=null && aluno.getSexo().equals(SexoEnum.fromString("M"))) out.print("checked"); %>> &nbsp;<%=Constantes.MASCULINO%> &nbsp;&nbsp;
+			                   <input type="radio" id="sexo" name="sexo" value="F" <%if (aluno!=null && aluno.getSexo().equals(SexoEnum.fromString("F"))) out.print("checked"); %>> &nbsp;<%=Constantes.FEMININO%>
 			               </div>
 							<div class="group">
 			                    <label class="label" for="post_title"><%=Constantes.TITULO%></label>
 			                    <select id ="titulo" name="titulo">
 			                        <option value="">Selecione</option>
-			                        <option value="ESPECIALIZACAO" ><%=Constantes.ESPECIALIZACAO%></option>
-			                        <option value="MESTRADO" ><%=Constantes.MESTRADO%></option>
-			                        <option value="DOUTORADO"><%=Constantes.DOUTORADO%></option>
+			                        <option value="ESPECIALIZACAO" <%=(aluno!=null && aluno.getTitulo().equals(TituloEnum.fromString("ESPECIALIZACAO"))) ? "SELECTED" : "" %>><%=Constantes.ESPECIALIZACAO%></option>
+			                        <option value="MESTRADO" <%=(aluno!=null && aluno.getTitulo().equals(TituloEnum.fromString("MESTRADO"))) ? "SELECTED" : "" %>><%=Constantes.MESTRADO%></option>
+			                        <option value="DOUTORADO" <%=(aluno!=null && aluno.getTitulo().equals(TituloEnum.fromString("DOUTORADO"))) ? "SELECTED" : "" %>><%=Constantes.DOUTORADO%></option>
 			                    </select>           
 			                </div>
 			                <div class="group">
 								<label class="label"><%=Constantes.CPF%></label> 
-								<input type="text" id="cpf" name="cpf" class="text_field" />
+								<input type="text" id="cpf" name="cpf" class="text_field" value="<%=(aluno!=null) ? aluno.getCpf() : "" %>" />
 							</div>
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.CURSO%></label>
@@ -72,7 +73,8 @@
 									if(cursos != null){
 										for(int i=0; i < cursos.size(); i++){
 									%>
-											<option value="<%=cursos.get(i).getIdentificador()%>" >
+											<option value="<%=cursos.get(i).getIdentificador()%>" <%if (cursos!=null 
+											&& cursos.get(i).getIdentificador()==aluno.getCurso().getId()) out.print("selected"); %>>
 											<%=cursos.get(i).getNome()%></option>
 									<%
 										}
@@ -80,7 +82,8 @@
 									%>
 								</select>
 							</div>
-								<input type="submit" name="acao" value="<%=Constantes.ACAO_SALVAR%>">
+							<input type="submit" name="acao" value="<%=Constantes.ACAO_EDITAR%>">
+
 							<input type="submit" name="acao" value="<%=Constantes.ACAO_CANCELAR%>">
 						</form>
 					</div>

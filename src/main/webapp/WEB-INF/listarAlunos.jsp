@@ -52,6 +52,7 @@
                     <th><%=Constantes.NOME%></th>
                     <th><%=Constantes.MATRICULA%></th>
                     <th><%=Constantes.ANOINGRESSO%></th>
+                    <th><%=Constantes.SEXO%></th>
                     <th><%=Constantes.CURSO%></th>
                     <th><%=Constantes.CPF%></th>
                     <th class="last">&nbsp;</th>
@@ -66,8 +67,9 @@
                     		<input type="hidden" name="id" value=<%=alunos.get(i).getMatricula()%> />                  
 	                        <td><%=alunos.get(i).getNome()%></td>
 	                        <td><%=alunos.get(i).getMatricula()%></td>
-	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
-	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
+	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td> 
+	                        <td><%=alunos.get(i).getSexo()%></td>                                               
+	                        <td><%=alunos.get(i).getCurso().getSigla()%></td>
 	                        <td><%=alunos.get(i).getCpf()%></td>
 	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
 	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	                        
@@ -78,8 +80,9 @@
                     		<input type="hidden" name="id" value=<%=alunos.get(i).getMatricula()%>/>                 
 	                        <td><%=alunos.get(i).getNome()%></td>
 	                        <td><%=alunos.get(i).getMatricula()%></td>
-	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>                                              
-	                        <td><%=alunos.get(i).getCurso().getNome()%></td>
+	                        <td><%=alunos.get(i).getAnoDeIngresso()%></td>  
+	                        <td><%=alunos.get(i).getSexo()%></td>                                                
+	                        <td><%=alunos.get(i).getCurso().getSigla()%></td>
 	                        <td><%=alunos.get(i).getCpf()%></td>
 	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
 	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	                   

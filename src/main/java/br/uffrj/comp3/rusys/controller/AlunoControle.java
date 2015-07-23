@@ -81,7 +81,7 @@ public class AlunoControle extends HttpServlet
 					response.sendRedirect("GerirAluno");
 					break;
 				default:
-					request.getRequestDispatcher("GerirAluno").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
 			}
 		} 
 		else
@@ -118,7 +118,7 @@ public class AlunoControle extends HttpServlet
 		{	
 			AlunoHandler.atualizarAluno(aluno, Integer.parseInt(id));
 
-			request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);
 		} catch (Exception e)
 		{
 			request.setAttribute("mensagem", Constantes.ERRO);
@@ -146,6 +146,8 @@ public class AlunoControle extends HttpServlet
 		try
 		{
 			AlunoHandler.excluirAluno(aluno);
+			//request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
+			response.sendRedirect("GerirAluno");
 		} 
 		catch (Exception e)
 		{
@@ -225,12 +227,13 @@ public class AlunoControle extends HttpServlet
 		String id = (String) req.getParameter("id");
 
 		if (id!=null)
-		{
+		{	
 			Aluno aluno = null;
 			try
 			{
-				aluno = AlunoHandler.recuperarAluno(Integer.parseInt(id));
-				System.out.println(aluno.getId());
+				Aluno a = AlunoHandler.recuperarAluno(Integer.parseInt(id));
+				System.out.println(a.getId());
+				aluno = a;
 			} catch (NumberFormatException e1)
 			{
 				// TODO Auto-generated catch block
@@ -240,7 +243,7 @@ public class AlunoControle extends HttpServlet
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+
 			req.setAttribute("aluno", aluno);
 		}
 		
@@ -257,7 +260,7 @@ public class AlunoControle extends HttpServlet
 					req.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(req, resp);
 					break;
 				case Constantes.ACAO_EDITAR:					
-					req.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(req, resp);
+					req.getRequestDispatcher("/WEB-INF/AtualizarAluno.jsp").forward(req, resp);
 					break;
 				case Constantes.ACAO_DELETAR:	
 					System.out.println("Acao deletar");
@@ -267,7 +270,6 @@ public class AlunoControle extends HttpServlet
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					req.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(req, resp);
 					break;
 				default:
 					req.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(req, resp);
