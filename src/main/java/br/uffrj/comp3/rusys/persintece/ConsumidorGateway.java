@@ -6,27 +6,22 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ConsumidorGateway
-{
+public class ConsumidorGateway{
 	private Connection conn;
 
-	public ConsumidorGateway(Connection conn)
-	{
+	public ConsumidorGateway(Connection conn){
 		this.conn = conn;
 	}
 
-	public ResultSet inserir(ArrayList<Object> valores)
-	{
-		try
-		{
+	public ResultSet inserir(ArrayList<Object> valores){
+		try{
 			String sql = "INSERT INTO \"consumidor\" (\"matricula\", \"nome\", \"ano_ingresso\", "
 					+ "								  \"sexo\", \"titulo\", \"cpf\", \"situacao\") "
 					+ "VALUES (?,?,?,?,?,?,1)";
 			PreparedStatement stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
 			// preenche os valores
-			for (int i = 1; i <= valores.size(); i++)
-			{
+			for (int i = 1; i <= valores.size(); i++){
 				if (valores.get(i - 1).getClass().equals(String.class))
 					stmt.setString(i, (String) valores.get(i - 1));
 
@@ -39,20 +34,18 @@ public class ConsumidorGateway
 			return stmt.getGeneratedKeys();
          
 		} 
-		catch (Exception e)
-		{
+		catch (Exception e){
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public ResultSet selecionarConsumidores()
-	{
+	public ResultSet selecionarConsumidores(){
 		ResultSet rs = null;
 		Statement stat;
 
-		try
-		{
+		try{
 
 			String sql = "SELECT \"id_consumidor\",\"matricula\", \"nome\", \"ano_ingresso\", "
 								+ "\"sexo\", \"titulo\", \"cpf\", \"situacao\" " 
