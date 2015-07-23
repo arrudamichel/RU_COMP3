@@ -1,4 +1,4 @@
-package br.uffrj.comp3.rusys;
+package br.uffrj.comp3.rusys.util;
 
 import static org.junit.Assert.*;
 
