@@ -102,23 +102,22 @@ public class FuncionarioGateway
 		return true;
 	}
 
-	public boolean alterarFuncionario(ArrayList<Object> valores, int matricula)
+	public boolean alterarFuncionario(ArrayList<Object> valores, int id)
 	{
 		try
 		{
-			String sql = "UPDATE \"funcionario\" " + "SET \"consumidor_id\" = ?, "
+			String sql = "UPDATE \"funcionario\" " + "SET "
 					+ "\"departamento_id_departamento\" = ? " + "WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
-			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
 			{
 				if (valores.get(i - 1).getClass().equals(Integer.class))
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(3, matricula);
+			stmt.setInt(2, id);
 
 			stmt.execute();
 		} 

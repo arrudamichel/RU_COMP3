@@ -11,11 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Consumidor;
+import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
+import br.uffrj.comp3.rusys.model.vo.CursoVO;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.service.AlunoHandler;
+import br.uffrj.comp3.rusys.service.CursoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.service.FuncionarioHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
@@ -78,11 +83,11 @@ public class FuncionarioControle extends HttpServlet
 					response.sendRedirect("GerirFuncionario");
 					break;
 				case Constantes.ACAO_DELETAR:
-					excluir(request, response);
+					//excluir(request, response);
 					response.sendRedirect("GerirFuncionario");
 					break;
 				default:
-					request.getRequestDispatcher("GerirFuncionario").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
 			}
 		} 
 		else
@@ -91,42 +96,58 @@ public class FuncionarioControle extends HttpServlet
 		}
 	}
 	
-	private void excluir(HttpServletRequest request, HttpServletResponse response) {
+	private void excluir(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String idFuncionario = request.getParameter("matricula");
+		String idFuncionario = request.getParameter("id");
 
-		Consumidor funcionario = null;
-		try
-		{
+		Funcionario funcionario = null;
+		try{
 			funcionario = FuncionarioHandler.recuperarFuncionario(Integer.parseInt(idFuncionario));
-		} catch (NumberFormatException e1)
-		{
+		} catch (NumberFormatException e1){
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (SQLException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (Exception e1)
-		{
-			// TODO Auto-generated catch block
+		} catch (SQLException e1){
 			e1.printStackTrace();
 		}
 		
-		try
-		{
+		try{
 			FuncionarioHandler.excluirFuncionario(funcionario);
+			response.sendRedirect("GerirFuncionario");
 		} 
-		catch (Exception e)
-		{
+		catch (Exception e){
 			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 		
 	}
 
 	private void editar(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 		
+		String id = request.getParameter("id");
+		String matricula = request.getParameter("matricula");
+		String nome = request.getParameter("nome");
+		String anoIngresso = request.getParameter("anoIngresso");
+		String sexo = request.getParameter("sexo");
+		String titulo = request.getParameter("titulo");
+		String cpf = request.getParameter("cpf");
+		String departamento = request.getParameter("departamento");
+
+		ConsumidorVO funcionario= new ConsumidorVO();
+		funcionario.setId(Integer.parseInt(id));
+		funcionario.setMatricula(Integer.parseInt(matricula));
+		funcionario.setNome(nome);
+		funcionario.setAnoDeIngresso(anoIngresso);
+		funcionario.setSexo(sexo);
+		funcionario.setTitulo(titulo);
+		System.out.println("CPF" + cpf);
+		funcionario.setCpf(cpf);
+		funcionario.setCurso(Integer.parseInt(departamento));
+		
+		try{	
+			FuncionarioHandler.atualizarFuncionario(funcionario, Integer.parseInt(id));
+		} catch (Exception e){
+			request.setAttribute("mensagem", Constantes.ERRO);
+		}
+
 	}
 
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -178,8 +199,66 @@ public class FuncionarioControle extends HttpServlet
 		return null;
 	}
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-	{
-		doPost(req, resp);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		String acao = req.getParameter("acao");
+		String id = req.getParameter("id");
+		if(id!=null){
+			try {
+				Funcionario funcionario = FuncionarioHandler.recuperarFuncionario(Integer.parseInt(id));
+
+				req.setAttribute("funcionario", funcionario);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				req.setAttribute("mensagem", Constantes.ERRO_NUM);
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				req.setAttribute("mensagem", Constantes.ERRO_SQL);
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				req.setAttribute("mensagem", Constantes.ERRO);
+				e.printStackTrace();
+			}
+		}
+		ConsumidorVO consumidorVO = new ConsumidorVO();
+		
+		Collection<Funcionario> funcionarios = null;
+		try{
+			funcionarios = FuncionarioHandler.recuperarFuncionarios(consumidorVO);
+		} catch (SQLException e1){
+			e1.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		req.setAttribute("funcionarios", funcionarios);
+		
+		DepartamentoVO departamentoVO = new DepartamentoVO();
+		
+		Collection<Departamento> departamentos = null;
+		try{
+			departamentos = DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		req.setAttribute("departamentos", departamentos);
+
+		if(acao == null){
+			//req.setAttribute("funcionarios", new FuncionarioHandler());
+			req.getRequestDispatcher("WEB-INF/listarFuncionarios.jsp").forward(req, resp);
+		}else if (acao.equals(Constantes.NOVO)){
+			req.getRequestDispatcher("WEB-INF/CadFuncionario.jsp").forward(req, resp);
+		}else if (acao.equals(Constantes.ACAO_EDITAR)){
+			req.getRequestDispatcher("WEB-INF/AtualizarFuncionario.jsp").forward(req, resp);
+		}else if (acao.equals(Constantes.ACAO_DELETAR)){
+			try {
+				excluir(req, resp);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

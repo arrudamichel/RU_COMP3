@@ -13,6 +13,7 @@ import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.SexoEnum;
 import br.uffrj.comp3.rusys.model.TituloEnum;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
+import br.uffrj.comp3.rusys.persintece.AlunoGateway;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
 import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
@@ -30,7 +31,7 @@ public class FuncionarioHandler
 		FuncionarioGateway ag = new FuncionarioGateway(conn);
 
 		ArrayList<Object> valores2 = new ArrayList<Object>(
-				Arrays.asList(id, consumidorVO.getDepartamento(), consumidorVO.getMatricula()));
+				Arrays.asList( id,consumidorVO.getDepartamento()));
 
 		if (!ag.inserir(valores2))
 			throw new Exception("falha.ao.cadastrar.aluno");
@@ -38,8 +39,8 @@ public class FuncionarioHandler
 		conn.close();
 	}
 	
-	public static Funcionario recuperarFuncionario(int idFuncionario) throws SQLException, Exception
-	{
+	public static Funcionario recuperarFuncionario(int idFuncionario) throws SQLException, Exception{
+		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		FuncionarioGateway funcionarioGW = new FuncionarioGateway(conn);
 
@@ -47,9 +48,8 @@ public class FuncionarioHandler
 
 		Funcionario funcionario = null;
 		
-		while (rsFuncionarios.next())
-		{
-			int id = rsFuncionarios.getInt("consumidor_id");
+		while (rsFuncionarios.next()){
+			int idConsumidor = rsFuncionarios.getInt("consumidor_id");
 			int iddepartamento = rsFuncionarios.getInt("departamento_id_departamento");
 
 			// seleciona departamento
@@ -57,24 +57,24 @@ public class FuncionarioHandler
 			ResultSet rsd = dg.selecionarDepartamentoPorId(iddepartamento);
 			rsd.next();
 
-			Departamento departamento = new Departamento(rsFuncionarios.getInt("departamento_id_departamento"), rsd.getString("nome"), rsd.getString("sigla"));
+			Departamento departamento = new Departamento(iddepartamento, rsd.getString("nome"), rsd.getString("sigla"));
+
 
 			// seleciona consumidor
 			ConsumidorGateway cg = new ConsumidorGateway(conn);
-			ResultSet rsc = cg.selecionarConsumidorPorId(id);
+			ResultSet rsc = cg.selecionarConsumidorPorId(idConsumidor);
 			rsc.next();
 
-			if (rsc.getInt("situacao") == 1)
-			{
-				funcionario = new Funcionario(id, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
+			if (rsc.getInt("situacao") == 1){
+				funcionario = new Funcionario(idConsumidor, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
 
 				funcionario.setCpf(rsc.getString("cpf"));
 				funcionario.setSexo(SexoEnum.fromString(rsc.getString("sexo")));
 				funcionario.setTitulo(TituloEnum.fromString(rsc.getString("titulo")));
 			}
-		}
-		
-		return funcionario;		
+		}	
+		return funcionario;
+
 	}
 	public static Collection<Funcionario> recuperarFuncionarios(ConsumidorVO consumidorVO) throws Exception
 	{
@@ -83,9 +83,10 @@ public class FuncionarioHandler
 		FuncionarioGateway fg = new FuncionarioGateway(conn);
 		ResultSet rsFuncionarios = fg.selecionarFuncionarios();
 
-		while (rsFuncionarios.next())
-		{
+		while (rsFuncionarios.next()){
 			int id = rsFuncionarios.getInt("consumidor_id");
+			//int matricula = rsFuncionarios.getInt(2);
+
 			int iddepartamento = rsFuncionarios.getInt("departamento_id_departamento");
 
 			// seleciona departamento
@@ -100,7 +101,6 @@ public class FuncionarioHandler
 			ResultSet rsc = cg.selecionarConsumidorPorId(id);
 			rsc.next();
 
-			 
 			if (rsc.getInt("situacao") == 1)
 			{
 				Funcionario funcionario = new Funcionario(id, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
@@ -108,7 +108,6 @@ public class FuncionarioHandler
 				funcionario.setCpf(rsc.getString("cpf"));
 				funcionario.setSexo(SexoEnum.fromString(rsc.getString("sexo")));
 				funcionario.setTitulo(TituloEnum.fromString(rsc.getString("titulo")));
-				
 				funcionarios.add(funcionario);
 			}			
 		}
@@ -130,4 +129,19 @@ public class FuncionarioHandler
 
 		conn.close();
 	}
+
+	public static void atualizarFuncionario(ConsumidorVO consumidorVO, int id) throws Exception{
+
+		ConsumidorHandler.atualizarConsumidor(consumidorVO);
+
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
+		FuncionarioGateway funcionarioGW = new FuncionarioGateway(conn);
+
+		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(consumidorVO.getCurso()));
+		
+		funcionarioGW.alterarFuncionario(valores2, id);
+
+		conn.close();
+	}
+
 }
