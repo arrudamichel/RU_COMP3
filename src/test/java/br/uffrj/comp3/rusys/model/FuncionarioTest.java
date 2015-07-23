@@ -6,39 +6,36 @@ import org.junit.Test;
 
 public class FuncionarioTest {
 
-	Funcionario fu;
-	Curso cu;
-	Departamento de;
+	private Funcionario func;
+	private Curso curso;
+	private Departamento dept;
 	
-	public void testFuncionarioStringIntStringSexoEnumTituloEnumStringDepartamento() throws Exception {
-		String esperado = "Jessica";
-		de = new Departamento(1, "Depto", "DCC");
-		fu = new Funcionario(1, "Jessica", 2011785144, "2011", de);
-		assertEquals(esperado,fu.getNome());
-	}
-
 	@Test
-	public void testFuncionario() throws Exception {
-		de = new Departamento(1, "Ccomp", "DCC");
-		fu = new Funcionario(1, "Jessica", 2011785144, "2011", de);
+	public void testFuncionarioOk() throws Exception {
+		dept = new Departamento(1, "Ccomp", "DCC");
+		func = new Funcionario(1, "Funcionario", 100, "2010", dept);
 	}
-
-	@Test
-	public void testGetDepartamento() throws Exception {
-		String esperado = "Jessica";
-		de = new Departamento(1, "Depto", "DCC");
-		fu = new Funcionario(1, "Jessica", 2011785144, "2011", de);
-		assertEquals(esperado,fu.getNome());
+	
+	@Test(expected = Exception.class)
+	public void testFuncionarioDeptNull() throws Exception {
+		func = new Funcionario(1, "Funcionario", 100, "2010", null);
 	}
-
+	
 	@Test
-	public void testSetDepartamento() throws Exception {
+	public void testSetDepartamentoOk() throws Exception {
 		String esperado = "Depto";
 		Departamento de2 = new Departamento(2,"Depto","DCC");
-		de = new Departamento(1, "Ccomp", "DCC");
-		fu = new Funcionario(1, "Jessica", 2011785144, "2011", de);
-		fu.setDepartamento(de2);
-		assertEquals(esperado,fu.getDepartamento().getNome());
+		dept = new Departamento(1, "Ccomp", "DCC");
+		func = new Funcionario(1, "Jessica", 2011785144, "2011", dept);
+		func.setDepartamento(de2);
+		assertEquals(esperado,func.getDepartamento().getNome());
+	}
+	
+	@Test(expected = Exception.class)
+	public void testSetDepartamentoNull() throws Exception {
+		dept = new Departamento(1, "Ccomp", "DCC");
+		func = new Funcionario(1, "Jessica", 2011785144, "2011", dept);
+		func.setDepartamento(null);
 	}
 
 }
