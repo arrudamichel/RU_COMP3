@@ -8,8 +8,8 @@ import br.uffrj.comp3.rusys.model.Refeicao;
 import br.uffrj.comp3.rusys.model.TurnoEnum;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
-import br.uffrj.comp3.rusys.persintece.TurnoGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
+import br.uffrj.comp3.rusys.util.persintece.TurnoGateway;
 
 
 public class RefeicaoGatewayTest {
