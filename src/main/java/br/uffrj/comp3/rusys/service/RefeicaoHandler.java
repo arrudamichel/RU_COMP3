@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.apache.poi.util.ArrayUtil;
-
 import br.uffrj.comp3.rusys.model.Refeicao;
 import br.uffrj.comp3.rusys.model.TurnoEnum;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
@@ -20,7 +18,7 @@ public class RefeicaoHandler
 	public static int cadastrarRefeicao(RefeicaoVO refeicaoVO) throws Exception
 	{
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-
+	
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
 
 		ArrayList<Object> valores = new ArrayList<Object>(
@@ -29,10 +27,8 @@ public class RefeicaoHandler
 		ResultSet rs = refeicaoGateway.inserir(valores);
 		
 		rs.next();
-		if (rs==null)
-			throw new Exception("falha.ao.cadastrar.refeicao");
-
-		int id = rs.getInt(0);
+		int id = 0;
+		id = rs.getInt(1);
 		
 		conn.close();
 		
