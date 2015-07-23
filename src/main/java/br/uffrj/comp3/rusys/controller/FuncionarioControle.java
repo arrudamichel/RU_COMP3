@@ -87,7 +87,7 @@ public class FuncionarioControle extends HttpServlet
 					response.sendRedirect("GerirFuncionario");
 					break;
 				default:
-					request.getRequestDispatcher("GerirFuncionario").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
 			}
 		} 
 		else
@@ -112,7 +112,6 @@ public class FuncionarioControle extends HttpServlet
 		
 		try{
 			FuncionarioHandler.excluirFuncionario(funcionario);
-			//request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
 			response.sendRedirect("GerirFuncionario");
 		} 
 		catch (Exception e){

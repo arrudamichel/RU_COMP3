@@ -48,14 +48,8 @@ public class FuncionarioHandler
 
 		Funcionario funcionario = null;
 		
-<<<<<<< HEAD
 		while (rsFuncionarios.next()){
 			int idConsumidor = rsFuncionarios.getInt("consumidor_id");
-=======
-		while (rsFuncionarios.next())
-		{
-			int id = rsFuncionarios.getInt("consumidor_id");
->>>>>>> refs/remotes/origin/deualocanuleo
 			int iddepartamento = rsFuncionarios.getInt("departamento_id_departamento");
 
 			// seleciona departamento
@@ -63,43 +57,24 @@ public class FuncionarioHandler
 			ResultSet rsd = dg.selecionarDepartamentoPorId(iddepartamento);
 			rsd.next();
 
-<<<<<<< HEAD
 			Departamento departamento = new Departamento(iddepartamento, rsd.getString("nome"), rsd.getString("sigla"));
-=======
-			Departamento departamento = new Departamento(rsFuncionarios.getInt("departamento_id_departamento"), rsd.getString("nome"), rsd.getString("sigla"));
->>>>>>> refs/remotes/origin/deualocanuleo
+
 
 			// seleciona consumidor
 			ConsumidorGateway cg = new ConsumidorGateway(conn);
-<<<<<<< HEAD
 			ResultSet rsc = cg.selecionarConsumidorPorId(idConsumidor);
-=======
-			ResultSet rsc = cg.selecionarConsumidorPorId(id);
->>>>>>> refs/remotes/origin/deualocanuleo
 			rsc.next();
 
-<<<<<<< HEAD
 			if (rsc.getInt("situacao") == 1){
 				funcionario = new Funcionario(idConsumidor, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
-=======
-			if (rsc.getInt("situacao") == 1)
-			{
-				funcionario = new Funcionario(id, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
->>>>>>> refs/remotes/origin/deualocanuleo
 
 				funcionario.setCpf(rsc.getString("cpf"));
 				funcionario.setSexo(SexoEnum.fromString(rsc.getString("sexo")));
 				funcionario.setTitulo(TituloEnum.fromString(rsc.getString("titulo")));
 			}
-<<<<<<< HEAD
 		}	
 		return funcionario;
 
-=======
-		}
-		
-		return funcionario;		
->>>>>>> refs/remotes/origin/deualocanuleo
 	}
 	public static Collection<Funcionario> recuperarFuncionarios(ConsumidorVO consumidorVO) throws Exception
 	{
@@ -108,15 +83,10 @@ public class FuncionarioHandler
 		FuncionarioGateway fg = new FuncionarioGateway(conn);
 		ResultSet rsFuncionarios = fg.selecionarFuncionarios();
 
-<<<<<<< HEAD
 		while (rsFuncionarios.next()){
 			int id = rsFuncionarios.getInt("consumidor_id");
 			//int matricula = rsFuncionarios.getInt(2);
-=======
-		while (rsFuncionarios.next())
-		{
-			int id = rsFuncionarios.getInt("consumidor_id");
->>>>>>> refs/remotes/origin/deualocanuleo
+
 			int iddepartamento = rsFuncionarios.getInt("departamento_id_departamento");
 
 			// seleciona departamento
@@ -131,10 +101,6 @@ public class FuncionarioHandler
 			ResultSet rsc = cg.selecionarConsumidorPorId(id);
 			rsc.next();
 
-<<<<<<< HEAD
-=======
-			 
->>>>>>> refs/remotes/origin/deualocanuleo
 			if (rsc.getInt("situacao") == 1)
 			{
 				Funcionario funcionario = new Funcionario(id, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
@@ -142,11 +108,6 @@ public class FuncionarioHandler
 				funcionario.setCpf(rsc.getString("cpf"));
 				funcionario.setSexo(SexoEnum.fromString(rsc.getString("sexo")));
 				funcionario.setTitulo(TituloEnum.fromString(rsc.getString("titulo")));
-<<<<<<< HEAD
-
-=======
-				
->>>>>>> refs/remotes/origin/deualocanuleo
 				funcionarios.add(funcionario);
 			}			
 		}
