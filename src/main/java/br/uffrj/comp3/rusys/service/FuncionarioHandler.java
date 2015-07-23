@@ -43,40 +43,38 @@ public class FuncionarioHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		FuncionarioGateway funcionarioGW = new FuncionarioGateway(conn);
 
-		/*ResultSet rsFuncionarios = funcionarioGW.selecionarFuncionarioPorMatricula(idFuncionario);
+		ResultSet rsFuncionarios = funcionarioGW.selecionarFuncionarioPorId(idFuncionario);
 
 		Funcionario funcionario = null;
 		
 		while (rsFuncionarios.next())
 		{
-			int id = rsFuncionarios.getInt(1);
-			int matricula = rsFuncionarios.getInt(2);
-			int iddepartamento = rsFuncionarios.getInt(1);
+			int id = rsFuncionarios.getInt("consumidor_id");
+			int iddepartamento = rsFuncionarios.getInt("departamento_id_departamento");
 
 			// seleciona departamento
 			DepartamentoGateway dg = new DepartamentoGateway(conn);
 			ResultSet rsd = dg.selecionarDepartamentoPorId(iddepartamento);
 			rsd.next();
 
-			Departamento departamento = new Departamento(rsFuncionarios.getInt(4), rsd.getString(2), rsd.getString(3));
+			Departamento departamento = new Departamento(rsFuncionarios.getInt("departamento_id_departamento"), rsd.getString("nome"), rsd.getString("sigla"));
 
 			// seleciona consumidor
 			ConsumidorGateway cg = new ConsumidorGateway(conn);
-			ResultSet rsc = cg.selecionarConsumidorPorMatricula(matricula);
+			ResultSet rsc = cg.selecionarConsumidorPorId(id);
 			rsc.next();
 
-			if (rsc.getInt(7) == 1)
+			if (rsc.getInt("situacao") == 1)
 			{
-				funcionario = new Funcionario(id, rsFuncionarios.getString(2), matricula, rsFuncionarios.getString(2), departamento);
+				funcionario = new Funcionario(id, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
 
-				funcionario.setCpf(rsFuncionarios.getString(2));
-				funcionario.setSexo(SexoEnum.fromString(rsFuncionarios.getString(2)));
-				funcionario.setTitulo(TituloEnum.fromString(rsFuncionarios.getString(2)));
+				funcionario.setCpf(rsc.getString("cpf"));
+				funcionario.setSexo(SexoEnum.fromString(rsc.getString("sexo")));
+				funcionario.setTitulo(TituloEnum.fromString(rsc.getString("titulo")));
 			}
-		}*/
+		}
 		
-		//return funcionario;
-		return null;
+		return funcionario;		
 	}
 	public static Collection<Funcionario> recuperarFuncionarios(ConsumidorVO consumidorVO) throws Exception
 	{
@@ -87,33 +85,32 @@ public class FuncionarioHandler
 
 		while (rsFuncionarios.next())
 		{
-			int id = rsFuncionarios.getInt(1);
-			int matricula = rsFuncionarios.getInt(2);
-			int iddepartamento = rsFuncionarios.getInt(1);
+			int id = rsFuncionarios.getInt("consumidor_id");
+			int iddepartamento = rsFuncionarios.getInt("departamento_id_departamento");
 
 			// seleciona departamento
 			DepartamentoGateway dg = new DepartamentoGateway(conn);
 			ResultSet rsd = dg.selecionarDepartamentoPorId(iddepartamento);
 			rsd.next();
 
-			Departamento departamento = new Departamento(rsFuncionarios.getInt(4), rsd.getString(2), rsd.getString(3));
+			Departamento departamento = new Departamento(rsFuncionarios.getInt("departamento_id_departamento"), rsd.getString("nome"), rsd.getString("sigla"));
 
 			// seleciona consumidor
 			ConsumidorGateway cg = new ConsumidorGateway(conn);
-			ResultSet rsc = cg.selecionarConsumidorPorId(matricula);
+			ResultSet rsc = cg.selecionarConsumidorPorId(id);
 			rsc.next();
 
-			if (rsc.getInt(7) == 1)
+			 
+			if (rsc.getInt("situacao") == 1)
 			{
-				Funcionario funcionario = new Funcionario(id, rsFuncionarios.getString(2), matricula, rsFuncionarios.getString(2), departamento);
+				Funcionario funcionario = new Funcionario(id, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
 
-				funcionario.setCpf(rsFuncionarios.getString(2));
-				funcionario.setSexo(SexoEnum.fromString(rsFuncionarios.getString(2)));
-				funcionario.setTitulo(TituloEnum.fromString(rsFuncionarios.getString(2)));
-
+				funcionario.setCpf(rsc.getString("cpf"));
+				funcionario.setSexo(SexoEnum.fromString(rsc.getString("sexo")));
+				funcionario.setTitulo(TituloEnum.fromString(rsc.getString("titulo")));
+				
 				funcionarios.add(funcionario);
-			}
-
+			}			
 		}
 
 		conn.close();

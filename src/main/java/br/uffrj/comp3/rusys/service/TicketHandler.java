@@ -65,9 +65,9 @@ public class TicketHandler {
 		while (rsTickect.next())
 		{
 		
-			int consuId = rsTickect.getInt(2);
-			int refeicaoId = rsTickect.getInt(2);
-			
+			int consuId = rsTickect.getInt("consumidor_id");
+			int refeicaoId = rsTickect.getInt("refeicao_id_refeicao");
+						
 			// ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao")
 			Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(consuId);
 			
@@ -78,7 +78,7 @@ public class TicketHandler {
 			
 			boolean pago = rsTickect.getInt(4) == 1 ? true : false;
 			
-			ticket = new Ticket(consuId,pago , consumidor, refeicao);
+			ticket = new Ticket(consuId, pago, consumidor, refeicao);
 			
 			tickets.add(ticket);
 		}
@@ -95,8 +95,8 @@ public class TicketHandler {
 		TicketGateway ticketGateway = new TicketGateway(conn);
 		ResultSet rs = ticketGateway.selecionarTicketPorId(id);
 		rs.next();
-		int consuId = rs.getInt(2);
-		int refeicaoId = rs.getInt(2);
+		int consuId = rs.getInt("consumidor_id");
+		int refeicaoId = rs.getInt("refeicao_id_refeicao");
 		
 		// ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao")
 		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(consuId);
@@ -106,7 +106,7 @@ public class TicketHandler {
 		//public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao)
 		// ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago")
 		
-		boolean pago = rs.getInt(4) == 1 ? true : false;
+		boolean pago = rs.getInt("pago") == 1 ? true : false;
 		
 		Ticket ticket = new Ticket(consuId,pago , consumidor, refeicao);
 		
@@ -122,6 +122,23 @@ public class TicketHandler {
 
 		if (!cg.excluirTicket(ticket.getId()))
 			throw new Exception("falha.ao.excluir.Ticket");
+		
+		conn.close();
+	}
+	
+	public static void atualizarTicket(TicketVO ticketVO) throws Exception
+	{	
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		TicketGateway cg = new TicketGateway(conn);
+
+		int pago = 0;
+		if(ticketVO.isPago() == true)
+			pago = 1;
+		else if(ticketVO.isPago() == false)
+			pago = 0;
+		
+		if (!cg.alterarTicket(pago, ticketVO.getId()))
+			throw new Exception("falha.ao.alterar.Ticket");
 		
 		conn.close();
 	}

@@ -110,7 +110,7 @@ public class RefeicaoGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"refeicao\" " + "SET " + "\"descricao\" = ?, " + "\"opcaoVegetariana\" = ?, " + "\"turno\" = ? "
+			String sql = "UPDATE \"refeicao\" " + "SET " + "\"descricao\" = ?, " + "\"opcaoVegetariana\" = ? "
 					+ "WHERE \"id_refeicao\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -124,7 +124,7 @@ public class RefeicaoGateway
 				if (valores.get(i - 1).getClass().equals(String.class))
 					stmt.setString(i, (String) valores.get(i - 1));
 			}
-			stmt.setInt(4, id);
+			stmt.setInt(3, id);
 			stmt.execute();
 		} 
 		catch (Exception e)

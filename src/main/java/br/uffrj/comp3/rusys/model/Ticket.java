@@ -14,7 +14,7 @@ public class Ticket
 	{
 		super();
 		this.id = id;
-		this.pago = pago;
+		this.pago = pago;		
 		
 		if (consumidor instanceof Aluno)
 		{
@@ -93,5 +93,10 @@ public class Ticket
 	public int getId()
 	{
 		return id;
+	}
+	
+	public boolean getPago()
+	{
+		return this.pago;
 	}
 }

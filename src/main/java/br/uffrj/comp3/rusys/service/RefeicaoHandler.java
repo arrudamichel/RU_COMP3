@@ -60,7 +60,7 @@ public class RefeicaoHandler
 		RefeicaoGateway rg = new RefeicaoGateway(conn);
 		
 		ArrayList<Object> valores = new ArrayList<Object>(
-				Arrays.asList(refeicaoVO.getDescricao(), refeicaoVO.getOpcaoVeg(), refeicaoVO.getTurno().toString()));
+				Arrays.asList(refeicaoVO.getDescricao(), refeicaoVO.getOpcaoVeg()));
 		
 		if(!rg.alterarRefeicao(valores, refeicaoVO.getId()))
 			throw new Exception("falha.ao.atualizar.refeicao");

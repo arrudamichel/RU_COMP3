@@ -75,14 +75,12 @@ public class RefeicaoControle extends HttpServlet
 	{
 		String id = request.getParameter("id");
 		String descricao = request.getParameter("descricao");
-		String turno = request.getParameter("turno");
 		String opVeg = request.getParameter("opVeg");
 
 		RefeicaoVO refeicaoVO = new RefeicaoVO();
 		refeicaoVO.setId(Integer.parseInt(id));
 		refeicaoVO.setDescricao(descricao);
 		refeicaoVO.setOpcaoVeg(opVeg);
-		refeicaoVO.setTurno(TurnoEnum.fromString(turno));
 		
 		try
 		{

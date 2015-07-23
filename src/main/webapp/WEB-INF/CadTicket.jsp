@@ -38,35 +38,33 @@
             <h2 class="title"><%=Constantes.CADTICKET%> </h2>
             <div class="inner">
             	<%=mensagem%>
-              <form id="FrmTicket" name="FrmTicket" action="Ticket" method="POST" class="form">
+              <form id="FrmTicket" name="FrmTicket" action="GerirTicket" method="POST" class="form">
               <input type = "hidden" id="acao" name = "acao" value="<%=acao%>">
         	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
                 <div class="group">
-                  <label class="label"><%=Constantes.SITPAGO%></label>
-                  <input type="text" id="sitpag" name="sitpag" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
+                  <label class="label"><%=Constantes.MATRICULA%></label>
+                  <input type="text" id="matricula" name="matricula" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
                 </div>
+                <%-- <div class="group">
+                    <label class="label" for="post_title"><%=Constantes.REFEICAO%></label>
+                    <input type="text"  id="refeicao" name="refeicao" class="text_field"  readonly/>     
+                 </div> --%>
                 <div class="group">
-                    <label class="label" for="post_title">Tipo da <%=Constantes.REFEICAO%></label>
+                    <label class="label" for="post_title"><%=Constantes.TURNO%></label>
                     <select id="turno" name="turno">
-						<option value="<%=Constantes.TURNO_DEJEJUM%>"><%=Constantes.DEJEJUM %></option>
-						<option value="<%=Constantes.TURNO_ALMOCO%>"><%=Constantes.ALMOCO%></option>
-						<option value="<%=Constantes.TURNO_JANTAR%>"><%=Constantes.JANTAR%></option>
+						<option value="<%=TurnoEnum.MANHA.toString()%>"><%=TurnoEnum.MANHA.toString()%></option>
+						<option value="<%=TurnoEnum.TARDE.toString()%>"><%=TurnoEnum.TARDE.toString()%></option>
+						<option value="<%=TurnoEnum.NOITE.toString()%>"><%=TurnoEnum.NOITE.toString()%></option>
 					</select>  
                 </div>
-                <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.MATRICULA%></label>
-                    <input type="text"  id="matricula" name="matricula" class="text_field"  readonly/>     
-                 </div>
+                
 <%--                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.VALOR%></label>
                     <input type="text"  id="valor" name="valor" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field"  readonly/>     
                 </div> --%>
                 <div class="group navform wat-cf">
-                  <button class="button" type="submit" id='salvar'>
-                    <img src="Images/icons/tick.png" alt="Save" /> <%=Constantes.SALVAR%>
-                  </button>
-                  <!-- <span class="text_button_padding">Ou</span>
-                  <a class="text_button_padding link_button" href="listarDepartamentos.jsp"><%=Constantes.CANCELAR%></a> -->
+                  <button class="button" type="submit" id='avancar'><%=Constantes.SALVAR%></button>
+                  <button class="button" type="submit" id='cancelar'><%=Constantes.CANCELAR%></button>                 
                 </div>
               </form>
             </div>

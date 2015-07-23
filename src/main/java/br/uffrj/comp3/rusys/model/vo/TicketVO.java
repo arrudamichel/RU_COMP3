@@ -14,8 +14,8 @@ public class TicketVO {
 		return pago;
 	}
 
-	public void setPago(boolean pago) {
-		this.pago = pago;
+	public static void setPago(boolean pago) {
+		pago = pago;
 	}
 
 	public float getValor() {

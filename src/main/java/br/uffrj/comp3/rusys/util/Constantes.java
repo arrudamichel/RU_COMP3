@@ -93,6 +93,7 @@ public class Constantes
 	final public static String NOME = "Nome ";
 
 	final public static String OPVEG = "Op&ccedil&atildeo Vegetariana ";
+	final public static String PAGO = "Pago";
 
 	final public static String RU = "Restaurante Universit&aacuterio";
 	final public static String REFEICAO = "Refei&ccedil&atildeo";
@@ -103,6 +104,9 @@ public class Constantes
 	final public static String SIGLA = "Sigla ";
 	final public static String SITPAGO = "Situa&ccedil&atildeo do Pagamento ";
 
+	final public static String SIM = "Sim";
+	final public static String NAO = "Não";
+	
 	final public static String TITULO = "T&iacute;tulo Acad&ecircmico";
 	final public static String TURNO = "Turno";
 	final public static String LISTTURNO = "Lista de " + TURNO + "s de " + REFEICAO;
