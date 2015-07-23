@@ -105,7 +105,7 @@ public class Constantes
 	final public static String SITPAGO = "Situa&ccedil&atildeo do Pagamento ";
 
 	final public static String SIM = "Sim";
-	final public static String NAO = "Não";
+	final public static String NAO = "Nao";
 	
 	final public static String TITULO = "T&iacute;tulo Acad&ecircmico";
 	final public static String TURNO = "Turno";
