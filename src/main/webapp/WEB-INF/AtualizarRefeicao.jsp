@@ -49,15 +49,7 @@
 							</div>
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.TURNO%></label>
-								<select id="turno" name="turno">
-									<%
-										for(int i=0; i < turnos.size(); i++){
-									%>
-									<option value="<%=turnos.get(i)%>"  <%=(refeicao!=null && refeicao.getTurno().equals(turnos.get(1))) ? "SELECTED" : "" %>><%=turnos.get(i)%></option>
-									<%
-										}
-									%>
-								</select>
+								<label class="label" for="post_title"> <%if (refeicao != null && refeicao.getTurno() != null ) { out.print(refeicao.getTurno().toString()); }%></label>								
 							</div>
 							<div class="group">
 								<label class="label" for="post_title"><%=Constantes.OPVEG%></label>

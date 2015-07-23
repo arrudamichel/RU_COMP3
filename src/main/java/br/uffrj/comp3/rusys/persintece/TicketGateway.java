@@ -111,26 +111,16 @@ public class TicketGateway {
 	  "preco" DECIMAL(10,2) NOT NULL,
 	  "pago" TINYINT(1) NOT NULL,*/
 
-	public boolean alterarTicket(ArrayList<Object> valores, int identificador)
+	public boolean alterarTicket(int pago, int identificador)
 	{
 		try
 		{
-			String sql = "UPDATE \"ticket\" " + "SET " + "\"consumidor_id\" = ?, " + "\"refeicao_id_refeicao\" = ?, "
-					+ "\"preco\" = ? " + "\"pago\" = ?"  + "WHERE \"consumidor_id\" = ?";
+			String sql = "UPDATE \"ticket\" " + "SET \"pago\" = ?"  + "WHERE \"consumidor_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
-			// preenche os valores
-			for (int i = 1; i <= valores.size(); i++)
-			{
-				if (valores.get(i - 1).getClass().equals(String.class))
-					stmt.setString(i, (String) valores.get(i - 1));
-
-				if (valores.get(i - 1).getClass().equals(Integer.class))
-					stmt.setInt(i, (Integer) valores.get(i - 1));
-			}
-
-			stmt.setInt(5, identificador);
+			stmt.setInt(1, pago);
+			stmt.setInt(2, identificador);
 
 			stmt.execute();
 		} 
