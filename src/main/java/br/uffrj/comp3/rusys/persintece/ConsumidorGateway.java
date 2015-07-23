@@ -140,4 +140,27 @@ public class ConsumidorGateway{
 
 		}
 	}
+
+	public ResultSet selecionarConsumidorPorMatricula(int matricula) {
+		ResultSet rs = null;
+
+		try
+		{
+
+			String sql = "SELECT \"consumidor_id\", \"matricula\", \"nome\", \"ano_ingresso\", "
+						+ 		"\"sexo\", \"titulo\", \"cpf\", \"situacao\" " 
+						+ "FROM \"consumidor\" " + "   WHERE \"matricula\" = ?";
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, matricula);
+			rs = stmt.executeQuery();
+
+		} 
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+
+		return rs;	
+	}
 }

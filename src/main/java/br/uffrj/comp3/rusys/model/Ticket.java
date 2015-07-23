@@ -10,6 +10,11 @@ public class Ticket
 	private Consumidor consumidor;
 	private Refeicao refeicao;
 
+	
+	public Ticket(){
+		
+	}
+	
 	public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao) throws Exception
 	{
 		super();
@@ -17,7 +22,7 @@ public class Ticket
 		this.pago = pago;		
 		
 		if (consumidor instanceof Aluno)
-		{
+		{		
 			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(refeicao.getTurno().toString() + Aluno.class);
 		}
 		else if (consumidor instanceof Funcionario)
@@ -55,11 +60,24 @@ public class Ticket
 		this.pago = pago;
 	}
 
-	public float getValor()
+	public void setValor(String turno)
 	{
-		return valor;
+		if (this.consumidor instanceof Aluno)
+		{		
+			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(turno + Aluno.class);
+		}
+		else if (this.consumidor instanceof Funcionario)
+		{
+			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(turno + Funcionario.class);
+		}
 	}
 
+
+	public float getValor()
+	{
+		return this.valor;
+	}
+	
 	public Consumidor getConsumidor()
 	{
 		return consumidor;

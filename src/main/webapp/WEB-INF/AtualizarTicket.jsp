@@ -7,7 +7,7 @@
 <%
     
 	Ticket ticket = (Ticket)request.getAttribute("ticket");
-	
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -64,9 +64,9 @@
 			  <div class="group">
 					<label class="label" for="post_title"><%=Constantes.PAGO%></label>
 					
-					<select id ="pago" name="pago">
-                    	<option value="1" <%=(ticket != null && ticket.getPago() == true) ? "SELECTED" : "" %>><%=Constantes.SIM%></option>
-                    	<option value="0" <%=(ticket != null && ticket.getPago() == false) ? "SELECTED" : "" %>><%=Constantes.NAO%></option>                    	
+					<select id ="pago" name="pago">												
+				        <option value="1" <%=(ticket != null && ticket.isPago() == true) ? "SELECTED" : "" %>><%=Constantes.SIM%></option>
+                    	<option value="0" <%=(ticket != null && ticket.isPago() == false) ? "SELECTED" : "" %>><%=Constantes.NAO%></option>                    	
                 	</select> 
 												
 			  </div> 

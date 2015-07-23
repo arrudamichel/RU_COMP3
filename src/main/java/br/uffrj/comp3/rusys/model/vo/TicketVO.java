@@ -7,6 +7,7 @@ public class TicketVO {
 	private String nome;
 	private int matricula;
 	private int refeicao;
+	private int consumidorId;
 	
 
 
@@ -14,8 +15,8 @@ public class TicketVO {
 		return pago;
 	}
 
-	public static void setPago(boolean pago) {
-		pago = pago;
+	public void setPago(boolean pago2) {
+		this.pago = pago2;
 	}
 
 	public float getValor() {
@@ -60,6 +61,14 @@ public class TicketVO {
 		this.id = id;
 	}
 	
-		
+	public int getConsumidorId()
+	{
+		return this.consumidorId;
+	}
+
+	public void setConsumidorId(int consumidorId)
+	{
+		this.consumidorId = consumidorId;
+	}	
 }
 

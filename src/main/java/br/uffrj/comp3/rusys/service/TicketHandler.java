@@ -23,25 +23,16 @@ public class TicketHandler {
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		TicketGateway ticketGateway = new TicketGateway(conn);
-		ConsumidorGateway consumidorGateway = new ConsumidorGateway(conn);
-		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
 
-		ResultSet rs = consumidorGateway.selecionarConsumidorPorId(ticketVO.getMatricula());
-
-		int consumId = -1;
-
-		rs.next();
-		consumId = rs.getInt(1);
-
-		rs = refeicaoGateway.selecionarRefeicaoPorId(ticketVO.getRefeicao());
-
-		int refeicaoId = -1;
-
-		rs.next();
-		refeicaoId = rs.getInt(1);
-
+		int pago = 0;
+		if(ticketVO.isPago())
+			pago = 1;
+		else
+			pago = 2;
+		
+		//consumidor_id  	refeicao_id_refeicao  	preco  	pago
 		ArrayList<Object> valores = new ArrayList<Object>(
-				Arrays.asList(consumId, refeicaoId, ticketVO.getValor(), ticketVO.isPago()));
+				Arrays.asList(ticketVO.getConsumidorId(), ticketVO.getRefeicao(), ticketVO.getValor(), pago));
 
 		if (ticketGateway.inserir(valores)==null)
 			throw new Exception("falha.ao.cadastrar.ticket");
@@ -51,36 +42,37 @@ public class TicketHandler {
 	}
 	
 	public static Collection<Ticket> recuperarTickets(TicketVO ticketVO) throws Exception
-	{
-//		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
-		
+	{		
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		TicketGateway ag = new TicketGateway(conn);
 		ResultSet rsTickect = ag.selecionarTickets();
-
+		
 		Ticket ticket = null;
 		
 		while (rsTickect.next())
 		{
-		
+					
 			int consuId = rsTickect.getInt("consumidor_id");
 			int refeicaoId = rsTickect.getInt("refeicao_id_refeicao");
+			int id = rsTickect.getInt("ticket_id");
 						
 			// ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao")
 			Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(consuId);
 			
-			Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(refeicaoId);
-
-			//public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao)
-			// ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago")
-			
-			boolean pago = rsTickect.getInt(4) == 1 ? true : false;
-			
-			ticket = new Ticket(consuId, pago, consumidor, refeicao);
-			
-			tickets.add(ticket);
+			if(consumidor != null){
+				Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(refeicaoId);
+		
+				//public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao)
+				// ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago")
+				
+				boolean pago = rsTickect.getInt("pago") == 1 ? true : false;
+				
+				ticket = new Ticket(id, pago, consumidor, refeicao);			
+				
+				tickets.add(ticket);
+			}
 		}
 		
 		conn.close();
@@ -95,24 +87,29 @@ public class TicketHandler {
 		TicketGateway ticketGateway = new TicketGateway(conn);
 		ResultSet rs = ticketGateway.selecionarTicketPorId(id);
 		rs.next();
+		
 		int consuId = rs.getInt("consumidor_id");
 		int refeicaoId = rs.getInt("refeicao_id_refeicao");
-		
+				
 		// ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao")
 		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(consuId);
 		
-		Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(refeicaoId);
+		if(consumidor != null){
+			Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(refeicaoId);
 
-		//public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao)
-		// ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago")
-		
-		boolean pago = rs.getInt("pago") == 1 ? true : false;
-		
-		Ticket ticket = new Ticket(consuId,pago , consumidor, refeicao);
-		
-		conn.close();
+			//public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao)
+			// ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago")
+					
+			boolean pago = rs.getInt("pago") == 1 ? true : false;
+			
+			Ticket ticket = new Ticket(id, pago, consumidor, refeicao);
+			
+			conn.close();
 
-		return ticket;
+			return ticket;
+		}
+		
+		return null;
 	}
 	
 	public static void excluirTicket(Ticket ticket) throws Exception
@@ -132,11 +129,12 @@ public class TicketHandler {
 		TicketGateway cg = new TicketGateway(conn);
 
 		int pago = 0;
+				
 		if(ticketVO.isPago() == true)
 			pago = 1;
 		else if(ticketVO.isPago() == false)
 			pago = 0;
-		
+				
 		if (!cg.alterarTicket(pago, ticketVO.getId()))
 			throw new Exception("falha.ao.alterar.Ticket");
 		

@@ -4,11 +4,6 @@
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
 <%
-	//se tivesse verificacao de login, aqui que ele seria programado
-    
-	String mensagem = request.getAttribute("mensagem") == null ? "" : (String)request.getAttribute("mensagem");
-
-	String acao = (String)request.getAttribute("acao");
 	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -37,18 +32,12 @@
           <div class="content">
             <h2 class="title"><%=Constantes.CADTICKET%> </h2>
             <div class="inner">
-            	<%=mensagem%>
               <form id="FrmTicket" name="FrmTicket" action="GerirTicket" method="POST" class="form">
-              <input type = "hidden" id="acao" name = "acao" value="<%=acao%>">
-        	  <input type = "hidden" id="id" name = "id" <% /* Caso de edicão if (pergunta != null && pergunta.getId() != null ) { out.print(" value = '" + pergunta.getId() + "'"); } */ %>>
+        	  <input type = "hidden" id="id" name = "id" >
                 <div class="group">
                   <label class="label"><%=Constantes.MATRICULA%></label>
-                  <input type="text" id="matricula" name="matricula" <% /// if (pergunta != null && pergunta.getPergunta() != null ) { out.print(" value = '" + pergunta.getPergunta() + "'"); } %> class="text_field" />
+                  <input type="text" id="matricula" name="matricula"  class="text_field" />
                 </div>
-                <%-- <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.REFEICAO%></label>
-                    <input type="text"  id="refeicao" name="refeicao" class="text_field"  readonly/>     
-                 </div> --%>
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.TURNO%></label>
                     <select id="turno" name="turno">
@@ -57,14 +46,9 @@
 						<option value="<%=TurnoEnum.NOITE.toString()%>"><%=TurnoEnum.NOITE.toString()%></option>
 					</select>  
                 </div>
-                
-<%--                 <div class="group">
-                    <label class="label" for="post_title"><%=Constantes.VALOR%></label>
-                    <input type="text"  id="valor" name="valor" <% //if (pergunta != null && pergunta.getQtdRespostas() != null ) { out.print(" value = '" + pergunta.getQtdRespostas() + "'"); } %> class="text_field"  readonly/>     
-                </div> --%>
                 <div class="group navform wat-cf">
-                  <button class="button" type="submit" id='avancar'><%=Constantes.SALVAR%></button>
-                  <button class="button" type="submit" id='cancelar'><%=Constantes.CANCELAR%></button>                 
+                	<input type="submit" name="acao" value="<%=Constantes.ACAO_PROXIMO%>">
+					<input type="submit" name="acao" value="<%=Constantes.ACAO_CANCELAR%>">               
                 </div>
               </form>
             </div>

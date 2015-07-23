@@ -2,6 +2,7 @@ package br.uffrj.comp3.rusys.service;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -100,5 +101,26 @@ public class RefeicaoHandler
 		conn.close();
 		
 		return refeicoes;
+	}
+
+	public static ArrayList<Refeicao> recuperarRefeicaoPorTurno(String turno) throws SQLException, Exception {
+		ArrayList<Refeicao> refeicoes = new ArrayList<>();
+
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+
+		RefeicaoGateway gatewayRefeicao = new RefeicaoGateway(conn);
+		ResultSet rsRefeicao = gatewayRefeicao.selecionarRefeicoes();
+		
+		while(rsRefeicao.next()){
+			if(rsRefeicao.getInt("situacao") == 1 && TurnoEnum.fromString(turno) == TurnoEnum.fromString(rsRefeicao.getString("turno"))){
+				Refeicao refeicao = new Refeicao(rsRefeicao.getInt("id_refeicao"),rsRefeicao.getString("descricao"),rsRefeicao.getString("opcaoVegetariana"),TurnoEnum.fromString(rsRefeicao.getString("turno")));
+				
+				refeicoes.add(refeicao);
+			}			
+		}
+		
+		conn.close();
+		
+		return refeicoes;		
 	}
 }

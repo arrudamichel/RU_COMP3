@@ -84,18 +84,20 @@ public class ConsumidorHandler
 	{
 		Consumidor consumidor = null;
 		
-		Aluno aluno = AlunoHandler.recuperarAluno(idConsumidor);
+		Aluno aluno = AlunoHandler.recuperarAluno(idConsumidor);		
 		
-		Funcionario funcionario = FuncionarioHandler.recuperarFuncionario(idConsumidor);
-
 		if (aluno!=null) 
 		{
 			consumidor = aluno;
-		} 
-		else if (funcionario!=null) 
+			return consumidor;
+		}
+		
+		Funcionario funcionario = FuncionarioHandler.recuperarFuncionario(idConsumidor);
+		
+		if (funcionario!=null) 
 		{
 			consumidor = funcionario;
-		}
+		}	
 		
 		return consumidor;
 	}
@@ -109,5 +111,37 @@ public class ConsumidorHandler
 			throw new Exception("falha.ao.excluir.consumidor");
 		
 		conn.close();
+	}
+	
+	public static Consumidor recuperarConsumidorPorMatricula(int matricula) throws SQLException, Exception
+	{		
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		ConsumidorGateway cg = new ConsumidorGateway(conn);
+
+		ResultSet rsConsumidor = cg.selecionarConsumidorPorMatricula(matricula);
+		
+		Consumidor consumidor = null;
+		while(rsConsumidor.next()){
+			int consumidor_id = rsConsumidor.getInt("consumidor_id");
+			
+			Aluno aluno = AlunoHandler.recuperarAluno(consumidor_id);		
+			
+			if (aluno!=null) 
+			{
+				consumidor = aluno;
+				return consumidor;
+			}
+			
+			Funcionario funcionario = FuncionarioHandler.recuperarFuncionario(consumidor_id);
+			
+			if (funcionario!=null) 
+			{
+				consumidor = funcionario;
+			}					
+		}
+		
+		conn.close();
+		
+		return consumidor;
 	}
 }

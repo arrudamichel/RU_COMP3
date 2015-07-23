@@ -29,6 +29,9 @@ public class TicketGateway {
 
 				if (valores.get(i - 1).getClass().equals(Integer.class))
 					stmt.setInt(i, (Integer) valores.get(i - 1));
+				
+				if (valores.get(i - 1).getClass().equals(Float.class))
+					stmt.setFloat(i, (Float) valores.get(i - 1));
 			}
 
 			stmt.execute();
@@ -115,7 +118,7 @@ public class TicketGateway {
 	{
 		try
 		{
-			String sql = "UPDATE \"ticket\" " + "SET \"pago\" = ?"  + "WHERE \"consumidor_id\" = ?";
+			String sql = "UPDATE \"ticket\" SET \"pago\" = ? WHERE \"ticket_id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
