@@ -15,15 +15,15 @@ public class TituloEnum
 	
 	public static TituloEnum fromString(String string)
 	{
-		if (string.equals("Especializacao") || string.equals("ESPECIALIZACAO"))
+		if (string.toLowerCase().equals("especializacao"))
 		{
 			return ESPECIALIZACAO;
 		} 
-		else if (string.equals("Mestrado") || string.equals("MESTRADO"))
+		else if (string.toLowerCase().equals("mestrado"))
 		{
 			return MESTRADO;
 		}	
-		else if (string.equals("Doutorado") || string.equals("DOUTORADO"))
+		else if (string.toLowerCase().equals("doutorado"))
 		{
 			return DOUTORADO;
 		}	
