@@ -17,7 +17,7 @@ public class CursoHandler
 {
 	public static void cadastrarCurso(CursoVO cursoVO) throws Exception
 	{
-		if(!Curso.isSILGAunica(cursoVO.getSigla()))
+		if(Curso.isSILGAunica(cursoVO.getSigla()))
 		{
 			throw new Exception("CursoHandler.cadastrarCurso.sigla.informado.ja.cadastrada");
 		}
@@ -108,8 +108,15 @@ public class CursoHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 
-		ResultSet rsCursos = cg.selecionarCursos();
-		
+		ResultSet rsCursos = null;
+		if(cursoVO.getSigla() != null){
+			
+			rsCursos = cg.selecionarCursoPorSigla(cursoVO.getSigla());
+			
+		} else {
+			rsCursos = cg.selecionarCursos();
+		}
+
 		while (rsCursos.next())
 		{
 			Departamento departamento = DepartamentoHandler.recuperarDepartamento(rsCursos.getInt("departamento_fk"));

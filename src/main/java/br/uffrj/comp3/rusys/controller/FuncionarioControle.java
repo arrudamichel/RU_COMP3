@@ -15,6 +15,7 @@ import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.service.FuncionarioHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
@@ -49,7 +50,7 @@ public class FuncionarioControle extends HttpServlet
 						response.sendRedirect("GerirFuncionario");
 						break;
 					default:
-						request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
+						request.getRequestDispatcher("/WEB-INF/listarFuncionario.jsp").forward(request, response);
 				}
 			} 
 			else
@@ -123,8 +124,12 @@ public class FuncionarioControle extends HttpServlet
 		funcionarioVO.setCpf(cpf);
 		funcionarioVO.setDepartamento(Integer.parseInt(departamento));
 		
-	
-		FuncionarioHandler.cadastrarFuncionario(funcionarioVO);
+		try{
+			FuncionarioHandler.cadastrarFuncionario(funcionarioVO);
+		} catch(Exception e){
+			String redirect = response.encodeRedirectURL("/WEB-INF/listarFuncionarios.jsp");
+			response.sendRedirect("GerirFuncionario");
+		}		
 	}
 
 	public ArrayList<Departamento> listaDepartamentos() throws SQLException, Exception

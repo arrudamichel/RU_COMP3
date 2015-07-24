@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.service.CursoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
@@ -94,7 +95,13 @@ public class DepartamentoControle extends HttpServlet
 		dptoVO.setNome(nome);
 		dptoVO.setSigla(sigla);	
 		
-		DepartamentoHandler.cadastrarDepartamento(dptoVO);
+		try{
+			DepartamentoHandler.cadastrarDepartamento(dptoVO);
+		} catch(Exception e){
+			String redirect = response.encodeRedirectURL("/WEB-INF/listDepartamento.jsp");
+			response.sendRedirect("GerirDepartamento");
+		}
+		
 	}
 
 	public ArrayList<Departamento> listaDepartamentos() throws SQLException, Exception

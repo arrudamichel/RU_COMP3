@@ -26,7 +26,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title><%=Constantes.RU%></title>
  <%@include file="header.jspf" %>
-  <script type='text/javascript' charset='utf-8' src='resources/Javascripts/jsAlunos.js'></script>
+  <script type='text/javascript' charset='utf-8' src='/resources/Javascripts/jsAlunos.js'></script>
   <script type="text/javascript" charset="utf-8">
     // <![CDATA[
     $(document).ready(function() {

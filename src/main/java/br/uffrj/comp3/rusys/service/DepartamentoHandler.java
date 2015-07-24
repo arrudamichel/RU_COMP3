@@ -16,7 +16,7 @@ public class DepartamentoHandler
 {
 	public static void cadastrarDepartamento(DepartamentoVO departamentoVO) throws Exception
 	{
-		if(!Departamento.isSILGAunica(departamentoVO.getSigla()))
+		if(Departamento.isSILGAunica(departamentoVO.getSigla()))
 		{
 			throw new Exception("DepartamentoHandler.cadastrarDepartamento.sigla.informado.ja.cadastrada");
 		}
@@ -75,8 +75,16 @@ public class DepartamentoHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		DepartamentoGateway dg = new DepartamentoGateway(conn);
 
-		ResultSet rs = dg.selecionarDepartamentos();
-	
+		ResultSet rs = null;
+
+		if (departamentoVO.getSigla()!=null)
+		{
+			rs = dg.selecionarDepartamentoPorSigla(departamentoVO.getSigla());			
+		} else 
+		{
+			rs = dg.selecionarDepartamentos();
+		}
+		
 		while (rs.next())
 		{
 			Departamento departamento = new Departamento(rs.getInt("id"), rs.getString("nome"), rs.getString("sigla"));

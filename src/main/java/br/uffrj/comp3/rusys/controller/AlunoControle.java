@@ -37,7 +37,6 @@ public class AlunoControle extends HttpServlet
 				{
 					case Constantes.ACAO_SALVAR:
 						cadastrar(request, response);
-						response.sendRedirect("GerirAluno");
 						break;
 					case Constantes.NOVO:
 						request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);
@@ -121,11 +120,19 @@ public class AlunoControle extends HttpServlet
 		alunoVO.setAnoDeIngresso(Integer.parseInt(ano));
 		alunoVO.setSexo(sexo);
 		alunoVO.setTitulo(titulo);
+		
 		alunoVO.setCpf(cpf);
+		
 		alunoVO.setCurso(Integer.parseInt(curso));
 		
+		try{
+			AlunoHandler.cadastrarAluno(alunoVO);
+		} catch(Exception e){
+			String redirect = response.encodeRedirectURL("/WEB-INF/listarAlunos.jsp");
+			response.sendRedirect("GerirAluno");
+		}
 		
-		AlunoHandler.cadastrarAluno(alunoVO);
+		response.sendRedirect("GerirAluno");
 		    
 		//String redirect = response.encodeRedirectURL("/WEB-INF/listarAlunos.jsp");
 		//response.sendRedirect(redirect);					

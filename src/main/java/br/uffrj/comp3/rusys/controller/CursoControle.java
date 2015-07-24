@@ -14,6 +14,7 @@ import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.CursoVO;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.CursoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
@@ -95,7 +96,13 @@ public class CursoControle extends HttpServlet
 		cursoVO.setSigla(sigla);
 		cursoVO.setDepartamento(Integer.parseInt(dept));
 
-		CursoHandler.cadastrarCurso(cursoVO);
+		try{
+			CursoHandler.cadastrarCurso(cursoVO);
+		} catch(Exception e){
+			String redirect = response.encodeRedirectURL("/WEB-INF/listCurso.jsp");
+			response.sendRedirect("GerirCurso");
+		}
+		
 	}
 	
 	private void inicaCampos(HttpServletRequest request, HttpServletResponse response) 
