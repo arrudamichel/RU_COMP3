@@ -4,7 +4,7 @@ public class Funcionario extends Consumidor
 {
 	private Departamento departamento;
 	
-	public Funcionario(int id, String nome, int matricula, String anoDeIngresso, Departamento departamento) throws Exception
+	public Funcionario(int id, String nome, int matricula, Integer anoDeIngresso, Departamento departamento) throws Exception
 	{
 		super(id, nome, matricula, anoDeIngresso);
 		

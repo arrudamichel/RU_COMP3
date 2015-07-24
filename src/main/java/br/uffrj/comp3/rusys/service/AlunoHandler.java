@@ -22,10 +22,12 @@ public class AlunoHandler
 {
 	public static void cadastrarAluno(ConsumidorVO consumidorVO) throws Exception
 	{
-//		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
+		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());	
+		@SuppressWarnings("unused")
+		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
+		
 		
 		int id = ConsumidorHandler.cadastrarConsumidor(consumidorVO);
-		
 		//System.out.println(id);
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
@@ -61,7 +63,7 @@ public class AlunoHandler
 			{
 				if (rsConsumidores.getInt("situacao") == 1)
 				{
-					aluno = new Aluno(id, rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getString("ano_ingresso"), curso);
+					aluno = new Aluno(id, rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getInt("ano_ingresso"), curso);
 	
 					aluno.setCpf(rsConsumidores.getString("cpf"));
 					aluno.setSexo(SexoEnum.fromString(rsConsumidores.getString("sexo")));
@@ -103,7 +105,7 @@ public class AlunoHandler
 				{
 					if (rsConsumidores.getInt("situacao") == 1)
 					{
-						aluno = new Aluno(rsConsumidores.getInt("id"), rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getString("ano_ingresso"), curso);
+						aluno = new Aluno(rsConsumidores.getInt("id"), rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getInt("ano_ingresso"), curso);
 						
 						aluno.setCpf(rsConsumidores.getString("cpf"));
 						aluno.setSexo(SexoEnum.fromString(rsConsumidores.getString("sexo")));
@@ -131,8 +133,13 @@ public class AlunoHandler
 		conn.close();
 	}
 	
-	public static void atualizarAluno(ConsumidorVO consumidorVO, int id) throws Exception{
-
+	public static void atualizarAluno(ConsumidorVO consumidorVO, int id) throws Exception
+	{
+		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());	
+		@SuppressWarnings("unused")
+		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
+		
+		
 		ConsumidorHandler.atualizarConsumidor(consumidorVO);
 
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	

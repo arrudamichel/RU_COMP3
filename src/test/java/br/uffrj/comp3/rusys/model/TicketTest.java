@@ -26,9 +26,9 @@ public class TicketTest {
 	@Before
 	public void setUp() throws Exception {
 		departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
-		funcionario = new Funcionario(1, "Funcionario", 123, "2010", departamento);
+		funcionario = new Funcionario(1, "Funcionario", 123, 2010, departamento);
 		curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
-		aluno = new Aluno(2, "Aluno", 124, "2011", curso);
+		aluno = new Aluno(2, "Aluno", 124, 2011, curso);
 		refNoite = new Refeicao(1, "refNoite", TipoRefeicaoEnum.JANTAR);
 		refNoite.setOpcaoVeg("Salada");
 		refTarde = new Refeicao(2, "refTarde", TipoRefeicaoEnum.ALMOCO);

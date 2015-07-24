@@ -59,7 +59,7 @@ public class FuncionarioHandler
 			{
 				if (rsConsumidores.getInt("situacao") == 1)
 				{
-					funcionario = new Funcionario(id, rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getString("ano_ingresso"), departamento);
+					funcionario = new Funcionario(id, rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getInt("ano_ingresso"), departamento);
 	
 					funcionario.setCpf(rsConsumidores.getString("cpf"));
 					funcionario.setSexo(SexoEnum.fromString(rsConsumidores.getString("sexo")));
@@ -99,7 +99,7 @@ public class FuncionarioHandler
 				{
 					if (rsConsumidores.getInt("situacao") == 1)
 					{
-						funcionario = new Funcionario(rsFuncionarios.getInt("id"), rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getString("ano_ingresso"), departamento);
+						funcionario = new Funcionario(rsFuncionarios.getInt("id"), rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getInt("ano_ingresso"), departamento);
 			
 						funcionario.setCpf(rsConsumidores.getString("cpf"));
 						funcionario.setSexo(SexoEnum.fromString(rsConsumidores.getString("sexo")));

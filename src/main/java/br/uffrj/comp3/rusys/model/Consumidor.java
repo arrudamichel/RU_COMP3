@@ -12,13 +12,13 @@ public abstract class Consumidor
 	private int id;
 	private String nome;
 	private int matricula;
-	private String anoDeIngresso;
+	private Integer anoDeIngresso;
 	private SexoEnum sexo;
 	private TituloEnum titulo;
 	private String cpf;
 	private List<Ticket> tickets;
 
-	public Consumidor(int id, String nome, int matricula, String anoDeIngresso) throws Exception
+	public Consumidor(int id, String nome, int matricula, Integer anoDeIngresso2) throws Exception
 	{
 		super();
 		this.id = id;
@@ -31,12 +31,12 @@ public abstract class Consumidor
 		this.nome = nome;
 		this.matricula = matricula;
 		
-		if (anoDeIngresso == null)
+		if (anoDeIngresso2 == null)
 		{
 			throw new Exception("model.consumidor.anoDeIngresso.deve.ser.informado.para.criacao");
 		}
 		
-		this.anoDeIngresso = anoDeIngresso;
+		this.anoDeIngresso = anoDeIngresso2;
 		this.tickets = new ArrayList<>();
 	}
 
@@ -79,12 +79,12 @@ public abstract class Consumidor
 		this.matricula = matricula;
 	}
 
-	public String getAnoDeIngresso()
+	public Integer getAnoDeIngresso()
 	{
 		return anoDeIngresso;
 	}
 
-	public void setAnoDeIngresso(String anoDeIngresso)
+	public void setAnoDeIngresso(Integer anoDeIngresso)
 	{
 		this.anoDeIngresso = anoDeIngresso;
 	}

@@ -26,7 +26,7 @@ CREATE TABLE "consumidor" (
   "id" INT NOT NULL AUTO_INCREMENT,
   "matricula" INT NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
-  "ano_ingresso" VARCHAR(45) NOT NULL,
+  "ano_ingresso" INT NOT NULL,
   "sexo" VARCHAR(45) NOT NULL,
   "titulo" VARCHAR(45) NULL,
   "cpf" VARCHAR(45) NULL,

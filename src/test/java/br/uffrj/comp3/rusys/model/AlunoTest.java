@@ -13,7 +13,7 @@ public class AlunoTest {
 	public void testAluno() throws Exception {
 		de = new Departamento(1, "Depto", "DCC");
 		cu = new Curso(1, "computacao", "CC", de);
-		al = new Aluno(1, "Jessica", 2011785144, "2011", cu);
+		al = new Aluno(1, "Jessica", 2011785144, 2011, cu);
 		
 	}
 
@@ -22,7 +22,7 @@ public class AlunoTest {
 		String esperado = "CC";
 		de = new Departamento(1, "Depto", "DCC");
 		cu = new Curso(1, "computacao", "CC", de);
-		al = new Aluno(1, "Jessica", 2011785144, "2011", cu);
+		al = new Aluno(1, "Jessica", 2011785144, 2011, cu);
 		
 		assertEquals(esperado, al.getCurso().getSigla());
 	}
@@ -33,7 +33,7 @@ public class AlunoTest {
 		Curso cu2 = new Curso(1, "computacao", "CC", de);
 		de = new Departamento(1, "Depto", "DCC");
 		cu = new Curso(1, "computacao", "CC", de);
-		al = new Aluno(1, "Jessica", 2011785144, "2011", cu);
+		al = new Aluno(1, "Jessica", 2011785144, 2011, cu);
 		al.setCurso(cu2);
 		
 		assertEquals(esperado, al.getCurso().getSigla());
@@ -44,20 +44,20 @@ public class AlunoTest {
 	{
 		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
 		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
-		Aluno aluno = new Aluno(1, "aluno", 123, "2010", curso);
+		Aluno aluno = new Aluno(1, "aluno", 123, 2010, curso);
 	}
 	
 	@Test(expected = Exception.class)
 	public void testaAlunoFail() throws Exception
 	{
-		Aluno aluno = new Aluno(1, "aluno", 123, "2010", null);
+		Aluno aluno = new Aluno(1, "aluno", 123, 2010, null);
 	}
 	
 	@Test
 	public void testaSetterOk() throws Exception {
 		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
 		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
-		Aluno aluno = new Aluno(1, "aluno", 123, "2010", curso);
+		Aluno aluno = new Aluno(1, "aluno", 123, 2010, curso);
 		
 		assertEquals(aluno.getCurso(), curso);
 	}
@@ -66,7 +66,7 @@ public class AlunoTest {
 	public void testaSetterFail() throws Exception {
 		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
 		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
-		Aluno aluno = new Aluno(1, "aluno", 123, "2010", curso);
+		Aluno aluno = new Aluno(1, "aluno", 123, 2010, curso);
 		
 		aluno.setCurso(null);
 	}
