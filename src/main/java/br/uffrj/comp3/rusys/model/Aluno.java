@@ -4,7 +4,7 @@ public class Aluno extends Consumidor
 {
 	private Curso curso;
 	
-	public Aluno(int id, String nome, int matricula, String anoDeIngresso, Curso curso) throws Exception
+	public Aluno(int id, String nome, int matricula, Integer anoDeIngresso, Curso curso) throws Exception
 	{
 		super(id, nome, matricula, anoDeIngresso);
 		
