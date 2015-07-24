@@ -52,6 +52,7 @@ public class RefeicaoControle extends HttpServlet{
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			request.setAttribute("mensagem", Constantes.ERRO);
 			response.sendRedirect("GerirRefeicao");
 		}	
@@ -229,6 +230,7 @@ public class RefeicaoControle extends HttpServlet{
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			request.setAttribute("mensagem", Constantes.ERRO);
 			response.sendRedirect("GerirRefeicao");
 		}	

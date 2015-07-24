@@ -28,7 +28,7 @@ public class AlunoHandler
 		
 		
 		int id = ConsumidorHandler.cadastrarConsumidor(consumidorVO);
-		//System.out.println(id);
+		System.out.println(id);
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
 		AlunoGateway alunoGW = new AlunoGateway(conn);

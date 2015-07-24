@@ -218,7 +218,7 @@ public class ConsumidorGateway{
 			String sql = "SELECT * " + "   FROM consumidor " + "   WHERE cpf = ? and situacao=1";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(0, cpf);
+			stmt.setString(1, cpf);
 			rs = stmt.executeQuery();
 		} 
 		catch (Exception e)

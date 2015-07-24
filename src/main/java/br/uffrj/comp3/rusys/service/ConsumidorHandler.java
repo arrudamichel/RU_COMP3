@@ -19,7 +19,7 @@ public class ConsumidorHandler
 {
 	public static int cadastrarConsumidor(ConsumidorVO consumidorVO) throws Exception
 	{	
-		if(!Consumidor.isCPFunico( consumidorVO.getCpf()))
+		if(!isCPFunico(consumidorVO.getCpf()))
 		{
 			throw new Exception("consumidorhandler.cadastrar.consumidor.cpf.informado.ja.cadastrado");
 		}
@@ -59,6 +59,16 @@ public class ConsumidorHandler
 		}
 
 		conn.close();
+	}
+	
+	public static boolean isCPFunico(String cpf) throws Exception
+	{
+		ConsumidorVO consumidorVO = new ConsumidorVO();
+		consumidorVO.setCpf(cpf);
+		
+		ArrayList<ConsumidorVO> consumidores = (ArrayList<ConsumidorVO>) ConsumidorHandler.recuperarConsumidorVOs(consumidorVO);
+		
+		return consumidores==null || consumidores.isEmpty();
 	}
 	
 	public static Collection<Consumidor> recuperarConsumidor(ConsumidorVO consumidorVO) throws Exception

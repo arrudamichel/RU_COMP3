@@ -90,6 +90,7 @@ public class TicketControle extends HttpServlet
 		} 
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 	}
@@ -215,6 +216,7 @@ public class TicketControle extends HttpServlet
 		} 
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 	}

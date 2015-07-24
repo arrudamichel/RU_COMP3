@@ -1,10 +1,5 @@
 package br.uffrj.comp3.rusys.model;
 
-import java.util.ArrayList;
-
-import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
-import br.uffrj.comp3.rusys.service.DepartamentoHandler;
-
 public class Departamento
 {
 	private int id;
@@ -98,15 +93,5 @@ public class Departamento
 	public int getId()
 	{
 		return id;
-	}
-	
-	public static boolean isSILGAunica(String sigla) throws Exception
-	{
-		DepartamentoVO departamentoVO = new DepartamentoVO();
-		departamentoVO.setSigla(sigla);
-		
-		ArrayList<Departamento> departamentos = (ArrayList<Departamento>) DepartamentoHandler.recuperarDepartamentos(departamentoVO);
-		
-		return departamentos!=null && !departamentos.isEmpty();
 	}
 }

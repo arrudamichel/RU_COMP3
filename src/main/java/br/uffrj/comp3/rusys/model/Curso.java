@@ -1,10 +1,5 @@
 package br.uffrj.comp3.rusys.model;
 
-import java.util.ArrayList;
-
-import br.uffrj.comp3.rusys.model.vo.CursoVO;
-import br.uffrj.comp3.rusys.service.CursoHandler;
-
 public class Curso
 {
 	private int id;
@@ -83,15 +78,5 @@ public class Curso
 	public int getId()
 	{
 		return id;
-	}
-	
-	public static boolean isSILGAunica(String sigla) throws Exception
-	{
-		CursoVO cursoVO = new CursoVO();
-		cursoVO.setSigla(sigla);
-		
-		ArrayList<Curso> cursos = (ArrayList<Curso>) CursoHandler.recuperarCursos(cursoVO);
-		
-		return cursos!=null && !cursos.isEmpty();
 	}
 }

@@ -17,14 +17,13 @@ public class CursoHandler
 {
 	public static void cadastrarCurso(CursoVO cursoVO) throws Exception
 	{
-		if(Curso.isSILGAunica(cursoVO.getSigla()))
+		if(!isSILGAunica(cursoVO.getSigla()))
 		{
 			throw new Exception("CursoHandler.cadastrarCurso.sigla.informado.ja.cadastrada");
 		}
 		
-//		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
-//		@SuppressWarnings("unused")
-//		Curso curso = new Curso(cursoVO.getId(), cursoVO.getNome(), cursoVO.getSigla(), departamento);
+		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
+		Curso curso = new Curso(cursoVO.getId(), cursoVO.getNome(), cursoVO.getSigla(), departamento);
 		
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
@@ -32,13 +31,13 @@ public class CursoHandler
 		CursoGateway cursoGateway = new CursoGateway(conn);
 		DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
 
-		ResultSet rsDepartamento = deptGateway.selecionarDepartamentoPorId(cursoVO.getDepartamento());
+		ResultSet rsDepartamento = deptGateway.selecionarDepartamentoPorId(curso.getDepartamento().getId());
 
 		int deptId = -1;
 		
 		rsDepartamento.next();
 		deptId = rsDepartamento.getInt(1);
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(cursoVO.getNome(), cursoVO.getSigla(), deptId));
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), deptId));
 
 		if (cursoGateway.inserir(valores) == null)
 			throw new Exception("falha.ao.cadastrar.curso");
@@ -46,26 +45,43 @@ public class CursoHandler
 		conn.close();
 	}
 	
-	public static void atualizarCurso(CursoVO curso) throws Exception
+	public static void atualizarCurso(CursoVO cursoVO) throws Exception
 	{
-		if(!Curso.isSILGAunica(curso.getSigla()))
+		Curso curso = recuperarCurso(cursoVO.getId());
+		
+		if (cursoVO.getNome() != null)
 		{
-			throw new Exception("CursoHandler.cadastrarCurso.sigla.informado.ja.cadastrada");
+			curso.setNome(cursoVO.getNome());
 		}
-		
-//		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
-//		Curso curso = new Curso(cursoVO.getId(), cursoVO.getNome(), cursoVO.getSigla(), departamento);
-		
+		else if (cursoVO.getSigla() != null)
+		{
+			curso.setSigla(cursoVO.getSigla());
+		}
+		else if (cursoVO.getDepartamento() != null)
+		{
+			Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());		
+			curso.setDepartamento(departamento);
+		}
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 		
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), curso.getDepartamento())); //TODO FALTA O DEPARTAMENTO
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), curso.getDepartamento().getId()));
 
 		if (!cg.alterarCurso(valores, curso.getId()))
 			throw new Exception("falha.ao.atualizar.curso");
 		
 		conn.close();
+	}
+	
+	public static boolean isSILGAunica(String sigla) throws Exception
+	{
+		CursoVO cursoVO = new CursoVO();
+		cursoVO.setSigla(sigla);
+		
+		ArrayList<Curso> cursos = (ArrayList<Curso>) CursoHandler.recuperarCursos(cursoVO);
+		
+		return cursos==null || cursos.isEmpty();
 	}
 	
 	public static void excluirCurso(Curso curso) throws Exception

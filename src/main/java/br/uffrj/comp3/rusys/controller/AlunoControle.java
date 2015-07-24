@@ -132,7 +132,7 @@ public class AlunoControle extends HttpServlet
 			response.sendRedirect("GerirAluno");
 		}
 		
-		response.sendRedirect("GerirAluno");
+//		response.sendRedirect("GerirAluno");
 		    
 		//String redirect = response.encodeRedirectURL("/WEB-INF/listarAlunos.jsp");
 		//response.sendRedirect(redirect);					

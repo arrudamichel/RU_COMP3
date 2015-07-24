@@ -16,20 +16,18 @@ public class DepartamentoHandler
 {
 	public static void cadastrarDepartamento(DepartamentoVO departamentoVO) throws Exception
 	{
-		if(Departamento.isSILGAunica(departamentoVO.getSigla()))
+		if(!isSILGAunica(departamentoVO.getSigla()))
 		{
 			throw new Exception("DepartamentoHandler.cadastrarDepartamento.sigla.informado.ja.cadastrada");
 		}
 		
-//		@SuppressWarnings("unused")
-//		Departamento departamento = new Departamento(departamentoVO.getId(), departamentoVO.getNome(), departamentoVO.getSigla());
-		
+		Departamento departamento = new Departamento(departamentoVO.getId(), departamentoVO.getNome(), departamentoVO.getSigla());
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		DepartamentoGateway deptGateway = new DepartamentoGateway(conn);
 		
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamentoVO.getNome(), departamentoVO.getSigla()));
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamento.getNome(), departamento.getSigla()));
 
 		if (deptGateway.inserir(valores)==null)
 			throw new Exception("falha.ao.cadastrar.departamento");
@@ -37,15 +35,18 @@ public class DepartamentoHandler
 		conn.close();
 	}
 	
-	public static void atualizarDepartamento(DepartamentoVO departamento) throws Exception
+	public static void atualizarDepartamento(DepartamentoVO departamentoVO) throws Exception
 	{
-		if(!Departamento.isSILGAunica(departamento.getSigla()))
+		Departamento departamento = recuperarDepartamento(departamentoVO.getId());
+		
+		if (departamentoVO.getNome() != null)
 		{
-			throw new Exception("DepartamentoHandler.cadastrarDepartamento.sigla.informado.ja.cadastrada");
+			departamento.setNome(departamentoVO.getNome());
 		}
-		
-//		Departamento departamento = new Departamento(departamentoVO.getId(), departamentoVO.getNome(), departamentoVO.getSigla());
-		
+		else if (departamentoVO.getSigla() != null)
+		{
+			departamento.setSigla(departamentoVO.getSigla());
+		}
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		DepartamentoGateway dg = new DepartamentoGateway(conn);
@@ -56,6 +57,16 @@ public class DepartamentoHandler
 			throw new Exception("falha.ao.atualizar.departamento");
 		
 		conn.close();
+	}
+	
+	public static boolean isSILGAunica(String sigla) throws Exception
+	{
+		DepartamentoVO departamentoVO = new DepartamentoVO();
+		departamentoVO.setSigla(sigla);
+		
+		ArrayList<Departamento> departamentos = (ArrayList<Departamento>) DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		
+		return departamentos==null || departamentos.isEmpty();
 	}
 	
 	public static void excluirDepartamento(Departamento departamento) throws Exception

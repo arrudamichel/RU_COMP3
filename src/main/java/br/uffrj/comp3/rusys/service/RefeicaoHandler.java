@@ -30,13 +30,14 @@ public class RefeicaoHandler
 				Arrays.asList(refeicaoVO.getDescricao(), refeicaoVO.getOpcaoVeg(), refeicaoVO.getTurno().toString(), refeicaoVO.getTipo().toString()));
 		
 		ResultSet rs = refeicaoGateway.inserir(valores);
-		conn.close();
 
 		if (rs==null)
 			throw new Exception("falha.ao.cadastrar.refeicao");
 		
 		rs.next();
-		int id = rs.getInt(0);
+		int id = rs.getInt(1);
+		
+		conn.close();
 		
 		return id;
 	}

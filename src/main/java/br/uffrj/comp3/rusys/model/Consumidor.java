@@ -3,8 +3,6 @@ package br.uffrj.comp3.rusys.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
-import br.uffrj.comp3.rusys.service.ConsumidorHandler;
 import br.uffrj.comp3.rusys.util.Util;
 
 public abstract class Consumidor
@@ -122,15 +120,5 @@ public abstract class Consumidor
 		}
 			
 		this.cpf = cpf;
-	}
-	
-	public static boolean isCPFunico(String cpf) throws Exception
-	{
-		ConsumidorVO consumidorVO = new ConsumidorVO();
-		consumidorVO.setCpf(cpf);
-		
-		ArrayList<ConsumidorVO> consumidores = (ArrayList<ConsumidorVO>) ConsumidorHandler.recuperarConsumidorVOs(consumidorVO);
-		
-		return consumidores!=null && !consumidores.isEmpty();
 	}
 }

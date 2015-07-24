@@ -57,6 +57,7 @@ public class CursoControle extends HttpServlet
 			}
 		} catch (Exception e)
 		{
+			e.printStackTrace();
 			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 	}
@@ -198,6 +199,7 @@ public class CursoControle extends HttpServlet
 			}
 		} catch (Exception e)
 		{
+			e.printStackTrace();
 			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 	}

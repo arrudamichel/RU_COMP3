@@ -61,6 +61,7 @@ public class DepartamentoControle extends HttpServlet
 		} 
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 	}
@@ -183,6 +184,7 @@ public class DepartamentoControle extends HttpServlet
 		} 
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 	}
