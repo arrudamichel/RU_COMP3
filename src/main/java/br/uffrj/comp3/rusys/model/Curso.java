@@ -55,15 +55,7 @@ public class Curso
 			throw new Exception("model.curso.sigla.deve.ser.informada");
 		}
 		
-		CursoVO cursoVO = new CursoVO();
-		cursoVO.setSigla(sigla);
 		
-		ArrayList<Curso> cursos = (ArrayList<Curso>) CursoHandler.recuperarCursos(cursoVO);
-		
-		if(cursos!=null && !cursos.isEmpty())
-		{
-			throw new Exception("sigla.informado.ja.em.uso");
-		}
 		
 		this.sigla = sigla;
 	}
@@ -91,5 +83,15 @@ public class Curso
 	public int getId()
 	{
 		return id;
+	}
+	
+	public static boolean isSILGAunica(String sigla) throws Exception
+	{
+		CursoVO cursoVO = new CursoVO();
+		cursoVO.setSigla(sigla);
+		
+		ArrayList<Curso> cursos = (ArrayList<Curso>) CursoHandler.recuperarCursos(cursoVO);
+		
+		return cursos!=null && !cursos.isEmpty();
 	}
 }

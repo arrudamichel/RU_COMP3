@@ -18,6 +18,10 @@ public class RefeicaoHandler
 {
 	public static int cadastrarRefeicao(RefeicaoVO refeicaoVO) throws Exception
 	{
+		@SuppressWarnings("unused")
+		Refeicao refeicao = new Refeicao(refeicaoVO.getId(), refeicaoVO.getDescricao(), refeicaoVO.getTipo());
+		
+		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 	
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
@@ -63,6 +67,10 @@ public class RefeicaoHandler
 
 	public static boolean atualizarRefeicao(RefeicaoVO refeicaoVO) throws Exception
 	{
+		@SuppressWarnings("unused")
+		Refeicao refeicao = new Refeicao(refeicaoVO.getId(), refeicaoVO.getDescricao(), refeicaoVO.getTipo());
+		
+		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);

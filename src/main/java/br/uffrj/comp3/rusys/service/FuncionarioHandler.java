@@ -23,6 +23,11 @@ public class FuncionarioHandler
 
 	public static void cadastrarFuncionario(ConsumidorVO consumidorVO) throws Exception
 	{
+		Departamento departamento = DepartamentoHandler.recuperarDepartamento(consumidorVO.getDepartamento());
+		@SuppressWarnings("unused")
+		Funcionario funcionario = new Funcionario(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), departamento);
+		
+		
 		int id = ConsumidorHandler.cadastrarConsumidor(consumidorVO);
 
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
@@ -128,8 +133,13 @@ public class FuncionarioHandler
 		conn.close();
 	}
 
-	public static void atualizarFuncionario(ConsumidorVO consumidorVO, int idDepartamento) throws Exception{
-
+	public static void atualizarFuncionario(ConsumidorVO consumidorVO, int idDepartamento) throws Exception
+	{
+		Departamento departamento = DepartamentoHandler.recuperarDepartamento(consumidorVO.getDepartamento());
+		@SuppressWarnings("unused")
+		Funcionario funcionario = new Funcionario(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), departamento);
+		
+		
 		ConsumidorHandler.atualizarConsumidor(consumidorVO);
 
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	

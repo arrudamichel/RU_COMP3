@@ -47,16 +47,6 @@ public class Departamento
 			throw new Exception("model.departamento.sigla.deve.ser.informada");
 		}
 		
-		DepartamentoVO departamentoVO = new DepartamentoVO();
-		departamentoVO.setSigla(sigla);
-		
-		ArrayList<Departamento> departamentos = (ArrayList<Departamento>) DepartamentoHandler.recuperarDepartamentos(departamentoVO);
-		
-		if(departamentos!=null && !departamentos.isEmpty())
-		{
-			throw new Exception("sigla.informada.ja.em.uso");
-		}
-		
 		this.sigla = sigla;
 	}
 
@@ -108,5 +98,15 @@ public class Departamento
 	public int getId()
 	{
 		return id;
+	}
+	
+	public static boolean isSILGAunica(String sigla) throws Exception
+	{
+		DepartamentoVO departamentoVO = new DepartamentoVO();
+		departamentoVO.setSigla(sigla);
+		
+		ArrayList<Departamento> departamentos = (ArrayList<Departamento>) DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		
+		return departamentos!=null && !departamentos.isEmpty();
 	}
 }

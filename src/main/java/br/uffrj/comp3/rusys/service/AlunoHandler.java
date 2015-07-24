@@ -72,6 +72,8 @@ public class AlunoHandler
 			}
 		}
 		
+		conn.close();
+		
 		return aluno;
 	}
 
@@ -116,6 +118,8 @@ public class AlunoHandler
 				}
 			}
 		}
+		
+		conn.close();
 		
 		return alunos;
 	}

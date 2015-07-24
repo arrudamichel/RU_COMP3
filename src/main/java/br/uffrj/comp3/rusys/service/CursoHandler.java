@@ -17,6 +17,16 @@ public class CursoHandler
 {
 	public static void cadastrarCurso(CursoVO cursoVO) throws Exception
 	{
+		if(!Curso.isSILGAunica(cursoVO.getSigla()))
+		{
+			throw new Exception("CursoHandler.cadastrarCurso.sigla.informado.ja.cadastrada");
+		}
+		
+		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
+		@SuppressWarnings("unused")
+		Curso curso = new Curso(cursoVO.getId(), cursoVO.getNome(), cursoVO.getSigla(), departamento);
+		
+		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		CursoGateway cursoGateway = new CursoGateway(conn);
@@ -36,8 +46,17 @@ public class CursoHandler
 		conn.close();
 	}
 	
-	public static void atualizarCurso(Curso curso) throws Exception
+	public static void atualizarCurso(CursoVO cursoVO) throws Exception
 	{
+		if(!Curso.isSILGAunica(cursoVO.getSigla()))
+		{
+			throw new Exception("CursoHandler.cadastrarCurso.sigla.informado.ja.cadastrada");
+		}
+		
+		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
+		Curso curso = new Curso(cursoVO.getId(), cursoVO.getNome(), cursoVO.getSigla(), departamento);
+		
+		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 		
