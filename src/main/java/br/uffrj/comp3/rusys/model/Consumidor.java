@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.service.ConsumidorHandler;
+import br.uffrj.comp3.rusys.util.Util;
 
 public abstract class Consumidor
 {
@@ -115,10 +116,10 @@ public abstract class Consumidor
 
 	public void setCpf(String cpf) throws Exception
 	{
-//		if (!Util.valida(cpf))// TODO: COMENTANDO PRA FICAR MAIS FACIL TESTAR
-//		{
-//			throw new Exception("cpf.informado.invalido");
-//		}
+		if (!Util.valida(cpf))// TODO: COMENTANDO PRA FICAR MAIS FACIL TESTAR
+		{
+			throw new Exception("cpf.informado.invalido");
+		}
 			
 		this.cpf = cpf;
 	}

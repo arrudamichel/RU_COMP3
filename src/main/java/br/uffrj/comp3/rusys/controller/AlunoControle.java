@@ -21,9 +21,6 @@ import br.uffrj.comp3.rusys.util.Constantes;
 @WebServlet("/GerirAluno")
 public class AlunoControle extends HttpServlet
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -89,7 +86,6 @@ public class AlunoControle extends HttpServlet
 		aluno.setAnoDeIngresso(Integer.parseInt(anoIngresso));
 		aluno.setSexo(sexo);
 		aluno.setTitulo(titulo);
-		System.out.println("CPF" + cpf);
 		aluno.setCpf(cpf);
 		aluno.setCurso(Integer.parseInt(curso));
 		
@@ -204,7 +200,6 @@ public class AlunoControle extends HttpServlet
 		try
 		{
 			String acao = (String) req.getParameter("acao");
-			//System.out.println("ACAO GET = "+acao );
 	
 			if (acao != null)
 			{
@@ -217,7 +212,6 @@ public class AlunoControle extends HttpServlet
 						req.getRequestDispatcher("/WEB-INF/AtualizarAluno.jsp").forward(req, resp);
 						break;
 					case Constantes.ACAO_DELETAR:	
-						System.out.println("Acao deletar");
 						excluir(req, resp);
 						resp.sendRedirect("GerirAluno");
 						break;

@@ -59,7 +59,7 @@ public class ConsumidorTest {
 
 	@Test
 	public void testGetAnoDeIngresso() throws Exception {
-		String esperado = "2011";
+		 Integer esperado = 2011;
 		 con = new Consumidor(1, "Jessica", 2011785144, 2011){}; 
 			
 		
@@ -68,8 +68,8 @@ public class ConsumidorTest {
 
 	@Test
 	public void testSetAnoDeIngresso() throws Exception {
-		String esperado = "2012";
-		 con = new Consumidor(1, "Jessica", 2011785144, 2011){}; 
+		Integer esperado = 2012;
+		con = new Consumidor(1, "Jessica", 2011785144, 2011){}; 
 		con.setAnoDeIngresso(2012);
 		
 		assertEquals(esperado, con.getAnoDeIngresso());
