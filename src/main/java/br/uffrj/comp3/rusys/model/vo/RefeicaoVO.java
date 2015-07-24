@@ -1,13 +1,15 @@
 package br.uffrj.comp3.rusys.model.vo;
+import br.uffrj.comp3.rusys.model.TipoRefeicaoEnum;
 import br.uffrj.comp3.rusys.model.TurnoEnum;
 
 public class RefeicaoVO
 {
-	private int id;
-	private int identificador;
+	private Integer id;
+	private Integer identificador;
 	private String descricao;
 	private String opcaoVeg;
 	private TurnoEnum turno;	
+	private TipoRefeicaoEnum tipo;
 
 	public RefeicaoVO()
 	{
@@ -44,23 +46,31 @@ public class RefeicaoVO
 		this.turno = turno;
 	}
 
-	public int getIdentificador()
+	public Integer getIdentificador()
 	{
 		return identificador;
 	}
 
-	public void setIdentificador(int identificador)
+	public void setIdentificador(Integer identificador)
 	{
 		this.identificador = identificador;
 	}
 
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(Integer id)
 	{
 		this.id = id;
+	}
+
+	public TipoRefeicaoEnum getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoRefeicaoEnum tipo) {
+		this.tipo = tipo;
 	}
 }

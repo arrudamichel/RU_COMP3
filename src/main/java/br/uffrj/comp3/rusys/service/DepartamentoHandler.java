@@ -36,7 +36,7 @@ public class DepartamentoHandler
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamento.getNome(), departamento.getSigla())); 
 
 		if (!dg.alterarDepartamento(valores, departamento.getId()))
-			throw new Exception("falha.ao.atualizart.departamento");
+			throw new Exception("falha.ao.atualizar.departamento");
 		
 		conn.close();
 	}
@@ -59,13 +59,15 @@ public class DepartamentoHandler
 		DepartamentoGateway dg = new DepartamentoGateway(conn);
 
 		ResultSet rs = dg.selecionarDepartamentos();
-
+	
 		while (rs.next())
 		{
-			Departamento departamento = new Departamento(rs.getInt(1), rs.getString(2), rs.getString(3));
+			Departamento departamento = new Departamento(rs.getInt("id"), rs.getString("nome"), rs.getString("sigla"));
 
 			departamentos.add(departamento);
 		}
+		
+		conn.close();
 
 		return departamentos;
 	}
@@ -76,12 +78,15 @@ public class DepartamentoHandler
 		DepartamentoGateway dg = new DepartamentoGateway(conn);
 
 		ResultSet rs = dg.selecionarDepartamentoPorId(departametnoId);
+		
 		Departamento departamento = null;
 
 		while (rs.next())
 		{
-			departamento = new Departamento(rs.getInt(1), rs.getString(2), rs.getString(3));
+			departamento = new Departamento(rs.getInt("id"), rs.getString("nome"), rs.getString("sigla"));
 		}
+		
+		conn.close();
 		
 		return departamento;
 	}

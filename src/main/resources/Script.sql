@@ -13,16 +13,17 @@ DROP TABLE IF EXISTS "aluno" ;
 
 -- Tabela Refeição
 CREATE TABLE "refeicao" (
-  "id_refeicao" INT NOT NULL AUTO_INCREMENT,
+  "id" INT NOT NULL AUTO_INCREMENT,
   "descricao" VARCHAR(45) NULL,
   "opcaoVegetariana" VARCHAR(45) NULL,  
-  "turno" VARCHAR(45) NULL,
+  "turno" VARCHAR(45) NOT NULL,
+  "tipo" VARCHAR(45) NULL,
   "situacao" TINYINT(1) NOT NULL,
-  PRIMARY KEY ("id_refeicao"));
+  PRIMARY KEY ("id"));
 
 -- Tabela "consumidor"
-CREATE TABLE IF NOT EXISTS "consumidor" (
-  "consumidor_id" INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE "consumidor" (
+  "id" INT NOT NULL AUTO_INCREMENT,
   "matricula" INT NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
   "ano_ingresso" VARCHAR(45) NOT NULL,
@@ -30,95 +31,93 @@ CREATE TABLE IF NOT EXISTS "consumidor" (
   "titulo" VARCHAR(45) NULL,
   "cpf" VARCHAR(45) NULL,
   "situacao" TINYINT(1) NOT NULL,
-  PRIMARY KEY ("consumidor_id"),
-  UNIQUE INDEX "cpf_UNIQUE" ("cpf" ASC));
+  PRIMARY KEY ("id"));
 
 -- Tabela "ticket"
-CREATE TABLE IF NOT EXISTS "ticket" (
-  "ticket_id" INT NOT NULL AUTO_INCREMENT,
-  "consumidor_id" INT NOT NULL,
-  "refeicao_id_refeicao" INT NOT NULL,
+CREATE TABLE "ticket" (
+  "id" INT NOT NULL AUTO_INCREMENT,
+  "consumidor_fk" INT NOT NULL,
+  "refeicao_fk" INT NOT NULL,
   "preco" DECIMAL(10,2) NOT NULL,
   "pago" TINYINT(1) NOT NULL,
-  PRIMARY KEY ("consumidor_id", "refeicao_id_refeicao"),
-  CONSTRAINT "fk_Consumidor_has_Refeicao_Consumidor1"
-    FOREIGN KEY ("consumidor_id")
-    REFERENCES "consumidor" ("consumidor_id")
+  PRIMARY KEY ("id"),
+  CONSTRAINT "ticket_consumidor_fk_has_consumidor"
+    FOREIGN KEY ("consumidor_fk")
+    REFERENCES "consumidor" ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT "fk_Consumidor_has_Refeicao_Refeicao1"
-    FOREIGN KEY ("refeicao_id_refeicao")
-    REFERENCES "refeicao" ("id_refeicao")
+  CONSTRAINT "ticket_refeicao_fk_has_refeicao"
+    FOREIGN KEY ("refeicao_fk")
+    REFERENCES "refeicao" ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 -- Tabela "departamento"
-CREATE TABLE IF NOT EXISTS "departamento" (
-  "id_departamento" INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE "departamento" (
+  "id" INT NOT NULL AUTO_INCREMENT,
   "nome" VARCHAR(45) NOT NULL,
   "sigla" VARCHAR(45) NOT NULL,
-  PRIMARY KEY ("id_departamento"));
+  PRIMARY KEY ("id"));
 
 
 -- Tabela "curso"
-CREATE TABLE IF NOT EXISTS "curso" (
-  "id_curso" INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE "curso" (
+  "id" INT NOT NULL AUTO_INCREMENT,
   "nome" VARCHAR(45) NOT NULL,
   "sigla" VARCHAR(45) NOT NULL,
-  "departamento_id_departamento" INT NOT NULL,
-  PRIMARY KEY ("id_curso"),
-  CONSTRAINT "fk_curso_departamento1"
-    FOREIGN KEY ("departamento_id_departamento")
-    REFERENCES "departamento" ("id_departamento")
+  "departamento_fk" INT NOT NULL,
+  PRIMARY KEY ("id"),
+  CONSTRAINT "curso_departamento_fk_has_departamento"
+    FOREIGN KEY ("departamento_fk")
+    REFERENCES "departamento" ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 -- Tabela "funcionario"
-CREATE TABLE IF NOT EXISTS "funcionario" (
-  "consumidor_id" INT NOT NULL,
-  "departamento_id_departamento" INT NOT NULL,
-  
-  PRIMARY KEY ("departamento_id_departamento", "consumidor_id"),
-  CONSTRAINT "fk_departamento_has_consumidor_departamento1"
-    FOREIGN KEY ("departamento_id_departamento")
-    REFERENCES "departamento" ("id_departamento")
+CREATE TABLE "funcionario" (
+  "id" INT NOT NULL,
+  "departamento_fk" INT NOT NULL,
+  PRIMARY KEY ("id"),
+  CONSTRAINT "funcionario_departamento_fk_has_departamento"
+    FOREIGN KEY ("departamento_fk")
+    REFERENCES "departamento" ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT "fk_departamento_has_consumidor_consumidor1"
-    FOREIGN KEY ("consumidor_id")
-    REFERENCES "consumidor" ("consumidor_id")
+  CONSTRAINT "funcionario_has_consumidor"
+    FOREIGN KEY ("id")
+    REFERENCES "consumidor" ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 -- Tabela "aluno"
-CREATE TABLE IF NOT EXISTS "aluno" (
-  "consumidor_id" INT NOT NULL,
-  "curso_id_curso" INT NOT NULL,
-  PRIMARY KEY ("consumidor_id", "curso_id_curso"),
-  CONSTRAINT "fk_consumidor_has_curso_consumidor1"
-    FOREIGN KEY ("consumidor_id")
-    REFERENCES "consumidor" ("consumidor_id")
+CREATE TABLE "aluno" (
+  "id" INT NOT NULL,
+  "curso_fk" INT NOT NULL,
+  PRIMARY KEY ("id"),
+  CONSTRAINT "aluno_has_consumidor"
+    FOREIGN KEY ("id")
+    REFERENCES "consumidor" ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT "fk_consumidor_has_curso_curso1"
-    FOREIGN KEY ("curso_id_curso")
-    REFERENCES "curso" ("id_curso")
+  CONSTRAINT "aluno_curso_fk_has_curso"
+    FOREIGN KEY ("curso_fk")
+    REFERENCES "curso" ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- Insert refeicao
-INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno") VALUES ('Arroz com bifé','Bolinho de soja',1, 'MANHA');
-INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno") VALUES ('Macarrão com salsicha','Quiche de legumes',1, 'TARDE');
-INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno") VALUES ('Arroz com carré','Soja',1, 'NOITE');
+INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno", "tipo") VALUES ('Arroz com bifé','Bolinho de soja',1, 'Manha', 'Dejejum');
+INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno", "tipo") VALUES ('Macarrão com salsicha','Quiche de legumes',1, 'Tarde', 'Almoco');
+INSERT INTO "refeicao" ("descricao","opcaoVegetariana", "situacao", "turno", "tipo") VALUES ('Arroz com carré','Soja',1, 'Noite', 'Jantar');
 
 -- Insert departamento
 INSERT INTO "departamento" ("nome","sigla") VALUES ('Departamento de Tecnologias e Liguagens','DTL');
 INSERT INTO "departamento" ("nome","sigla") VALUES ('Departamento de Ciência da Computação','DCC');
 
 -- Insert curso
-INSERT INTO "curso" ("nome","sigla","departamento_id_departamento") VALUES ('Matematica','Mat', 1);
-INSERT INTO "curso" ("nome","sigla","departamento_id_departamento") VALUES ('Ciência da Computação','CCOMP', 2);
+INSERT INTO "curso" ("nome","sigla","departamento_fk") VALUES ('Matematica','Mat', 1);
+INSERT INTO "curso" ("nome","sigla","departamento_fk") VALUES ('Ciência da Computação','CCOMP', 2);
 
 -- Insert consumidor
 INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao") VALUES (123,'Miguel','2010','M','ESPECIALIZACAO','12345678901',1);
@@ -126,12 +125,12 @@ INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf
 INSERT INTO "consumidor" ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao") VALUES (789,'Duarte','2013','M','DOUTORADO','12345678922',1);
 
 -- Insert Aluno
-INSERT INTO "aluno" ("consumidor_id", "curso_id_curso") VALUES (1,2);
-INSERT INTO "aluno"  ("consumidor_id", "curso_id_curso")  VALUES (2,1);
+INSERT INTO "aluno" ("id", "curso_fk") VALUES (1,2);
+INSERT INTO "aluno"  ("id", "curso_fk")  VALUES (2,1);
 
 -- Insert funcionario
-INSERT INTO "funcionario" ("consumidor_id", "departamento_id_departamento") VALUES (3, 2);
+INSERT INTO "funcionario" ("id", "departamento_fk") VALUES (3, 2);
 
 -- Insert ticket
-INSERT INTO "ticket" ("consumidor_id", "refeicao_id_refeicao", "preco", "pago") VALUES (1,1,0.5,1);
-INSERT INTO "ticket" ("consumidor_id", "refeicao_id_refeicao", "preco", "pago") VALUES  (3,2,3.0,1);
+INSERT INTO "ticket" ("consumidor_fk", "refeicao_fk", "preco", "pago") VALUES (1,1,0.5,1);
+INSERT INTO "ticket" ("consumidor_fk", "refeicao_fk", "preco", "pago") VALUES  (3,2,3.0,1);

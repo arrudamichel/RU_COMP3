@@ -13,10 +13,8 @@ import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.SexoEnum;
 import br.uffrj.comp3.rusys.model.TituloEnum;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
-import br.uffrj.comp3.rusys.persintece.AlunoGateway;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
-import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
 import br.uffrj.comp3.rusys.persintece.FuncionarioGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
 
@@ -34,85 +32,85 @@ public class FuncionarioHandler
 				Arrays.asList( id,consumidorVO.getDepartamento()));
 
 		if (!ag.inserir(valores2))
-			throw new Exception("falha.ao.cadastrar.aluno");
+			throw new Exception("FuncionarioHandler.falha.ao.cadastrar.funcionario");
 
 		conn.close();
 	}
 	
-	public static Funcionario recuperarFuncionario(int idFuncionario) throws SQLException, Exception{
-		
+	public static Funcionario recuperarFuncionario(int id) throws SQLException, Exception
+	{
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		FuncionarioGateway funcionarioGW = new FuncionarioGateway(conn);
 
-		ResultSet rsFuncionarios = funcionarioGW.selecionarFuncionarioPorId(idFuncionario);
-
+		ResultSet rsFuncionarios = funcionarioGW.selecionarFuncionarioPorId(id);
+		
 		Funcionario funcionario = null;
 		
-		while (rsFuncionarios.next()){
-			int idConsumidor = rsFuncionarios.getInt("consumidor_id");
-			int iddepartamento = rsFuncionarios.getInt("departamento_id_departamento");
-
-			// seleciona departamento
-			DepartamentoGateway dg = new DepartamentoGateway(conn);
-			ResultSet rsd = dg.selecionarDepartamentoPorId(iddepartamento);
-			rsd.next();
-
-			Departamento departamento = new Departamento(iddepartamento, rsd.getString("nome"), rsd.getString("sigla"));
-
-
-			// seleciona consumidor
+		if(rsFuncionarios.next())
+		{	
 			ConsumidorGateway cg = new ConsumidorGateway(conn);
-			ResultSet rsc = cg.selecionarConsumidorPorId(idConsumidor);
-			rsc.next();
+			ResultSet rsConsumidores = cg.selecionarConsumidorPorId(id);
+			
+			int iddepartamento = rsFuncionarios.getInt("departamento_fk");
 
-			if (rsc.getInt("situacao") == 1){
-				funcionario = new Funcionario(idConsumidor, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
-
-				funcionario.setCpf(rsc.getString("cpf"));
-				funcionario.setSexo(SexoEnum.fromString(rsc.getString("sexo")));
-				funcionario.setTitulo(TituloEnum.fromString(rsc.getString("titulo")));
+			Departamento departamento = DepartamentoHandler.recuperarDepartamento(iddepartamento);
+			
+			while (rsConsumidores.next())
+			{
+				if (rsConsumidores.getInt("situacao") == 1)
+				{
+					funcionario = new Funcionario(id, rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getString("ano_ingresso"), departamento);
+	
+					funcionario.setCpf(rsConsumidores.getString("cpf"));
+					funcionario.setSexo(SexoEnum.fromString(rsConsumidores.getString("sexo")));
+					funcionario.setTitulo(TituloEnum.fromString(rsConsumidores.getString("titulo")));
+				}
 			}
-		}	
+		}
+		
 		return funcionario;
-
 	}
+	
 	public static Collection<Funcionario> recuperarFuncionarios(ConsumidorVO consumidorVO) throws Exception
 	{
+		ArrayList<ConsumidorVO> consumidorVOs = (ArrayList<ConsumidorVO>) ConsumidorHandler.recuperarConsumidorVOs(consumidorVO);
+		
 		ArrayList<Funcionario> funcionarios = new ArrayList<>();
+		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
-		FuncionarioGateway fg = new FuncionarioGateway(conn);
-		ResultSet rsFuncionarios = fg.selecionarFuncionarios();
-
-		while (rsFuncionarios.next()){
-			int id = rsFuncionarios.getInt("consumidor_id");
-			//int matricula = rsFuncionarios.getInt(2);
-
-			int iddepartamento = rsFuncionarios.getInt("departamento_id_departamento");
-
-			// seleciona departamento
-			DepartamentoGateway dg = new DepartamentoGateway(conn);
-			ResultSet rsd = dg.selecionarDepartamentoPorId(iddepartamento);
-			rsd.next();
-
-			Departamento departamento = new Departamento(rsFuncionarios.getInt("departamento_id_departamento"), rsd.getString("nome"), rsd.getString("sigla"));
-
-			// seleciona consumidor
-			ConsumidorGateway cg = new ConsumidorGateway(conn);
-			ResultSet rsc = cg.selecionarConsumidorPorId(id);
-			rsc.next();
-
-			if (rsc.getInt("situacao") == 1)
+		FuncionarioGateway funcionarioGW = new FuncionarioGateway(conn);
+		
+		Funcionario funcionario = null;
+		
+		for (ConsumidorVO consVO: consumidorVOs)
+		{	
+			ResultSet rsFuncionarios = funcionarioGW.selecionarFuncionarioPorId(consVO.getId());
+			
+			if(rsFuncionarios.next())
 			{
-				Funcionario funcionario = new Funcionario(id, rsc.getString("nome"), rsc.getInt("matricula"), rsc.getString("ano_ingresso"), departamento);
+				ConsumidorGateway cg = new ConsumidorGateway(conn);
+				ResultSet rsConsumidores = cg.selecionarConsumidorPorId(rsFuncionarios.getInt("id"));
 
-				funcionario.setCpf(rsc.getString("cpf"));
-				funcionario.setSexo(SexoEnum.fromString(rsc.getString("sexo")));
-				funcionario.setTitulo(TituloEnum.fromString(rsc.getString("titulo")));
-				funcionarios.add(funcionario);
-			}			
+				int iddepartamento = rsFuncionarios.getInt("departamento_fk");
+		
+				Departamento departamento = DepartamentoHandler.recuperarDepartamento(iddepartamento);
+					
+				while (rsConsumidores.next())
+				{
+					if (rsConsumidores.getInt("situacao") == 1)
+					{
+						funcionario = new Funcionario(rsFuncionarios.getInt("id"), rsConsumidores.getString("nome"), rsConsumidores.getInt("matricula"), rsConsumidores.getString("ano_ingresso"), departamento);
+			
+						funcionario.setCpf(rsConsumidores.getString("cpf"));
+						funcionario.setSexo(SexoEnum.fromString(rsConsumidores.getString("sexo")));
+						funcionario.setTitulo(TituloEnum.fromString(rsConsumidores.getString("titulo")));
+							
+						funcionarios.add(funcionario);
+					}
+				}
+				
+			}
 		}
-
-		conn.close();
 
 		return funcionarios;
 	}
@@ -124,13 +122,13 @@ public class FuncionarioHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		ConsumidorGateway cg = new ConsumidorGateway(conn);
 
-		if (!cg.desativarConsumidor(consumidor.getMatricula()))
-		throw new Exception("falha.ao.excluir.funcionario");
+		if (!cg.desativarConsumidor(consumidor.getId()))
+			throw new Exception("FuncionarioHandler.falha.ao.excluir.funcionario");
 
 		conn.close();
 	}
 
-	public static void atualizarFuncionario(ConsumidorVO consumidorVO, int id) throws Exception{
+	public static void atualizarFuncionario(ConsumidorVO consumidorVO, int idDepartamento) throws Exception{
 
 		ConsumidorHandler.atualizarConsumidor(consumidorVO);
 
@@ -139,7 +137,7 @@ public class FuncionarioHandler
 
 		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(consumidorVO.getCurso()));
 		
-		funcionarioGW.alterarFuncionario(valores2, id);
+		funcionarioGW.alterarFuncionario(valores2, idDepartamento);
 
 		conn.close();
 	}

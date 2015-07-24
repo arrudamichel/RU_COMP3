@@ -57,6 +57,7 @@ public class Constantes
 	final public static String ACAO_DELETAR = "Excluir";
 	final public static String ACAO_LISTAR = "Listar";
 	final public static String ACAO_SALVAR = "Salvar";
+	final public static String ACAO_ATUALIZAR = "Atualizar";
 	final public static String ACAO_CANCELAR = "Cancelar";
 	final public static String ACAO_PROXIMO = "Proximo";
 
@@ -108,6 +109,7 @@ public class Constantes
 	final public static String SIM = "Sim";
 	final public static String NAO = "Nao";
 	
+	final public static String TIPO= "Tipo";
 	final public static String TITULO = "T&iacute;tulo Acad&ecircmico";
 	final public static String TURNO = "Turno";
 	final public static String LISTTURNO = "Lista de " + TURNO + "s de " + REFEICAO;

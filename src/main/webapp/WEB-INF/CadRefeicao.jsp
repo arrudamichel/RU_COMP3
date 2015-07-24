@@ -1,6 +1,7 @@
 <%@page import="br.uffrj.comp3.rusys.model.Refeicao"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page import="br.uffrj.comp3.rusys.model.TurnoEnum"%>
+<%@page import="br.uffrj.comp3.rusys.model.TipoRefeicaoEnum"%>
 <%@page import="java.util.ArrayList"%>
 
 <%@page contentType="text/html; charset=ISO-8859-1" language="java"
@@ -9,6 +10,7 @@
 <%@page session="false"%>
 <%	
 	ArrayList<TurnoEnum> turnos = (ArrayList<TurnoEnum>)request.getAttribute("turnos");
+	ArrayList<TipoRefeicaoEnum> tipos = (ArrayList<TipoRefeicaoEnum>)request.getAttribute("tipos");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -51,13 +53,13 @@
 									class="text_field" />
 							</div>
 							<div class="group">
-								<label class="label" for="post_title"><%=Constantes.TURNO%></label>
-								<select id="turno" name="turno">
+								<label class="label" for="post_title"><%=Constantes.TIPO%></label>
+								<select id="tipos" name="tipo">
 									<%
-									if(turnos != null){
-										for(int i=0; i < turnos.size(); i++){
+									if(tipos != null){
+										for(int i=0; i < tipos.size(); i++){
 									%>
-									<option value="<%=turnos.get(i)%>"><%=turnos.get(i)%></option>
+									<option value="<%=tipos.get(i)%>"><%=tipos.get(i)%></option>
 									<%
 										}
 									}

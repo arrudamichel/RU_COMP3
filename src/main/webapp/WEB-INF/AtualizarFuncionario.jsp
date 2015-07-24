@@ -69,7 +69,7 @@
 									if(departamentos != null){
 										for(int i=0; i < departamentos.size(); i++){
 									%>
-											<option value="<%=departamentos.get(i).getIdentificador()%>" <%if (departamentos!=null 
+											<option value="<%=departamentos.get(i).getIdentificador()%>" <%if (departamentos!=null && funcionario!=null  
 											&& departamentos.get(i).getIdentificador()==funcionario.getDepartamento().getId()) out.print("selected"); %>>
 											<%=departamentos.get(i).getNome()%></option>
 									<%

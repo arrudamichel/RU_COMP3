@@ -2,17 +2,17 @@ package br.uffrj.comp3.rusys.model.vo;
 
 public class DepartamentoVO
 {
-	private int id;
-	private int identificador;
+	private Integer id;
+	private Integer identificador;
 	private String nome;
 	private String sigla;
 
 	
-	public int getIdentificador()
+	public Integer getIdentificador()
 	{
 		return identificador;
 	}
-	public void setIdentificador(int identificador)
+	public void setIdentificador(Integer identificador)
 	{
 		this.identificador = identificador;
 	}
@@ -32,11 +32,11 @@ public class DepartamentoVO
 	{
 		this.sigla = sigla;
 	}
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}
-	public void setId(int id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

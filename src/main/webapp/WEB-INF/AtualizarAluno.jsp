@@ -57,7 +57,7 @@
 			                    <label class="label" for="post_title"><%=Constantes.TITULO%></label>
 			                    <select id ="titulo" name="titulo">
 			                        <option value="">Selecione</option>
-			                        <option value="ESPECIALIZACAO" <%=(aluno!=null && aluno.getTitulo().equals(TituloEnum.fromString("ESPECIALIZACAO"))) ? "SELECTED" : "" %>><%=Constantes.ESPECIALIZACAO%></option>
+			                       <option value="ESPECIALIZACAO" <%=(aluno!=null && aluno.getTitulo().equals(TituloEnum.fromString("ESPECIALIZACAO"))) ? "SELECTED" : "" %>><%=Constantes.ESPECIALIZACAO%></option>
 			                        <option value="MESTRADO" <%=(aluno!=null && aluno.getTitulo().equals(TituloEnum.fromString("MESTRADO"))) ? "SELECTED" : "" %>><%=Constantes.MESTRADO%></option>
 			                        <option value="DOUTORADO" <%=(aluno!=null && aluno.getTitulo().equals(TituloEnum.fromString("DOUTORADO"))) ? "SELECTED" : "" %>><%=Constantes.DOUTORADO%></option>
 			                    </select>           
@@ -73,7 +73,7 @@
 									if(cursos != null){
 										for(int i=0; i < cursos.size(); i++){
 									%>
-											<option value="<%=cursos.get(i).getIdentificador()%>" <%if (cursos!=null 
+											<option value="<%=cursos.get(i).getIdentificador()%>" <%if (cursos!=null && aluno!=null
 											&& cursos.get(i).getIdentificador()==aluno.getCurso().getId()) out.print("selected"); %>>
 											<%=cursos.get(i).getNome()%></option>
 									<%

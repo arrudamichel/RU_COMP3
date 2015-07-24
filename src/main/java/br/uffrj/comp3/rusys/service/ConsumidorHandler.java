@@ -9,21 +9,10 @@ import java.util.Collection;
 
 import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Consumidor;
-import br.uffrj.comp3.rusys.model.Curso;
-import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Funcionario;
-import br.uffrj.comp3.rusys.model.Refeicao;
-import br.uffrj.comp3.rusys.model.SexoEnum;
-import br.uffrj.comp3.rusys.model.Ticket;
-import br.uffrj.comp3.rusys.model.TituloEnum;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
-import br.uffrj.comp3.rusys.model.vo.TicketVO;
-import br.uffrj.comp3.rusys.persintece.AlunoGateway;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
-import br.uffrj.comp3.rusys.persintece.CursoGateway;
-import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
-import br.uffrj.comp3.rusys.persintece.TicketGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class ConsumidorHandler
@@ -37,9 +26,12 @@ public class ConsumidorHandler
 				consumidorVO.getAnoDeIngresso(), consumidorVO.getSexo(), consumidorVO.getTitulo(), consumidorVO.getCpf()));
 
 		ResultSet rs = consumidorGW.inserir(valores);
-		rs.next();
+		
 		if (rs==null)
 			throw new Exception("falha.ao.cadastrar.consumidor");
+		
+		rs.next();
+		
 		int id = rs.getInt(1);
 		conn.close();
 		
@@ -50,26 +42,25 @@ public class ConsumidorHandler
 	{	
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		ConsumidorGateway consumidorGW = new ConsumidorGateway(conn);
-		System.out.println("CPF"+consumidorVO.getCpf());
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(consumidorVO.getNome(),
-				consumidorVO.getAnoDeIngresso(), consumidorVO.getSexo(), consumidorVO.getTitulo()));
 		
-		consumidorGW.alterarConsumidor(valores, consumidorVO.getMatricula());
-		System.out.println("AquiConsumidor");
+		System.out.println("CPF"+consumidorVO.getCpf());
+		
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(consumidorVO.getNome(),
+				consumidorVO.getAnoDeIngresso(), consumidorVO.getSexo(), consumidorVO.getTitulo(), consumidorVO.getCpf()));
+		
+		if (!consumidorGW.alterarConsumidor(valores, consumidorVO.getId())) 
+		{
+			throw new Exception("cosumidorHadler.erro.ao.atualizar.consumidor");
+		}
 
 		conn.close();
-
 	}
 	
 	public static Collection<Consumidor> recuperarConsumidor(ConsumidorVO consumidorVO) throws Exception
 	{
-//		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
-		
 		ArrayList<Consumidor> consumidores = new ArrayList<>();
 
-		
 		ArrayList<Aluno> alunos = (ArrayList<Aluno>) AlunoHandler.recuperarAlunos(consumidorVO);
-		
 		
 		ArrayList<Funcionario> funcionarios = (ArrayList<Funcionario>) FuncionarioHandler.recuperarFuncionarios(consumidorVO);
 		
@@ -77,6 +68,46 @@ public class ConsumidorHandler
 		consumidores.addAll(funcionarios);
 		
 		return consumidores;
+	}
+	
+	public static Collection<ConsumidorVO> recuperarConsumidorVOs(ConsumidorVO consumidorVO) throws Exception
+	{
+		ArrayList<ConsumidorVO> consumidorVOs = new ArrayList<>();
+		
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		ConsumidorGateway consumidorGW = new ConsumidorGateway(conn);
+		
+		ResultSet rsConsumidores = null;
+		
+		if (consumidorVO.getId()!=null)
+		{
+			rsConsumidores = consumidorGW.selecionarConsumidorPorId(consumidorVO.getId());
+		} 
+		else if (consumidorVO.getCpf()!=null)
+		{
+			rsConsumidores = consumidorGW.selecionarConsumidorPorCpf(consumidorVO.getCpf());
+		}
+		else if (consumidorVO.getMatricula()!=null)
+		{
+			rsConsumidores = consumidorGW.selecionarConsumidorPorMatricula(consumidorVO.getMatricula());
+		}
+		else
+		{
+			rsConsumidores = consumidorGW.selecionarConsumidores();
+		}
+		
+		ConsumidorVO consumidorVOretorno = null;
+		
+		while (rsConsumidores.next())
+		{	
+			consumidorVOretorno =  new ConsumidorVO();
+			
+			consumidorVOretorno.setId(rsConsumidores.getInt(1)); //TODO: completar
+			
+			consumidorVOs.add(consumidorVOretorno);
+		}
+
+		return consumidorVOs;
 	}
 
 	
@@ -122,7 +153,7 @@ public class ConsumidorHandler
 		
 		Consumidor consumidor = null;
 		while(rsConsumidor.next()){
-			int consumidor_id = rsConsumidor.getInt("consumidor_id");
+			int consumidor_id = rsConsumidor.getInt("id");
 			
 			Aluno aluno = AlunoHandler.recuperarAluno(consumidor_id);		
 			

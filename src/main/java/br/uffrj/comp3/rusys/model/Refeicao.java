@@ -3,15 +3,18 @@ package br.uffrj.comp3.rusys.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.uffrj.comp3.rusys.util.Constantes;
+
 public class Refeicao
 {
 	private int id;
 	private String descricao;
 	private String opcaoVeg;
-	private TurnoEnum turno;
 	private List<Ticket> tickets = new ArrayList<Ticket>();
+	private TipoRefeicaoEnum tipo;
 
-	public Refeicao(int id, String descricao, String opcaoVeg, TurnoEnum turno) throws Exception {
+	public Refeicao(int id, String descricao, TipoRefeicaoEnum tipo) throws Exception 
+	{
 		this.id = id;
 	
 		if (descricao == null){
@@ -19,8 +22,33 @@ public class Refeicao
 		} 
 		
 		this.descricao = descricao;
-		this.opcaoVeg = opcaoVeg;
-		this.turno = turno;
+		
+		if (tipo == null)
+		{
+			throw new Exception("model.refeicao.tipo.deve.ser.informado.para.criacao");
+		}
+		
+		this.tipo = tipo;
+	}
+	
+	public TurnoEnum getTurno()
+	{
+		if (this.tipo.equals(TipoRefeicaoEnum.DEJEJUM))
+		{
+			return Constantes.TURNO_DEJEJUM;
+		} 
+		else if (this.tipo.equals(TipoRefeicaoEnum.ALMOCO))
+		{
+			return Constantes.TURNO_ALMOCO;
+		}
+		else if (this.tipo.equals(TipoRefeicaoEnum.JANTAR))
+		{
+			return Constantes.TURNO_JANTAR;
+		}
+		else
+		{
+			return null;
+		}	
 	}
 
 	public String getDescricao()
@@ -47,16 +75,6 @@ public class Refeicao
 	{
 		this.opcaoVeg = opcaoVeg;
 	}
-	
-	public void setTurno(TurnoEnum tu)
-	{
-		this.turno = tu;
-	}
-
-	public TurnoEnum getTurno()
-	{
-		return turno;
-	}
 
 	public int getIdentificador()
 	{
@@ -76,5 +94,9 @@ public class Refeicao
 	public void setTickets(List<Ticket> tickets)
 	{
 		this.tickets = tickets;
+	}
+
+	public TipoRefeicaoEnum getTipo() {
+		return tipo;
 	}
 }

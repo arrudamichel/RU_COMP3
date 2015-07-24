@@ -2,17 +2,17 @@ package br.uffrj.comp3.rusys.model.vo;
 
 public class CursoVO
 {
-	private int id;
+	private Integer id;
 	private String nome;
 	private String sigla;
-	private int departamento;
+	private Integer departamento;
 	private String nomeDepartamento;
 	
-	public int getIdentificador()
+	public Integer getIdentificador()
 	{
 		return id;
 	}
-	public void setIdentificador(int identificador)
+	public void setIdentificador(Integer identificador)
 	{
 		this.id = identificador;
 	}
@@ -32,11 +32,11 @@ public class CursoVO
 	{
 		this.sigla = sigla;
 	}
-	public int getDepartamento()
+	public Integer getDepartamento()
 	{
 		return departamento;
 	}
-	public void setDepartamento(int departamento)
+	public void setDepartamento(Integer departamento)
 	{
 		this.departamento = departamento;
 	}
@@ -48,11 +48,11 @@ public class CursoVO
 	{
 		this.nomeDepartamento = nomeDepartamento;
 	}
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}
-	public void setId(int id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

@@ -2,20 +2,21 @@ package br.uffrj.comp3.rusys.model.vo;
 
 public class ConsumidorVO
 {
-	private int id;
+	private Integer id;
 	private String nome;
-	private int matricula;
-	private String anoDeIngresso;
+	private Integer matricula;
+	private Integer anoDeIngresso;
 	private String sexo;
 	private String titulo;
 	private String cpf;
-	private int curso;
-	private int departamento;
-	public int getId()
+	private Integer curso;
+	private Integer departamento;
+	
+	public Integer getId()
 	{
 		return id;
 	}
-	public void setId(int id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
@@ -27,19 +28,19 @@ public class ConsumidorVO
 	{
 		this.nome = nome;
 	}
-	public int getMatricula()
+	public Integer getMatricula()
 	{
 		return matricula;
 	}
-	public void setMatricula(int matricula)
+	public void setMatricula(Integer matricula)
 	{
 		this.matricula = matricula;
 	}
-	public String getAnoDeIngresso()
+	public Integer getAnoDeIngresso()
 	{
 		return anoDeIngresso;
 	}
-	public void setAnoDeIngresso(String anoDeIngresso)
+	public void setAnoDeIngresso(Integer anoDeIngresso)
 	{
 		this.anoDeIngresso = anoDeIngresso;
 	}
@@ -67,19 +68,19 @@ public class ConsumidorVO
 	{
 		this.cpf = cpf;
 	}
-	public int getCurso()
+	public Integer getCurso()
 	{
 		return curso;
 	}
-	public void setCurso(int curso)
+	public void setCurso(Integer curso)
 	{
 		this.curso = curso;
 	}
-	public int getDepartamento()
+	public Integer getDepartamento()
 	{
 		return departamento;
 	}
-	public void setDepartamento(int departamento)
+	public void setDepartamento(Integer departamento)
 	{
 		this.departamento = departamento;
 	}

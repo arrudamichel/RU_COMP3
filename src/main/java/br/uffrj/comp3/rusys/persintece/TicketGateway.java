@@ -13,24 +13,38 @@ public class TicketGateway {
 	{
 		this.conn = conn;
 	}
+	
+	/***
+	 * "id" INT NOT NULL AUTO_INCREMENT,
+	 *"consumidor_fk" INT NOT NULL,
+	 *"refeicao_fk" INT NOT NULL,
+	 *"preco" DECIMAL(10,2) NOT NULL,
+	 *"pago" TINYINT(1) NOT NULL,
+	 * @param valores
+	 * @param identificador
+	 * @return
+	 */
 
 	public ResultSet inserir(ArrayList<Object> valores)
 	{
 		try
 		{
-			String sql = "INSERT INTO \"ticket\" (\"consumidor_id\", \"refeicao_id_refeicao\", \"preco\", \"pago\") values (?,?,?,?)";
+			String sql = "INSERT INTO \"ticket\" (\"consumidor_fk\", \"refeicao_fk\", \"preco\", \"pago\") values (?,?,?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
 			{
-				if (valores.get(i - 1).getClass().equals(String.class))
+				if (valores.get(i - 1) instanceof String)
 					stmt.setString(i, (String) valores.get(i - 1));
 
-				if (valores.get(i - 1).getClass().equals(Integer.class))
+				if (valores.get(i - 1) instanceof Integer)
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 				
-				if (valores.get(i - 1).getClass().equals(Float.class))
+				if (valores.get(i - 1) instanceof Boolean)
+					stmt.setInt(i, ((Boolean) valores.get(i - 1))? 1: 0);
+				
+				if (valores.get(i - 1) instanceof Float)
 					stmt.setFloat(i, (Float) valores.get(i - 1));
 			}
 
@@ -46,6 +60,17 @@ public class TicketGateway {
 		}
 	}
 	
+	/***
+	 * "id" INT NOT NULL AUTO_INCREMENT,
+	 *"consumidor_fk" INT NOT NULL,
+	 *"refeicao_fk" INT NOT NULL,
+	 *"preco" DECIMAL(10,2) NOT NULL,
+	 *"pago" TINYINT(1) NOT NULL,
+	 * @param valores
+	 * @param identificador
+	 * @return
+	 */
+	
 	public ResultSet selecionarTickets()
 	{
 		ResultSet rs = null;
@@ -53,7 +78,6 @@ public class TicketGateway {
 
 		try
 		{
-
 			String sql = "SELECT * FROM \"ticket\"";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -73,7 +97,7 @@ public class TicketGateway {
 
 		try
 		{
-			String sql = "SELECT * FROM \"ticket\" WHERE \"ticket_id\" = ?";
+			String sql = "SELECT * FROM \"ticket\" WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -92,7 +116,7 @@ public class TicketGateway {
 	{
 		try
 		{
-			String sql = "DELETE FROM \"ticket\" WHERE \"ticket_id\" = ?";
+			String sql = "DELETE FROM \"ticket\" WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -108,21 +132,37 @@ public class TicketGateway {
 		return true;
 	}
 	
-	/*	CREATE TABLE IF NOT EXISTS "ticket" (
-	  "consumidor_id" INT NOT NULL,
-	  "refeicao_id_refeicao" INT NOT NULL,
-	  "preco" DECIMAL(10,2) NOT NULL,
-	  "pago" TINYINT(1) NOT NULL,*/
+	/***
+	 * "id" INT NOT NULL AUTO_INCREMENT,
+	 *"consumidor_fk" INT NOT NULL,
+	 *"refeicao_fk" INT NOT NULL,
+	 *"pago" TINYINT(1) NOT NULL,
+	 * @param valores
+	 * @param identificador
+	 * @return
+	 */
 
-	public boolean alterarTicket(int pago, int identificador)
+	public boolean alterarTicket(ArrayList<Object> valores, int identificador)
 	{
 		try
 		{
-			String sql = "UPDATE \"ticket\" SET \"pago\" = ? WHERE \"ticket_id\" = ?";
+			String sql = "UPDATE \"ticket\" " + "SET " + "\"pago\" = ?"  + " WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
-			stmt.setInt(1, pago);
+			// preenche os valores
+			for (int i = 1; i <= valores.size(); i++)
+			{
+				if (valores.get(i - 1) instanceof String)
+					stmt.setString(i, (String) valores.get(i - 1));
+
+				if (valores.get(i - 1) instanceof Integer)
+					stmt.setInt(i, (Integer) valores.get(i - 1));
+				
+				if (valores.get(i - 1) instanceof Boolean)
+					stmt.setInt(i, ((Boolean) valores.get(i - 1))? 1 : 0);
+			}
+
 			stmt.setInt(2, identificador);
 
 			stmt.execute();

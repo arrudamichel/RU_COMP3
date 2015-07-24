@@ -43,6 +43,7 @@
 					<table class="table">
                        <tr>
                        	   <th></th>
+                       	   <th><%=Constantes.TIPO%></th>
                            <th><%=Constantes.TURNO%></th>
                            <th><%=Constantes.DESCRICAO%></th>
                            <th><%=Constantes.OPVEG%></th>
@@ -59,6 +60,7 @@
 	                       %>
 	                       <tr class="odd">                                        
 	                           <td><input type="hidden" name="id" value=<%=refeicoes.get(i).getId()%> /></td>
+	                           <td><%=refeicoes.get(i).getTipo()%></td>
 	                           <td><%=refeicoes.get(i).getTurno()%></td>
 	                           <td><%=refeicoes.get(i).getDescricao()%></td>
 	                           <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
@@ -68,6 +70,7 @@
 	                       <%      } else { %>
 	                       <tr class="even">
 	                           <td><input type="hidden" name="id" value=<%=refeicoes.get(i).getId()%> /></td>
+	                           <td><%=refeicoes.get(i).getTipo()%></td>
 	                           <td><%=refeicoes.get(i).getTurno()%></td>
 	                           <td><%=refeicoes.get(i).getDescricao()%></td>
 	                           <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            

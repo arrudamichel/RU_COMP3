@@ -27,96 +27,63 @@ public class TicketControle extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		response.setContentType("text/html");
+//		String idtick = (String) request.getParameter("idTicket");
+		
+		String turno = (String) request.getParameter("turno");
 		
 		String acao = (String) request.getParameter("acao");
 		
-		String idtick = (String) request.getParameter("idTicket");
-		String turno = (String) request.getParameter("turno");
-		
-		ArrayList<Ticket> tickets = null;
-		try {
-			tickets = (ArrayList<Ticket>) TicketHandler.recuperarTickets(new TicketVO());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("tickets", tickets);
-		
-		ArrayList<Consumidor> consumidores = null;
-		try {
-			consumidores = (ArrayList<Consumidor>) ConsumidorHandler.recuperarConsumidor(new ConsumidorVO());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("consumidores", consumidores);
-		
-		
-		ArrayList<Refeicao> refeicoes = null;
-		try {
-			refeicoes = RefeicaoHandler.recuperarRefeicoes(new RefeicaoVO());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("refeicoes", refeicoes);
-		
-		if (acao != null)
+		try
 		{
-			switch (acao)
+			if (acao != null)
 			{
-				case Constantes.CANCELAR:					
-					request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
-				break;
-				case Constantes.ACAO_SALVAR:
-					cadastrar(request, response);
-					
+				switch (acao)
+				{
+					case Constantes.CANCELAR:					
+						request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
 					break;
-				case Constantes.ACAO_EDITAR:
-					editar(request, response);
-					break;
-				case Constantes.ACAO_PROXIMO:
-					
-					String matricula = (String) request.getParameter("matricula");
-					
-					ArrayList<Refeicao> refeicoesTurno = null;
-					try {
+					case Constantes.ACAO_SALVAR:
+						cadastrar(request, response);
+						
+						break;
+					case Constantes.ACAO_EDITAR:
+						editar(request, response);
+						break;
+					case Constantes.ACAO_PROXIMO:
+						
+						String matricula = (String) request.getParameter("matricula");
+						
+						ArrayList<Refeicao> refeicoesTurno = null;
+				
 						refeicoesTurno = RefeicaoHandler.recuperarRefeicaoPorTurno(turno);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					
-					request.setAttribute("refeicoesTurno", refeicoesTurno);									
-					
-					Consumidor consumidor = null;
-					try {
+									
+						request.setAttribute("refeicoesTurno", refeicoesTurno);									
+						
+						Consumidor consumidor = null;
+				
 						consumidor = ConsumidorHandler.recuperarConsumidorPorMatricula(Integer.parseInt(matricula));
-					} catch (Exception e) {					
-						e.printStackTrace();
-					} 
-										
-					try {
+
 						Ticket ticket = new Ticket();
 						ticket.setConsumidor(consumidor);
 						ticket.setValor(turno);
-						
+							
 						request.setAttribute("ticket", ticket);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					request.getRequestDispatcher("/WEB-INF/CadTicketSalva.jsp").forward(request, response);
-					break;
-				default:
-					request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
-			}
+							
+						request.getRequestDispatcher("/WEB-INF/CadTicketSalva.jsp").forward(request, response);
+						break;
+					default:
+						request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
+				}
+			} 
+			else
+			{
+				request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
+			}	
 		} 
-		else
+		catch (Exception e)
 		{
-			request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
-		}	
+			request.setAttribute("mensagem", Constantes.ERRO);
+		}
 	}
 
 	private void editar(HttpServletRequest request, HttpServletResponse response)
@@ -129,7 +96,8 @@ public class TicketControle extends HttpServlet
 		
 		if(Integer.parseInt(pago) == 1){			
 			ticketVO.setPago(true);
-		} else if (Integer.parseInt(pago) == 0) {
+		} else if (Integer.parseInt(pago) == 0) 
+		{
 			ticketVO.setPago(false);
 		}
 		try
@@ -144,7 +112,7 @@ public class TicketControle extends HttpServlet
 		
 	}
 
-	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		String consumidorId = request.getParameter("consumidor_id");
 		String refeicaoId = request.getParameter("refeicao");
@@ -157,62 +125,89 @@ public class TicketControle extends HttpServlet
 		ticketVO.setRefeicao(Integer.parseInt(refeicaoId));
 		ticketVO.setValor(Float.parseFloat(valor));
 		
-		try
-		{
-			TicketHandler.cadastrarTicket(ticketVO);
-			
-			response.sendRedirect("GerirTicket");
-		} 
-		catch (Exception e)
-		{
-			request.setAttribute("mensagem", Constantes.ERRO);
-		}
-	}
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+		TicketHandler.cadastrarTicket(ticketVO);
+			
+		response.sendRedirect("GerirTicket");	
+	}
+	
+	private void iniciaCampos(HttpServletRequest request, HttpServletResponse response) 
 	{
+		response.setContentType("text/html");
+		
 		ArrayList<Ticket> tickets = null;
-		try {
+		try 
+		{
 			tickets = (ArrayList<Ticket>) TicketHandler.recuperarTickets(new TicketVO());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 		
 		request.setAttribute("tickets", tickets);
 		
-		String acao = (String) request.getParameter("acao");
-
-		if (acao != null)
+		ArrayList<Consumidor> consumidores = null;
+		try 
 		{
-			switch (acao)
+			consumidores = (ArrayList<Consumidor>) ConsumidorHandler.recuperarConsumidor(new ConsumidorVO());
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("consumidores", consumidores);
+				
+		ArrayList<Refeicao> refeicoes = null;
+		try {
+			refeicoes = RefeicaoHandler.recuperarRefeicoes(new RefeicaoVO());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("refeicoes", refeicoes);
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		iniciaCampos(request, response);
+		
+		try
+		{
+			String acao = (String) request.getParameter("acao");
+	
+			if (acao != null)
 			{
-				case Constantes.ACAO_SALVAR:
-					request.getRequestDispatcher("/WEB-INF/CadTicket.jsp").forward(request, response);
-					break;
-				case Constantes.ACAO_EDITAR:
-					
-					String idtick = (String) request.getParameter("id");
-					
-					Ticket ticket = null;
-					try {
+				switch (acao)
+				{
+					case Constantes.ACAO_SALVAR:
+						request.getRequestDispatcher("/WEB-INF/CadTicket.jsp").forward(request, response);
+						break;
+					case Constantes.ACAO_EDITAR:
+						
+						String idtick = (String) request.getParameter("id");
+						
+						Ticket ticket = null;
+			
 						ticket = TicketHandler.recuperarTicket(Integer.parseInt(idtick));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
 					
-					request.setAttribute("ticket", ticket);
-					
-					request.getRequestDispatcher("/WEB-INF/AtualizarTicket.jsp").forward(request, response);
-					break;
-				default:
-					request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
+						request.setAttribute("ticket", ticket);
+						
+						request.getRequestDispatcher("/WEB-INF/AtualizarTicket.jsp").forward(request, response);
+						
+						break;
+					default:
+						request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
+				}
+			} 
+			else
+			{
+				request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
 			}
 		} 
-		else
+		catch (Exception e)
 		{
-			request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
+			request.setAttribute("mensagem", Constantes.ERRO);
 		}
 	}
 }

@@ -15,6 +15,12 @@ public class FuncionarioGateway
 		this.conn = conn;
 	}
 
+/***
+ * "id" INT NOT NULL,
+ *"departamento_fk" INT NOT NULL,
+ * @param valores
+ * @return
+ */
 	public boolean inserir(ArrayList<Object> valores)
 	{
 		try
@@ -25,7 +31,7 @@ public class FuncionarioGateway
 			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
 			{
-				if (valores.get(i - 1).getClass().equals(Integer.class))
+				if (valores.get(i - 1) instanceof Integer)
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 			stmt.execute();
@@ -40,6 +46,12 @@ public class FuncionarioGateway
 		}
 	}
 
+	/***
+	 * "id" INT NOT NULL,
+	 *"departamento_fk" INT NOT NULL,
+	 * @param valores
+	 * @return
+	 */
 	public ResultSet selecionarFuncionarios()
 	{
 		ResultSet rs = null;
@@ -60,16 +72,22 @@ public class FuncionarioGateway
 		return rs;
 	}
 
-	public ResultSet selecionarFuncionarioPorId(int identificador)
+	/***
+	 * "id" INT NOT NULL,
+	 *"departamento_fk" INT NOT NULL,
+	 * @param valores
+	 * @return
+	 */
+	public ResultSet selecionarFuncionarioPorId(int id)
 	{
 		ResultSet rs = null;
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"funcionario\" " + "   WHERE \"consumidor_id\" = ?";
+			String sql = "SELECT * " + "   FROM \"funcionario\" " + "   WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, identificador);
+			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 
 		} 
@@ -81,15 +99,21 @@ public class FuncionarioGateway
 		return rs;
 	}
 
-	public boolean excluirFuncionario(int identificador)
+	public boolean excluirFuncionario(ArrayList<Object> valores)
 	{
 		try
 		{
-			String sql = "DELETE FROM \"funcionario\" " + "   WHERE \"consumidor_id\" = ?";
+			String sql = "DELETE FROM \"funcionario\" " + "   WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
-			stmt.setInt(1, identificador);
+			// preenche os valores
+			for (int i = 1; i <= valores.size(); i++)
+			{
+				if (valores.get(i - 1) instanceof Integer)
+					stmt.setInt(i, (Integer) valores.get(i - 1));
+			}
+
 			stmt.execute();
 
 		} 
@@ -102,22 +126,28 @@ public class FuncionarioGateway
 		return true;
 	}
 
+	/***
+	 * "id" INT NOT NULL,
+	 *"departamento_fk" INT NOT NULL,
+	 * @param valores
+	 * @return
+	 */
 	public boolean alterarFuncionario(ArrayList<Object> valores, int id)
 	{
 		try
 		{
-			String sql = "UPDATE \"funcionario\" " + "SET "
-					+ "\"departamento_id_departamento\" = ? " + "WHERE \"consumidor_id\" = ?";
+			String sql = "UPDATE \"funcionario\" \"departamento_fk\" = ? " + "WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
+			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
 			{
-				if (valores.get(i - 1).getClass().equals(Integer.class))
+				if (valores.get(i - 1) instanceof Integer)
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(2, id);
+			stmt.setInt(3, id);
 
 			stmt.execute();
 		} 

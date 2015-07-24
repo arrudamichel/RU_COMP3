@@ -15,6 +15,12 @@ public class AlunoGateway
 		this.conn = conn;
 	}
 
+	/***
+	 * "id" INT NOT NULL,
+  	*"curso_fk" INT NOT NULL,
+	 * @param valores
+	 * @return
+	 */
 	public boolean inserir(ArrayList<Object> valores)
 	{
 		try
@@ -25,7 +31,7 @@ public class AlunoGateway
 			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
 			{
-				if (valores.get(i - 1).getClass().equals(Integer.class))
+				if (valores.get(i - 1) instanceof Integer)
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 			
@@ -41,6 +47,12 @@ public class AlunoGateway
 		}
 	}
 
+	/***
+	 * "id" INT NOT NULL,
+  	*"curso_fk" INT NOT NULL,
+	 * @param valores
+	 * @return
+	 */
 	public ResultSet selecionarAlunos()
 	{
 		ResultSet rs = null;
@@ -60,16 +72,22 @@ public class AlunoGateway
 		return rs;
 	}
 
-	public ResultSet selecionarAlunoPorId(int identificador)
+	/***
+	 * "id" INT NOT NULL,
+  	*"curso_fk" INT NOT NULL,
+	 * @param valores
+	 * @return
+	 */
+	public ResultSet selecionarAlunoPorId(int id)
 	{
 		ResultSet rs = null;
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"aluno\" " + "   WHERE \"consumidor_id\" = ?";
+			String sql = "SELECT \"id\", \"curso_fk\"  " + "   FROM \"aluno\" " + "   WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, identificador);
+			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 
 		} catch (Exception e)
@@ -84,7 +102,7 @@ public class AlunoGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"aluno\" " + "   WHERE \"consumidor_id\" = ?";
+			String sql = "DELETE FROM \"aluno\" " + "   WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -101,32 +119,37 @@ public class AlunoGateway
 		return true;
 	}
 
-	public void alterarAluno(ArrayList<Object> valores, int identificador) throws Exception
+	/***
+	 * "id" INT NOT NULL,
+  	*"curso_fk" INT NOT NULL,
+	 * @param valores
+	 * @return
+	 */
+	public boolean alterarAluno(ArrayList<Object> valores, int id)
 	{
 		try
 		{
-			String sql = "UPDATE \"aluno\" " + "SET  " + "\"curso_id_curso\" = ? "
-					+ "WHERE \"consumidor_id\" = ?";
+			String sql = "UPDATE \"aluno\" " + "SET \"curso_fk\" = ? " + "WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			// preenche os valores
 			for (int i = 1; i <= valores.size(); i++)
 			{
-				if (valores.get(i - 1).getClass().equals(Integer.class))
+				if (valores.get(i - 1) instanceof Integer)
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(2, identificador);
+			stmt.setInt(2, id);
 
 			stmt.execute();
 		} 
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
-			//return false;
+			return false;
 		}
-		throw new Exception("falha.ao.cadastrar.aluno");
-		//return true;
+
+		return true;
 	}
 }

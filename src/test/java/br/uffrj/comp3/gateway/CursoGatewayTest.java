@@ -22,7 +22,7 @@ public class CursoGatewayTest {
 // INSERT INTO "curso" ("nome","sigla","ativado","departamento_iddepartamento") VALUES ('Letras','LE', 0, 2);
 		
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList("Turismo", "TUR", 2));
-		if (cursoGateway.inserir(valores))
+		if (cursoGateway.inserir(valores)!=null)
 			System.out.println(valores + " inseridos no teste");
 		else
 			System.out.println(valores + " deu ruim no teste");

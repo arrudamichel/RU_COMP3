@@ -3,8 +3,6 @@ package br.uffrj.comp3.rusys.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.uffrj.comp3.rusys.util.Util;
-
 public abstract class Consumidor
 {
 	private int id;

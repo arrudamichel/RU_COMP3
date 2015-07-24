@@ -11,11 +11,12 @@ public class Ticket
 	private Refeicao refeicao;
 
 	
-	public Ticket(){
+	public Ticket()
+	{
 		
 	}
 	
-	public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao) throws Exception
+	public Ticket(int id, boolean pago, Consumidor consumidor, Refeicao refeicao) throws Exception
 	{
 		super();
 		this.id = id;
@@ -71,7 +72,6 @@ public class Ticket
 			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(turno + Funcionario.class);
 		}
 	}
-
 
 	public float getValor()
 	{

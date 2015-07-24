@@ -32,6 +32,7 @@ public class CursoHandler
 
 		if (cursoGateway.inserir(valores) == null)
 			throw new Exception("falha.ao.cadastrar.curso");
+		
 		conn.close();
 	}
 	
@@ -43,7 +44,7 @@ public class CursoHandler
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), curso.getDepartamento().getIdentificador())); //TODO FALTA O DEPARTAMENTO
 
 		if (!cg.alterarCurso(valores, curso.getId()))
-			throw new Exception("falha.ao.atualizart.curso");
+			throw new Exception("falha.ao.atualizar.curso");
 		
 		conn.close();
 	}
@@ -55,6 +56,8 @@ public class CursoHandler
 
 		if (!cg.excluirCurso(curso.getId()))
 			throw new Exception("falha.ao.excluir.curso");
+		
+		conn.close();
 	}
 	
 	public static Curso recuperarCurso(int id) throws Exception
@@ -64,24 +67,24 @@ public class CursoHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 		ResultSet rsCurso = cg.selecionarCursoPorId(id);
+		
 		rsCurso.next();
 		
-		DepartamentoGateway dg = new DepartamentoGateway(conn);
-		ResultSet rsDepartamento = dg.selecionarDepartamentoPorId(rsCurso.getInt(4));
-		rsDepartamento.next();
-
-		Departamento departamento = new Departamento(rsDepartamento.getInt(1), rsDepartamento.getString(2), rsDepartamento.getString(3));
+		int departamentoId = rsCurso.getInt("departamento_fk");
+		String nome = rsCurso.getString("nome");
+		String sigla = rsCurso.getString("sigla");
 		
-		curso = new Curso(id, rsCurso.getString(2), rsCurso.getString(3), departamento);
-	
 		conn.close();
 
+		Departamento departamento = DepartamentoHandler.recuperarDepartamento(departamentoId);
+		
+		curso = new Curso(id, nome, sigla, departamento);
+	
 		return curso;	
 	}
 	
 	public static ArrayList<Curso> recuperarCursos(CursoVO cursoVO) throws Exception
 	{
-		
 		ArrayList<Curso> cursos = new ArrayList<>();
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
@@ -90,17 +93,13 @@ public class CursoHandler
 		
 		while (rsCursos.next())
 		{
-			DepartamentoGateway dg = new DepartamentoGateway(conn);
-			ResultSet rsDepartamento = dg.selecionarDepartamentoPorId(rsCursos.getInt(4));
-			rsDepartamento.next();
-
-			Departamento departamento = new Departamento(rsDepartamento.getInt(1), rsDepartamento.getString(2), rsDepartamento.getString(3));
+			Departamento departamento = DepartamentoHandler.recuperarDepartamento(rsCursos.getInt("departamento_fk"));
 			
-			Curso curso = new Curso(rsCursos.getInt(1), rsCursos.getString(2), rsCursos.getString(3), departamento);
+			Curso curso = new Curso(rsCursos.getInt("id"), rsCursos.getString("nome"), rsCursos.getString("sigla"), departamento);
 
 			cursos.add(curso);
 		}
-
+		
 		conn.close();
 		
 		return cursos;

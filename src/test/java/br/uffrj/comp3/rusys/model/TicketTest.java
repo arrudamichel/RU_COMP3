@@ -12,7 +12,6 @@ import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.Refeicao;
 import br.uffrj.comp3.rusys.model.Ticket;
-import br.uffrj.comp3.rusys.model.TurnoEnum;
 
 public class TicketTest {
 	private Consumidor aluno;
@@ -30,9 +29,12 @@ public class TicketTest {
 		funcionario = new Funcionario(1, "Funcionario", 123, "2010", departamento);
 		curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
 		aluno = new Aluno(2, "Aluno", 124, "2011", curso);
-		refNoite = new Refeicao(1, "refNoite", "Salada", TurnoEnum.NOITE);
-		refTarde = new Refeicao(2, "refTarde", "Salada", TurnoEnum.TARDE);
-		refManha = new Refeicao(3, "refManha", "Salada", TurnoEnum.MANHA);
+		refNoite = new Refeicao(1, "refNoite", TipoRefeicaoEnum.JANTAR);
+		refNoite.setOpcaoVeg("Salada");
+		refTarde = new Refeicao(2, "refTarde", TipoRefeicaoEnum.ALMOCO);
+		refTarde.setOpcaoVeg("Salada");
+		refManha = new Refeicao(3, "refManha", TipoRefeicaoEnum.DEJEJUM);
+		refManha.setOpcaoVeg("Salada");
 	}
 
 	@Test

@@ -11,8 +11,6 @@ import br.uffrj.comp3.rusys.model.Refeicao;
 import br.uffrj.comp3.rusys.model.Ticket;
 import br.uffrj.comp3.rusys.model.vo.TicketVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
-import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
-import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
 import br.uffrj.comp3.rusys.persintece.TicketGateway;
 import br.uffrj.comp3.rusys.util.Constantes;
 
@@ -23,16 +21,9 @@ public class TicketHandler {
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		TicketGateway ticketGateway = new TicketGateway(conn);
-
-		int pago = 0;
-		if(ticketVO.isPago())
-			pago = 1;
-		else
-			pago = 2;
 		
-		//consumidor_id  	refeicao_id_refeicao  	preco  	pago
 		ArrayList<Object> valores = new ArrayList<Object>(
-				Arrays.asList(ticketVO.getConsumidorId(), ticketVO.getRefeicao(), ticketVO.getValor(), pago));
+				Arrays.asList(ticketVO.getConsumidorId(), ticketVO.getRefeicao(), ticketVO.getValor(), ticketVO.isPago()));
 
 		if (ticketGateway.inserir(valores)==null)
 			throw new Exception("falha.ao.cadastrar.ticket");
@@ -47,21 +38,31 @@ public class TicketHandler {
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		TicketGateway ag = new TicketGateway(conn);
-		ResultSet rsTickect = ag.selecionarTickets();
+		ResultSet rsTickect = null;
+		
+		if (ticketVO.getId() != null) 
+		{
+			rsTickect = ag.selecionarTicketPorId(ticketVO.getId());
+		} 
+		else
+		{
+			rsTickect = ag.selecionarTickets();
+		}
 		
 		Ticket ticket = null;
 		
 		while (rsTickect.next())
 		{
-					
-			int consuId = rsTickect.getInt("consumidor_id");
-			int refeicaoId = rsTickect.getInt("refeicao_id_refeicao");
-			int id = rsTickect.getInt("ticket_id");
+			int id = rsTickect.getInt("id");
+			
+			int consuId = rsTickect.getInt("consumidor_fk");
+			int refeicaoId = rsTickect.getInt("refeicao_fk");
 						
 			// ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao")
 			Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(consuId);
 			
-			if(consumidor != null){
+			if(consumidor != null)
+			{
 				Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(refeicaoId);
 		
 				//public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao)
@@ -82,31 +83,14 @@ public class TicketHandler {
 
 	public static Ticket recuperarTicket(int id) throws Exception 
 	{
-		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		TicketVO ticketVO = new TicketVO();
+		ticketVO.setId(id);
 		
-		TicketGateway ticketGateway = new TicketGateway(conn);
-		ResultSet rs = ticketGateway.selecionarTicketPorId(id);
-		rs.next();
+		Collection<Ticket> tickets = recuperarTickets(ticketVO);
 		
-		int consuId = rs.getInt("consumidor_id");
-		int refeicaoId = rs.getInt("refeicao_id_refeicao");
-				
-		// ("matricula","nome","ano_ingresso","sexo","titulo","cpf","situacao")
-		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(consuId);
-		
-		if(consumidor != null){
-			Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(refeicaoId);
-
-			//public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao)
-			// ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago")
-					
-			boolean pago = rs.getInt("pago") == 1 ? true : false;
-			
-			Ticket ticket = new Ticket(id, pago, consumidor, refeicao);
-			
-			conn.close();
-
-			return ticket;
+		if (tickets != null && tickets.size()==1) 
+		{
+			return tickets.iterator().next();
 		}
 		
 		return null;
@@ -128,14 +112,7 @@ public class TicketHandler {
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		TicketGateway cg = new TicketGateway(conn);
 
-		int pago = 0;
-				
-		if(ticketVO.isPago() == true)
-			pago = 1;
-		else if(ticketVO.isPago() == false)
-			pago = 0;
-				
-		if (!cg.alterarTicket(pago, ticketVO.getId()))
+		if (!cg.alterarTicket(new ArrayList<Object>(Arrays.asList(ticketVO.isPago())), ticketVO.getId()))
 			throw new Exception("falha.ao.alterar.Ticket");
 		
 		conn.close();
