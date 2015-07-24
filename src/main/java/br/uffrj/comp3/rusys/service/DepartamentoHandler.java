@@ -21,8 +21,8 @@ public class DepartamentoHandler
 			throw new Exception("DepartamentoHandler.cadastrarDepartamento.sigla.informado.ja.cadastrada");
 		}
 		
-		@SuppressWarnings("unused")
-		Departamento departamento = new Departamento(departamentoVO.getId(), departamentoVO.getNome(), departamentoVO.getSigla());
+//		@SuppressWarnings("unused")
+//		Departamento departamento = new Departamento(departamentoVO.getId(), departamentoVO.getNome(), departamentoVO.getSigla());
 		
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
@@ -37,14 +37,14 @@ public class DepartamentoHandler
 		conn.close();
 	}
 	
-	public static void atualizarDepartamento(DepartamentoVO departamentoVO) throws Exception
+	public static void atualizarDepartamento(DepartamentoVO departamento) throws Exception
 	{
-		if(!Departamento.isSILGAunica(departamentoVO.getSigla()))
+		if(!Departamento.isSILGAunica(departamento.getSigla()))
 		{
 			throw new Exception("DepartamentoHandler.cadastrarDepartamento.sigla.informado.ja.cadastrada");
 		}
 		
-		Departamento departamento = new Departamento(departamentoVO.getId(), departamentoVO.getNome(), departamentoVO.getSigla());
+//		Departamento departamento = new Departamento(departamentoVO.getId(), departamentoVO.getNome(), departamentoVO.getSigla());
 		
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);

@@ -1,5 +1,5 @@
 <%@page import="br.uffrj.comp3.rusys.model.TurnoEnum"%>
-<%@page import="br.uffrj.comp3.rusys.model.Ticket"%>
+<%@page import="br.uffrj.comp3.rusys.model.vo.TicketVO"%>
 <%@page import="br.uffrj.comp3.rusys.model.Refeicao"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page import="java.util.ArrayList"%>
@@ -8,7 +8,7 @@
 <%@page session="false"%>
 <%
 	ArrayList<Refeicao> refeicoesTurno = (ArrayList<Refeicao>)request.getAttribute("refeicoesTurno");
-	Ticket ticket = (Ticket)request.getAttribute("ticket");
+	TicketVO ticket = (TicketVO)request.getAttribute("ticket");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,7 +37,7 @@
             <h2 class="title"><%=Constantes.CADTICKET%> </h2>
             <div class="inner">
               <form id="FrmTicket" name="FrmTicket" action="GerirTicket" method="POST" class="form">              
-        	  <input type = "hidden" id="consumidor_id" name = "consumidor_id" value="<%if (ticket != null && ticket.getConsumidor().getId() != 0 ) { out.print(ticket.getConsumidor().getId()); }%>">
+        	  <input type = "hidden" id="consumidor_id" name = "consumidor_id" value="<%if (ticket != null && ticket.getConsumidorId() != 0 ) { out.print(ticket.getConsumidorId()); }%>">
                 
                 <div class="group">
                     <label class="label" for="post_title"><%=Constantes.REFEICAO%></label>

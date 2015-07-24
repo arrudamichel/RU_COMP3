@@ -22,9 +22,9 @@ public class AlunoHandler
 {
 	public static void cadastrarAluno(ConsumidorVO consumidorVO) throws Exception
 	{
-		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());	
-		@SuppressWarnings("unused")
-		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
+//		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());	
+//		@SuppressWarnings("unused")
+//		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
 		
 		
 		int id = ConsumidorHandler.cadastrarConsumidor(consumidorVO);
@@ -78,9 +78,7 @@ public class AlunoHandler
 	}
 
 	public static Collection<Aluno> recuperarAlunos(ConsumidorVO consumidorVO) throws Exception
-	{
-//		Aluno aluno = new Aluno(id, nome, matricula, anoDeIngresso, curso);
-		
+	{		
 		ArrayList<ConsumidorVO> consumidorVOs = (ArrayList<ConsumidorVO>) ConsumidorHandler.recuperarConsumidorVOs(consumidorVO);
 		
 		ArrayList<Aluno> alunos = new ArrayList<>();
@@ -139,9 +137,9 @@ public class AlunoHandler
 	
 	public static void atualizarAluno(ConsumidorVO consumidorVO, int id) throws Exception
 	{
-		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());	
-		@SuppressWarnings("unused")
-		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
+//		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());	
+//		@SuppressWarnings("unused")
+//		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
 		
 		
 		ConsumidorHandler.atualizarConsumidor(consumidorVO);

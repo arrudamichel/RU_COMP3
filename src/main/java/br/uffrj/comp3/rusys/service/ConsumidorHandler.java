@@ -19,10 +19,10 @@ public class ConsumidorHandler
 {
 	public static int cadastrarConsumidor(ConsumidorVO consumidorVO) throws Exception
 	{	
-		if(!Consumidor.isCPFunico( consumidorVO.getCpf()))
-		{
-			throw new Exception("consumidorhandler.cadastrar.consumidor.cpf.informado.ja.cadastrado");
-		}
+//		if(!Consumidor.isCPFunico( consumidorVO.getCpf()))
+//		{
+//			throw new Exception("consumidorhandler.cadastrar.consumidor.cpf.informado.ja.cadastrado");
+//		}
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		ConsumidorGateway consumidorGW = new ConsumidorGateway(conn);

@@ -18,10 +18,10 @@ public class TicketHandler {
 
 	public static void cadastrarTicket(TicketVO ticketVO) throws Exception 
 	{
-		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(ticketVO.getConsumidorId());	
-		Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(ticketVO.getRefeicao());
-		@SuppressWarnings("unused")
-		Ticket ticket = new Ticket(ticketVO.getId(), ticketVO.isPago(), consumidor, refeicao);
+//		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(ticketVO.getConsumidorId());	
+//		Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(ticketVO.getRefeicao());
+//		@SuppressWarnings("unused")
+//		Ticket ticket = new Ticket(ticketVO.getId(), ticketVO.isPago(), consumidor, refeicao);
 		
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
@@ -115,10 +115,10 @@ public class TicketHandler {
 	
 	public static void atualizarTicket(TicketVO ticketVO) throws Exception
 	{	
-		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(ticketVO.getConsumidorId());	
-		Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(ticketVO.getRefeicao());
-		@SuppressWarnings("unused")
-		Ticket ticket = new Ticket(ticketVO.getId(), ticketVO.isPago(), consumidor, refeicao);
+//		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(ticketVO.getConsumidorId());	
+//		Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(ticketVO.getRefeicao());
+//		@SuppressWarnings("unused")
+//		Ticket ticket = new Ticket(ticketVO.getId(), ticketVO.isPago(), consumidor, refeicao);
 		
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);

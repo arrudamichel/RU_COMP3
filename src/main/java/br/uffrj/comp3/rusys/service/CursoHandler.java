@@ -22,9 +22,9 @@ public class CursoHandler
 			throw new Exception("CursoHandler.cadastrarCurso.sigla.informado.ja.cadastrada");
 		}
 		
-		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
-		@SuppressWarnings("unused")
-		Curso curso = new Curso(cursoVO.getId(), cursoVO.getNome(), cursoVO.getSigla(), departamento);
+//		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
+//		@SuppressWarnings("unused")
+//		Curso curso = new Curso(cursoVO.getId(), cursoVO.getNome(), cursoVO.getSigla(), departamento);
 		
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
@@ -46,21 +46,21 @@ public class CursoHandler
 		conn.close();
 	}
 	
-	public static void atualizarCurso(CursoVO cursoVO) throws Exception
+	public static void atualizarCurso(CursoVO curso) throws Exception
 	{
-		if(!Curso.isSILGAunica(cursoVO.getSigla()))
+		if(!Curso.isSILGAunica(curso.getSigla()))
 		{
 			throw new Exception("CursoHandler.cadastrarCurso.sigla.informado.ja.cadastrada");
 		}
 		
-		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
-		Curso curso = new Curso(cursoVO.getId(), cursoVO.getNome(), cursoVO.getSigla(), departamento);
+//		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
+//		Curso curso = new Curso(cursoVO.getId(), cursoVO.getNome(), cursoVO.getSigla(), departamento);
 		
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		CursoGateway cg = new CursoGateway(conn);
 		
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), curso.getDepartamento().getIdentificador())); //TODO FALTA O DEPARTAMENTO
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), curso.getDepartamento())); //TODO FALTA O DEPARTAMENTO
 
 		if (!cg.alterarCurso(valores, curso.getId()))
 			throw new Exception("falha.ao.atualizar.curso");

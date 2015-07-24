@@ -136,7 +136,7 @@ public class FuncionarioGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"funcionario\" \"departamento_fk\" = ? " + "WHERE \"id\" = ?";
+			String sql = "UPDATE \"funcionario\" SET \"departamento_fk\" = ? " + "WHERE \"id\" = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -147,7 +147,7 @@ public class FuncionarioGateway
 					stmt.setInt(i, (Integer) valores.get(i - 1));
 			}
 
-			stmt.setInt(3, id);
+			stmt.setInt(2, id);
 
 			stmt.execute();
 		} 
