@@ -5,6 +5,7 @@ public class TipoRefeicaoEnum
 	public static final TipoRefeicaoEnum DEJEJUM = new TipoRefeicaoEnum("Dejejum"); 
 	public static final TipoRefeicaoEnum ALMOCO = new TipoRefeicaoEnum("Almoco"); 
 	public static final TipoRefeicaoEnum JANTAR = new TipoRefeicaoEnum("Jantar");
+	public static final TipoRefeicaoEnum VAZIO = new TipoRefeicaoEnum("vazio"); 
 	
 	private String valor;
 	
@@ -15,6 +16,9 @@ public class TipoRefeicaoEnum
 	
 	public static TipoRefeicaoEnum fromString(String string)
 	{
+		if (string==null)
+			return VAZIO;
+		
 		if (string.toLowerCase().equals("dejejum"))
 		{
 			return DEJEJUM;
@@ -27,7 +31,7 @@ public class TipoRefeicaoEnum
 		{
 			return JANTAR;
 		}	
-		return null;
+		return VAZIO;
 	}
 	
 	public static String toString(TipoRefeicaoEnum e)
@@ -42,10 +46,11 @@ public class TipoRefeicaoEnum
 	
 	public static TipoRefeicaoEnum[] values()
 	{
-		TipoRefeicaoEnum[] array = new TipoRefeicaoEnum[3];
+		TipoRefeicaoEnum[] array = new TipoRefeicaoEnum[4];
 		array[0] = ALMOCO;
 		array[1] = DEJEJUM;
 		array[2] = JANTAR;
+		array[3] = VAZIO;
 		
 		return array;
 	}

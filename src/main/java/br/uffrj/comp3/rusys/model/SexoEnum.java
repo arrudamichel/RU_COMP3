@@ -2,8 +2,9 @@ package br.uffrj.comp3.rusys.model;
 
 public class SexoEnum
 {
-	private static final SexoEnum M = new SexoEnum("Masculino"); 
-	private static final SexoEnum F = new SexoEnum("Feminino"); 
+	public static final SexoEnum M = new SexoEnum("Masculino"); 
+	public static final SexoEnum F = new SexoEnum("Feminino"); 
+	public static final SexoEnum VAZIO = new SexoEnum("vazio"); 
 	
 	private String valor;
 	
@@ -14,6 +15,9 @@ public class SexoEnum
 	
 	public static SexoEnum fromString(String string)
 	{
+		if (string==null)
+			return VAZIO;
+		
 		if (string.toLowerCase().equals("masculino") || string.toLowerCase().equals("m") )
 		{
 			return M;
@@ -22,7 +26,7 @@ public class SexoEnum
 		{
 			return F;
 		}	
-		return null;
+		return VAZIO;
 	}
 	
 	public static String toString(SexoEnum e)
@@ -37,9 +41,10 @@ public class SexoEnum
 	
 	public static SexoEnum[] values()
 	{
-		SexoEnum[] array = new SexoEnum[2];
+		SexoEnum[] array = new SexoEnum[3];
 		array[0] = M;
 		array[1] = F;
+		array[3] = VAZIO;
 		return array;
 	}
 }

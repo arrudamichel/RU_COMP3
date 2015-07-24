@@ -5,6 +5,7 @@ public class TurnoEnum
 	public static final TurnoEnum MANHA = new TurnoEnum("Manha"); 
 	public static final TurnoEnum TARDE = new TurnoEnum("Tarde"); 
 	public static final TurnoEnum NOITE = new TurnoEnum("Noite"); 
+	public static final TurnoEnum VAZIO = new TurnoEnum("vazio"); 
 	
 	private String valor;
 	
@@ -15,6 +16,9 @@ public class TurnoEnum
 	
 	public static TurnoEnum fromString(String string)
 	{
+		if (string==null)
+			return VAZIO;
+		
 		if (string.toLowerCase().equals("manha"))
 		{
 			return MANHA;
@@ -27,7 +31,7 @@ public class TurnoEnum
 		{
 			return NOITE;
 		}	
-		return null;
+		return VAZIO;
 	}
 	
 	public static String toString(TurnoEnum e)
@@ -42,10 +46,11 @@ public class TurnoEnum
 	
 	public static TurnoEnum[] values()
 	{
-		TurnoEnum[] array = new TurnoEnum[3];
+		TurnoEnum[] array = new TurnoEnum[4];
 		array[0] = MANHA;
 		array[1] = TARDE;
 		array[2] = NOITE;
+		array[3] = VAZIO;
 		return array;
 	}
 }
