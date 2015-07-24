@@ -70,9 +70,8 @@ public class AlunoControle extends HttpServlet
 		}
 	}
 	
-	private void editar(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, Exception {
-		// TODO Auto-generated method stub
-		
+	private void editar(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, Exception 
+	{
 		String id = request.getParameter("id");
 		String matricula = request.getParameter("matricula");
 		String nome = request.getParameter("nome");
@@ -94,33 +93,19 @@ public class AlunoControle extends HttpServlet
 		aluno.setCpf(cpf);
 		aluno.setCurso(Integer.parseInt(curso));
 		
-	
 		AlunoHandler.atualizarAluno(aluno, Integer.parseInt(id));
-
-		
 	}
 
-	private void excluir(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		
+	private void excluir(HttpServletRequest request,HttpServletResponse response) throws Exception 
+	{		
 		String idAluno = request.getParameter("id");
 
 		Aluno aluno = null;
-		try
-		{
-			aluno = AlunoHandler.recuperarAluno(Integer.parseInt(idAluno));
-		} catch (NumberFormatException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1)
-		{
-			e1.printStackTrace();
-		}
-		
+
+		aluno = AlunoHandler.recuperarAluno(Integer.parseInt(idAluno));
 
 		AlunoHandler.excluirAluno(aluno);
 		//request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
-
 	}
 
 	private void cadastrar(HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -196,7 +181,8 @@ public class AlunoControle extends HttpServlet
 				Aluno a = AlunoHandler.recuperarAluno(Integer.parseInt(id));
 				System.out.println(a.getId());
 				aluno = a;
-			} catch (NumberFormatException e1)
+			} 
+			catch (NumberFormatException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

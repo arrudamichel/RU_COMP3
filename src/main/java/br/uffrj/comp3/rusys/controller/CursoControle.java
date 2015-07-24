@@ -155,11 +155,13 @@ public class CursoControle extends HttpServlet
 			try
 			{
 				curso = CursoHandler.recuperarCurso(Integer.parseInt(cursoId));
-			} catch (NumberFormatException e1)
+			} 
+			catch (NumberFormatException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} catch (Exception e1)
+			} 
+			catch (Exception e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

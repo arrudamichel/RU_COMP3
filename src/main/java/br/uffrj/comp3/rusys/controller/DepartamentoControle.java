@@ -77,21 +77,11 @@ public class DepartamentoControle extends HttpServlet
 		String sigla = request.getParameter("sigla");
 
 		Departamento departamento = null;
-		try
-		{
-			departamento = DepartamentoHandler.recuperarDepartamento(Integer.parseInt(id));
+	
+		departamento = DepartamentoHandler.recuperarDepartamento(Integer.parseInt(id));
 			
-			departamento.setNome(nome);
-			departamento.setSigla(sigla);			
-		} catch (NumberFormatException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (Exception e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		departamento.setNome(nome);
+		departamento.setSigla(sigla);			
 
 		DepartamentoHandler.atualizarDepartamento(departamento);
 	}
