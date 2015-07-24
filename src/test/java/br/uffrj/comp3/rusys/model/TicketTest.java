@@ -1,10 +1,9 @@
-package br.uffrj.comp3.rusys.model;
+/*package br.uffrj.comp3.rusys.model;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Consumidor;
 import br.uffrj.comp3.rusys.model.Curso;
@@ -29,12 +28,9 @@ public class TicketTest {
 		funcionario = new Funcionario(1, "Funcionario", 123, 2010, departamento);
 		curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
 		aluno = new Aluno(2, "Aluno", 124, 2011, curso);
-		refNoite = new Refeicao(1, "refNoite", TipoRefeicaoEnum.JANTAR);
-		refNoite.setOpcaoVeg("Salada");
-		refTarde = new Refeicao(2, "refTarde", TipoRefeicaoEnum.ALMOCO);
-		refTarde.setOpcaoVeg("Salada");
-		refManha = new Refeicao(3, "refManha", TipoRefeicaoEnum.DEJEJUM);
-		refManha.setOpcaoVeg("Salada");
+		refNoite = new Jantar(1, "janta");
+		refTarde = new Almoco(2, "Almoco");
+		refManha = new Dejejum(3,  "Dejejum");
 	}
 
 	@Test
@@ -103,4 +99,4 @@ public class TicketTest {
 		assertEquals(actual, expected);
 	}
 
-}
+}*/

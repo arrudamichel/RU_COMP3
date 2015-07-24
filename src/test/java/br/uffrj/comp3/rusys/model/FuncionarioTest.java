@@ -37,5 +37,34 @@ public class FuncionarioTest {
 		func = new Funcionario(1, "Jessica", 2011785144, 2011, dept);
 		func.setDepartamento(null);
 	}
+	
+	@Test(expected = Exception.class)
+	public void testFuncionarioNomeNull() throws Exception {
+		dept = new Departamento(1, "Ccomp", "DCC");
+		func = new Funcionario(1, null, 2011785144, 2011, dept);
+	}
+	
+	@Test(expected = Exception.class)
+	public void testAlunoAnoDeIngressoNull() throws Exception {
+		dept = new Departamento(1, "Ccomp", "DCC");
+		func = new Funcionario(1, "funcionario", 2011785144, null, dept);
+	}
+	
+	@Test
+	public void testFuncionarioCPFOK() throws Exception {
+		dept = new Departamento(1, "Ccomp", "DCC");
+		func = new Funcionario(1, "funcionario", 2011785144, 2010, dept);
+		String expected = "11111111111";
+		func.setCpf("11111111111");
+		
+		assertEquals(expected, func.getCpf());
+	}
+	
+	@Test(expected = Exception.class)
+	public void testFuncionarioCPFNotOK() throws Exception {
+		dept = new Departamento(1, "Ccomp", "DCC");
+		func = new Funcionario(1, "funcionario", 2011785144, null, dept);
+		func.setCpf("111111pp111");
+	}
 
 }

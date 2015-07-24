@@ -29,7 +29,7 @@ public class TicketGateway {
 	{
 		try
 		{
-			String sql = "INSERT INTO \"ticket\" (\"consumidor_fk\", \"refeicao_fk\", \"preco\", \"pago\") values (?,?,?,?)";
+			String sql = "INSERT INTO ticket (consumidor_fk, refeicao_fk, preco, pago) values (?,?,?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			// preenche os valores
@@ -78,7 +78,7 @@ public class TicketGateway {
 
 		try
 		{
-			String sql = "SELECT * FROM \"ticket\"";
+			String sql = "SELECT * FROM ticket";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -97,7 +97,7 @@ public class TicketGateway {
 
 		try
 		{
-			String sql = "SELECT * FROM \"ticket\" WHERE \"id\" = ?";
+			String sql = "SELECT * FROM ticket WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -116,7 +116,7 @@ public class TicketGateway {
 	{
 		try
 		{
-			String sql = "DELETE FROM \"ticket\" WHERE \"id\" = ?";
+			String sql = "DELETE FROM ticket WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -146,7 +146,7 @@ public class TicketGateway {
 	{
 		try
 		{
-			String sql = "UPDATE \"ticket\" " + "SET " + "\"pago\" = ?"  + " WHERE \"id\" = ?";
+			String sql = "UPDATE ticket " + "SET " + "pago = ?"  + " WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

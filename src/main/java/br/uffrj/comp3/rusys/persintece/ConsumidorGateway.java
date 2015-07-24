@@ -30,8 +30,8 @@ public class ConsumidorGateway{
 	{
 		try
 		{
-			String sql = "INSERT INTO \"consumidor\" (\"matricula\", \"nome\", \"ano_ingresso\", "
-						+ "								  \"sexo\", \"titulo\", \"cpf\", \"situacao\") "
+			String sql = "INSERT INTO consumidor (matricula, nome, ano_ingresso, "
+						+ "								  sexo, titulo, cpf, situacao) "
 						+ "VALUES (?,?,?,?,?,?,1)";
 			PreparedStatement stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
@@ -76,7 +76,7 @@ public class ConsumidorGateway{
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"consumidor\" where \"situacao\"=1";
+			String sql = "SELECT * " + "   FROM consumidor where situacao=1";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -107,7 +107,7 @@ public class ConsumidorGateway{
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"consumidor\" " + "   WHERE \"id\" = ? and \"situacao\"=1";
+			String sql = "SELECT * " + "   FROM consumidor " + "   WHERE id = ? and situacao=1";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -138,7 +138,7 @@ public class ConsumidorGateway{
 	{
 		try
 		{
-			String sql = "UPDATE \"consumidor\" " + "SET \"situacao\" = ? " + "WHERE \"id\" = ?";
+			String sql = "UPDATE consumidor " + "SET situacao = ? " + "WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, 0);
@@ -169,8 +169,8 @@ public class ConsumidorGateway{
 	{
 		try
 		{
-			String sql = "UPDATE \"consumidor\" " + "SET \"nome\" = ?, " + " \"ano_ingresso\" = ?, " + " \"sexo\" = ?, "
-					+ " \"titulo\" = ?," + " \"cpf\" = ? " + "WHERE \"id\" = ?";
+			String sql = "UPDATE consumidor " + "SET nome = ?, " + " ano_ingresso = ?, " + " sexo = ?, "
+					+ " titulo = ?," + " cpf = ? " + "WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -215,7 +215,7 @@ public class ConsumidorGateway{
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"consumidor\" " + "   WHERE \"cpf\" = ? and \"situacao\"=1";
+			String sql = "SELECT * " + "   FROM consumidor " + "   WHERE cpf = ? and situacao=1";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(0, cpf);
@@ -247,7 +247,7 @@ public class ConsumidorGateway{
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"consumidor\" " + "   WHERE \"matricula\" = ? and \"situacao\"=1";
+			String sql = "SELECT * " + "   FROM consumidor " + "   WHERE matricula = ? and situacao=1";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, matricula);

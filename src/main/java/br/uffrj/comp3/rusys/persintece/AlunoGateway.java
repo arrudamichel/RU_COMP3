@@ -25,7 +25,7 @@ public class AlunoGateway
 	{
 		try
 		{
-			String sql = "INSERT INTO \"aluno\" VALUES (?,?)";
+			String sql = "INSERT INTO aluno VALUES (?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			// preenche os valores
@@ -60,7 +60,7 @@ public class AlunoGateway
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"aluno\"";
+			String sql = "SELECT * " + "   FROM aluno";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -84,7 +84,7 @@ public class AlunoGateway
 
 		try
 		{
-			String sql = "SELECT \"id\", \"curso_fk\"  " + "   FROM \"aluno\" " + "   WHERE \"id\" = ?";
+			String sql = "SELECT id, curso_fk  " + "   FROM aluno " + "   WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -102,7 +102,7 @@ public class AlunoGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"aluno\" " + "   WHERE \"id\" = ?";
+			String sql = "DELETE FROM aluno " + "   WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -129,7 +129,7 @@ public class AlunoGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"aluno\" " + "SET \"curso_fk\" = ? " + "WHERE \"id\" = ?";
+			String sql = "UPDATE aluno " + "SET curso_fk = ? " + "WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

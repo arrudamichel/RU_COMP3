@@ -29,7 +29,7 @@ public class RefeicaoGateway
 	{
 		try
 		{
-			String sql = "insert into \"refeicao\" (\"descricao\", \"opcaoVegetariana\", \"turno\", \"tipo\", \"situacao\") values (?,?,?,?,1)";
+			String sql = "insert into refeicao (descricao, opcaoVegetariana, turno, tipo, situacao) values (?,?,?,?,1)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			// preenche os valores
@@ -60,7 +60,7 @@ public class RefeicaoGateway
 
 		try
 		{
-			String sql = "SELECT * FROM \"refeicao\" where \"situacao\"=1";
+			String sql = "SELECT * FROM refeicao where situacao=1";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -77,7 +77,7 @@ public class RefeicaoGateway
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT * FROM \"refeicao\" WHERE \"id\" = ? and \"situacao\"=1";
+			String sql = "SELECT * FROM refeicao WHERE id = ? and situacao=1";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
@@ -107,7 +107,7 @@ public class RefeicaoGateway
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT * FROM \"refeicao\" WHERE \"tipo\" = ? and \"situacao\"=1";
+			String sql = "SELECT * FROM refeicao WHERE tipo = ? and situacao=1";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1,tipo);
 			rs = stmt.executeQuery();
@@ -135,7 +135,7 @@ public class RefeicaoGateway
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT * FROM \"refeicao\" WHERE \"turno\" = ? and \"situacao\"=1";
+			String sql = "SELECT * FROM refeicao WHERE turno = ? and situacao=1";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1,turno);
 			rs = stmt.executeQuery();
@@ -152,7 +152,7 @@ public class RefeicaoGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"refeicao\" SET \"situacao\" = ? WHERE \"id\" = ?";
+			String sql = "UPDATE refeicao SET situacao = ? WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, 0);
@@ -180,8 +180,8 @@ public class RefeicaoGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"refeicao\" " + "SET " + "\"descricao\" = ?, " + "\"opcaoVegetariana\" = ? "
-					+ "WHERE \"id\" = ?";
+			String sql = "UPDATE refeicao " + "SET " + "descricao = ?, " + "opcaoVegetariana = ? "
+					+ "WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

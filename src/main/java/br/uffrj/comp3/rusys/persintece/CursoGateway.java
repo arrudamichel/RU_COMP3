@@ -28,7 +28,7 @@ public class CursoGateway
 	{
 		try
 		{
-			String sql = "INSERT INTO \"curso\" (\"nome\", \"sigla\", \"departamento_fk\") values (?,?,?)";
+			String sql = "INSERT INTO curso (nome, sigla, departamento_fk) values (?,?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			 
@@ -69,7 +69,7 @@ public class CursoGateway
 
 		try
 		{
-			String sql = "SELECT * FROM \"curso\"";
+			String sql = "SELECT * FROM curso";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -96,7 +96,7 @@ public class CursoGateway
 
 		try
 		{
-			String sql = "SELECT * FROM \"curso\" WHERE \"id\" = ?";
+			String sql = "SELECT * FROM curso WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -115,7 +115,7 @@ public class CursoGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"curso\" WHERE \"id\" = ?";
+			String sql = "DELETE FROM curso WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -145,7 +145,7 @@ public class CursoGateway
 
 		try
 		{
-			String sql = "SELECT * FROM \"curso\" WHERE \"sigla\" = ?";
+			String sql = "SELECT * FROM curso WHERE sigla = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, sigla);
@@ -173,8 +173,8 @@ public class CursoGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"curso\" " + "SET " + "\"nome\" = ?, " + "\"sigla\" = ?, "
-					+ "\"departamento_fk\" = ? " + "WHERE \"id\" = ?";
+			String sql = "UPDATE curso " + "SET " + "nome = ?, " + "sigla = ?, "
+					+ "departamento_fk = ? " + "WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

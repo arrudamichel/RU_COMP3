@@ -26,7 +26,7 @@ public class DepartamentoGateway
 	{
 		try
 		{
-			String sql = "INSERT INTO \"departamento\" ( \"nome\", \"sigla\") values (?,?)";
+			String sql = "INSERT INTO departamento ( nome, sigla) values (?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			// preenche os valores
@@ -66,7 +66,7 @@ public class DepartamentoGateway
 
 		try
 		{
-			String sql = "SELECT * FROM \"departamento\"";
+			String sql = "SELECT * FROM departamento";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -92,7 +92,7 @@ public class DepartamentoGateway
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT * FROM \"departamento\" WHERE \"id\" = ?";
+			String sql = "SELECT * FROM departamento WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -120,7 +120,7 @@ public class DepartamentoGateway
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT * FROM \"departamento\" WHERE \"nome\" = ?";
+			String sql = "SELECT * FROM departamento WHERE nome = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, nome);
 			rs = stmt.executeQuery();
@@ -147,7 +147,7 @@ public class DepartamentoGateway
 		ResultSet rs = null;
 		try
 		{
-			String sql = "SELECT * FROM \"departamento\" WHERE \"sigla\" = ?";
+			String sql = "SELECT * FROM departamento WHERE sigla = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, sigla);
 			rs = stmt.executeQuery();
@@ -165,7 +165,7 @@ public class DepartamentoGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"departamento\" WHERE \"id\" = ?";
+			String sql = "DELETE FROM departamento WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, identificador);
@@ -192,8 +192,8 @@ public class DepartamentoGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"departamento\" " + "SET " + "\"nome\" = ?, " + "\"sigla\" = ? "
-					+ "WHERE \"id\" = ?";
+			String sql = "UPDATE departamento " + "SET " + "nome = ?, " + "sigla = ? "
+					+ "WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

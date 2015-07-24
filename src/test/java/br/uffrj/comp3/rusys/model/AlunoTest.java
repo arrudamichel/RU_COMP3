@@ -1,43 +1,15 @@
 package br.uffrj.comp3.rusys.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import br.uffrj.comp3.rusys.model.Aluno;
+import br.uffrj.comp3.rusys.model.Curso;
+import br.uffrj.comp3.rusys.model.Departamento;
+import br.uffrj.comp3.rusys.model.Refeicao;
+
 public class AlunoTest {
-	Aluno al;
-	Curso cu;
-	Departamento de;
-
-	@Test
-	public void testAluno() throws Exception {
-		de = new Departamento(1, "Depto", "DCC");
-		cu = new Curso(1, "computacao", "CC", de);
-		al = new Aluno(1, "Jessica", 2011785144, 2011, cu);
-		
-	}
-
-	@Test
-	public void testGetCurso() throws Exception {
-		String esperado = "CC";
-		de = new Departamento(1, "Depto", "DCC");
-		cu = new Curso(1, "computacao", "CC", de);
-		al = new Aluno(1, "Jessica", 2011785144, 2011, cu);
-		
-		assertEquals(esperado, al.getCurso().getSigla());
-	}
-
-	@Test
-	public void testSetCurso() throws Exception {
-		String esperado = "CC";
-		de = new Departamento(1, "Depto", "DCC");
-		Curso cu2 = new Curso(1, "computacao", "CC", de);		
-		cu = new Curso(1, "computacao", "CC", de);
-		al = new Aluno(1, "Jessica", 2011785144, 2011, cu);
-		al.setCurso(cu2);
-		
-		assertEquals(esperado, al.getCurso().getSigla());
-	}
 	
 	@Test
 	public void testaAlunoOk() throws Exception
@@ -70,5 +42,38 @@ public class AlunoTest {
 		
 		aluno.setCurso(null);
 	}
-
+	
+	@Test(expected = Exception.class)
+	public void testAlunoNomeNull() throws Exception {
+		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
+		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
+		Aluno aluno = new Aluno(1, null, 123, 2010, curso);
+	}
+	
+	@Test(expected = Exception.class)
+	public void testAlunoAnoDeIngressoNull() throws Exception {
+		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
+		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
+		Aluno aluno = new Aluno(1, "nome do aluno", 123, null, curso);
+	}
+	
+	@Test
+	public void testAlunoCPFOK() throws Exception {
+		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
+		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
+		Aluno aluno = new Aluno(1, "nome do aluno", 123, 2010, curso);
+		String expected = "11111111111";
+		aluno.setCpf("11111111111");
+		
+		assertEquals(expected, aluno.getCpf());
+	}
+	
+	@Test(expected = Exception.class)
+	public void testAlunoCPFNotOK() throws Exception {
+		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
+		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
+		Aluno aluno = new Aluno(1, "nome do aluno", 123, 2010, curso);
+		aluno.setCpf("11111111p11");
+	}
+	
 }

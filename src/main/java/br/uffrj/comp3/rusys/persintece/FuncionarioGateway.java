@@ -25,7 +25,7 @@ public class FuncionarioGateway
 	{
 		try
 		{
-			String sql = "INSERT INTO \"funcionario\" VALUES (?,?)";
+			String sql = "INSERT INTO funcionario VALUES (?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			// preenche os valores
@@ -59,7 +59,7 @@ public class FuncionarioGateway
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"funcionario\"";
+			String sql = "SELECT * " + "   FROM funcionario";
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -84,7 +84,7 @@ public class FuncionarioGateway
 
 		try
 		{
-			String sql = "SELECT * " + "   FROM \"funcionario\" " + "   WHERE \"id\" = ?";
+			String sql = "SELECT * " + "   FROM funcionario " + "   WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -103,7 +103,7 @@ public class FuncionarioGateway
 	{
 		try
 		{
-			String sql = "DELETE FROM \"funcionario\" " + "   WHERE \"id\" = ?";
+			String sql = "DELETE FROM funcionario " + "   WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -136,7 +136,7 @@ public class FuncionarioGateway
 	{
 		try
 		{
-			String sql = "UPDATE \"funcionario\" SET \"departamento_fk\" = ? " + "WHERE \"id\" = ?";
+			String sql = "UPDATE funcionario SET departamento_fk = ? " + "WHERE id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 

@@ -1,4 +1,4 @@
-package br.uffrj.comp3.gateway;
+package br.uffrj.comp3.rusys.gateway;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
