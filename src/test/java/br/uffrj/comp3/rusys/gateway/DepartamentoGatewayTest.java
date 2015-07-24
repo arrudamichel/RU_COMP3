@@ -2,11 +2,16 @@ package br.uffrj.comp3.rusys.gateway;
 
 
 import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
@@ -16,10 +21,11 @@ import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Before;
 
-import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
+import br.uffrj.comp3.rusys.util.Constantes;
 
 public class DepartamentoGatewayTest extends DBTestCase
 {
@@ -35,25 +41,27 @@ public class DepartamentoGatewayTest extends DBTestCase
 		System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "sa" );
 		System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "sa" );
 
-	}
+	}	
 
 	public void testCriarDepartamento() throws Exception
 	{		
+		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
+		
 		DepartamentoVO departamentoVO = new DepartamentoVO();
 		departamentoVO.setNome("Departamento de Ciencia da Computacao3");
 		departamentoVO.setSigla("DCC3");
 		
 		DepartamentoHandler.cadastrarDepartamento(departamentoVO);
-		DepartamentoGateway dg = new DepartamentoGateway(getConnection());
+		DepartamentoGateway dg = new DepartamentoGateway(conn);
 		
 		
 		IDataSet dadosSetBanco1 = getConnection().createDataSet();
 		ITable dadosNoBanco1 = dadosSetBanco1.getTable("departamento");
 
 		//remove coluna da tabela.
-		ITable filteredTable1 = DefaultColumnFilter.excludedColumnsTable(dadosNoBanco1, new String[]{"sigla"});
+		ITable filteredTable1 = DefaultColumnFilter.excludedColumnsTable(dadosNoBanco1, new String[]{"id"});
 
-		IDataSet dadosSetEsperado1 = new FlatXmlDataSetBuilder().build(new FileInputStream("departamentoDataSet.xml"));
+		IDataSet dadosSetEsperado1 = new FlatXmlDataSetBuilder().build(new FileInputStream("DepartamentoDataSet.xml"));
 		ITable dadosEsperados1 = dadosSetEsperado1.getTable("departamento");
 
 		Assertion.assertEquals(dadosEsperados1, dadosNoBanco1);
