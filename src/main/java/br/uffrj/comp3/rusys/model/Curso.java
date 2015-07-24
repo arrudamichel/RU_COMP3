@@ -1,5 +1,10 @@
 package br.uffrj.comp3.rusys.model;
 
+import java.util.ArrayList;
+
+import br.uffrj.comp3.rusys.model.vo.CursoVO;
+import br.uffrj.comp3.rusys.service.CursoHandler;
+
 public class Curso
 {
 	private int id;
@@ -50,7 +55,15 @@ public class Curso
 			throw new Exception("model.curso.sigla.deve.ser.informada");
 		}
 		
-		 //TODO testar se é unica no banco com uma consulta ao hadler
+		CursoVO cursoVO = new CursoVO();
+		cursoVO.setSigla(sigla);
+		
+		ArrayList<Curso> cursos = (ArrayList<Curso>) CursoHandler.recuperarCursos(cursoVO);
+		
+		if(cursos!=null && !cursos.isEmpty())
+		{
+			throw new Exception("sigla.informado.ja.em.uso");
+		}
 		
 		this.sigla = sigla;
 	}

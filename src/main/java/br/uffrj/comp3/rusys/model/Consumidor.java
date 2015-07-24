@@ -3,6 +3,10 @@ package br.uffrj.comp3.rusys.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
+import br.uffrj.comp3.rusys.service.ConsumidorHandler;
+import br.uffrj.comp3.rusys.util.Util;
+
 public abstract class Consumidor
 {
 	private int id;
@@ -112,13 +116,21 @@ public abstract class Consumidor
 
 	public void setCpf(String cpf) throws Exception
 	{
-		//if (!Util.valida(cpf))
-		//{
-		//	throw new Exception("cpf.informado.invalido");
-		//}
+		if (!Util.valida(cpf))
+		{
+			throw new Exception("cpf.informado.invalido");
+		}
 		
-//		TODO testar se é unico fazendo uma consulda com um handler
+		ConsumidorVO consumidorVO = new ConsumidorVO();
+		consumidorVO.setCpf(cpf);
 		
+		ArrayList<ConsumidorVO> consumidores = (ArrayList<ConsumidorVO>) ConsumidorHandler.recuperarConsumidorVOs(consumidorVO);
+		
+		if(consumidores!=null && !consumidores.isEmpty())
+		{
+			throw new Exception("cpf.informado.ja.cadastrado");
+		}
+			
 		this.cpf = cpf;
 	}
 }

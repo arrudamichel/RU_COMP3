@@ -102,7 +102,7 @@ public class ConsumidorHandler
 		{	
 			consumidorVOretorno =  new ConsumidorVO();
 			
-			consumidorVOretorno.setId(rsConsumidores.getInt(1)); //TODO: completar
+			consumidorVOretorno.setId(rsConsumidores.getInt(1)); //TODO: completar. por enquanto nao foi preciso
 			
 			consumidorVOs.add(consumidorVOretorno);
 		}

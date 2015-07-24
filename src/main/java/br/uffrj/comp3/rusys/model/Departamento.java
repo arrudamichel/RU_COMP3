@@ -1,5 +1,10 @@
 package br.uffrj.comp3.rusys.model;
 
+import java.util.ArrayList;
+
+import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.service.DepartamentoHandler;
+
 public class Departamento
 {
 	private int id;
@@ -41,7 +46,16 @@ public class Departamento
 		{
 			throw new Exception("model.departamento.sigla.deve.ser.informada");
 		}
-		 //TODO testar se é unica no banco com uma consulta ao hadler
+		
+		DepartamentoVO departamentoVO = new DepartamentoVO();
+		departamentoVO.setSigla(sigla);
+		
+		ArrayList<Departamento> departamentos = (ArrayList<Departamento>) DepartamentoHandler.recuperarDepartamentos(departamentoVO);
+		
+		if(departamentos!=null && !departamentos.isEmpty())
+		{
+			throw new Exception("sigla.informada.ja.em.uso");
+		}
 		
 		this.sigla = sigla;
 	}
