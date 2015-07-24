@@ -67,23 +67,13 @@ public class CursoControle extends HttpServlet
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
 
-		Curso curso = null;
-		try
-		{
-			curso = CursoHandler.recuperarCurso(Integer.parseInt(id));
-			
-			curso.setNome(nome);
-			curso.setSigla(sigla);
-			curso.setDepartamento(DepartamentoHandler.recuperarDepartamento(Integer.parseInt(dept)));
-			
-		} catch (NumberFormatException e1)
-		{
-			e1.printStackTrace();
-		} catch (Exception e1)
-		{
-			e1.printStackTrace();
-		}
+		CursoVO curso = new CursoVO();
 		
+		curso.setId(Integer.parseInt(id));
+		curso.setNome(nome);
+		curso.setSigla(sigla);
+		curso.setDepartamento(Integer.parseInt(dept));
+
 		CursoHandler.atualizarCurso(curso);
 	}
 

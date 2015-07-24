@@ -9,12 +9,6 @@ public class Ticket
 	private float valor;
 	private Consumidor consumidor;
 	private Refeicao refeicao;
-
-	
-	public Ticket()
-	{
-		
-	}
 	
 	public Ticket(int id, boolean pago, Consumidor consumidor, Refeicao refeicao) throws Exception
 	{

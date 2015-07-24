@@ -76,10 +76,9 @@ public class DepartamentoControle extends HttpServlet
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 
-		Departamento departamento = null;
+		DepartamentoVO departamento = new DepartamentoVO();
 	
-		departamento = DepartamentoHandler.recuperarDepartamento(Integer.parseInt(id));
-			
+		departamento.setId(Integer.parseInt(id));
 		departamento.setNome(nome);
 		departamento.setSigla(sigla);			
 

@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Consumidor;
+import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.Refeicao;
 import br.uffrj.comp3.rusys.model.Ticket;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
@@ -59,14 +61,20 @@ public class TicketControle extends HttpServlet
 									
 						request.setAttribute("refeicoesTurno", refeicoesTurno);									
 						
-						Consumidor consumidor = null;
-				
-						consumidor = ConsumidorHandler.recuperarConsumidorPorMatricula(Integer.parseInt(matricula));
+						Consumidor consumidor = ConsumidorHandler.recuperarConsumidorPorMatricula(Integer.parseInt(matricula));
 
-						Ticket ticket = new Ticket();
-						ticket.setConsumidor(consumidor);
-						ticket.setValor(turno);
-							
+						TicketVO ticket = new TicketVO();
+						ticket.setConsumidorId(consumidor.getId());
+						
+						if (consumidor instanceof Aluno)
+						{		
+							ticket.setValor(Constantes.mapaTurnoConsumidor_PRECO.get(refeicoesTurno.iterator().next().getTurno().toString() + Aluno.class));
+						}
+						else if (consumidor instanceof Funcionario)
+						{
+							ticket.setValor(Constantes.mapaTurnoConsumidor_PRECO.get(refeicoesTurno.iterator().next().getTurno().toString() + Funcionario.class));
+						}
+									
 						request.setAttribute("ticket", ticket);
 							
 						request.getRequestDispatcher("/WEB-INF/CadTicketSalva.jsp").forward(request, response);
