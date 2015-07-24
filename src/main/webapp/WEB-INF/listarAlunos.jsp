@@ -71,8 +71,8 @@
 	                        <td><%=alunos.get(i).getSexo()%></td>                                               
 	                        <td><%=alunos.get(i).getCurso().getSigla()%></td>
 	                        <td><%=alunos.get(i).getCpf()%></td>
-	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
-	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	                        
+	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a>&nbsp;&nbsp;
+	                         <a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	                        
 	                                                
 	                    </tr>
 	                <% } else { %>
@@ -84,8 +84,8 @@
 	                        <td><%=alunos.get(i).getSexo()%></td>                                                
 	                        <td><%=alunos.get(i).getCurso().getSigla()%></td>
 	                        <td><%=alunos.get(i).getCpf()%></td>
-	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
-	                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	                   
+	                        <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> &nbsp;&nbsp;
+	                        <a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	                   
 	                    </tr>                    
 	            	<%}  }
 	           		}%>

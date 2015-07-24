@@ -4,7 +4,6 @@
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%
 	Departamento departamento = (Departamento) request.getAttribute("departamento");
 %>
@@ -27,6 +26,7 @@
 					</ul>
 				</div>
 				<div class="content">
+				<%@include file="messagePage.jsp" %>
 					<h2 class="title"><%=Constantes.EDITAR%>
 					</h2>
 					<div class="inner">

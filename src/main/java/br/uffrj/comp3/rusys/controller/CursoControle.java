@@ -141,26 +141,29 @@ public class CursoControle extends HttpServlet
 		
 	}
 
-	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
+	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
+		if(nome.equals("") || sigla.equals("") || dept.equals("")){
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
+		}else{
+			CursoVO cursoVO = new CursoVO();
+			
+			cursoVO.setNome(nome);
+			cursoVO.setSigla(sigla);
+			cursoVO.setDepartamento(Integer.parseInt(dept));
+					
+			try{
+				CursoHandler.cadastrarCurso(cursoVO);
+				request.getRequestDispatcher("/WEB-INF/ListCurso.jsp").forward(request, response);
 				
-		CursoVO cursoVO = new CursoVO();
-		
-		cursoVO.setNome(nome);
-		cursoVO.setSigla(sigla);
-		cursoVO.setDepartamento(Integer.parseInt(dept));
-				
-		try
-		{
-			CursoHandler.cadastrarCurso(cursoVO);
-		    			
-		} 
-		catch (Exception e)
-		{
-			request.setAttribute("mensagem", Constantes.ERRO);
+			} 
+			catch (Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+				request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
+			}
 		}
 	}
 

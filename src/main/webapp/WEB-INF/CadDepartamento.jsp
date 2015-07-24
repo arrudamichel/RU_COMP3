@@ -1,6 +1,5 @@
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
-<%@include file="messagePage.jsp" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.uffrj.comp3.rusys.model.Departamento"%>
 
@@ -36,19 +35,8 @@
           </div>
           <div class="content">
             <h2 class="title"><%=Constantes.CADDEPTO%> </h2>
-            
             <div class="inner">
-            	<% if(mensagem.contains("Erro")){ %>
-            		<div style="background-color:#FF9999; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
-            			<%=mensagem%>
-            		</div>
-            	<%}else if(mensagem.contains("Sucesso")){%>
-            		<div style="background-color:#CCFFCC; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
-    					<%=mensagem%>
-    				</div>
-    			<%} %>
-    			
-    			
+            	<%@include file="messagePage.jsp" %>
               <form id="FrmDepartamento" name="FrmDeparmento" action="GerirDepartamento" method="POST" class="form">              
                 <div class="group">
                   <label class="label"><%=Constantes.NOME%></label>

@@ -20,27 +20,26 @@ import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.CursoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
-import br.uffrj.comp3.rusys.util.Util;
 
 @WebServlet("/GerirAluno")
 public class AlunoControle extends HttpServlet
 {
-	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("text/html");
 		
 		String acao = (String) request.getParameter("acao");
 		
 		ConsumidorVO alunoVO = new ConsumidorVO();
 		Collection<Aluno> alunos = null;
-		try
-		{
+		try{
 			alunos = AlunoHandler.recuperarAlunos(alunoVO);
-		} catch (Exception e1)
-		{
+		} catch (Exception e1){
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}				
 		request.setAttribute("alunos", alunos);
@@ -53,6 +52,7 @@ public class AlunoControle extends HttpServlet
 			cursos = CursoHandler.recuperarCursos(cursoVO);
 		} catch (Exception e)
 		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -74,6 +74,7 @@ public class AlunoControle extends HttpServlet
 					break;
 				case Constantes.ACAO_EDITAR:
 					editar(request, response);
+					//response.sendRedirect("GerirAluno");
 					break;
 				default:
 					request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
@@ -86,6 +87,7 @@ public class AlunoControle extends HttpServlet
 	}
 	
 	private void editar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		
 		String id = request.getParameter("id");
 		String matricula = request.getParameter("matricula");
@@ -95,28 +97,30 @@ public class AlunoControle extends HttpServlet
 		String titulo = request.getParameter("titulo");
 		String cpf = request.getParameter("cpf");
 		String curso = request.getParameter("curso");
-
-		if(nome.equals("") || matricula.equals("") || anoIngresso.equals("") || curso.equals("")){
+		
+		if( matricula.equals("") || nome.equals("") || anoIngresso.equals("") || sexo.equals("") || titulo.equals("") || cpf.equals("") ||
+				curso.equals("") || id.equals("")){
 			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
 			request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);
-		} else {
-		
+		}else{
 			ConsumidorVO aluno= new ConsumidorVO();
-			//System.out.println(id);
+			System.out.println(id);
 			aluno.setId(Integer.parseInt(id));
 			aluno.setMatricula(Integer.parseInt(matricula));
 			aluno.setNome(nome);
 			aluno.setAnoDeIngresso(anoIngresso);
 			aluno.setSexo(sexo);
 			aluno.setTitulo(titulo);
+			//System.out.println("CPF" + cpf);
 			aluno.setCpf(cpf);
 			aluno.setCurso(Integer.parseInt(curso));
 			
 			try
 			{	
 				AlunoHandler.atualizarAluno(aluno, Integer.parseInt(id));
-	
-				request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);
+				request.setAttribute("aluno", aluno);
+				request.setAttribute("mensagem", Constantes.SUCESSO);
+				request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
 			} catch (Exception e)
 			{
 				request.setAttribute("mensagem", Constantes.ERRO);
@@ -163,11 +167,13 @@ public class AlunoControle extends HttpServlet
 		String titulo = request.getParameter("titulo");
 		String cpf = request.getParameter("cpf");
 		String curso = request.getParameter("curso");
-
-		if(nome.equals("") || matricula.equals("") || ano.equals("") || curso.equals("")){
+		
+		if( matricula.equals("") || nome.equals("") || ano.equals("") || sexo.equals("") || titulo.equals("") || cpf.equals("") ||
+				curso.equals("")){
 			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
 			request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);
-		} else {
+		}else{
+
 			ConsumidorVO alunoVO = new ConsumidorVO();
 			
 			alunoVO.setNome(nome);
@@ -175,43 +181,19 @@ public class AlunoControle extends HttpServlet
 			alunoVO.setAnoDeIngresso(ano);
 			alunoVO.setSexo(sexo);
 			alunoVO.setTitulo(titulo);
-			
-			if(Util.valida(cpf)){
-				alunoVO.setCpf(cpf);
-			} else {
-				request.setAttribute("mensagem", Constantes.ERRO_CPF);
-				request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);
-			}
-			
+			alunoVO.setCpf(cpf);
 			alunoVO.setCurso(Integer.parseInt(curso));
 			
 			try
 			{
 				AlunoHandler.cadastrarAluno(alunoVO);
-				
-				ConsumidorVO consumidorVO = new ConsumidorVO();
-				
-				Collection<Aluno> alunos = null;
-				try
-				{
-					alunos = AlunoHandler.recuperarAlunos(consumidorVO);
-				} catch (SQLException e1)
-				{
-					e1.printStackTrace();
-				} catch (Exception e1)
-				{
-					e1.printStackTrace();
-				}
-				
-				request.setAttribute("alunos", alunos);
-			    
-				request.setAttribute("mensagem", Constantes.SUCESSO);	
-				request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
+				response.sendRedirect("GerirAluno");
+						
 			} 
 			catch (Exception e)
-			{							
+			{
 				request.setAttribute("mensagem", Constantes.ERRO);
-			}			
+			}	
 		}
 	}
 
@@ -247,7 +229,30 @@ public class AlunoControle extends HttpServlet
 		}
 		
 		req.setAttribute("cursos", cursos);
-		
+
+		//------------ RECUPERA CURSOS ---------------
+
+		String id = (String) req.getParameter("id");
+		Aluno aluno = null;
+		if (id!=null)
+		{	
+			
+			try
+			{
+				aluno = AlunoHandler.recuperarAluno(Integer.parseInt(id));
+				//System.out.println(a.getTitulo().toString());
+			} catch (NumberFormatException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			req.setAttribute("aluno", aluno);
+		}
 		
 		//------------ ACAO ---------------
 		
@@ -262,27 +267,7 @@ public class AlunoControle extends HttpServlet
 					req.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(req, resp);
 					break;
 				case Constantes.ACAO_EDITAR:
-					String id = (String) req.getParameter("id");
-
-					if (id!=null)
-					{	
-						Aluno aluno = null;
-						try
-						{
-							Aluno a = AlunoHandler.recuperarAluno(Integer.parseInt(id));
-							System.out.println(a.getId());
-							aluno = a;
-						} catch (NumberFormatException e1)
-						{
-							e1.printStackTrace();
-						} catch (Exception e1)
-						{
-							e1.printStackTrace();
-						}
-
-						req.setAttribute("aluno", aluno);
-					}
-					
+					req.setAttribute("aluno", aluno);				
 					req.getRequestDispatcher("/WEB-INF/AtualizarAluno.jsp").forward(req, resp);
 					break;
 				case Constantes.ACAO_DELETAR:	
@@ -290,6 +275,7 @@ public class AlunoControle extends HttpServlet
 					try {
 						excluir(req, resp);
 					} catch (Exception e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;

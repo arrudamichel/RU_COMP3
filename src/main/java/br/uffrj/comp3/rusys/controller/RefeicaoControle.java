@@ -63,10 +63,10 @@ public class RefeicaoControle extends HttpServlet{
 		String id = request.getParameter("id");
 		String descricao = request.getParameter("descricao");
 		String opVeg = request.getParameter("opVeg");
-		if (descricao.equals("") || opVeg.equals("")){
+		if(id.equals("") || descricao.equals("") || opVeg.equals("")){
 			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
-			request.getRequestDispatcher("GerirRefeicao.jsp").forward(request, response);
-		} else{
+			request.getRequestDispatcher("/WEB-INF/CadRefeicao.jsp").forward(request, response);
+		}else{
 			RefeicaoVO refeicaoVO = new RefeicaoVO();
 			refeicaoVO.setId(Integer.parseInt(id));
 			refeicaoVO.setDescricao(descricao);
@@ -78,11 +78,11 @@ public class RefeicaoControle extends HttpServlet{
 				response.sendRedirect("GerirRefeicao");
 			} catch (Exception e){
 				request.setAttribute("mensagem", Constantes.ERRO);
-			}	
+			}
 		}
 	}
 
-	private void excluir(HttpServletRequest request, HttpServletResponse response) {
+	private void excluir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String identificador = request.getParameter("id");
 
@@ -99,9 +99,13 @@ public class RefeicaoControle extends HttpServlet{
 		
 		try{
 			RefeicaoHandler.excluirRefeicao(refeicao);
+			request.setAttribute("mensagem", Constantes.SUCESSO);
+			request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);
 		} 
 		catch (Exception e){
 			request.setAttribute("mensagem", Constantes.ERRO);
+			request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);
+
 		}
 		
 		request.setAttribute("mensagem", Constantes.SUCESSO);
@@ -190,8 +194,6 @@ public class RefeicaoControle extends HttpServlet{
 					break;
 				case Constantes.ACAO_DELETAR:					
 					excluir(request, response);
-					request.setAttribute("mensagem", Constantes.SUCESSO);
-					response.sendRedirect("GerirRefeicao");
 					break;
 				default:
 					request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);

@@ -88,7 +88,7 @@ public class DepartamentoControle extends HttpServlet
 					break;
 				case Constantes.ACAO_SALVAR:
 					cadastrar(request, response);
-					response.sendRedirect("GerirDepartamento");
+					//response.sendRedirect("GerirDepartamento");
 					break;
 				default:
 					request.getRequestDispatcher("/WEB-INF/ListDepartamento.jsp").forward(request, response);
@@ -106,37 +106,40 @@ public class DepartamentoControle extends HttpServlet
 		
 	}
 
-	private void editar(HttpServletRequest request, HttpServletResponse response)
+	private void editar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String id = request.getParameter("departamentoId");
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 
-		Departamento departamento = null;
-		try
-		{
-			departamento = DepartamentoHandler.recuperarDepartamento(Integer.parseInt(id));
+		if(id.equals("") || nome.equals("")||sigla.equals("")){
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("/WEB-INF/AtualizarDepartamento.jsp").forward(request, response);
+		}else{
+			Departamento departamento = null;
+			try{
+				departamento = DepartamentoHandler.recuperarDepartamento(Integer.parseInt(id));
+				departamento.setNome(nome);
+				departamento.setSigla(sigla);			
+			} catch (NumberFormatException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
-			departamento.setNome(nome);
-			departamento.setSigla(sigla);			
-		} catch (NumberFormatException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (Exception e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try
-		{
-			DepartamentoHandler.atualizarDepartamento(departamento);
+			try{
+				DepartamentoHandler.atualizarDepartamento(departamento);
+				request.setAttribute("mensagem", Constantes.SUCESSO);
+				response.sendRedirect("GerirDepartamento");
+			} catch (Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+				request.getRequestDispatcher("/WEB-INF/ListDepartamento.jsp").forward(request, response);
 
-			response.sendRedirect("GerirDepartamento");
-		} catch (Exception e)
-		{
-			request.setAttribute("mensagem", Constantes.ERRO);
+			}
 		}
 	}
 	
@@ -144,37 +147,25 @@ public class DepartamentoControle extends HttpServlet
 	{
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
-
-		DepartamentoVO dptoVO = new DepartamentoVO();
-		dptoVO.setNome(nome);
-		dptoVO.setSigla(sigla);	
-		
-		try
-		{
-			DepartamentoHandler.cadastrarDepartamento(dptoVO);
-		} 
-		catch (Exception e)
-		{
-			request.setAttribute("mensagem", Constantes.ERRO);
+		if(nome.equals("")||sigla.equals("")){
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
+		}else{
+			DepartamentoVO dptoVO = new DepartamentoVO();
+			dptoVO.setNome(nome);
+			dptoVO.setSigla(sigla);	
+			
+			try
+			{
+				DepartamentoHandler.cadastrarDepartamento(dptoVO);
+			} 
+			catch (Exception e)
+			{
+				request.setAttribute("mensagem", Constantes.ERRO);
+			}
 		}
 	}
 
-	public ArrayList<Departamento> listaDepartamentos()
-	{
-		try
-		{
-			return DepartamentoHandler.recuperarDepartamentos(new DepartamentoVO());
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{

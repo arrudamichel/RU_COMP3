@@ -122,13 +122,13 @@ public class Constantes
 	final public static String ERRO_NUM = "Erro, verifique os formatos num&eacutericos";
 	final public static String ERRO_SQL = "Erro, verifique a consulta";
 	final public static String ERRO_VAZIO = "Erro, preencha todos os campos";
-	final public static String ERRO_CPF = "Erro, CPF inválido";
+	final public static String ERRO_CPF = "Erro, CPF inv&aacutelido";
 	final public static String ERRO_CPF_CADASTRADO = "Erro, CPF previamente cadastrado";
 	
 	final public static String SUCESSO = "Sucesso ao executar opera&ccedil&atildeo";
 
 	// TEMPLATE
-	final public static String BASE_CSS = "<link rel='stylesheet' href='webapp/WEB-INF/resources/Stylesheets/base.css' type='text/css' media='screen' /> ";
-	final public static String ESTILO_CSS = "<link rel='stylesheet' id='current-theme' href='webapp/WEB-INF/resources/Stylesheets/themes/default/style.css' type='text/css' media='screen' />";
-	final public static String JQUERY_LINK = "<script type='text/javascript' charset='utf-8' src='webapp/WEB-INF/resources/Javascripts/jquery-2.1.3.min.js'></script>";
+	final public static String BASE_CSS = "<link rel='stylesheet' href='Stylesheets/base.css' type='text/css' media='screen' /> ";
+	final public static String ESTILO_CSS = "<link rel='stylesheet' id='current-theme' href='Stylesheets/themes/default/style.css' type='text/css' media='screen' />";
+	final public static String JQUERY_LINK = "<script type='text/javascript' charset='utf-8' src='Javascripts/jquery-2.1.3.min.js'></script>";
 }

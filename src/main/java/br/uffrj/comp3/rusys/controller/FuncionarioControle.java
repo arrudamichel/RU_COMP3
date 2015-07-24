@@ -76,7 +76,7 @@ public class FuncionarioControle extends HttpServlet
 			{
 				case Constantes.ACAO_SALVAR:
 					cadastrar(request, response);
-					response.sendRedirect("GerirFuncionario");
+					//response.sendRedirect("GerirFuncionario");
 					break;
 				case Constantes.ACAO_EDITAR:
 					editar(request, response);
@@ -87,7 +87,7 @@ public class FuncionarioControle extends HttpServlet
 					response.sendRedirect("GerirFuncionario");
 					break;
 				default:
-					request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/listarFuncionarios.jsp").forward(request, response);
 			}
 		} 
 		else
@@ -112,15 +112,18 @@ public class FuncionarioControle extends HttpServlet
 		
 		try{
 			FuncionarioHandler.excluirFuncionario(funcionario);
-			response.sendRedirect("GerirFuncionario");
+			request.setAttribute("mensagem", Constantes.SUCESSO);
+			request.getRequestDispatcher("WEB-INF/listarFuncionarios.jsp").forward(request, response);
 		} 
 		catch (Exception e){
 			request.setAttribute("mensagem", Constantes.ERRO);
+			request.getRequestDispatcher("WEB-INF/listaFuncionarios.jsp").forward(request, response);
+			e.printStackTrace();
 		}
 		
 	}
 
-	private void editar(HttpServletRequest request, HttpServletResponse response) {
+	private void editar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String id = request.getParameter("id");
 		String matricula = request.getParameter("matricula");
@@ -130,28 +133,36 @@ public class FuncionarioControle extends HttpServlet
 		String titulo = request.getParameter("titulo");
 		String cpf = request.getParameter("cpf");
 		String departamento = request.getParameter("departamento");
-
-		ConsumidorVO funcionario= new ConsumidorVO();
-		funcionario.setId(Integer.parseInt(id));
-		funcionario.setMatricula(Integer.parseInt(matricula));
-		funcionario.setNome(nome);
-		funcionario.setAnoDeIngresso(anoIngresso);
-		funcionario.setSexo(sexo);
-		funcionario.setTitulo(titulo);
-		System.out.println("CPF" + cpf);
-		funcionario.setCpf(cpf);
-		funcionario.setCurso(Integer.parseInt(departamento));
 		
-		try{	
-			FuncionarioHandler.atualizarFuncionario(funcionario, Integer.parseInt(id));
-		} catch (Exception e){
-			request.setAttribute("mensagem", Constantes.ERRO);
+		if(nome.equals("")|| matricula.equals("") || anoIngresso.equals("") || departamento.equals("")){
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("WEB-INF/listarFuncionario.jsp").forward(request, response);
+		}else{
+
+			ConsumidorVO funcionario= new ConsumidorVO();
+			funcionario.setId(Integer.parseInt(id));
+			funcionario.setMatricula(Integer.parseInt(matricula));
+			funcionario.setNome(nome);
+			funcionario.setAnoDeIngresso(anoIngresso);
+			funcionario.setSexo(sexo);
+			funcionario.setTitulo(titulo);
+			System.out.println("CPF" + cpf);
+			funcionario.setCpf(cpf);
+			funcionario.setCurso(Integer.parseInt(departamento));
+		
+			try{	
+				FuncionarioHandler.atualizarFuncionario(funcionario, Integer.parseInt(id));
+				request.setAttribute("mensagem", Constantes.SUCESSO);
+				request.getRequestDispatcher("WEB-INF/CadFuncionario.jsp").forward(request, response);
+			} catch (Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+				request.getRequestDispatcher("WEB-INF/listarFuncionarios.jsp").forward(request, response);
+			}
 		}
 
 	}
 
-	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
+	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
 		String nome = request.getParameter("nome");
 		String matricula = request.getParameter("matricula");
@@ -160,43 +171,29 @@ public class FuncionarioControle extends HttpServlet
 		String titulo = request.getParameter("titulo");
 		String cpf = request.getParameter("cpf");
 		String departamento = request.getParameter("departamento");
-		
-		ConsumidorVO funcionarioVO = new ConsumidorVO();
-		
-		funcionarioVO.setNome(nome);
-		funcionarioVO.setMatricula(Integer.parseInt(matricula));
-		funcionarioVO.setAnoDeIngresso(ano);
-		funcionarioVO.setSexo(sexo);
-		funcionarioVO.setTitulo(titulo);
-		funcionarioVO.setCpf(cpf);
-		funcionarioVO.setDepartamento(Integer.parseInt(departamento));
-		
-		try
-		{
-			FuncionarioHandler.cadastrarFuncionario(funcionarioVO);
-		} 
-		catch (Exception e)
-		{
-			request.setAttribute("mensagem", Constantes.ERRO);
+		if(nome.equals("")|| matricula.equals("") || ano.equals("") || departamento.equals("")){
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("WEB-INF/CadFuncionario.jsp").forward(request, response);
+		}else{
+			ConsumidorVO funcionarioVO = new ConsumidorVO();
+			
+			funcionarioVO.setNome(nome);
+			funcionarioVO.setMatricula(Integer.parseInt(matricula));
+			funcionarioVO.setAnoDeIngresso(ano);
+			funcionarioVO.setSexo(sexo);
+			funcionarioVO.setTitulo(titulo);
+			funcionarioVO.setCpf(cpf);
+			funcionarioVO.setDepartamento(Integer.parseInt(departamento));
+			
+			try{
+				FuncionarioHandler.cadastrarFuncionario(funcionarioVO);
+				request.setAttribute("mensagem", Constantes.SUCESSO);
+				request.getRequestDispatcher("WEB-INF/listarFuncionarios.jsp").forward(request, response);
+			} 
+			catch (Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+			}
 		}
-	}
-
-	public ArrayList<Departamento> listaDepartamentos()
-	{
-		try
-		{
-			return DepartamentoHandler.recuperarDepartamentos(new DepartamentoVO());
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
