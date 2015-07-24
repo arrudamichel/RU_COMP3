@@ -131,9 +131,9 @@ INSERT INTO curso (nome,sigla,departamento_fk) VALUES ('Matematica','Mat', 1);
 INSERT INTO curso (nome,sigla,departamento_fk) VALUES ('Ciência da Computação','CCOMP', 2);
 
 -- Insert consumidor
-INSERT INTO consumidor (matricula,nome,ano_ingresso,sexo,titulo,cpf,situacao) VALUES (123,'Miguel','2010','M','ESPECIALIZACAO','12345678901',1);
-INSERT INTO consumidor (matricula,nome,ano_ingresso,sexo,titulo,cpf,situacao) VALUES (456,'Hugo','2010','M','ESPECIALIZACAO','12345678911',1);
-INSERT INTO consumidor (matricula,nome,ano_ingresso,sexo,titulo,cpf,situacao) VALUES (789,'Duarte','2013','M','DOUTORADO','12345678922',1);
+INSERT INTO consumidor (matricula,nome,ano_ingresso,sexo,titulo,cpf,situacao) VALUES (123,'Miguel','2010','M','ESPECIALIZACAO','24871685870',1);
+INSERT INTO consumidor (matricula,nome,ano_ingresso,sexo,titulo,cpf,situacao) VALUES (456,'Hugo','2010','M','ESPECIALIZACAO','32818168864',1);
+INSERT INTO consumidor (matricula,nome,ano_ingresso,sexo,titulo,cpf,situacao) VALUES (789,'Duarte','2013','M','DOUTORADO','80699145139',1);
 
 -- Insert Aluno
 INSERT INTO aluno (id, curso_fk) VALUES (1,2);
