@@ -53,4 +53,9 @@ public class TurnoEnum
 		array[3] = VAZIO;
 		return array;
 	}
+	
+	public boolean equals(TurnoEnum other) 
+	{
+		return this.toString().equals(other.toString());
+	}
 }

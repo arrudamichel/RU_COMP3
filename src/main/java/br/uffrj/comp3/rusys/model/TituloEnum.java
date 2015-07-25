@@ -53,4 +53,9 @@ public class TituloEnum
 		array[3] = VAZIO;
 		return array;
 	}
+	
+	public boolean equals(TituloEnum other) 
+	{
+		return this.toString().equals(other.toString());
+	}
 }

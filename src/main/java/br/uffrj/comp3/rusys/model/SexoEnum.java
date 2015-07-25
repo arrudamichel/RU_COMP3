@@ -47,4 +47,9 @@ public class SexoEnum
 		array[3] = VAZIO;
 		return array;
 	}
+
+	public boolean equals(SexoEnum other) 
+	{
+		return this.toString().equals(other.toString());
+	}
 }

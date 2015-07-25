@@ -55,4 +55,8 @@ public class TipoRefeicaoEnum
 		return array;
 	}
 
+	public boolean equals(TipoRefeicaoEnum other) 
+	{
+		return this.toString().equals(other.toString());
+	}
 }
