@@ -82,8 +82,13 @@ public abstract class Consumidor
 		return anoDeIngresso;
 	}
 
-	public void setAnoDeIngresso(Integer anoDeIngresso)
+	public void setAnoDeIngresso(Integer anoDeIngresso) throws AnoDeIngressoNull
 	{
+		if (anoDeIngresso == null) 
+		{
+			throw new AnoDeIngressoNull();
+		}
+		
 		this.anoDeIngresso = anoDeIngresso;
 	}
 
