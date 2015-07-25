@@ -16,6 +16,9 @@ import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
 import br.uffrj.comp3.rusys.persintece.FuncionarioGateway;
+import br.uffrj.comp3.rusys.service.exceptions.AlterarNoBancoExeception;
+import br.uffrj.comp3.rusys.service.exceptions.ExcluirDoBancoException;
+import br.uffrj.comp3.rusys.service.exceptions.InsercaoNoBancoException;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class FuncionarioHandler
@@ -37,7 +40,7 @@ public class FuncionarioHandler
 				Arrays.asList( id,consumidorVO.getDepartamento()));
 
 		if (!ag.inserir(valores2))
-			throw new Exception("FuncionarioHandler.falha.ao.cadastrar.funcionario");
+			throw new InsercaoNoBancoException();
 
 		conn.close();
 	}
@@ -128,7 +131,7 @@ public class FuncionarioHandler
 		ConsumidorGateway cg = new ConsumidorGateway(conn);
 
 		if (!cg.desativarConsumidor(consumidor.getId()))
-			throw new Exception("FuncionarioHandler.falha.ao.excluir.funcionario");
+			throw new ExcluirDoBancoException();
 
 		conn.close();
 	}
@@ -147,7 +150,8 @@ public class FuncionarioHandler
 
 		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(consumidorVO.getCurso()));
 		
-		funcionarioGW.alterarFuncionario(valores2, idDepartamento);
+		if (!funcionarioGW.alterarFuncionario(valores2, idDepartamento))
+			throw new AlterarNoBancoExeception();
 
 		conn.close();
 	}

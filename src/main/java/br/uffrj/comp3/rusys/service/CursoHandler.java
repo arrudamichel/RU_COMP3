@@ -11,6 +11,10 @@ import br.uffrj.comp3.rusys.model.vo.CursoVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.CursoGateway;
 import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
+import br.uffrj.comp3.rusys.service.exceptions.AlterarNoBancoExeception;
+import br.uffrj.comp3.rusys.service.exceptions.ExcluirDoBancoException;
+import br.uffrj.comp3.rusys.service.exceptions.InsercaoNoBancoException;
+import br.uffrj.comp3.rusys.service.exceptions.SiglaAlreadyExistsException;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class CursoHandler
@@ -19,7 +23,7 @@ public class CursoHandler
 	{
 		if(!isSILGAunica(cursoVO.getSigla()))
 		{
-			throw new Exception("CursoHandler.cadastrarCurso.sigla.informado.ja.cadastrada");
+			throw new SiglaAlreadyExistsException(cursoVO.getSigla());
 		}
 		
 		Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());
@@ -40,7 +44,7 @@ public class CursoHandler
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), deptId));
 
 		if (cursoGateway.inserir(valores) == null)
-			throw new Exception("falha.ao.cadastrar.curso");
+			throw new InsercaoNoBancoException();
 		
 		conn.close();
 	}
@@ -69,7 +73,7 @@ public class CursoHandler
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(curso.getNome(), curso.getSigla(), curso.getDepartamento().getId()));
 
 		if (!cg.alterarCurso(valores, curso.getId()))
-			throw new Exception("falha.ao.atualizar.curso");
+			throw new AlterarNoBancoExeception();
 		
 		conn.close();
 	}
@@ -90,7 +94,7 @@ public class CursoHandler
 		CursoGateway cg = new CursoGateway(conn);
 
 		if (!cg.excluirCurso(curso.getId()))
-			throw new Exception("falha.ao.excluir.curso");
+			throw new ExcluirDoBancoException();
 		
 		conn.close();
 	}

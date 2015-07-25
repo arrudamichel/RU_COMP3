@@ -10,6 +10,9 @@ import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
+import br.uffrj.comp3.rusys.service.exceptions.AlterarNoBancoExeception;
+import br.uffrj.comp3.rusys.service.exceptions.ExcluirDoBancoException;
+import br.uffrj.comp3.rusys.service.exceptions.InsercaoNoBancoException;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class DepartamentoHandler
@@ -30,7 +33,7 @@ public class DepartamentoHandler
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamento.getNome(), departamento.getSigla()));
 
 		if (deptGateway.inserir(valores)==null)
-			throw new Exception("falha.ao.cadastrar.departamento");
+			throw new InsercaoNoBancoException(); //"DepartamentoHandler.cadastrarDepartamento"
 
 		conn.close();
 	}
@@ -55,7 +58,7 @@ public class DepartamentoHandler
 		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(departamento.getNome(), departamento.getSigla())); 
 
 		if (!dg.alterarDepartamento(valores, departamento.getId()))
-			throw new Exception("falha.ao.atualizar.departamento");
+			throw new AlterarNoBancoExeception();
 		
 		conn.close();
 	}
@@ -76,7 +79,7 @@ public class DepartamentoHandler
 		DepartamentoGateway cg = new DepartamentoGateway(conn);
 
 		if (!cg.excluirDepartamento(departamento.getId()))
-			throw new Exception("falha.ao.excluir.departamento");
+			throw new ExcluirDoBancoException();
 		
 		conn.close();
 	}
