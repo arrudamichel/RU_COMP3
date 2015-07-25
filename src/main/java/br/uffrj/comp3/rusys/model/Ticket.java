@@ -2,13 +2,14 @@ package br.uffrj.comp3.rusys.model;
 
 import br.uffrj.comp3.rusys.service.exceptions.ConsumidorNull;
 import br.uffrj.comp3.rusys.service.exceptions.RefeicaoNull;
+import br.uffrj.comp3.rusys.service.exceptions.ValorTuplaConsumidorTurnoVazioException;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class Ticket
 {
 	private Integer id;
 	private boolean pago = false;
-	private float valor;
+	private Float valor;
 	private Consumidor consumidor;
 	private Refeicao refeicao;
 	
@@ -41,9 +42,9 @@ public class Ticket
 			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(refeicao.getTurno().toString() + Funcionario.class);
 		}
 		
-		if (this.valor == 0)
+		if (this.valor == null)
 		{
-			throw new Exception("model.ticket.valor.para.essa.tupla.cosumidor.refeicao.nao.existe");
+			throw new ValorTuplaConsumidorTurnoVazioException();
 		}
 	}
 
