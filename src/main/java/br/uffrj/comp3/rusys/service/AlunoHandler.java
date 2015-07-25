@@ -139,17 +139,19 @@ public class AlunoHandler
 	
 	public static void atualizarAluno(ConsumidorVO consumidorVO, int id) throws Exception
 	{
-//		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());	
-//		@SuppressWarnings("unused")
-//		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
-		
+		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());
+		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
+		if (consumidorVO.getCurso()!=null) 
+		{	
+			aluno.setCurso(curso);
+		}
 		
 		ConsumidorHandler.atualizarConsumidor(consumidorVO);
 
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
 		AlunoGateway alunoGW = new AlunoGateway(conn);
 
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(consumidorVO.getCurso()));
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(aluno.getCurso().getId()));
 		
 		if(!alunoGW.alterarAluno(valores, id))
 		{

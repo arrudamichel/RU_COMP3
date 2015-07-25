@@ -85,11 +85,6 @@ public class RefeicaoImpl implements Refeicao
 		return tickets;
 	}
 
-	public void setTickets(List<Ticket> tickets)
-	{
-		this.tickets = tickets;
-	}
-
 	public TipoRefeicaoEnum getTipo() 
 	{
 		return tipo;

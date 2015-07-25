@@ -2,7 +2,7 @@ package br.uffrj.comp3.rusys.model.vo;
 
 public class TicketVO {
 	private Integer id;
-	private boolean pago;
+	private Boolean pago;
 	private float valor;
 	private String nome;
 	private Integer matricula;
@@ -11,11 +11,11 @@ public class TicketVO {
 	
 
 
-	public boolean isPago() {
+	public Boolean isPago() {
 		return pago;
 	}
 
-	public void setPago(boolean pago2) {
+	public void setPago(Boolean pago2) {
 		this.pago = pago2;
 	}
 

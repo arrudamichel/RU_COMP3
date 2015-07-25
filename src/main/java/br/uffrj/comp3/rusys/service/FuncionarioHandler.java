@@ -26,10 +26,8 @@ public class FuncionarioHandler
 
 	public static void cadastrarFuncionario(ConsumidorVO consumidorVO) throws Exception
 	{
-//		Departamento departamento = DepartamentoHandler.recuperarDepartamento(consumidorVO.getDepartamento());
-//		@SuppressWarnings("unused")
-//		Funcionario funcionario = new Funcionario(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), departamento);
-		
+		Departamento departamento = DepartamentoHandler.recuperarDepartamento(consumidorVO.getDepartamento());
+		Funcionario funcionario = new Funcionario(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), departamento);
 		
 		int id = ConsumidorHandler.cadastrarConsumidor(consumidorVO);
 
@@ -37,7 +35,7 @@ public class FuncionarioHandler
 		FuncionarioGateway ag = new FuncionarioGateway(conn);
 
 		ArrayList<Object> valores2 = new ArrayList<Object>(
-				Arrays.asList( id,consumidorVO.getDepartamento()));
+				Arrays.asList( id,funcionario.getDepartamento().getId()));
 
 		if (!ag.inserir(valores2))
 			throw new InsercaoNoBancoException();
@@ -138,17 +136,20 @@ public class FuncionarioHandler
 
 	public static void atualizarFuncionario(ConsumidorVO consumidorVO, int idDepartamento) throws Exception
 	{
-//		Departamento departamento = DepartamentoHandler.recuperarDepartamento(consumidorVO.getDepartamento());
-//		@SuppressWarnings("unused")
-//		Funcionario funcionario = new Funcionario(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), departamento);
+		Funcionario funcionario = recuperarFuncionario(consumidorVO.getId());
 		
+		if (consumidorVO.getDepartamento()!=null) 
+		{	
+			Departamento departamento = DepartamentoHandler.recuperarDepartamento(idDepartamento);
+			funcionario.setDepartamento(departamento);
+		}
 		
 		ConsumidorHandler.atualizarConsumidor(consumidorVO);
 
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
 		FuncionarioGateway funcionarioGW = new FuncionarioGateway(conn);
 
-		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(consumidorVO.getCurso()));
+		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(funcionario.getDepartamento().getId()));
 		
 		if (!funcionarioGW.alterarFuncionario(valores2, idDepartamento))
 			throw new AlterarNoBancoExeception();

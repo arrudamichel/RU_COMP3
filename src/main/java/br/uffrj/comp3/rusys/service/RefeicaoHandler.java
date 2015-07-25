@@ -22,16 +22,15 @@ public class RefeicaoHandler
 {
 	public static int cadastrarRefeicao(RefeicaoVO refeicaoVO) throws Exception
 	{
-//		@SuppressWarnings("unused")
-//		Refeicao refeicao = new Refeicao(refeicaoVO.getId(), refeicaoVO.getDescricao(), refeicaoVO.getTipo());
-		
+		Refeicao refeicao = new RefeicaoImpl(refeicaoVO.getId(), refeicaoVO.getDescricao(), refeicaoVO.getTipo());
+		refeicao.setOpcaoVeg(refeicaoVO.getOpcaoVeg());
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 	
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
 
 		ArrayList<Object> valores = new ArrayList<Object>(
-				Arrays.asList(refeicaoVO.getDescricao(), refeicaoVO.getOpcaoVeg(), refeicaoVO.getTurno().toString(), refeicaoVO.getTipo().toString()));
+				Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg(), refeicao.getTurno().toString(), refeicao.getTipo().toString()));
 		
 		ResultSet rs = refeicaoGateway.inserir(valores);
 
@@ -72,18 +71,25 @@ public class RefeicaoHandler
 
 	public static boolean atualizarRefeicao(RefeicaoVO refeicaoVO) throws Exception
 	{
-//		@SuppressWarnings("unused")
-//		Refeicao refeicao = new Refeicao(refeicaoVO.getId(), refeicaoVO.getDescricao(), refeicaoVO.getTipo());
+		Refeicao refeicao = recuperarRefeicao(refeicaoVO.getId());
 		
+		if (refeicaoVO.getDescricao() != null)
+		{
+			refeicao.setDescricao(refeicaoVO.getDescricao());
+		}
+		if (refeicaoVO.getOpcaoVeg()!= null)
+		{
+			refeicao.setOpcaoVeg(refeicaoVO.getOpcaoVeg());
+		}
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		RefeicaoGateway refeicaoGateway = new RefeicaoGateway(conn);
 
 		ArrayList<Object> valores = new ArrayList<Object>(
-				Arrays.asList(refeicaoVO.getDescricao(), refeicaoVO.getOpcaoVeg()));
+				Arrays.asList(refeicao.getDescricao(), refeicao.getOpcaoVeg()));
 		
-		boolean rs = refeicaoGateway.alterarRefeicao(valores, refeicaoVO.getId());
+		boolean rs = refeicaoGateway.alterarRefeicao(valores, refeicao.getId());
 		
 		if (!rs)
 			throw new AlterarNoBancoExeception();

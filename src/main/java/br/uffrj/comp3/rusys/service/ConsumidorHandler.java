@@ -10,6 +10,8 @@ import java.util.Collection;
 import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Consumidor;
 import br.uffrj.comp3.rusys.model.Funcionario;
+import br.uffrj.comp3.rusys.model.SexoEnum;
+import br.uffrj.comp3.rusys.model.TituloEnum;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
@@ -49,15 +51,42 @@ public class ConsumidorHandler
 	
 	public static void atualizarConsumidor(ConsumidorVO consumidorVO) throws Exception
 	{	
+		Consumidor consumidor = recuperarConsumidor(consumidorVO.getId());
+		
+		if (consumidorVO.getNome() != null)
+		{
+			consumidor.setNome(consumidorVO.getNome());
+		}
+		if (consumidorVO.getMatricula() != null)
+		{
+			consumidor.setMatricula(consumidorVO.getMatricula());
+		}
+		if (consumidorVO.getAnoDeIngresso() != null)
+		{
+			consumidor.setAnoDeIngresso(consumidorVO.getAnoDeIngresso());
+		}
+		if (consumidorVO.getSexo() != null)
+		{
+			consumidor.setSexo(SexoEnum.fromString(consumidorVO.getSexo()));
+		}
+		if (consumidorVO.getTitulo() != null)
+		{
+			consumidor.setTitulo(TituloEnum.fromString(consumidorVO.getTitulo()));
+		}
+		if (consumidorVO.getCpf() != null)
+		{
+			consumidor.setCpf(consumidorVO.getCpf());
+		}	
+		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		ConsumidorGateway consumidorGW = new ConsumidorGateway(conn);
 		
-		System.out.println("CPF"+consumidorVO.getCpf());
+		System.out.println("CPF"+consumidor.getCpf());
 		
-		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(consumidorVO.getNome(),
-				consumidorVO.getAnoDeIngresso(), consumidorVO.getSexo(), consumidorVO.getTitulo(), consumidorVO.getCpf()));
+		ArrayList<Object> valores = new ArrayList<Object>(Arrays.asList(consumidor.getNome(),
+				consumidor.getAnoDeIngresso(), consumidor.getSexo().toString(), consumidor.getTitulo().toString(), consumidor.getCpf()));
 		
-		if (!consumidorGW.alterarConsumidor(valores, consumidorVO.getId())) 
+		if (!consumidorGW.alterarConsumidor(valores, consumidor.getId())) 
 		{
 			throw new AlterarNoBancoExeception();
 		}

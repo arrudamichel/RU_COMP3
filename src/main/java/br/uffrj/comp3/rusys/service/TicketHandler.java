@@ -22,18 +22,16 @@ public class TicketHandler {
 
 	public static void cadastrarTicket(TicketVO ticketVO) throws Exception 
 	{
-//		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(ticketVO.getConsumidorId());	
-//		Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(ticketVO.getRefeicao());
-//		@SuppressWarnings("unused")
-//		Ticket ticket = new Ticket(ticketVO.getId(), ticketVO.isPago(), consumidor, refeicao);
-		
+		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(ticketVO.getConsumidorId());	
+		Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(ticketVO.getRefeicao());
+		Ticket ticket = new Ticket(ticketVO.getId(), ticketVO.isPago(), consumidor, refeicao);
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		TicketGateway ticketGateway = new TicketGateway(conn);
 		
 		ArrayList<Object> valores = new ArrayList<Object>(
-				Arrays.asList(ticketVO.getConsumidorId(), ticketVO.getRefeicao(), ticketVO.getValor(), ticketVO.isPago()));
+				Arrays.asList(ticket.getConsumidor().getId(), ticket.getRefeicao().getId(), ticket.getValor(), ticket.isPago()));
 
 		if (ticketGateway.inserir(valores)==null)
 			throw new InsercaoNoBancoException();
@@ -119,16 +117,17 @@ public class TicketHandler {
 	
 	public static void atualizarTicket(TicketVO ticketVO) throws Exception
 	{	
-//		Consumidor consumidor = ConsumidorHandler.recuperarConsumidor(ticketVO.getConsumidorId());	
-//		Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(ticketVO.getRefeicao());
-//		@SuppressWarnings("unused")
-//		Ticket ticket = new Ticket(ticketVO.getId(), ticketVO.isPago(), consumidor, refeicao);
+		Ticket ticket = recuperarTicket(ticketVO.getId());
 		
+		if (ticketVO.isPago()!=null)
+		{
+			ticket.setPago(ticketVO.isPago());
+		}
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		TicketGateway cg = new TicketGateway(conn);
 
-		if (!cg.alterarTicket(new ArrayList<Object>(Arrays.asList(ticketVO.isPago())), ticketVO.getId()))
+		if (!cg.alterarTicket(new ArrayList<Object>(Arrays.asList(ticket.isPago())), ticket.getId()))
 			throw new AlterarNoBancoExeception();
 		
 		conn.close();

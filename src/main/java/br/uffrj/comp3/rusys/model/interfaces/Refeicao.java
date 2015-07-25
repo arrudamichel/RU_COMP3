@@ -22,7 +22,5 @@ public interface Refeicao
 
 	public List<Ticket> getTickets();
 
-	public void setTickets(List<Ticket> tickets);
-
 	public TipoRefeicaoEnum getTipo();
 }
