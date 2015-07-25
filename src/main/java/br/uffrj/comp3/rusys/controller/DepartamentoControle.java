@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
-import br.uffrj.comp3.rusys.service.AlunoHandler;
-import br.uffrj.comp3.rusys.service.CursoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
 
@@ -41,15 +39,15 @@ public class DepartamentoControle extends HttpServlet
 				{
 					case Constantes.ACAO_DELETAR:
 						excluir(request, response);
-						response.sendRedirect("GerirDepartamento");
+//						response.sendRedirect("GerirDepartamento");
 						break;
 					case Constantes.ACAO_EDITAR:
 						editar(request, response);
-						response.sendRedirect("GerirDepartamento");
+//						response.sendRedirect("GerirDepartamento");
 						break;
 					case Constantes.ACAO_SALVAR:
 						cadastrar(request, response);
-						response.sendRedirect("GerirDepartamento");
+//						response.sendRedirect("GerirDepartamento");
 						break;
 					default:
 						request.getRequestDispatcher("/WEB-INF/ListDepartamento.jsp").forward(request, response);
@@ -63,7 +61,7 @@ public class DepartamentoControle extends HttpServlet
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
+			toListar(Constantes.ERRO, request, response);
 		}
 	}
 	
@@ -90,15 +88,9 @@ public class DepartamentoControle extends HttpServlet
 			departamento.setNome(nome);
 			departamento.setSigla(sigla);			
 			
-			try{
-				DepartamentoHandler.atualizarDepartamento(departamento);
+			DepartamentoHandler.atualizarDepartamento(departamento);
 				
-				toListar(Constantes.SUCESSO, request, response);
-				
-			} catch(Exception e){
-				request.setAttribute("mensagem", Constantes.ERRO);
-				request.getRequestDispatcher("/WEB-INF/AtualizarDepartamento.jsp").forward(request, response);				
-			}
+			toListar(Constantes.SUCESSO, request, response);
 		}
 	}
 	
@@ -124,15 +116,9 @@ public class DepartamentoControle extends HttpServlet
 			dptoVO.setNome(nome);
 			dptoVO.setSigla(sigla);	
 			
-			try{
-				DepartamentoHandler.cadastrarDepartamento(dptoVO);
+			DepartamentoHandler.cadastrarDepartamento(dptoVO);
 				
-				toListar(Constantes.SUCESSO, request, response);
-
-			} catch(Exception e){
-				request.setAttribute("mensagem", Constantes.ERRO);
-				request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);				
-			}
+			toListar(Constantes.SUCESSO, request, response);
 		}		
 	}
 
@@ -216,7 +202,7 @@ public class DepartamentoControle extends HttpServlet
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
+			toListar(Constantes.ERRO, request, response);
 		}
 	}
 }

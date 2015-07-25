@@ -13,6 +13,7 @@ import br.uffrj.comp3.rusys.persintece.DepartamentoGateway;
 import br.uffrj.comp3.rusys.service.exceptions.AlterarNoBancoExeception;
 import br.uffrj.comp3.rusys.service.exceptions.ExcluirDoBancoException;
 import br.uffrj.comp3.rusys.service.exceptions.InsercaoNoBancoException;
+import br.uffrj.comp3.rusys.service.exceptions.SiglaAlreadyExistsException;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class DepartamentoHandler
@@ -21,7 +22,7 @@ public class DepartamentoHandler
 	{
 		if(!isSILGAunica(departamentoVO.getSigla()))
 		{
-			throw new Exception("DepartamentoHandler.cadastrarDepartamento.sigla.informado.ja.cadastrada");
+			throw new SiglaAlreadyExistsException(departamentoVO.getSigla());
 		}
 		
 		Departamento departamento = new Departamento(departamentoVO.getId(), departamentoVO.getNome(), departamentoVO.getSigla());
@@ -46,9 +47,13 @@ public class DepartamentoHandler
 		{
 			departamento.setNome(departamentoVO.getNome());
 		}
-		
 		if (departamentoVO.getSigla() != null)
 		{
+			if(!isSILGAunica(departamentoVO.getSigla()))
+			{
+				throw new SiglaAlreadyExistsException(departamentoVO.getSigla());
+			}
+			
 			departamento.setSigla(departamentoVO.getSigla());
 		}
 		

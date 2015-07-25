@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.TurnoEnum;
 import br.uffrj.comp3.rusys.model.interfaces.Refeicao;
-import br.uffrj.comp3.rusys.model.RefeicaoImpl;
 import br.uffrj.comp3.rusys.model.TipoRefeicaoEnum;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
 import br.uffrj.comp3.rusys.service.RefeicaoHandler;

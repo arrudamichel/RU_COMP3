@@ -15,7 +15,6 @@ import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
-import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.service.FuncionarioHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
@@ -39,18 +38,18 @@ public class FuncionarioControle extends HttpServlet
 				{
 					case Constantes.ACAO_SALVAR:
 						cadastrar(request, response);
-						response.sendRedirect("GerirFuncionario");
+//						response.sendRedirect("GerirFuncionario");
 						break;
 					case Constantes.ACAO_EDITAR:
 						editar(request, response);
-						response.sendRedirect("GerirFuncionario");
+//						response.sendRedirect("GerirFuncionario");
 						break;
 					case Constantes.ACAO_DELETAR:
 						//excluir(request, response);
-						response.sendRedirect("GerirFuncionario");
+//						response.sendRedirect("GerirFuncionario");
 						break;
 					default:
-						request.getRequestDispatcher("/WEB-INF/listarFuncionario.jsp").forward(request, response);
+						request.getRequestDispatcher("/WEB-INF/listarFuncionarios.jsp").forward(request, response);
 				}
 			} 
 			else
@@ -62,7 +61,7 @@ public class FuncionarioControle extends HttpServlet
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
+			toListar(Constantes.ERRO, request, response);
 		}
 	}
 	
@@ -74,15 +73,9 @@ public class FuncionarioControle extends HttpServlet
 		
 		funcionario = FuncionarioHandler.recuperarFuncionario(Integer.parseInt(idFuncionario));	
 
-		try{
-			FuncionarioHandler.excluirFuncionario(funcionario);
+		FuncionarioHandler.excluirFuncionario(funcionario);
 			
-			toListar(Constantes.SUCESSO, request, response);
-
-		} catch(Exception e){
-			
-			toListar(Constantes.ERRO, request, response);	
-		}
+		toListar(Constantes.SUCESSO, request, response);
 	}
 
 	private void editar(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, Exception {
@@ -112,15 +105,9 @@ public class FuncionarioControle extends HttpServlet
 			funcionario.setCpf(cpf);
 			funcionario.setCurso(Integer.parseInt(departamento));
 			
-			try{
-				FuncionarioHandler.atualizarFuncionario(funcionario, Integer.parseInt(id));
+			FuncionarioHandler.atualizarFuncionario(funcionario, Integer.parseInt(id));
 				
-				toListar(Constantes.SUCESSO, request, response);
-
-			} catch(Exception e){
-				request.setAttribute("mensagem", Constantes.ERRO);
-				request.getRequestDispatcher("/WEB-INF/AtualizarFuncionario.jsp").forward(request, response);	
-			}
+			toListar(Constantes.SUCESSO, request, response);
 		}		
 	}
 
@@ -150,20 +137,14 @@ public class FuncionarioControle extends HttpServlet
 			funcionarioVO.setCpf(cpf);
 			funcionarioVO.setDepartamento(Integer.parseInt(departamento));
 			
-			try{
-				FuncionarioHandler.cadastrarFuncionario(funcionarioVO);
+			FuncionarioHandler.cadastrarFuncionario(funcionarioVO);
 				
-				toListar(Constantes.SUCESSO, request, response);
-
-			} catch(Exception e){
-				request.setAttribute("mensagem", Constantes.ERRO);
-				request.getRequestDispatcher("/WEB-INF/CadFuncionario.jsp").forward(request, response);				
-			}
+			toListar(Constantes.SUCESSO, request, response);
 		}				
 	}
 
-	private void toListar(String msg, HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	private void toListar(String msg, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		iniciaCampor(request, response);
 		request.setAttribute("mensagem", msg);
 		request.getRequestDispatcher("/WEB-INF/listarFuncionarios.jsp").forward(request, response);		
 	}
@@ -265,14 +246,14 @@ public class FuncionarioControle extends HttpServlet
 			else if (acao.equals(Constantes.ACAO_DELETAR))
 			{
 				excluir(req, resp);
-				resp.sendRedirect("GerirFuncionario");
+//				resp.sendRedirect("GerirFuncionario");
 			}
 		
 		} 
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			req.setAttribute("mensagem", Constantes.ERRO);
+			toListar(Constantes.ERRO, req, resp);
 		}
 	}
 }

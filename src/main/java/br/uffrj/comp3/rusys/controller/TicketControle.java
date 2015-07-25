@@ -12,13 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Consumidor;
 import br.uffrj.comp3.rusys.model.Funcionario;
-import br.uffrj.comp3.rusys.model.RefeicaoImpl;
 import br.uffrj.comp3.rusys.model.Ticket;
 import br.uffrj.comp3.rusys.model.interfaces.Refeicao;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
 import br.uffrj.comp3.rusys.model.vo.TicketVO;
-import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.ConsumidorHandler;
 import br.uffrj.comp3.rusys.service.RefeicaoHandler;
 import br.uffrj.comp3.rusys.service.TicketHandler;
@@ -107,11 +105,11 @@ public class TicketControle extends HttpServlet
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
+			toListar(Constantes.ERRO, request, response);
 		}
 	}
 
-	private void editar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	private void editar(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		String id = request.getParameter("id");
 		String pago = request.getParameter("pago");
@@ -125,18 +123,10 @@ public class TicketControle extends HttpServlet
 		{
 			ticketVO.setPago(false);
 		}
-		
-		
-		try{
-			TicketHandler.atualizarTicket(ticketVO);
+
+		TicketHandler.atualizarTicket(ticketVO);
 			
-			toListar(Constantes.SUCESSO, request, response);
-			
-		} catch(Exception e){
-			request.setAttribute("mensagem", Constantes.ERRO);
-			request.getRequestDispatcher("/WEB-INF/AtualizarTicket.jsp").forward(request, response);				
-		}
-		
+		toListar(Constantes.SUCESSO, request, response);
 	}
 
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws Exception
@@ -152,15 +142,10 @@ public class TicketControle extends HttpServlet
 		ticketVO.setRefeicao(Integer.parseInt(refeicaoId));
 		ticketVO.setValor(Float.parseFloat(valor));
 
-		try{
-			TicketHandler.cadastrarTicket(ticketVO);
+
+		TicketHandler.cadastrarTicket(ticketVO);
 			
-			toListar(Constantes.SUCESSO, request, response);
-			
-		} catch(Exception e){
-			request.setAttribute("mensagem", Constantes.ERRO);
-			request.getRequestDispatcher("/WEB-INF/CadTicketSalva.jsp").forward(request, response);				
-		}
+		toListar(Constantes.SUCESSO, request, response);
 	}
 	
 	private void toListar(String msg, HttpServletRequest request,
@@ -247,7 +232,7 @@ public class TicketControle extends HttpServlet
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
+			toListar(Constantes.ERRO, request, response);
 		}
 	}
 }

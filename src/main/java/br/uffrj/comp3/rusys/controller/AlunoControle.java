@@ -43,12 +43,12 @@ public class AlunoControle extends HttpServlet
 						break;
 					case Constantes.ACAO_DELETAR:
 						//	excluir(request, response);
-						response.sendRedirect("GerirAluno");
+//						response.sendRedirect("GerirAluno");
 						break;
 					case Constantes.ACAO_EDITAR:
 						editar(request, response);
 						//request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);
-						response.sendRedirect("GerirAluno");
+//						response.sendRedirect("GerirAluno");
 						break;
 					default:
 						request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
@@ -62,7 +62,7 @@ public class AlunoControle extends HttpServlet
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
+			toListar(Constantes.ERRO, request, response);
 		}
 	}
 	
@@ -93,16 +93,9 @@ public class AlunoControle extends HttpServlet
 			aluno.setCpf(cpf);
 			aluno.setCurso(Integer.parseInt(curso));
 			
-			try{
-				AlunoHandler.atualizarAluno(aluno, Integer.parseInt(id));
+			AlunoHandler.atualizarAluno(aluno, Integer.parseInt(id));
 				
-				toListar(Constantes.SUCESSO, request, response);
-				
-			} catch(Exception e){
-				request.setAttribute("mensagem", Constantes.ERRO);
-				request.getRequestDispatcher("/WEB-INF/AtualizarAluno.jsp").forward(request, response);				
-			}
-			
+			toListar(Constantes.SUCESSO, request, response);
 		}
 	}
 
@@ -114,15 +107,9 @@ public class AlunoControle extends HttpServlet
 
 		aluno = AlunoHandler.recuperarAluno(Integer.parseInt(idAluno));
 		
-		try{
-			AlunoHandler.excluirAluno(aluno);
+		AlunoHandler.excluirAluno(aluno);
 			
-			toListar(Constantes.SUCESSO, request, response);
-			
-		} catch(Exception e){
-			
-			toListar(Constantes.ERRO, request, response);			
-		}
+		toListar(Constantes.SUCESSO, request, response);
 	}
 
 	private void cadastrar(HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -152,16 +139,10 @@ public class AlunoControle extends HttpServlet
 			alunoVO.setCpf(cpf);
 			
 			alunoVO.setCurso(Integer.parseInt(curso));
-			
-			try{
-				AlunoHandler.cadastrarAluno(alunoVO);
+		
+			AlunoHandler.cadastrarAluno(alunoVO);
 				
-				toListar(Constantes.SUCESSO, request, response);
-				
-			} catch(Exception e){
-				request.setAttribute("mensagem", Constantes.ERRO);
-				request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);	
-			}
+			toListar(Constantes.SUCESSO, request, response);
 		}
 //		response.sendRedirect("GerirAluno");
 		    
@@ -220,7 +201,6 @@ public class AlunoControle extends HttpServlet
 			try
 			{
 				Aluno a = AlunoHandler.recuperarAluno(Integer.parseInt(id));
-				System.out.println(a.getId());
 				aluno = a;
 			} 
 			catch (NumberFormatException e1)
@@ -258,7 +238,6 @@ public class AlunoControle extends HttpServlet
 						break;
 					case Constantes.ACAO_DELETAR:	
 						excluir(req, resp);
-						resp.sendRedirect("GerirAluno");
 						break;
 					default:
 						req.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(req, resp);
@@ -272,7 +251,7 @@ public class AlunoControle extends HttpServlet
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			req.setAttribute("mensagem", Constantes.ERRO);
+			toListar(Constantes.ERRO, req, resp);
 		}	
 	}
 }

@@ -14,7 +14,6 @@ import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.CursoVO;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
-import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.CursoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
@@ -37,15 +36,15 @@ public class CursoControle extends HttpServlet
 				switch (acao)
 				{	case Constantes.ACAO_SALVAR:
 						cadastrar(request, response);
-						response.sendRedirect("GerirCurso");
+//						response.sendRedirect("GerirCurso");
 						break;
 					case Constantes.ACAO_DELETAR:
 						excluir(request, response);
-						response.sendRedirect("GerirCurso");
+//						response.sendRedirect("GerirCurso");
 						break;
 					case Constantes.ACAO_EDITAR:
 						editar(request, response);
-						response.sendRedirect("GerirCurso");
+//						response.sendRedirect("GerirCurso");
 						break;	
 					default:
 						request.getRequestDispatcher("/WEB-INF/ListCurso.jsp").forward(request, response);
@@ -58,7 +57,7 @@ public class CursoControle extends HttpServlet
 		} catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
+			toListar(Constantes.ERRO, request, response);
 		}
 	}
 	
@@ -82,15 +81,10 @@ public class CursoControle extends HttpServlet
 			curso.setSigla(sigla);
 			curso.setDepartamento(Integer.parseInt(dept));
 
-			try{
-				CursoHandler.atualizarCurso(curso);
+		
+			CursoHandler.atualizarCurso(curso);
 				
-				toListar(Constantes.SUCESSO, request, response);
-
-			} catch(Exception e){
-				request.setAttribute("mensagem", Constantes.ERRO);
-				request.getRequestDispatcher("/WEB-INF/AtualizarCurso.jsp").forward(request, response);				
-			}
+			toListar(Constantes.SUCESSO, request, response);
 		}
 	}
 
@@ -123,16 +117,10 @@ public class CursoControle extends HttpServlet
 			cursoVO.setNome(nome);
 			cursoVO.setSigla(sigla);
 			cursoVO.setDepartamento(Integer.parseInt(dept));
-
-			try{
-				CursoHandler.cadastrarCurso(cursoVO);
+	
+			CursoHandler.cadastrarCurso(cursoVO);
 				
-				toListar(Constantes.SUCESSO, request, response);
-
-			} catch(Exception e){				
-				request.setAttribute("mensagem", Constantes.ERRO);
-				request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
-			}
+			toListar(Constantes.SUCESSO, request, response);
 		}
 	}
 	
@@ -230,7 +218,7 @@ public class CursoControle extends HttpServlet
 		} catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
+			toListar( Constantes.ERRO, request, response);
 		}
 	}
 }

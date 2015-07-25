@@ -59,6 +59,11 @@ public class CursoHandler
 		}
 		if (cursoVO.getSigla() != null)
 		{
+			if(!isSILGAunica(cursoVO.getSigla()))
+			{
+				throw new SiglaAlreadyExistsException(cursoVO.getSigla());
+			}
+			
 			curso.setSigla(cursoVO.getSigla());
 		}
 		if (cursoVO.getDepartamento() != null)
