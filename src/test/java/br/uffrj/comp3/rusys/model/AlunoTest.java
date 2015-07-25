@@ -8,6 +8,8 @@ import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Refeicao;
+import br.uffrj.comp3.rusys.service.exceptions.CursoNull;
+
 
 public class AlunoTest {
 	
@@ -19,7 +21,7 @@ public class AlunoTest {
 		Aluno aluno = new Aluno(1, "aluno", 123, 2010, curso);
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = CursoNull.class)
 	public void testaAlunoFail() throws Exception
 	{
 		Aluno aluno = new Aluno(1, "aluno", 123, 2010, null);
@@ -34,7 +36,7 @@ public class AlunoTest {
 		assertEquals(aluno.getCurso(), curso);
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = CursoNull.class)
 	public void testaSetterFail() throws Exception {
 		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
 		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
