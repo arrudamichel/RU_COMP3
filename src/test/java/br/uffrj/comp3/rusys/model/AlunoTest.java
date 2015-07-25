@@ -8,7 +8,7 @@ import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.Refeicao;
-import br.uffrj.comp3.rusys.service.exceptions.CursoNull;
+import br.uffrj.comp3.rusys.service.exceptions.*;
 
 
 public class AlunoTest {
@@ -45,11 +45,11 @@ public class AlunoTest {
 		aluno.setCurso(null);
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = NomeNull.class)
 	public void testAlunoNomeNull() throws Exception {
 		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
 		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
-		Aluno aluno = new Aluno(1, null, 123, 2010, curso);
+		Consumidor aluno = new Aluno(1, null, 123, 2010, curso);
 	}
 	
 	@Test(expected = Exception.class)
