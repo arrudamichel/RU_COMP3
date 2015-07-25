@@ -1,4 +1,5 @@
-<%@page import="br.uffrj.comp3.rusys.model.Refeicao"%>
+<%@page import="br.uffrj.comp3.rusys.model.RefeicaoImpl"%>
+<%@page import="br.uffrj.comp3.rusys.model.interfaces.*"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page import="br.uffrj.comp3.rusys.model.TurnoEnum"%>
 <%@page import="java.util.ArrayList"%>

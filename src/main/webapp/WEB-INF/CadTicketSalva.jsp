@@ -1,6 +1,7 @@
 <%@page import="br.uffrj.comp3.rusys.model.TurnoEnum"%>
 <%@page import="br.uffrj.comp3.rusys.model.vo.TicketVO"%>
-<%@page import="br.uffrj.comp3.rusys.model.Refeicao"%>
+<%@page import="br.uffrj.comp3.rusys.model.RefeicaoImpl"%>
+<%@page import="br.uffrj.comp3.rusys.model.interfaces.*"%>
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
