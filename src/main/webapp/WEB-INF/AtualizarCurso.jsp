@@ -5,7 +5,6 @@
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%
 	ArrayList<Departamento> departamentos = (ArrayList<Departamento>)request.getAttribute("departamentos");
 	Curso curso = (Curso) request.getAttribute("curso");
@@ -32,6 +31,7 @@
 					<h2 class="title"><%=Constantes.CADCURSO%>
 					</h2>
 					<div class="inner">
+						<%@include file="messagePage.jsp" %>
 						<form id="FrmCurso" name="FrmCurso" action="GerirCurso" method="POST" class="form">
 							<input type="hidden" id="cursoId" name="cursoId" value="<%=(curso!=null) ? curso.getId() : "" %>" />
 							<div class="group">

@@ -4,7 +4,6 @@
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%
 	Departamento departamento = (Departamento) request.getAttribute("departamento");
 %>
@@ -30,6 +29,7 @@
 					<h2 class="title"><%=Constantes.EDITAR%>
 					</h2>
 					<div class="inner">
+						<%@include file="messagePage.jsp" %>
 						<form id="FrmDepartamento" name="FrmDepartamento" action="GerirDepartamento" method="POST" class="form">
 							<input type="hidden" id="departamentoId" name="departamentoId" value="<%=(departamento!=null) ? departamento.getId() : "" %>" />
 							<div class="group">

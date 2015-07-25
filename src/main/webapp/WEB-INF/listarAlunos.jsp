@@ -6,7 +6,6 @@
 	pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%
 	//se tivesse verificacao de login, aqui que ele seria programado
     
@@ -16,9 +15,6 @@
 	
 	ArrayList<Aluno> alunos = (ArrayList<Aluno>)request.getAttribute("alunos");
 	ArrayList<Curso> cursos = (ArrayList<Curso>)request.getAttribute("cursos");
-
-
-	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -46,7 +42,7 @@
           </div>
           <div class="content">
             <h2 class="title"><%=Constantes.CADALUNOS%> </h2>
-            
+            <%@include file="messagePage.jsp" %>
             <table id="table-resultado" class="table">
                   <tr>
                     <th><%=Constantes.NOME%></th>

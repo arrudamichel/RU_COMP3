@@ -1,6 +1,5 @@
 <%@page import="br.uffrj.comp3.rusys.util.Constantes"%>
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
-<%@include file="messagePage.jsp" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.uffrj.comp3.rusys.model.Departamento"%>
 
@@ -32,7 +31,7 @@
           	<% 	String urlInserir="GerirDepartamento?acao="+ Constantes.ACAO_SALVAR; %>          	
             <h2 class="title"><%=Constantes.CADDEPTO%> </h2>
             <h3><a href="<%=urlInserir%>"><%=Constantes.ACAO_SALVAR%></a></h3>
-            
+            <%@include file="messagePage.jsp" %>
             <table id="table-resultado" class="table">
               <tr>
                 <th><%=Constantes.NOME%></th>

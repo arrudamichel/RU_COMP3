@@ -36,6 +36,7 @@
 				<% 	String urlInserir="GerirTicket?acao="+ Constantes.ACAO_SALVAR; %>
 				<h2 class="title"><%=Constantes.CADTICKET%></h2>
 				<h3><a href="<%=urlInserir%>"><%=Constantes.ACAO_SALVAR%></a></h3>
+				<%@include file="messagePage.jsp" %>
 				<table class="table">
                       <tr>                      	  
                           <th><%=Constantes.MATRICULA%></th>

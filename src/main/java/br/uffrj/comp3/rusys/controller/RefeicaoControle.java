@@ -53,8 +53,7 @@ public class RefeicaoControle extends HttpServlet{
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
-			response.sendRedirect("GerirRefeicao");
+			toListar(Constantes.ERRO, request, response);
 		}	
 	}
 
@@ -66,7 +65,7 @@ public class RefeicaoControle extends HttpServlet{
 		if(id ==null || descricao==null || opVeg==null)
 		{
 			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
-			request.getRequestDispatcher("GerirRefeicao.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);//request.getRequestDispatcher("GerirRefeicao.jsp").forward(request, response);
 		}
 		
 		RefeicaoVO refeicaoVO = new RefeicaoVO();
@@ -74,10 +73,10 @@ public class RefeicaoControle extends HttpServlet{
 		refeicaoVO.setDescricao(descricao);
 		refeicaoVO.setOpcaoVeg(opVeg);
 	
-		RefeicaoHandler.atualizarRefeicao(refeicaoVO);
-		
-		request.setAttribute("mensagem", Constantes.SUCESSO);
-		response.sendRedirect("GerirRefeicao");
+		if (RefeicaoHandler.atualizarRefeicao(refeicaoVO)) 
+		{
+			toListar(Constantes.SUCESSO, request, response);
+		}
 	}
 
 	private void excluir(HttpServletRequest request, HttpServletResponse response) throws Exception 
@@ -100,7 +99,7 @@ public class RefeicaoControle extends HttpServlet{
 
 		RefeicaoHandler.excluirRefeicao(refeicao);
 
-		request.setAttribute("mensagem", Constantes.SUCESSO);
+		toListar(Constantes.SUCESSO, request, response);
 	}
 
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws Exception
@@ -128,9 +127,7 @@ public class RefeicaoControle extends HttpServlet{
 				
 			if (id != 0)
 			{
-				request.setAttribute("mensagem", Constantes.SUCESSO);
-				System.out.println(Constantes.SUCESSO);
-				request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);
+				toListar(Constantes.SUCESSO, request, response);
 			}
 		}
 	}
@@ -195,6 +192,13 @@ public class RefeicaoControle extends HttpServlet{
 		
 		request.setAttribute("refeicao", refeicao);
 	}
+	
+	private void toListar(String msg, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		iniciaCampos(request, response);
+		request.setAttribute("mensagem", msg);
+		request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -216,8 +220,6 @@ public class RefeicaoControle extends HttpServlet{
 						break;
 					case Constantes.ACAO_DELETAR:					
 						excluir(request, response);
-						request.setAttribute("mensagem", Constantes.SUCESSO);
-						response.sendRedirect("GerirRefeicao");
 						break;
 					default:
 						request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);
@@ -231,8 +233,7 @@ public class RefeicaoControle extends HttpServlet{
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			request.setAttribute("mensagem", Constantes.ERRO);
-			response.sendRedirect("GerirRefeicao");
+			toListar(Constantes.ERRO, request, response);
 		}	
 	}
 }

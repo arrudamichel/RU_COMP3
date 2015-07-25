@@ -32,6 +32,7 @@
           <div class="content">
             <h2 class="title"><%=Constantes.CADTICKET%> </h2>
             <div class="inner">
+            <%@include file="messagePage.jsp" %>
               <form id="FrmTicket" name="FrmTicket" action="GerirTicket" method="POST" class="form">
         	  <input type = "hidden" id="id" name = "id" >
                 <div class="group">

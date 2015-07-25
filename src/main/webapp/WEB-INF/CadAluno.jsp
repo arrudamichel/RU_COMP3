@@ -7,7 +7,6 @@
 <%@page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%
 	ArrayList <Curso> cursos = (ArrayList<Curso>) request.getAttribute("cursos");
 %>
@@ -29,6 +28,7 @@
 						<li class="active"><a href="#block-text"><%=Constantes.ALUNOS%></a></li>
 					</ul>
 				</div>
+				<%@include file="messagePage.jsp" %>
 				<div class="content">
 					<h2 class="title"><%=Constantes.CADALUNOS%>
 					</h2>

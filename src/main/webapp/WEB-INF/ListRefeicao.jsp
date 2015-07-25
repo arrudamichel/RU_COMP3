@@ -40,6 +40,7 @@
 					<% 	String urlInserir="GerirRefeicao?acao="+ Constantes.ACAO_SALVAR; %>
 					<h2 class="title"><%=Constantes.CADREFEICAO%></h2>
 					<h3><a href="<%=urlInserir%>"><%=Constantes.ACAO_SALVAR%></a></h3>
+					<%@include file="messagePage.jsp" %>
 					<table class="table">
                        <tr>
                        	   <th></th>
@@ -49,8 +50,7 @@
                            <th><%=Constantes.OPVEG%></th>
                            <th class="last">&nbsp;</th>
                            <th class="last">&nbsp;</th>
-                       </tr>
-                       <%@include file="messagePage.jsp" %>
+                       </tr>     
                        <%
                        	if(refeicoes != null){
 	                       	for(int i=0; i < refeicoes.size(); i++){

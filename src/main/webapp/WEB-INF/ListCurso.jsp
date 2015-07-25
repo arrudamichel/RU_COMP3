@@ -6,7 +6,6 @@
 	pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%
 	ArrayList<Curso> cursos = (ArrayList<Curso>)request.getAttribute("cursos");
 
@@ -33,6 +32,7 @@
 					<% 	String urlInserir="GerirCurso?acao="+ Constantes.ACAO_SALVAR; %>
 					<h2 class="title"><%=Constantes.CADCURSO%></h2>
 					<h3><a href="<%=urlInserir%>"><%=Constantes.ACAO_SALVAR%></a></h3>
+					<%@include file="messagePage.jsp" %>
 					<table id="table-resultado" class="table">
 	                  <tr>
 	                    <th><%=Constantes.NOME%></th>

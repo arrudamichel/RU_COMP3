@@ -7,7 +7,6 @@
 	pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%	
 	Refeicao refeicao = (Refeicao)request.getAttribute("refeicao");
 	ArrayList<TurnoEnum> turnos = (ArrayList<TurnoEnum>)request.getAttribute("turnos");
@@ -38,6 +37,7 @@
 				<div class="content">
 					<h2 class="title"><%=Constantes.CADREFEICAO%></h2>
 					<div class="inner">
+						<%@include file="messagePage.jsp" %>
 						<form id="FrmRefeicao" name="FrmRefeicao" action="GerirRefeicao" method="POST" class="form">
 							<input type="hidden" id="id" name="id"
 								 <% if (refeicao != null && refeicao.getId() != 0 ) { out.print(" value = '" + refeicao.getId() + "'"); }%>> 

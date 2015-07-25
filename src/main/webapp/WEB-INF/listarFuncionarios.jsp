@@ -6,7 +6,6 @@
 	pageEncoding="UTF-8"%>
 <!-- Nao deixa o JSP criar sessoes -->
 <%@page session="false"%>
-<%@include file="messagePage.jsp" %>
 <%	
 	ArrayList<Funcionario> funcionarios = (ArrayList<Funcionario>)request.getAttribute("funcionarios");
 	ArrayList<Departamento> departamentos = (ArrayList<Departamento>)request.getAttribute("departamentos");
@@ -37,7 +36,7 @@
           </div>
           <div class="content">
             <h2 class="title"><%=Constantes.CADFUNC%> </h2>
-            
+            <%@include file="messagePage.jsp" %>
             <table id="table-resultado" class="table">
                   <tr>
                     <th><%=Constantes.NOME%></th>
