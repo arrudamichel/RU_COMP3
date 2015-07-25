@@ -52,11 +52,11 @@ public class AlunoTest {
 		Consumidor aluno = new Aluno(1, null, 123, 2010, curso);
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = AnoDeIngressoNull.class)
 	public void testAlunoAnoDeIngressoNull() throws Exception {
 		Departamento departamento = new Departamento(1, "Departamento de Ciencia da Computacao", "DCC");
 		Curso curso = new Curso(1, "Ciencia da Computacao","CCOMP", departamento);
-		Aluno aluno = new Aluno(1, "nome do aluno", 123, null, curso);
+		Consumidor aluno = new Aluno(1, "nome do aluno", 123, null, curso);
 	}
 	
 	@Test
