@@ -1,5 +1,7 @@
 package br.uffrj.comp3.rusys.model;
 
+import br.uffrj.comp3.rusys.service.exceptions.DepartamentoNull;
+
 public class Funcionario extends Consumidor
 {
 	private Departamento departamento;
@@ -8,12 +10,7 @@ public class Funcionario extends Consumidor
 	{
 		super(id, nome, matricula, anoDeIngresso);
 		
-		if (departamento == null)
-		{
-			throw new Exception("model.funcionario.departamento.deve.ser.informado.para.criacao");
-		}
-		
-		this.departamento = departamento;
+		setDepartamento(departamento);
 	}
 
 	public Departamento getDepartamento()
@@ -25,7 +22,7 @@ public class Funcionario extends Consumidor
 	{
 		if (departamento == null)
 		{
-			throw new Exception("model.funcionario.departamento.deve.ser.informado");
+			throw new DepartamentoNull();
 		}
 		
 		this.departamento = departamento;

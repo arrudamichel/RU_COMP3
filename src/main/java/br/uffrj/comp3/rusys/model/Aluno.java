@@ -1,5 +1,7 @@
 package br.uffrj.comp3.rusys.model;
 
+import br.uffrj.comp3.rusys.service.exceptions.CursoNull;
+
 public class Aluno extends Consumidor
 {
 	private Curso curso;
@@ -8,12 +10,7 @@ public class Aluno extends Consumidor
 	{
 		super(id, nome, matricula, anoDeIngresso);
 		
-		if (curso == null)
-		{
-			throw new Exception("model.aluno.curso.deve.ser.informado.para.criacao");
-		}
-		
-		this.curso = curso;
+		setCurso(curso);
 	}
 
 	public Curso getCurso()
@@ -25,7 +22,7 @@ public class Aluno extends Consumidor
 	{
 		if (curso == null)
 		{
-			throw new Exception("model.aluno.curso.deve.ser.informado.para.criacao");
+			throw new CursoNull();
 		}
 		this.curso = curso;
 	}

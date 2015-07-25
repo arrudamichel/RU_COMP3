@@ -1,5 +1,7 @@
 package br.uffrj.comp3.rusys.model;
 
+import br.uffrj.comp3.rusys.service.exceptions.SiglaNull;
+
 public class Departamento
 {
 	private Integer id;
@@ -12,12 +14,7 @@ public class Departamento
 		this.id = id;
 		this.nome = nome;
 		
-		if (sigla == null)
-		{
-			throw new Exception("model.departamento.sigla.deve.ser.informado.para.criacao");
-		}
-		
-		this.sigla = sigla;
+		setSigla(sigla);
 	}
 
 	public String getNome()
@@ -37,9 +34,9 @@ public class Departamento
 
 	public void setSigla(String sigla) throws Exception
 	{
-		if (sigla == null)
+		if (sigla == null || sigla.trim().length() == 0)
 		{
-			throw new Exception("model.departamento.sigla.deve.ser.informada");
+			throw new SiglaNull();
 		}
 		
 		this.sigla = sigla;

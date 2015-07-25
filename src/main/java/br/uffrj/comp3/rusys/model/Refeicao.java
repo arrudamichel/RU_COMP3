@@ -3,6 +3,8 @@ package br.uffrj.comp3.rusys.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.uffrj.comp3.rusys.service.exceptions.DescricaoNull;
+import br.uffrj.comp3.rusys.service.exceptions.TipoNullOrVazio;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class Refeicao
@@ -17,15 +19,11 @@ public class Refeicao
 	{
 		this.id = id;
 	
-		if (descricao == null){
-			throw new Exception("model.refeicao.descricao.deve.ser.informado.para.criacao");
-		} 
+		setDescricao(descricao);
 		
-		this.descricao = descricao;
-		
-		if (tipo == null)
+		if (tipo == null || tipo.equals(TipoRefeicaoEnum.VAZIO))
 		{
-			throw new Exception("model.refeicao.tipo.deve.ser.informado.para.criacao");
+			throw new TipoNullOrVazio();
 		}
 		
 		this.tipo = tipo;
@@ -58,9 +56,9 @@ public class Refeicao
 
 	public void setDescricao(String descricao) throws Exception
 	{
-		if (descricao == null)
+		if (descricao == null || descricao.trim().length() == 0)
 		{
-			throw new Exception("model.refeicao.descricao.deve.ser.informada");
+			throw new DescricaoNull();
 		}
 		
 		this.descricao = descricao;
@@ -96,7 +94,8 @@ public class Refeicao
 		this.tickets = tickets;
 	}
 
-	public TipoRefeicaoEnum getTipo() {
+	public TipoRefeicaoEnum getTipo() 
+	{
 		return tipo;
 	}
 }

@@ -1,5 +1,8 @@
 package br.uffrj.comp3.rusys.model;
 
+import br.uffrj.comp3.rusys.service.exceptions.DepartamentoNull;
+import br.uffrj.comp3.rusys.service.exceptions.SiglaNull;
+
 public class Curso
 {
 	private Integer id;
@@ -13,19 +16,8 @@ public class Curso
 		this.id = identificador;
 		this.nome = nome;
 		
-		if (sigla == null)
-		{
-			throw new Exception("model.curso.sigla.deve.ser.informado.para.criacao");
-		}
-		
-		this.sigla = sigla; 
-		
-		if (departamento == null)
-		{
-			throw new Exception("model.curso.departamento.deve.ser.informado.para.criacao");
-		}
-		
-		this.departamento = departamento; 
+		setSigla(sigla);
+		setDepartamento(departamento);
 	}
 
 	public String getNome()
@@ -45,12 +37,10 @@ public class Curso
 
 	public void setSigla(String sigla) throws Exception
 	{
-		if (sigla == null)
+		if (sigla == null || sigla.trim().length() == 0)
 		{
-			throw new Exception("model.curso.sigla.deve.ser.informada");
+			throw new SiglaNull();
 		}
-		
-		
 		
 		this.sigla = sigla;
 	}
@@ -64,7 +54,7 @@ public class Curso
 	{
 		if (departamento == null)
 		{
-			throw new Exception("model.curso.departamento.deve.ser.informado.para.criacao");
+			throw new DepartamentoNull();
 		}
 		
 		this.departamento = departamento;

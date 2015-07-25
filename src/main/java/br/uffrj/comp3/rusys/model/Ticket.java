@@ -1,5 +1,7 @@
 package br.uffrj.comp3.rusys.model;
 
+import br.uffrj.comp3.rusys.service.exceptions.ConsumidorNull;
+import br.uffrj.comp3.rusys.service.exceptions.RefeicaoNull;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class Ticket
@@ -16,6 +18,20 @@ public class Ticket
 		this.id = id;
 		this.pago = pago;		
 		
+		if (consumidor == null)
+		{
+			throw new ConsumidorNull();
+		}
+		
+		this.consumidor = consumidor;
+		
+		if (refeicao == null)
+		{
+			throw new RefeicaoNull();
+		}
+		
+		this.refeicao = refeicao;
+		
 		if (consumidor instanceof Aluno)
 		{		
 			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(refeicao.getTurno().toString() + Aluno.class);
@@ -29,20 +45,6 @@ public class Ticket
 		{
 			throw new Exception("model.ticket.valor.para.essa.tupla.cosumidor.refeicao.nao.existe");
 		}
-		
-		if (consumidor == null)
-		{
-			throw new Exception("model.ticket.consumidor.deve.ser.informado.para.criacao");
-		}
-		
-		this.consumidor = consumidor;
-		
-		if (refeicao == null)
-		{
-			throw new Exception("model.ticket.refeicao.deve.ser.informado.para.criacao");
-		}
-		
-		this.refeicao = refeicao;
 	}
 
 	public boolean isPago()
@@ -77,29 +79,9 @@ public class Ticket
 		return consumidor;
 	}
 
-	public void setConsumidor(Consumidor consumidor) throws Exception
-	{
-		if (consumidor == null)
-		{
-			throw new Exception("model.ticket.consumidor.deve.ser.informado");
-		}
-
-		this.consumidor = consumidor;
-	}
-
 	public Refeicao getRefeicao()
 	{
 		return refeicao;
-	}
-
-	public void setRefeicao(Refeicao refeicao) throws Exception
-	{
-		if (refeicao == null)
-		{
-			throw new Exception("model.ticket.refeicao.deve.ser.informada");
-		}
-		
-		this.refeicao = refeicao;
 	}
 
 	public Integer getId()

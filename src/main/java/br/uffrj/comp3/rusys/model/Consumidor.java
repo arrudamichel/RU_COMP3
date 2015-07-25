@@ -3,6 +3,9 @@ package br.uffrj.comp3.rusys.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.uffrj.comp3.rusys.service.exceptions.AnoDeIngressoNull;
+import br.uffrj.comp3.rusys.service.exceptions.InvalidCpfException;
+import br.uffrj.comp3.rusys.service.exceptions.NomeNull;
 import br.uffrj.comp3.rusys.util.Util;
 
 public abstract class Consumidor
@@ -21,21 +24,13 @@ public abstract class Consumidor
 		super();
 		this.id = id;
 		
-		if (nome == null)
-		{
-			throw new Exception("model.consumidor.nome.deve.ser.informado.para.criacao");
-		}
+		setNome(nome);
 		
-		this.nome = nome;
 		this.matricula = matricula;
 		
-		if (anoDeIngresso2 == null)
-		{
-			throw new Exception("model.consumidor.anoDeIngresso.deve.ser.informado.para.criacao");
-		}
+		setAnoDeIngresso(anoDeIngresso2);
 		
-		this.anoDeIngresso = anoDeIngresso2;
-		this.tickets = new ArrayList<>();
+		this.tickets = new ArrayList<Ticket>();
 	}
 
 	public List<Ticket> getTickets()
@@ -114,9 +109,9 @@ public abstract class Consumidor
 
 	public void setCpf(String cpf) throws Exception
 	{
-		if (!Util.valida(cpf))// TODO: COMENTANDO PRA FICAR MAIS FACIL TESTAR
+		if (!Util.valida(cpf))
 		{
-			throw new Exception("cpf.informado.invalido");
+			throw new InvalidCpfException();
 		}
 			
 		this.cpf = cpf;
