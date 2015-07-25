@@ -12,6 +12,9 @@ import br.uffrj.comp3.rusys.model.TurnoEnum;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.RefeicaoGateway;
+import br.uffrj.comp3.rusys.service.exceptions.AlterarNoBancoExeception;
+import br.uffrj.comp3.rusys.service.exceptions.ExcluirDoBancoException;
+import br.uffrj.comp3.rusys.service.exceptions.InsercaoNoBancoException;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class RefeicaoHandler
@@ -32,7 +35,7 @@ public class RefeicaoHandler
 		ResultSet rs = refeicaoGateway.inserir(valores);
 
 		if (rs==null)
-			throw new Exception("falha.ao.cadastrar.refeicao");
+			throw new InsercaoNoBancoException();
 		
 		rs.next();
 		int id = rs.getInt(1);
@@ -82,7 +85,7 @@ public class RefeicaoHandler
 		boolean rs = refeicaoGateway.alterarRefeicao(valores, refeicaoVO.getId());
 		
 		if (!rs)
-			throw new Exception("falha.ao.cadastrar.refeicao");
+			throw new AlterarNoBancoExeception();
 
 		conn.close();
 		
@@ -95,7 +98,7 @@ public class RefeicaoHandler
 		RefeicaoGateway rg = new RefeicaoGateway(conn);
 
 		if (!rg.desativarRefeicao(refeicao.getId()))
-			throw new Exception("falha.ao.excluir.refeicao");
+			throw new ExcluirDoBancoException();
 		
 		conn.close();
 	}

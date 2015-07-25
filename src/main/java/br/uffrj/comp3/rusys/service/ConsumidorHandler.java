@@ -13,6 +13,10 @@ import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
+import br.uffrj.comp3.rusys.service.exceptions.AlterarNoBancoExeception;
+import br.uffrj.comp3.rusys.service.exceptions.CpfAlreadyExistsException;
+import br.uffrj.comp3.rusys.service.exceptions.ExcluirDoBancoException;
+import br.uffrj.comp3.rusys.service.exceptions.InsercaoNoBancoException;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class ConsumidorHandler
@@ -21,7 +25,7 @@ public class ConsumidorHandler
 	{	
 		if(!isCPFunico(consumidorVO.getCpf()))
 		{
-			throw new Exception("consumidorhandler.cadastrar.consumidor.cpf.informado.ja.cadastrado");
+			throw new CpfAlreadyExistsException(consumidorVO.getCpf());
 		}
 		
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
@@ -33,7 +37,7 @@ public class ConsumidorHandler
 		ResultSet rs = consumidorGW.inserir(valores);
 		
 		if (rs==null)
-			throw new Exception("falha.ao.cadastrar.consumidor");
+			throw new InsercaoNoBancoException();
 		
 		rs.next();
 		
@@ -55,7 +59,7 @@ public class ConsumidorHandler
 		
 		if (!consumidorGW.alterarConsumidor(valores, consumidorVO.getId())) 
 		{
-			throw new Exception("cosumidorHadler.erro.ao.atualizar.consumidor");
+			throw new AlterarNoBancoExeception();
 		}
 
 		conn.close();
@@ -154,7 +158,7 @@ public class ConsumidorHandler
 		ConsumidorGateway cg = new ConsumidorGateway(conn);
 
 		if (!cg.desativarConsumidor(consumidor.getId()))
-			throw new Exception("falha.ao.excluir.consumidor");
+			throw new ExcluirDoBancoException();
 		
 		conn.close();
 	}

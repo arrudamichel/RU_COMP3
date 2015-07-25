@@ -12,6 +12,9 @@ import br.uffrj.comp3.rusys.model.Ticket;
 import br.uffrj.comp3.rusys.model.vo.TicketVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.TicketGateway;
+import br.uffrj.comp3.rusys.service.exceptions.AlterarNoBancoExeception;
+import br.uffrj.comp3.rusys.service.exceptions.ExcluirDoBancoException;
+import br.uffrj.comp3.rusys.service.exceptions.InsercaoNoBancoException;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class TicketHandler {
@@ -32,7 +35,7 @@ public class TicketHandler {
 				Arrays.asList(ticketVO.getConsumidorId(), ticketVO.getRefeicao(), ticketVO.getValor(), ticketVO.isPago()));
 
 		if (ticketGateway.inserir(valores)==null)
-			throw new Exception("falha.ao.cadastrar.ticket");
+			throw new InsercaoNoBancoException();
 
 		conn.close();
 
@@ -108,7 +111,7 @@ public class TicketHandler {
 		TicketGateway cg = new TicketGateway(conn);
 
 		if (!cg.excluirTicket(ticket.getId()))
-			throw new Exception("falha.ao.excluir.Ticket");
+			throw new ExcluirDoBancoException();
 		
 		conn.close();
 	}
@@ -125,7 +128,7 @@ public class TicketHandler {
 		TicketGateway cg = new TicketGateway(conn);
 
 		if (!cg.alterarTicket(new ArrayList<Object>(Arrays.asList(ticketVO.isPago())), ticketVO.getId()))
-			throw new Exception("falha.ao.alterar.Ticket");
+			throw new AlterarNoBancoExeception();
 		
 		conn.close();
 	}
