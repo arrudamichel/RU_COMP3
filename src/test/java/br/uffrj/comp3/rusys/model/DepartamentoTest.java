@@ -3,6 +3,7 @@ package br.uffrj.comp3.rusys.model;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import br.uffrj.comp3.rusys.service.exceptions.*;
 
 public class DepartamentoTest {
 
@@ -14,7 +15,7 @@ public class DepartamentoTest {
 		dept = new Departamento(1,"Depto", "DE");
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = SiglaNull.class)
 	public void testDepartamentoSiglaNull() throws Exception {
 		dept = new Departamento(1,"Depto", null);
 	}
@@ -29,7 +30,7 @@ public class DepartamentoTest {
 		assertEquals(esperado,dept.getSigla());
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = SiglaNull.class)
 	public void testSetSiglaNull() throws Exception {
 		String esperado = "DER";
 		dept = new Departamento(1,"Depto", "DE");
