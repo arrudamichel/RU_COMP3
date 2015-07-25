@@ -14,6 +14,7 @@ import br.uffrj.comp3.rusys.model.Consumidor;
 import br.uffrj.comp3.rusys.model.Funcionario;
 import br.uffrj.comp3.rusys.model.RefeicaoImpl;
 import br.uffrj.comp3.rusys.model.Ticket;
+import br.uffrj.comp3.rusys.model.interfaces.Refeicao;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
 import br.uffrj.comp3.rusys.model.vo.TicketVO;
@@ -55,7 +56,7 @@ public class TicketControle extends HttpServlet
 						
 						String matricula = (String) request.getParameter("matricula");
 						
-						ArrayList<RefeicaoImpl> refeicoesTurno = null;
+						ArrayList<Refeicao> refeicoesTurno = null;
 				
 						refeicoesTurno = RefeicaoHandler.recuperarRefeicaoPorTurno(turno);
 									
@@ -166,7 +167,7 @@ public class TicketControle extends HttpServlet
 		
 		request.setAttribute("consumidores", consumidores);
 				
-		ArrayList<RefeicaoImpl> refeicoes = null;
+		ArrayList<Refeicao> refeicoes = null;
 		try {
 			refeicoes = RefeicaoHandler.recuperarRefeicoes(new RefeicaoVO());
 		} catch (Exception e) {

@@ -25,9 +25,8 @@ public class AlunoHandler
 {
 	public static void cadastrarAluno(ConsumidorVO consumidorVO) throws Exception
 	{
-//		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());	
-//		@SuppressWarnings("unused")
-//		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
+		Curso curso =  CursoHandler.recuperarCurso(consumidorVO.getCurso());	
+		Aluno aluno = new Aluno(consumidorVO.getId(), consumidorVO.getNome(), consumidorVO.getMatricula(), consumidorVO.getAnoDeIngresso(), curso);
 		
 		
 		int id = ConsumidorHandler.cadastrarConsumidor(consumidorVO);
@@ -36,7 +35,7 @@ public class AlunoHandler
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);	
 		AlunoGateway alunoGW = new AlunoGateway(conn);
 		
-		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(id,consumidorVO.getCurso()));
+		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(id,aluno.getCurso().getId()));
 		
 		if (!alunoGW.inserir(valores2))
 			throw new InsercaoNoBancoException();

@@ -1,5 +1,6 @@
 package br.uffrj.comp3.rusys.model;
 
+import br.uffrj.comp3.rusys.model.interfaces.Refeicao;
 import br.uffrj.comp3.rusys.service.exceptions.ConsumidorNull;
 import br.uffrj.comp3.rusys.service.exceptions.RefeicaoNull;
 import br.uffrj.comp3.rusys.service.exceptions.ValorTuplaConsumidorTurnoVazioException;
@@ -11,9 +12,9 @@ public class Ticket
 	private boolean pago = false;
 	private Float valor;
 	private Consumidor consumidor;
-	private RefeicaoImpl refeicao;
+	private Refeicao refeicao;
 	
-	public Ticket(Integer id, boolean pago, Consumidor consumidor, RefeicaoImpl refeicao) throws Exception
+	public Ticket(Integer id, boolean pago, Consumidor consumidor, Refeicao refeicao) throws Exception
 	{
 		super();
 		this.id = id;
@@ -68,7 +69,7 @@ public class Ticket
 		return consumidor;
 	}
 
-	public RefeicaoImpl getRefeicao()
+	public Refeicao getRefeicao()
 	{
 		return refeicao;
 	}

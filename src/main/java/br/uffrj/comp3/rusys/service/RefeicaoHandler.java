@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import br.uffrj.comp3.rusys.model.interfaces.*;
 import br.uffrj.comp3.rusys.model.RefeicaoImpl;
 import br.uffrj.comp3.rusys.model.TipoRefeicaoEnum;
 import br.uffrj.comp3.rusys.model.TurnoEnum;
@@ -45,14 +46,14 @@ public class RefeicaoHandler
 		return id;
 	}
 	
-	public static RefeicaoImpl recuperarRefeicao(int id) throws Exception
+	public static Refeicao recuperarRefeicao(int id) throws Exception
 	{	
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
 		RefeicaoGateway rg = new RefeicaoGateway(conn);
 		ResultSet rsRefeicao = rg.selecionarRefeicaoPorId(id);
 
-		RefeicaoImpl refeicao = null;
+		Refeicao refeicao = null;
 		
 		if (rsRefeicao.next())
 		{
@@ -92,7 +93,7 @@ public class RefeicaoHandler
 		return rs;
 	}
 
-	public static void excluirRefeicao(RefeicaoImpl refeicao) throws Exception
+	public static void excluirRefeicao(Refeicao refeicao) throws Exception
 	{
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 		RefeicaoGateway rg = new RefeicaoGateway(conn);
@@ -103,9 +104,9 @@ public class RefeicaoHandler
 		conn.close();
 	}
 
-	public static ArrayList<RefeicaoImpl> recuperarRefeicoes(RefeicaoVO refeicaoVO) throws Exception
+	public static ArrayList<Refeicao> recuperarRefeicoes(RefeicaoVO refeicaoVO) throws Exception
 	{	
-		ArrayList<RefeicaoImpl> refeicoes = new ArrayList<>();
+		ArrayList<Refeicao> refeicoes = new ArrayList<>();
 
 		Connection conn = ConnectionFactory.getConnection(Constantes.DBPATH, Constantes.USER, Constantes.PASS);
 
@@ -132,7 +133,7 @@ public class RefeicaoHandler
 			String descricao = rsRefeicao.getString("descricao");
 			TipoRefeicaoEnum tipo = TipoRefeicaoEnum.fromString(rsRefeicao.getString("tipo"));
 			
-			RefeicaoImpl refeicao = new RefeicaoImpl(id, descricao, tipo);
+			Refeicao refeicao = new RefeicaoImpl(id, descricao, tipo);
 			refeicao.setOpcaoVeg(opcaoVeg);
 			
 			refeicoes.add(refeicao);
@@ -143,7 +144,7 @@ public class RefeicaoHandler
 		return refeicoes;
 	}
 
-	public static ArrayList<RefeicaoImpl> recuperarRefeicaoPorTurno(String turno) throws SQLException, Exception 
+	public static ArrayList<Refeicao> recuperarRefeicaoPorTurno(String turno) throws SQLException, Exception 
 	{
 		RefeicaoVO refeicaoVO = new RefeicaoVO();	
 		refeicaoVO.setTurno(TurnoEnum.fromString(turno));
