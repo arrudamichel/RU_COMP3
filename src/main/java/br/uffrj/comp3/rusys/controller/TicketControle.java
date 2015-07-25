@@ -18,6 +18,7 @@ import br.uffrj.comp3.rusys.model.interfaces.Refeicao;
 import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
 import br.uffrj.comp3.rusys.model.vo.TicketVO;
+import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.ConsumidorHandler;
 import br.uffrj.comp3.rusys.service.RefeicaoHandler;
 import br.uffrj.comp3.rusys.service.TicketHandler;
@@ -56,29 +57,43 @@ public class TicketControle extends HttpServlet
 						
 						String matricula = (String) request.getParameter("matricula");
 						
-						ArrayList<Refeicao> refeicoesTurno = null;
-				
-						refeicoesTurno = RefeicaoHandler.recuperarRefeicaoPorTurno(turno);
-									
-						request.setAttribute("refeicoesTurno", refeicoesTurno);									
-						
-						Consumidor consumidor = ConsumidorHandler.recuperarConsumidorPorMatricula(Integer.parseInt(matricula));
-
-						TicketVO ticket = new TicketVO();
-						ticket.setConsumidorId(consumidor.getId());
-						
-						if (consumidor instanceof Aluno)
-						{		
-							ticket.setValor(Constantes.mapaTurnoConsumidor_PRECO.get(refeicoesTurno.iterator().next().getTurno().toString() + Aluno.class));
-						}
-						else if (consumidor instanceof Funcionario)
-						{
-							ticket.setValor(Constantes.mapaTurnoConsumidor_PRECO.get(refeicoesTurno.iterator().next().getTurno().toString() + Funcionario.class));
-						}
-									
-						request.setAttribute("ticket", ticket);
+						if(matricula.equals("") || turno.equals("")){
+							request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+							request.getRequestDispatcher("/WEB-INF/CadTicket.jsp").forward(request, response);
+						} else {															
 							
-						request.getRequestDispatcher("/WEB-INF/CadTicketSalva.jsp").forward(request, response);
+							Consumidor consumidor = null;
+							
+							consumidor = ConsumidorHandler.recuperarConsumidorPorMatricula(Integer.parseInt(matricula));
+							
+							if(consumidor == null){
+								request.setAttribute("mensagem", Constantes.ERRO_MAT);
+								request.getRequestDispatcher("/WEB-INF/CadTicket.jsp").forward(request, response);
+							} else {
+							
+								ArrayList<Refeicao> refeicoesTurno = null;
+								
+								refeicoesTurno = RefeicaoHandler.recuperarRefeicaoPorTurno(turno);
+											
+								request.setAttribute("refeicoesTurno", refeicoesTurno);	
+		
+								TicketVO ticket = new TicketVO();
+								ticket.setConsumidorId(consumidor.getId());
+								
+								if (consumidor instanceof Aluno)
+								{		
+									ticket.setValor(Constantes.mapaTurnoConsumidor_PRECO.get(refeicoesTurno.iterator().next().getTurno().toString() + Aluno.class));
+								}
+								else if (consumidor instanceof Funcionario)
+								{
+									ticket.setValor(Constantes.mapaTurnoConsumidor_PRECO.get(refeicoesTurno.iterator().next().getTurno().toString() + Funcionario.class));
+								}
+											
+								request.setAttribute("ticket", ticket);
+									
+								request.getRequestDispatcher("/WEB-INF/CadTicketSalva.jsp").forward(request, response);
+							}
+						}
 						break;
 					default:
 						request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);
@@ -96,7 +111,7 @@ public class TicketControle extends HttpServlet
 		}
 	}
 
-	private void editar(HttpServletRequest request, HttpServletResponse response)
+	private void editar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String id = request.getParameter("id");
 		String pago = request.getParameter("pago");
@@ -110,14 +125,16 @@ public class TicketControle extends HttpServlet
 		{
 			ticketVO.setPago(false);
 		}
-		try
-		{
+		
+		
+		try{
 			TicketHandler.atualizarTicket(ticketVO);
-
-			response.sendRedirect("GerirTicket");
-		} catch (Exception e)
-		{
+			
+			toListar(Constantes.SUCESSO, request, response);
+			
+		} catch(Exception e){
 			request.setAttribute("mensagem", Constantes.ERRO);
+			request.getRequestDispatcher("/WEB-INF/AtualizarTicket.jsp").forward(request, response);				
 		}
 		
 	}
@@ -134,13 +151,25 @@ public class TicketControle extends HttpServlet
 		ticketVO.setPago(Boolean.parseBoolean(pago));
 		ticketVO.setRefeicao(Integer.parseInt(refeicaoId));
 		ticketVO.setValor(Float.parseFloat(valor));
-		
 
-		TicketHandler.cadastrarTicket(ticketVO);
+		try{
+			TicketHandler.cadastrarTicket(ticketVO);
 			
-		response.sendRedirect("GerirTicket");	
+			toListar(Constantes.SUCESSO, request, response);
+			
+		} catch(Exception e){
+			request.setAttribute("mensagem", Constantes.ERRO);
+			request.getRequestDispatcher("/WEB-INF/CadTicketSalva.jsp").forward(request, response);				
+		}
 	}
 	
+	private void toListar(String msg, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		iniciaCampos(request, response);
+		request.setAttribute("mensagem", msg);
+		request.getRequestDispatcher("/WEB-INF/ListarTicket.jsp").forward(request, response);			
+	}
+
 	private void iniciaCampos(HttpServletRequest request, HttpServletResponse response) 
 	{
 		response.setContentType("text/html");

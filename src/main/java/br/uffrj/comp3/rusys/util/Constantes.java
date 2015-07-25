@@ -124,6 +124,7 @@ public class Constantes
 	final public static String ERRO_NUM = "Erro, verifique os formatos num&eacutericos";
 	final public static String ERRO_SQL = "Erro, verifique a consulta";
 	final public static String ERRO_VAZIO = "Erro, preencha todos os campos";
+	final public static String ERRO_MAT = "Erro ao encontrar matricula";
 	
 	final public static String SUCESSO = "Sucesso ao executar opera&ccedil&atildeo";
 

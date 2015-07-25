@@ -41,10 +41,6 @@
               <div class="group">
 					<label class="label" for="post_title"><%=Constantes.MATRICULA%></label>
 					<label class="label" for="post_title"> <%if (ticket != null && ticket.getConsumidor().getMatricula() != 0 ) { out.print(ticket.getConsumidor().getMatricula()); }%></label>								
-			  </div>
-              <div class="group">
-					<label class="label" for="post_title"><%=Constantes.VALOR%></label>
-					<label class="label" for="post_title"> <%if (ticket != null && ticket.getValor() != 0 ) { out.print(ticket.getValor()); }%></label>								
 			  </div>			  			  
                
               <div class="group">

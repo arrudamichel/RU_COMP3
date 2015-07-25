@@ -30,8 +30,14 @@ public class TicketHandler {
 
 		TicketGateway ticketGateway = new TicketGateway(conn);
 		
+		int pago = 0;
+		if (ticket.isPago())
+			pago = 1;
+		else
+			pago = 0;
+		
 		ArrayList<Object> valores = new ArrayList<Object>(
-				Arrays.asList(ticket.getConsumidor().getId(), ticket.getRefeicao().getId(), ticket.getValor(), ticket.isPago()));
+				Arrays.asList(ticket.getConsumidor().getId(), ticket.getRefeicao().getId(), ticket.getValor(), pago));
 
 		if (ticketGateway.inserir(valores)==null)
 			throw new InsercaoNoBancoException();
