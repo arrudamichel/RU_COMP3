@@ -72,7 +72,7 @@
 									if(departamentos != null){
 										for(int i=0; i < departamentos.size(); i++){
 									%>
-											<option value="<%=departamentos.get(i).getIdentificador()%>" >
+											<option value="<%=departamentos.get(i).getId()%>" >
 											<%=departamentos.get(i).getNome()%></option>
 									<%
 										}

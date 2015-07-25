@@ -7,13 +7,13 @@ import br.uffrj.comp3.rusys.util.Constantes;
 
 public class Refeicao
 {
-	private int id;
+	private Integer id;
 	private String descricao;
 	private String opcaoVeg;
 	private List<Ticket> tickets = new ArrayList<Ticket>();
 	private TipoRefeicaoEnum tipo;
 
-	public Refeicao(int id, String descricao, TipoRefeicaoEnum tipo) throws Exception 
+	public Refeicao(Integer id, String descricao, TipoRefeicaoEnum tipo) throws Exception 
 	{
 		this.id = id;
 	
@@ -76,12 +76,12 @@ public class Refeicao
 		this.opcaoVeg = opcaoVeg;
 	}
 
-	public int getIdentificador()
+	public Integer getIdentificador()
 	{
 		return id;
 	}
 
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}

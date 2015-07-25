@@ -2,11 +2,11 @@ package br.uffrj.comp3.rusys.model;
 
 public class Departamento
 {
-	private int id;
+	private Integer id;
 	private String nome;
 	private String sigla;
 
-	public Departamento(int id, String nome, String sigla) throws Exception
+	public Departamento(Integer id, String nome, String sigla) throws Exception
 	{
 		super();
 		this.id = id;
@@ -45,12 +45,12 @@ public class Departamento
 		this.sigla = sigla;
 	}
 
-	public int getIdentificador()
+	public Integer getIdentificador()
 	{
 		return id;
 	}
 
-	public void setIdentificador(int identificador)
+	public void setIdentificador(Integer identificador)
 	{
 		this.id = identificador;
 	}
@@ -58,8 +58,8 @@ public class Departamento
 	@Override
 	public int hashCode()
 	{
-		final int prime = 31;
-		int result = 1;
+		final Integer prime = 31;
+		Integer result = 1;
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		return result;
@@ -90,7 +90,7 @@ public class Departamento
 		return true;
 	}
 
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}

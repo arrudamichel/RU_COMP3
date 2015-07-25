@@ -7,16 +7,16 @@ import br.uffrj.comp3.rusys.util.Util;
 
 public abstract class Consumidor
 {
-	private int id;
+	private Integer id;
 	private String nome;
-	private int matricula;
+	private Integer matricula;
 	private Integer anoDeIngresso;
 	private SexoEnum sexo;
 	private TituloEnum titulo;
 	private String cpf;
 	private List<Ticket> tickets;
 
-	public Consumidor(int id, String nome, int matricula, Integer anoDeIngresso2) throws Exception
+	public Consumidor(Integer id, String nome, Integer matricula, Integer anoDeIngresso2) throws Exception
 	{
 		super();
 		this.id = id;
@@ -48,12 +48,12 @@ public abstract class Consumidor
 		this.tickets = tickets;
 	}
 
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}
 	
-	public void  setId(int id)
+	public void  setId(Integer id)
 	{
 		this.id = id;
 	}
@@ -67,12 +67,12 @@ public abstract class Consumidor
 		this.nome = nome;
 	}
 
-	public int getMatricula()
+	public Integer getMatricula()
 	{
 		return matricula;
 	}
 
-	public void setMatricula(int matricula)
+	public void setMatricula(Integer matricula)
 	{
 		this.matricula = matricula;
 	}

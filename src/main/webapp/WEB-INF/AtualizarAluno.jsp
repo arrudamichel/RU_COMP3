@@ -73,8 +73,8 @@
 									if(cursos != null){
 										for(int i=0; i < cursos.size(); i++){
 									%>
-											<option value="<%=cursos.get(i).getIdentificador()%>" <%if (cursos!=null && aluno!=null
-											&& cursos.get(i).getIdentificador()==aluno.getCurso().getId()) out.print("selected"); %>>
+											<option value="<%=cursos.get(i).getId()%>" <%if (cursos!=null && aluno!=null
+											&& cursos.get(i).getId()==aluno.getCurso().getId()) out.print("selected"); %>>
 											<%=cursos.get(i).getNome()%></option>
 									<%
 										}

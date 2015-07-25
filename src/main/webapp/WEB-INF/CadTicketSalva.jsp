@@ -46,7 +46,7 @@
 					if(refeicoesTurno != null){
 						for(int i=0; i < refeicoesTurno.size(); i++){
 					%>
-							<option value="<%=refeicoesTurno.get(i).getIdentificador()%>" >
+							<option value="<%=refeicoesTurno.get(i).getId()%>" >
 							<%=refeicoesTurno.get(i).getDescricao()%></option>
 					<%
 						}

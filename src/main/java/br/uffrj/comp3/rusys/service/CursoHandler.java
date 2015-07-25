@@ -53,11 +53,11 @@ public class CursoHandler
 		{
 			curso.setNome(cursoVO.getNome());
 		}
-		else if (cursoVO.getSigla() != null)
+		if (cursoVO.getSigla() != null)
 		{
 			curso.setSigla(cursoVO.getSigla());
 		}
-		else if (cursoVO.getDepartamento() != null)
+		if (cursoVO.getDepartamento() != null)
 		{
 			Departamento departamento = DepartamentoHandler.recuperarDepartamento(cursoVO.getDepartamento());		
 			curso.setDepartamento(departamento);

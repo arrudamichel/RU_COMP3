@@ -72,7 +72,7 @@
 									if(cursos != null){
 										for(int i=0; i < cursos.size(); i++){
 									%>
-											<option value="<%=cursos.get(i).getIdentificador()%>" >
+											<option value="<%=cursos.get(i).getId()%>" >
 											<%=cursos.get(i).getNome()%></option>
 									<%
 										}

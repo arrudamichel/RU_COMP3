@@ -43,7 +43,8 @@ public class DepartamentoHandler
 		{
 			departamento.setNome(departamentoVO.getNome());
 		}
-		else if (departamentoVO.getSigla() != null)
+		
+		if (departamentoVO.getSigla() != null)
 		{
 			departamento.setSigla(departamentoVO.getSigla());
 		}

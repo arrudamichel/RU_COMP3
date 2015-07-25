@@ -4,13 +4,13 @@ import br.uffrj.comp3.rusys.util.Constantes;
 
 public class Ticket
 {
-	private int id;
+	private Integer id;
 	private boolean pago = false;
 	private float valor;
 	private Consumidor consumidor;
 	private Refeicao refeicao;
 	
-	public Ticket(int id, boolean pago, Consumidor consumidor, Refeicao refeicao) throws Exception
+	public Ticket(Integer id, boolean pago, Consumidor consumidor, Refeicao refeicao) throws Exception
 	{
 		super();
 		this.id = id;
@@ -102,7 +102,7 @@ public class Ticket
 		this.refeicao = refeicao;
 	}
 
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}

@@ -41,7 +41,7 @@
               </tr>                 
               <%               
              for(int i=0; i < departamentos.size(); i++) {
-            	 String urlEditar="GerirDepartamento?acao="+ Constantes.ACAO_EDITAR +"&departamentoId="+departamentos.get(i).getIdentificador();
+            	 String urlEditar="GerirDepartamento?acao="+ Constantes.ACAO_EDITAR +"&departamentoId="+departamentos.get(i).getId();
                	if(i%2 == 0){ %>
                	<tr class="odd">                  
                      <td><%=departamentos.get(i).getNome()%></td>                                              

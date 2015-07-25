@@ -42,7 +42,7 @@
 	                  <%	                  	
 	                  	if(cursos != null){
 			                for(int i=0; i < cursos.size(); i++) {
-			                	String urlEditar="GerirCurso?acao="+ Constantes.ACAO_EDITAR +"&cursoId="+cursos.get(i).getIdentificador();
+			                	String urlEditar="GerirCurso?acao="+ Constantes.ACAO_EDITAR +"&cursoId="+cursos.get(i).getId();
 		
 			                  	if(i%2 == 0){ %>
 			                  	<tr class="odd">                  

@@ -2,12 +2,12 @@ package br.uffrj.comp3.rusys.model;
 
 public class Curso
 {
-	private int id;
+	private Integer id;
 	private String nome;
 	private String sigla;
 	private Departamento departamento;
 
-	public Curso(int identificador, String nome, String sigla, Departamento departamento) throws Exception
+	public Curso(Integer identificador, String nome, String sigla, Departamento departamento) throws Exception
 	{
 		super();
 		this.id = identificador;
@@ -70,12 +70,12 @@ public class Curso
 		this.departamento = departamento;
 	}
 
-	public int getIdentificador()
+	public Integer getIdentificador()
 	{
 		return id;
 	}
 
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}

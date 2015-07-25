@@ -33,7 +33,7 @@
 					</h2>
 					<div class="inner">
 						<form id="FrmCurso" name="FrmCurso" action="GerirCurso" method="POST" class="form">
-							<input type="hidden" id="cursoId" name="cursoId" value="<%=(curso!=null) ? curso.getIdentificador() : "" %>" />
+							<input type="hidden" id="cursoId" name="cursoId" value="<%=(curso!=null) ? curso.getId() : "" %>" />
 							<div class="group">
 								<label class="label"><%=Constantes.NOME%></label> 
 								<input type="text" id="nome" name="nome" class="text_field" value="<%=(curso!=null) ? curso.getNome() : "" %>" />
@@ -48,7 +48,7 @@
 									<%		
 									if(departamentos != null){
 										for(Departamento departamento: departamentos){%>
-										<option value="<%=departamento.getIdentificador()%>" <%= (departamento.getIdentificador()==curso.getDepartamento().getIdentificador()) ? "selected" : ""  %> ><%=departamento.getNome()%></option>
+										<option value="<%=departamento.getId()%>" <%= (departamento.getId()==curso.getDepartamento().getId()) ? "selected" : ""  %> ><%=departamento.getNome()%></option>
 										<%
 									}}%>
 								</select>

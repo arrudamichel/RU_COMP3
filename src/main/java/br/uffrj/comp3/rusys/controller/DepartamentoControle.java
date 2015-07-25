@@ -100,6 +100,7 @@ public class DepartamentoControle extends HttpServlet
 			DepartamentoHandler.cadastrarDepartamento(dptoVO);
 		} catch(Exception e){
 			String redirect = response.encodeRedirectURL("/WEB-INF/listDepartamento.jsp");
+			e.printStackTrace();
 			response.sendRedirect("GerirDepartamento");
 		}
 		
