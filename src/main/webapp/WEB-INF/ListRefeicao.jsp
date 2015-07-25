@@ -38,9 +38,7 @@
 					</ul>
 				</div>
 				<div class="content">
-					<% 	String urlInserir="GerirRefeicao?acao="+ Constantes.ACAO_SALVAR; %>
 					<h2 class="title"><%=Constantes.CADREFEICAO%></h2>
-					<h3><a href="<%=urlInserir%>"><%=Constantes.ACAO_SALVAR%></a></h3>
 					<%@include file="messagePage.jsp" %>
 					<table class="table">
                        <tr>
@@ -56,7 +54,6 @@
                        	if(refeicoes != null){
 	                       	for(int i=0; i < refeicoes.size(); i++){
 	                       		String urlEditar="GerirRefeicao?acao="+ Constantes.ACAO_EDITAR+ "&id="+refeicoes.get(i).getId();
-	                 		   	String urlDelete ="GerirRefeicao?acao="+ Constantes.ACAO_DELETAR+ "&id="+refeicoes.get(i).getId();
 	                       		if(i%2 == 0){
 	                       %>
 	                       <tr class="odd">                                        
@@ -66,7 +63,6 @@
 	                           <td><%=refeicoes.get(i).getDescricao()%></td>
 	                           <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
 	                           <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
-		                       	<td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	  
 	                       </tr>
 	                       <%      } else { %>
 	                       <tr class="even">
@@ -76,7 +72,6 @@
 	                           <td><%=refeicoes.get(i).getDescricao()%></td>
 	                           <td><%=refeicoes.get(i).getOpcaoVeg()%></td>                                            
 	                           <td class="last"><a href="<%=urlEditar %>"><%=Constantes.EDITAR%></a> </td>	
-		                       <td class="last"><a href="<%=urlDelete %>"><%=Constantes.DELETE%></a> </td>	  
 	                           
 	                       </tr>
 	                       
@@ -89,6 +84,11 @@
 	                       </tr>
 	                       <%}%>
                    </table>
+                   <form action="GerirRefeicao" method="GET">
+          				<input type="submit" name="acao" value="<%=Constantes.NOVO%>"> 
+          
+          			</form>	
+                   
 				</div>
 			</div>
 		</div>

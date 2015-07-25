@@ -27,7 +27,7 @@ public class CursoControle extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{	
-		inicaCampos(request, response);
+		iniciaCampos(request, response);
 		try
 		{
 			String acao = (String) request.getParameter("acao");	
@@ -69,14 +69,36 @@ public class CursoControle extends HttpServlet
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
 
-		CursoVO curso = new CursoVO();
+		if (nome.equals("") || sigla.equals(""))
+		{
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("/WEB-INF/AtualizarCurso.jsp").forward(request, response);
+		} else {
 		
-		curso.setId(Integer.parseInt(id));
-		curso.setNome(nome);
-		curso.setSigla(sigla);
-		curso.setDepartamento(Integer.parseInt(dept));
+			CursoVO curso = new CursoVO();
+			
+			curso.setId(Integer.parseInt(id));
+			curso.setNome(nome);
+			curso.setSigla(sigla);
+			curso.setDepartamento(Integer.parseInt(dept));
 
-		CursoHandler.atualizarCurso(curso);
+			try{
+				CursoHandler.atualizarCurso(curso);
+				
+				toListar(Constantes.SUCESSO, request, response);
+
+			} catch(Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+				request.getRequestDispatcher("/WEB-INF/AtualizarCurso.jsp").forward(request, response);				
+			}
+		}
+	}
+
+	private void toListar(String msg, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		iniciaCampos(request, response);
+		request.setAttribute("mensagem", msg);
+		request.getRequestDispatcher("/WEB-INF/ListCurso.jsp").forward(request, response);		
 	}
 
 	private void excluir(HttpServletRequest request, HttpServletResponse response)
@@ -90,23 +112,31 @@ public class CursoControle extends HttpServlet
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 		String dept = request.getParameter("departamento");
-				
-		CursoVO cursoVO = new CursoVO();
 		
-		cursoVO.setNome(nome);
-		cursoVO.setSigla(sigla);
-		cursoVO.setDepartamento(Integer.parseInt(dept));
+		if (nome.equals("") || sigla.equals(""))
+		{
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
+		} else {
+			CursoVO cursoVO = new CursoVO();
+			
+			cursoVO.setNome(nome);
+			cursoVO.setSigla(sigla);
+			cursoVO.setDepartamento(Integer.parseInt(dept));
 
-		try{
-			CursoHandler.cadastrarCurso(cursoVO);
-		} catch(Exception e){
-			String redirect = response.encodeRedirectURL("/WEB-INF/listCurso.jsp");
-			response.sendRedirect("GerirCurso");
+			try{
+				CursoHandler.cadastrarCurso(cursoVO);
+				
+				toListar(Constantes.SUCESSO, request, response);
+
+			} catch(Exception e){				
+				request.setAttribute("mensagem", Constantes.ERRO);
+				request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
+			}
 		}
-		
 	}
 	
-	private void inicaCampos(HttpServletRequest request, HttpServletResponse response) 
+	private void iniciaCampos(HttpServletRequest request, HttpServletResponse response) 
 	{
 		response.setContentType("text/html");
 
@@ -172,7 +202,7 @@ public class CursoControle extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		inicaCampos(request, response);
+		iniciaCampos(request, response);
 		
 		//------------ ACAO ---------------
 		try
@@ -183,7 +213,7 @@ public class CursoControle extends HttpServlet
 			{
 				switch (acao)
 				{	
-					case Constantes.ACAO_SALVAR:
+					case Constantes.NOVO:
 						request.getRequestDispatcher("/WEB-INF/CadCurso.jsp").forward(request, response);
 						break;
 					case Constantes.ACAO_EDITAR:					

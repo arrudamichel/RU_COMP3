@@ -29,9 +29,7 @@
 					</ul>
 				</div>
 				<div class="content">
-					<% 	String urlInserir="GerirCurso?acao="+ Constantes.ACAO_SALVAR; %>
 					<h2 class="title"><%=Constantes.CADCURSO%></h2>
-					<h3><a href="<%=urlInserir%>"><%=Constantes.ACAO_SALVAR%></a></h3>
 					<%@include file="messagePage.jsp" %>
 					<table id="table-resultado" class="table">
 	                  <tr>
@@ -60,6 +58,10 @@
 			           		}
 			           	}%>  
 	                </table>
+	                <form action="GerirCurso">
+          				<input type="submit" name="acao" value="<%=Constantes.NOVO%>"> 
+          
+		          </form>
 				</div>
 			</div>
 		</div>

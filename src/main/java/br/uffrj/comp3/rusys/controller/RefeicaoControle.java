@@ -80,29 +80,6 @@ public class RefeicaoControle extends HttpServlet{
 		}
 	}
 
-	private void excluir(HttpServletRequest request, HttpServletResponse response) throws Exception 
-	{
-		String identificador = request.getParameter("id");
-
-		Refeicao refeicao = null;
-		try
-		{
-			refeicao = RefeicaoHandler.recuperarRefeicao(Integer.parseInt(identificador));
-		} catch (NumberFormatException e1)
-		{
-			request.setAttribute("mensagem", Constantes.ERRO_NUM);
-			e1.printStackTrace();
-		} catch (Exception e1)
-		{
-			request.setAttribute("mensagem", Constantes.ERRO_SQL);
-			e1.printStackTrace();
-		}
-
-		RefeicaoHandler.excluirRefeicao(refeicao);
-
-		toListar(Constantes.SUCESSO, request, response);
-	}
-
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		String descricao =(String) request.getParameter("descricao");
@@ -213,14 +190,11 @@ public class RefeicaoControle extends HttpServlet{
 	
 			if (acao != null){
 				switch (acao){	
-					case Constantes.ACAO_SALVAR:
+					case Constantes.NOVO:
 						request.getRequestDispatcher("/WEB-INF/CadRefeicao.jsp").forward(request, response);
 						break;
 					case Constantes.ACAO_EDITAR:
 						request.getRequestDispatcher("/WEB-INF/AtualizarRefeicao.jsp").forward(request, response);
-						break;
-					case Constantes.ACAO_DELETAR:					
-						excluir(request, response);
 						break;
 					default:
 						request.getRequestDispatcher("/WEB-INF/ListRefeicao.jsp").forward(request, response);

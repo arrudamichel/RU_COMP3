@@ -77,18 +77,33 @@ public class AlunoControle extends HttpServlet
 		String cpf = request.getParameter("cpf");
 		String curso = request.getParameter("curso");
 
-		ConsumidorVO aluno= new ConsumidorVO();
-		//System.out.println(id);
-		aluno.setId(Integer.parseInt(id));
-		aluno.setMatricula(Integer.parseInt(matricula));
-		aluno.setNome(nome);
-		aluno.setAnoDeIngresso(Integer.parseInt(anoIngresso));
-		aluno.setSexo(sexo);
-		aluno.setTitulo(titulo);
-		aluno.setCpf(cpf);
-		aluno.setCurso(Integer.parseInt(curso));
-		
-		AlunoHandler.atualizarAluno(aluno, Integer.parseInt(id));
+		if (nome.equals("") || matricula.equals("") || anoIngresso.equals(""))
+		{
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("/WEB-INF/AtualizarAluno.jsp").forward(request, response);
+		} else {
+			ConsumidorVO aluno= new ConsumidorVO();
+			//System.out.println(id);
+			aluno.setId(Integer.parseInt(id));
+			aluno.setMatricula(Integer.parseInt(matricula));
+			aluno.setNome(nome);
+			aluno.setAnoDeIngresso(Integer.parseInt(anoIngresso));
+			aluno.setSexo(sexo);
+			aluno.setTitulo(titulo);
+			aluno.setCpf(cpf);
+			aluno.setCurso(Integer.parseInt(curso));
+			
+			try{
+				AlunoHandler.atualizarAluno(aluno, Integer.parseInt(id));
+				
+				toListar(Constantes.SUCESSO, request, response);
+				
+			} catch(Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+				request.getRequestDispatcher("/WEB-INF/AtualizarAluno.jsp").forward(request, response);				
+			}
+			
+		}
 	}
 
 	private void excluir(HttpServletRequest request,HttpServletResponse response) throws Exception 
@@ -98,9 +113,16 @@ public class AlunoControle extends HttpServlet
 		Aluno aluno = null;
 
 		aluno = AlunoHandler.recuperarAluno(Integer.parseInt(idAluno));
-
-		AlunoHandler.excluirAluno(aluno);
-		//request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);
+		
+		try{
+			AlunoHandler.excluirAluno(aluno);
+			
+			toListar(Constantes.SUCESSO, request, response);
+			
+		} catch(Exception e){
+			
+			toListar(Constantes.ERRO, request, response);			
+		}
 	}
 
 	private void cadastrar(HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -113,31 +135,47 @@ public class AlunoControle extends HttpServlet
 		String cpf = request.getParameter("cpf");
 		String curso = request.getParameter("curso");
 
-		ConsumidorVO alunoVO = new ConsumidorVO();
-		
-		alunoVO.setNome(nome);
-		alunoVO.setMatricula(Integer.parseInt(matricula));
-		alunoVO.setAnoDeIngresso(Integer.parseInt(ano));
-		alunoVO.setSexo(sexo);
-		alunoVO.setTitulo(titulo);
-		
-		alunoVO.setCpf(cpf);
-		
-		alunoVO.setCurso(Integer.parseInt(curso));
-		
-		try{
-			AlunoHandler.cadastrarAluno(alunoVO);
-		} catch(Exception e){
-			String redirect = response.encodeRedirectURL("/WEB-INF/listarAlunos.jsp");
-			response.sendRedirect("GerirAluno");
+		if (nome.equals("") || matricula.equals("") || ano.equals(""))
+		{
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);
+		} else {
+				
+			ConsumidorVO alunoVO = new ConsumidorVO();
+			
+			alunoVO.setNome(nome);
+			alunoVO.setMatricula(Integer.parseInt(matricula));
+			alunoVO.setAnoDeIngresso(Integer.parseInt(ano));
+			alunoVO.setSexo(sexo);
+			alunoVO.setTitulo(titulo);
+			
+			alunoVO.setCpf(cpf);
+			
+			alunoVO.setCurso(Integer.parseInt(curso));
+			
+			try{
+				AlunoHandler.cadastrarAluno(alunoVO);
+				
+				toListar(Constantes.SUCESSO, request, response);
+				
+			} catch(Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+				request.getRequestDispatcher("/WEB-INF/CadAluno.jsp").forward(request, response);	
+			}
 		}
-		
 //		response.sendRedirect("GerirAluno");
 		    
 		//String redirect = response.encodeRedirectURL("/WEB-INF/listarAlunos.jsp");
 		//response.sendRedirect(redirect);					
 	}
 	
+	private void toListar(String msg, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		iniciaCampos(request, response);
+		request.setAttribute("mensagem", msg);
+		request.getRequestDispatcher("/WEB-INF/listarAlunos.jsp").forward(request, response);		
+	}
+
 	private void iniciaCampos(HttpServletRequest request, HttpServletResponse response) 
 	{
 		response.setContentType("text/html");

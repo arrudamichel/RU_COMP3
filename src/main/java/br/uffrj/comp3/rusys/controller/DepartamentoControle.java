@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.Departamento;
 import br.uffrj.comp3.rusys.model.vo.DepartamentoVO;
+import br.uffrj.comp3.rusys.service.AlunoHandler;
 import br.uffrj.comp3.rusys.service.CursoHandler;
 import br.uffrj.comp3.rusys.service.DepartamentoHandler;
 import br.uffrj.comp3.rusys.util.Constantes;
@@ -78,32 +79,61 @@ public class DepartamentoControle extends HttpServlet
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 
-		DepartamentoVO departamento = new DepartamentoVO();
-	
-		departamento.setId(Integer.parseInt(id));
-		departamento.setNome(nome);
-		departamento.setSigla(sigla);			
-
-		DepartamentoHandler.atualizarDepartamento(departamento);
+		if (nome.equals("") || sigla.equals(""))
+		{
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("/WEB-INF/AtualizarDepartamento.jsp").forward(request, response);
+		} else {
+			DepartamentoVO departamento = new DepartamentoVO();
+		
+			departamento.setId(Integer.parseInt(id));
+			departamento.setNome(nome);
+			departamento.setSigla(sigla);			
+			
+			try{
+				DepartamentoHandler.atualizarDepartamento(departamento);
+				
+				toListar(Constantes.SUCESSO, request, response);
+				
+			} catch(Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+				request.getRequestDispatcher("/WEB-INF/AtualizarDepartamento.jsp").forward(request, response);				
+			}
+		}
 	}
 	
+	private void toListar(String msg, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		iniciaCampos(request, response);
+		request.setAttribute("mensagem", msg);
+		request.getRequestDispatcher("/WEB-INF/ListDepartamento.jsp").forward(request, response);
+		
+	}
+
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		String nome = request.getParameter("nome");
 		String sigla = request.getParameter("sigla");
 
-		DepartamentoVO dptoVO = new DepartamentoVO();
-		dptoVO.setNome(nome);
-		dptoVO.setSigla(sigla);	
-		
-		try{
-			DepartamentoHandler.cadastrarDepartamento(dptoVO);
-		} catch(Exception e){
-			String redirect = response.encodeRedirectURL("/WEB-INF/listDepartamento.jsp");
-			e.printStackTrace();
-			response.sendRedirect("GerirDepartamento");
-		}
-		
+		if (nome.equals("") || sigla.equals(""))
+		{
+			request.setAttribute("mensagem", Constantes.ERRO_VAZIO);
+			request.getRequestDispatcher("/WEB-INF/AtualizarDepartamento.jsp").forward(request, response);
+		} else {
+			DepartamentoVO dptoVO = new DepartamentoVO();
+			dptoVO.setNome(nome);
+			dptoVO.setSigla(sigla);	
+			
+			try{
+				DepartamentoHandler.cadastrarDepartamento(dptoVO);
+				
+				toListar(Constantes.SUCESSO, request, response);
+
+			} catch(Exception e){
+				request.setAttribute("mensagem", Constantes.ERRO);
+				request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);				
+			}
+		}		
 	}
 
 	public ArrayList<Departamento> listaDepartamentos() throws SQLException, Exception
@@ -168,7 +198,7 @@ public class DepartamentoControle extends HttpServlet
 			{
 				switch (acao)
 				{	
-					case Constantes.ACAO_SALVAR:
+					case Constantes.NOVO:
 						request.getRequestDispatcher("/WEB-INF/CadDepartamento.jsp").forward(request, response);
 						break;
 					case Constantes.ACAO_EDITAR:					

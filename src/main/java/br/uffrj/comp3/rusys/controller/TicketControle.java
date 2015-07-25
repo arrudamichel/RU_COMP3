@@ -190,7 +190,7 @@ public class TicketControle extends HttpServlet
 			{
 				switch (acao)
 				{
-					case Constantes.ACAO_SALVAR:
+					case Constantes.NOVO:
 						request.getRequestDispatcher("/WEB-INF/CadTicket.jsp").forward(request, response);
 						break;
 					case Constantes.ACAO_EDITAR:

@@ -28,9 +28,7 @@
             </ul>
           </div>
           <div class="content">
-          	<% 	String urlInserir="GerirDepartamento?acao="+ Constantes.ACAO_SALVAR; %>          	
             <h2 class="title"><%=Constantes.CADDEPTO%> </h2>
-            <h3><a href="<%=urlInserir%>"><%=Constantes.ACAO_SALVAR%></a></h3>
             <%@include file="messagePage.jsp" %>
             <table id="table-resultado" class="table">
               <tr>
@@ -58,16 +56,13 @@
               <%// } %>
             </table>
             
+            <form action="GerirDepartamento">
+          		<input type="submit" name="acao" value="<%=Constantes.NOVO%>"> 
+          
+          	</form>	
+            
             <div class="inner">
-            	<% if(mensagem.contains("Erro")){ %>
-            		<div style="background-color:#FF9999; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
-            			<%=mensagem%>
-            		</div>
-            	<%}else if(mensagem.contains("Sucesso")){%>
-            		<div style="background-color:#CCFFCC; padding: 4px 0; margin:2px;width:auto;overflow:visible;text-align:center;border:1px solid #bfbfbf;" >
-    					<%=mensagem%>
-    				</div>
-    			<%} %>    	
+            	   	
             </div>
           </div>
         </div>
