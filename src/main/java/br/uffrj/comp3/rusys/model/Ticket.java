@@ -58,18 +58,6 @@ public class Ticket
 		this.pago = pago;
 	}
 
-	public void setValor(String turno)
-	{
-		if (this.consumidor instanceof Aluno)
-		{		
-			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(turno + Aluno.class);
-		}
-		else if (this.consumidor instanceof Funcionario)
-		{
-			this.valor = Constantes.mapaTurnoConsumidor_PRECO.get(turno + Funcionario.class);
-		}
-	}
-
 	public float getValor()
 	{
 		return this.valor;
