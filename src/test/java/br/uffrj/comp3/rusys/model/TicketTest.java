@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import br.uffrj.comp3.rusys.model.interfaces.Refeicao;
+import br.uffrj.comp3.rusys.model.mock.MockRefeicao;
 import br.uffrj.comp3.rusys.service.exceptions.*;
 
 public class TicketTest {
@@ -12,9 +15,9 @@ public class TicketTest {
 	private Consumidor funcionario;
 	private Curso curso;
 	private Departamento departamento;
-	private RefeicaoImpl refNoite;
-	private RefeicaoImpl refManha;
-	private RefeicaoImpl refTarde;
+	private Refeicao refNoite;
+	private Refeicao refManha;
+	private Refeicao refTarde;
 
 	@Before
 	public void setUp() throws Exception {
@@ -45,6 +48,12 @@ public class TicketTest {
 	@Test(expected = RefeicaoNull.class)
 	public void testaTicketRefeicaoNull() throws Exception {
 		Ticket ticket = new Ticket(1, true, aluno, null);
+	}
+	
+	@Test(expected = ValorTuplaConsumidorTurnoVazioException.class)
+	public void testaTicketValorNull() throws Exception {
+		Refeicao ref = new MockRefeicao(1, "", "", null, TipoRefeicaoEnum.VAZIO, TurnoEnum.VAZIO);
+		Ticket ticket = new Ticket(1, true, aluno, ref);
 	}
 
 	@Test
