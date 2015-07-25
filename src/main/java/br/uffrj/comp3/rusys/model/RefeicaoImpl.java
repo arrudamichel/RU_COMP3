@@ -3,11 +3,12 @@ package br.uffrj.comp3.rusys.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.uffrj.comp3.rusys.model.interfaces.Refeicao;
 import br.uffrj.comp3.rusys.service.exceptions.DescricaoNull;
 import br.uffrj.comp3.rusys.service.exceptions.TipoNullOrVazio;
 import br.uffrj.comp3.rusys.util.Constantes;
 
-public class Refeicao
+public class RefeicaoImpl implements Refeicao
 {
 	private Integer id;
 	private String descricao;
@@ -15,7 +16,7 @@ public class Refeicao
 	private List<Ticket> tickets = new ArrayList<Ticket>();
 	private TipoRefeicaoEnum tipo;
 
-	public Refeicao(Integer id, String descricao, TipoRefeicaoEnum tipo) throws Exception 
+	public RefeicaoImpl(Integer id, String descricao, TipoRefeicaoEnum tipo) throws Exception 
 	{
 		this.id = id;
 	
@@ -72,11 +73,6 @@ public class Refeicao
 	public void setOpcaoVeg(String opcaoVeg)
 	{
 		this.opcaoVeg = opcaoVeg;
-	}
-
-	public Integer getIdentificador()
-	{
-		return id;
 	}
 
 	public Integer getId()

@@ -11,9 +11,9 @@ public class Ticket
 	private boolean pago = false;
 	private Float valor;
 	private Consumidor consumidor;
-	private Refeicao refeicao;
+	private RefeicaoImpl refeicao;
 	
-	public Ticket(Integer id, boolean pago, Consumidor consumidor, Refeicao refeicao) throws Exception
+	public Ticket(Integer id, boolean pago, Consumidor consumidor, RefeicaoImpl refeicao) throws Exception
 	{
 		super();
 		this.id = id;
@@ -68,7 +68,7 @@ public class Ticket
 		return consumidor;
 	}
 
-	public Refeicao getRefeicao()
+	public RefeicaoImpl getRefeicao()
 	{
 		return refeicao;
 	}

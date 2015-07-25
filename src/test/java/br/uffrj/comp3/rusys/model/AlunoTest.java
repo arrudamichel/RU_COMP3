@@ -7,7 +7,7 @@ import org.junit.Test;
 import br.uffrj.comp3.rusys.model.Aluno;
 import br.uffrj.comp3.rusys.model.Curso;
 import br.uffrj.comp3.rusys.model.Departamento;
-import br.uffrj.comp3.rusys.model.Refeicao;
+import br.uffrj.comp3.rusys.model.RefeicaoImpl;
 import br.uffrj.comp3.rusys.service.exceptions.*;
 
 

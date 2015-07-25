@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import br.uffrj.comp3.rusys.model.Consumidor;
-import br.uffrj.comp3.rusys.model.Refeicao;
+import br.uffrj.comp3.rusys.model.RefeicaoImpl;
 import br.uffrj.comp3.rusys.model.Ticket;
 import br.uffrj.comp3.rusys.model.vo.TicketVO;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
@@ -72,7 +72,7 @@ public class TicketHandler {
 			
 			if(consumidor != null)
 			{
-				Refeicao refeicao = RefeicaoHandler.recuperarRefeicao(refeicaoId);
+				RefeicaoImpl refeicao = RefeicaoHandler.recuperarRefeicao(refeicaoId);
 		
 				//public Ticket(int id, boolean pago,Consumidor consumidor, Refeicao refeicao)
 				// ("consumidor_matricula", "refeicao_idRefeicao", "preco", "pago")

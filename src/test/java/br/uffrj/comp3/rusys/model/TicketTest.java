@@ -12,9 +12,9 @@ public class TicketTest {
 	private Consumidor funcionario;
 	private Curso curso;
 	private Departamento departamento;
-	private Refeicao refNoite;
-	private Refeicao refManha;
-	private Refeicao refTarde;
+	private RefeicaoImpl refNoite;
+	private RefeicaoImpl refManha;
+	private RefeicaoImpl refTarde;
 
 	@Before
 	public void setUp() throws Exception {
@@ -22,9 +22,9 @@ public class TicketTest {
 		funcionario = new Funcionario(1, "Funcionario", 123, 2010, departamento);
 		curso = new Curso(1, "Ciencia da Computacao", "CCOMP", departamento);
 		aluno = new Aluno(2, "Aluno", 124, 2011, curso);
-		refNoite = new Refeicao(1, "refNoite", TipoRefeicaoEnum.JANTAR);
-		refTarde = new Refeicao(2, "refTarde", TipoRefeicaoEnum.ALMOCO);
-		refManha = new Refeicao(3, "refManha", TipoRefeicaoEnum.DEJEJUM);
+		refNoite = new RefeicaoImpl(1, "refNoite", TipoRefeicaoEnum.JANTAR);
+		refTarde = new RefeicaoImpl(2, "refTarde", TipoRefeicaoEnum.ALMOCO);
+		refManha = new RefeicaoImpl(3, "refManha", TipoRefeicaoEnum.DEJEJUM);
 	}
 
 	@Test

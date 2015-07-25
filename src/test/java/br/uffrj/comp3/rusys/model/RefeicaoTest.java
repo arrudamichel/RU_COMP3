@@ -8,27 +8,27 @@ import org.junit.Test;
 
 public class RefeicaoTest {
 
-	Refeicao ref;
+	RefeicaoImpl ref;
 
 	@Test
 	public void testRefeicaoOk() throws Exception {
-		ref = new Refeicao(1, "Refeicao", TipoRefeicaoEnum.ALMOCO);
+		ref = new RefeicaoImpl(1, "Refeicao", TipoRefeicaoEnum.ALMOCO);
 	}
 	
 	@Test(expected = DescricaoNull.class)
 	public void testRefeicaoFail() throws Exception {
-		ref = new Refeicao(1, null, TipoRefeicaoEnum.ALMOCO);
+		ref = new RefeicaoImpl(1, null, TipoRefeicaoEnum.ALMOCO);
 	}
 	
 	@Test(expected = TipoNullOrVazio.class)
 	public void testRefeicaoTipoFail() throws Exception {
-		ref = new Refeicao(1, "Refeicao", null);
+		ref = new RefeicaoImpl(1, "Refeicao", null);
 	}
 
 	@Test
 	public void testSetDescricaoOk() throws Exception {
 		String esperado = "arroz";
-		ref = new Refeicao(1, "Refeicao", TipoRefeicaoEnum.ALMOCO);
+		ref = new RefeicaoImpl(1, "Refeicao", TipoRefeicaoEnum.ALMOCO);
 		ref.setDescricao("arroz");
 
 		assertEquals(esperado, ref.getDescricao());
@@ -36,7 +36,7 @@ public class RefeicaoTest {
 	
 	@Test(expected = DescricaoNull.class)
 	public void testSetDescricaoFail() throws Exception {
-		ref = new Refeicao(1, "Refeicao", TipoRefeicaoEnum.ALMOCO);
+		ref = new RefeicaoImpl(1, "Refeicao", TipoRefeicaoEnum.ALMOCO);
 		ref.setDescricao(null);
 	}
 }

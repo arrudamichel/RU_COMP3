@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.uffrj.comp3.rusys.model.TurnoEnum;
-import br.uffrj.comp3.rusys.model.Refeicao;
+import br.uffrj.comp3.rusys.model.RefeicaoImpl;
 import br.uffrj.comp3.rusys.model.TipoRefeicaoEnum;
 import br.uffrj.comp3.rusys.model.vo.RefeicaoVO;
 import br.uffrj.comp3.rusys.service.RefeicaoHandler;
@@ -83,7 +83,7 @@ public class RefeicaoControle extends HttpServlet{
 	{
 		String identificador = request.getParameter("id");
 
-		Refeicao refeicao = null;
+		RefeicaoImpl refeicao = null;
 		try
 		{
 			refeicao = RefeicaoHandler.recuperarRefeicao(Integer.parseInt(identificador));
@@ -139,7 +139,7 @@ public class RefeicaoControle extends HttpServlet{
 		//------------ REFEICOES ---------------
 		RefeicaoVO refeicaoVO = new RefeicaoVO();
 				
-		Collection<Refeicao> refeicoes = null;
+		Collection<RefeicaoImpl> refeicoes = null;
 		try
 		{
 			refeicoes = RefeicaoHandler.recuperarRefeicoes(refeicaoVO);
@@ -170,7 +170,7 @@ public class RefeicaoControle extends HttpServlet{
 		
 		//------------ REFEICAO ---------------
 						
-		Refeicao refeicao = null;
+		RefeicaoImpl refeicao = null;
 		
 		if(identificador != null && identificador.length() > 0)
 		{
