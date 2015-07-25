@@ -16,6 +16,9 @@ import br.uffrj.comp3.rusys.model.vo.ConsumidorVO;
 import br.uffrj.comp3.rusys.persintece.AlunoGateway;
 import br.uffrj.comp3.rusys.persintece.ConnectionFactory;
 import br.uffrj.comp3.rusys.persintece.ConsumidorGateway;
+import br.uffrj.comp3.rusys.service.exceptions.AlterarNoBancoExeception;
+import br.uffrj.comp3.rusys.service.exceptions.ExcluirDoBancoException;
+import br.uffrj.comp3.rusys.service.exceptions.InsercaoNoBancoException;
 import br.uffrj.comp3.rusys.util.Constantes;
 
 public class AlunoHandler
@@ -36,7 +39,7 @@ public class AlunoHandler
 		ArrayList<Object> valores2 = new ArrayList<Object>(Arrays.asList(id,consumidorVO.getCurso()));
 		
 		if (!alunoGW.inserir(valores2))
-			throw new Exception("falha.ao.cadastrar.aluno");
+			throw new InsercaoNoBancoException();
 
 		conn.close();
 	}
@@ -130,7 +133,7 @@ public class AlunoHandler
 		AlunoGateway cg = new AlunoGateway(conn);
 
 		if (!cg.excluirAluno(consumidor.getId()))
-			throw new Exception("alunoHandler.falha.ao.excluir.aluno");
+			throw new ExcluirDoBancoException();
 		
 		conn.close();
 	}
@@ -151,7 +154,7 @@ public class AlunoHandler
 		
 		if(!alunoGW.alterarAluno(valores, id))
 		{
-			throw new Exception("alunoHandler.erro.ao.atualizar.aluno");
+			throw new AlterarNoBancoExeception();
 		}
 		conn.close();
 	}
