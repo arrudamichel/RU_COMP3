@@ -1,6 +1,8 @@
 package br.uffrj.comp3.rusys.model;
 
 import static org.junit.Assert.*;
+import br.uffrj.comp3.rusys.service.exceptions.*;
+
 
 import org.junit.Test;
 
@@ -16,7 +18,7 @@ public class FuncionarioTest {
 		func = new Funcionario(1, "Funcionario", 100, 2010, dept);
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = DepartamentoNull.class)
 	public void testFuncionarioDeptNull() throws Exception {
 		func = new Funcionario(1, "Funcionario", 100, 2010, null);
 	}
@@ -31,20 +33,20 @@ public class FuncionarioTest {
 		assertEquals(esperado,func.getDepartamento().getNome());
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = DepartamentoNull.class)
 	public void testSetDepartamentoNull() throws Exception {
 		dept = new Departamento(1, "Ccomp", "DCC");
 		func = new Funcionario(1, "Jessica", 2011785144, 2011, dept);
 		func.setDepartamento(null);
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = NomeNull.class)
 	public void testFuncionarioNomeNull() throws Exception {
 		dept = new Departamento(1, "Ccomp", "DCC");
 		func = new Funcionario(1, null, 2011785144, 2011, dept);
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = AnoDeIngressoNull.class)
 	public void testAlunoAnoDeIngressoNull() throws Exception {
 		dept = new Departamento(1, "Ccomp", "DCC");
 		func = new Funcionario(1, "funcionario", 2011785144, null, dept);
@@ -60,10 +62,10 @@ public class FuncionarioTest {
 		assertEquals(expected, func.getCpf());
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = InvalidCpfException.class)
 	public void testFuncionarioCPFNotOK() throws Exception {
 		dept = new Departamento(1, "Ccomp", "DCC");
-		func = new Funcionario(1, "funcionario", 2011785144, null, dept);
+		func = new Funcionario(1, "funcionario", 2011785144, 2010, dept);
 		func.setCpf("111111pp111");
 	}
 
