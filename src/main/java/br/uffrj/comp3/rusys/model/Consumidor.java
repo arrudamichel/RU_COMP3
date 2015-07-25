@@ -57,8 +57,13 @@ public abstract class Consumidor
 		return nome;
 	}
 
-	public void setNome(String nome)
+	public void setNome(String nome) throws NomeNull
 	{
+		if (nome == null || nome.trim().length() == 0) 
+		{
+			throw new NomeNull();
+		}
+		
 		this.nome = nome;
 	}
 
